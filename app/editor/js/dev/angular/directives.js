@@ -139,41 +139,43 @@ moduleDirectives.directive('listEntities', function() {
 	// create an entity and its descendants recursively
 	function printEntity(_scope, _entity, _parentElement) {
 		if (_entity) {
-			var isGroup = _scope.isGroup(_entity);
+			if (isEditorEntity(_entity) == false) {
+				var isGroup = _scope.isGroup(_entity);
 
-			// create the entity's li element
-			var li = document.createElement("li");
-			li.setAttribute("class", "entity");
-			li.entity = _entity;
-			
-			_parentElement.appendChild(li);
+				// create the entity's li element
+				var li = document.createElement("li");
+				li.setAttribute("class", "entity");
+				li.entity = _entity;
+				
+				_parentElement.appendChild(li);
 
-			// only group can have children
-			if (isGroup) {
-				// create button to show/hide descendants
-				createCollapse(_scope, _entity, li);
-			}
+				// only group can have children
+				if (isGroup) {
+					// create button to show/hide descendants
+					createCollapse(_scope, _entity, li);
+				}
 
-			// create the a element with the entity's name
-			createA(_scope, _entity, li);
+				// create the a element with the entity's name
+				createA(_scope, _entity, li);
 
-			// create arrows to change entity's z-index
-			createArrows(_scope, _entity, li);
+				// create arrows to change entity's z-index
+				createArrows(_scope, _entity, li);
 
-			// only group can have children
-			if (isGroup) {
-				var ul = document.createElement("ul");
-				ul.style.display = "none";
-				li.appendChild(ul);
+				// only group can have children
+				if (isGroup) {
+					var ul = document.createElement("ul");
+					ul.style.display = "none";
+					li.appendChild(ul);
 
-				// for each child
-				if (_entity.children) {
-					if (_entity.children.length > 0) {
-						for (var i = (_entity.children.length - 1); i >= 0; i--) {
-							var child = _entity.children[i];
-							// create entity and its descendants
-							printEntity(_scope, child, ul);
-						};
+					// for each child
+					if (_entity.children) {
+						if (_entity.children.length > 0) {
+							for (var i = (_entity.children.length - 1); i >= 0; i--) {
+								var child = _entity.children[i];
+								// create entity and its descendants
+								printEntity(_scope, child, ul);
+							};
+						}
 					}
 				}
 			}
@@ -405,6 +407,18 @@ moduleDirectives.directive('listEntities', function() {
 		}
 
 		return isDescendant;
+	}
+
+	function isEditorEntity(_entity) {
+		var editorEntity = false;
+
+		if (typeof _entity.name === "string") {
+			if (_entity.name[0] == "_" && _entity.name[1] == "_") {
+				editorEntity = true;
+			}
+		}
+
+		return editorEntity;
 	}
 
 	return {
