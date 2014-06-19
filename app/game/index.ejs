@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" ng-app="Loopy">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Loopy - Game</title>
+  <title>Game</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../shared/css/bootstrap.min.css">
   <!-- Bootstrap theme (Optional) -->
@@ -11,7 +11,15 @@
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
-  <div ng-view class="container"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div id="phaser"></div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
   
   <!-- JAVASCRIPT -->
   <!-- jQuery -->
@@ -20,14 +28,7 @@
   <script src="../shared/js/lib/bootstrap.min.js"></script>
   <!-- Phaser -->
   <script src="../shared/js/lib/phaser.js"></script>
-  <!-- AngularJs -->
-  <script src="../shared/js/lib/angular.js"></script>
-  <script src="../shared/js/lib/angular-route.min.js"></script>
-  <script src="js/dev/angular/app.js"></script>
-  <script src="js/dev/angular/services.js"></script>
-  <script src="js/dev/angular/controllers.js"></script>
-  <script src="js/dev/angular/filters.js"></script>
-  <script src="js/dev/angular/directives.js"></script>
+  
   <!-- LADYBUG RIDERS -->
   <script src="../shared/js/dev/lr.js"></script>
   <script src="../shared/js/dev/phaser/entity/sprite.js"></script>
@@ -50,16 +51,12 @@
   <script src="../shared/js/dev/phaser/plugin/dialog_manager.js"></script> 
 
   <!-- ui -->
-  <script src="../shared/js/dev/phaser/ui/dialog_box.js"></script>  
+  <script src="../shared/js/dev/phaser/ui/dialog_box.js"></script>
 
   <!-- triggers -->
   <script src="../shared/js/dev/phaser/trigger/trigger.js"></script>  
   <script src="../shared/js/dev/phaser/trigger/trigger_cutscene.js"></script>  
-  <script src="../shared/js/dev/phaser/trigger/trigger_message_object.js"></script>    
-  <!-- controllers -->
-  <script src="js/dev/angular/controller_home.js"></script>
-  <script src="js/dev/angular/controller_phaser.js"></script>
-
+  <script src="../shared/js/dev/phaser/trigger/trigger_message_object.js"></script> 
 
   <!--******-->
   <!-- game -->
@@ -92,7 +89,10 @@
   <script src="js/dev/phaser/objects/weapon.js"></script>  
   <!-- ui -->
   <script src="js/dev/phaser/ui/ingame/level_coins_count.js"></script>  
-  <script src="js/dev/phaser/ui/ingame/loopy_health.js"></script>  
+  <script src="js/dev/phaser/ui/ingame/loopy_health.js"></script> 
+
+  <!-- MAIN -->
+  <script src="js/dev/main.js"></script>
 
 </body>
 </html>

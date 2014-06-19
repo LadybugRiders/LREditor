@@ -21,13 +21,11 @@ LR.Loopy.State.LevelState.prototype.init = function(_args) {
 
 LR.Loopy.State.LevelState.prototype.preload = function() {
 	if (this.levelName == null) {
-		this.levelName = this.game.$routeParams.levelname;
+		this.levelName = GameCore.GetUrlParamValue("levelname");
 	}
 
 	if (this.storage == null) {
-		if (this.game.$routeParams.storage) {
-			this.storage = this.game.$routeParams.storage;
-		}
+		this.storage = GameCore.GetUrlParamValue("storage");
 	}
 
 	//LEVEL JSON FILE LOADING
@@ -35,7 +33,6 @@ LR.Loopy.State.LevelState.prototype.preload = function() {
 		// load from localstorage
 		var lvlStr = localStorage.getItem(this.levelName);
 		this.level = JSON.parse(lvlStr);
-		console.log(this.levelName);
 	} else {
 		var url = "assets/levels/" + this.levelName + ".json";
 		// load from file

@@ -1,19 +1,15 @@
 "use strict";
 
-var GameCore = function($scope, $http, $routeParams) {
+var GameCore = function() {
 
-	this.$scope = $scope;
-	this.$http = $http;
-	this.$routeParams = $routeParams;
-	
-	var preload = function(_game) {
+	var preload = function() {
 	};
 
 	var create = function() {
 
-		$scope.game.plugins.add(Phaser.Plugin.InputManager);
-		$scope.game.plugins.add(Phaser.Plugin.CutsceneManager);
-		$scope.game.plugins.add(Phaser.Plugin.DialogManager);
+		this.game.plugins.add(Phaser.Plugin.InputManager);
+		this.game.plugins.add(Phaser.Plugin.CutsceneManager);
+		this.game.plugins.add(Phaser.Plugin.DialogManager);
 
 		var bootstate = new LR.Loopy.State.BootState(this);
 		var loadstate = new LR.Loopy.State.LoadingState(this);
@@ -21,7 +17,7 @@ var GameCore = function($scope, $http, $routeParams) {
 		var playstate = new LR.Loopy.State.PlayState(this);
 		var levelstate = new LR.Loopy.State.LevelState(this);
 
-		$scope.game.state.start("Boot");
+		this.state.start("Boot");
 	};
 
 	var update = function() {
@@ -38,9 +34,35 @@ var GameCore = function($scope, $http, $routeParams) {
 		render: render
 	};
 
-	Phaser.Game.call(this,640, 360, Phaser.AUTO, 'phaser',functions);
+	Phaser.Game.call(this, 640, 360, Phaser.AUTO, 'phaser', functions);
 }
 
 GameCore.prototype = Object.create(Phaser.Game.prototype);
 GameCore.prototype.constructor = GameCore;
 
+GameCore.GetUrlParamValue = function(_param) {
+	var value = null;
+
+	var href = window.location.href.split("?");
+	if (href.length > 1) {
+		var search = href[1];
+		var params = search.split("?");
+		if (params.length > 0) {
+			params = params[0].split("&");
+
+			var found = false;
+			var i = 0;
+			while (i < params.length && found == false) {
+				var pair = params[i].split("=");
+				if (pair[0] == _param) {
+					value = pair[1];
+					found = true;
+				}
+
+				i++;
+			}
+		}
+	}
+
+	return value;
+}

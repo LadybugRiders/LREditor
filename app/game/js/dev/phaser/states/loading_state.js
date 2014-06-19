@@ -26,7 +26,9 @@ LR.Loopy.State.LoadingState.prototype.preload = function() {
 }
 
 LR.Loopy.State.LoadingState.prototype.create = function() {
-	if (this.game.$routeParams.levelname && this.game.$routeParams.storage) {
+	var levelname = GameCore.GetUrlParamValue("levelname");
+	var storage = GameCore.GetUrlParamValue("storage");
+	if (levelname && storage) {
 		this.game.state.start("Level");
 	} else {
 		//this.game.state.start("Play);
