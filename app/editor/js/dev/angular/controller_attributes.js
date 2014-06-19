@@ -24,14 +24,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 		$scope.$on("sendImagesBroadcast", function(_event, _args) {
 			if (_args.images) {
-				$scope.data.images = [$scope.noneImage];
+				$scope.data.images = new Array();
+
 				for (var i = _args.images.length - 1; i >= 0; i--) {
 					var image = _args.images[i];
-					if ((image.name[0] == "_" && image.name[1]) == false) {
-						console.log(image);
-					}
+					$scope.data.images.push(image);
 				};
-				$scope.data.images = $scope.data.images.concat(_args.images);
 			}
 		});
 
@@ -369,6 +367,18 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			// clean modal data
 			console.info('Modal dismissed at: ' + new Date());
 		});
+	};
+
+	$scope.isEditorImage = function(_image) {
+		var editorImage = false;
+
+		if (typeof _image.name === "string") {
+			if (_image.name[0] == "_" && _image.name[1] == "_") {
+				editorImage = true;
+			}
+		}
+
+		return editorImage;
 	};
 
 	main();
