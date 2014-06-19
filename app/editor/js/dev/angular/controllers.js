@@ -2,5 +2,5 @@
 
 /* Controllers */
 
-// create module Loopy.controllers
-var loopy = angular.module('Loopy.controllers', ['ui.bootstrap']);
+// create module LREditor.controllers
+var LREditorCtrlMod = angular.module('LREditor.controllers', ['ui.bootstrap']);

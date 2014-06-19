@@ -1,25 +1,25 @@
 "use strict";
 
-// get module Loopy.controllers
-var loopyCtrlMod = angular.module('Loopy.controllers');
+// get module LREditor.controllers
+var LREditorCtrlMod = angular.module('LREditor.controllers');
 
-// create controller LoginCtrol in the module Loopy.controllers
-loopyCtrlMod.controller('ObjectsCtrl', ["$scope", "$http", "$timeout", function($scope, $http, $timeout) {
+// create controller LoginCtrol in the module LREditor.controllers
+LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", function($scope, $http, $timeout) {
 	function main() {
 		$scope.$on("refreshListBroadcast", function(_event, _args) {
 			$scope.refreshList(_args.world);
 		});
 
-		$scope.objects = new Array();
+		$scope.entities = new Array();
 
 		$scope.isCollapsed = true;
 	};
 
 	$scope.refreshList = function(_world) {
 		if (_world != null) {
-			$scope.objects = new Object();
+			$scope.entities = new Object();
 			$timeout(function() {
-				$scope.objects = _world.children;
+				$scope.entities = _world.children;
 			}, 100);
 		}
 	};

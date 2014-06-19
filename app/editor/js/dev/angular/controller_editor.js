@@ -1,10 +1,10 @@
 "use strict";
 
-// get module Loopy.controllers
-var loopyCtrlMod = angular.module('Loopy.controllers');
+// get module LREditor.controllers
+var LREditorCtrlMod = angular.module('LREditor.controllers');
 
-// create controller LoginCtrol in the module Loopy.controllers
-loopyCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $http) {
+// create controller LoginCtrol in the module LREditor.controllers
+LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $http) {
 	function main() {
 
 		//================== REFRESH ======================

@@ -2,7 +2,7 @@
 
 /* Directives */
 
-var moduleDirectives = angular.module('Loopy.directives', []);
+var moduleDirectives = angular.module('LREditor.directives', []);
 
 moduleDirectives.directive('appVersion', ['version', function(version) {
 	return function(scope, elm, attrs) {
@@ -99,9 +99,9 @@ moduleDirectives.directive('listEntities', function() {
 		var element = _element;
 		if (element.length > 0) element = element[0];
 
-		fillListEntities(_scope, element, _scope.objects);
+		fillListEntities(_scope, element, _scope.entities);
 
-		_scope.$watch('objects', function(_value) {
+		_scope.$watch('entities', function(_value) {
 			fillListEntities(_scope, element, _value);
 		});
 	};

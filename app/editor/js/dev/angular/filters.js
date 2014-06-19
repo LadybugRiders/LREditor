@@ -2,7 +2,7 @@
 
 /* Filters */
 
-var moduleFilters = angular.module('Loopy.filters', []);
+var moduleFilters = angular.module('LREditor.filters', []);
 
 moduleFilters.filter('interpolate', ['version', function(version) {
 	return function(text) {

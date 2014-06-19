@@ -2,12 +2,12 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('Loopy', [
+angular.module('LREditor', [
   'ngRoute',
-  'Loopy.filters',
-  'Loopy.services',
-  'Loopy.directives',
-  'Loopy.controllers'
+  'LREditor.filters',
+  'LREditor.services',
+  'LREditor.directives',
+  'LREditor.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});

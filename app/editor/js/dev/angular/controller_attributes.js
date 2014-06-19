@@ -1,10 +1,10 @@
 "use strict";
 
-// get module Loopy.controllers
-var loopyCtrlMod = angular.module('Loopy.controllers');
+// get module LREditor.controllers
+var LREditorCtrlMod = angular.module('LREditor.controllers');
 
-// create controller LoginCtrol in the module Loopy.controllers
-loopyCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$timeout",
+// create controller LoginCtrol in the module LREditor.controllers
+LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$timeout",
 	function($scope, $http,$modal, $timeout) {
 	function main() {
 		$scope.currentEntity = null;
