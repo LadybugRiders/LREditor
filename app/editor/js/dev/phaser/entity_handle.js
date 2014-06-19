@@ -64,17 +64,18 @@ LR.Editor.Behaviour.EntityHandle.prototype.update = function() {
 		if( this.draggerX ){
 			this.setPosition(this.axisX);
 			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
+			this.$scope.forceAttributesRefresh(this.target);
 			//this.checkDrag();
 		}else if( this.draggerY ){
 			this.setPosition(this.axisY);
 			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
+			this.$scope.forceAttributesRefresh(this.target);
 			//this.checkDrag();
 		}else{			
 			//Replace axis
 			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
 			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
 		}
-		this.$scope.forceAttributesRefresh(this.target);
 	}
 }
 

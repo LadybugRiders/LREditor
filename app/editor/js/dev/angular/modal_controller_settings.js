@@ -14,6 +14,8 @@ var SettingsCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.modalSettingsData.camera.width = parseInt($scope.modalSettingsData.camera.width);
       $scope.modalSettingsData.camera.height = parseInt($scope.modalSettingsData.camera.height);
 
+      console.log($scope.modalSettingsData.camera);
+
     	$scope.$emit("changeGameCameraEmit",$scope.modalSettingsData.camera);
     }
     $modalInstance.close($scope.modalSettingsData);
