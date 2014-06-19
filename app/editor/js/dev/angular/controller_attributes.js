@@ -63,7 +63,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	};
 
 	$scope.refreshCurrentEntity = function(_entity,_forceBody) {
-		if (_entity != null) {
+		if( _entity.game == null ){
+			this.resetData();
+			return;
+		}
+		if (_entity != null ) {
 			var isNew = ($scope.currentEntity !== _entity);
 
 			if ($scope.currentEntity) {
@@ -116,6 +120,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				}
 			}
 		} else {
+			this.resetData();
 			console.error("entity is null");
 		}
 	};
@@ -135,6 +140,16 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			_parent.add($scope.currentEntity);
 		}
 	};
+
+	$scope.resetData = function(){
+		$scope.data = {
+			newBehaviour: "",
+			image: $scope.noneImage,
+			imageFrame: 0,
+			images: new Array(),
+			body : {shapes : []}
+		};
+	}
 
 	//================================================================
 	//						BEHAVIOURS

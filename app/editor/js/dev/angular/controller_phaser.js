@@ -279,7 +279,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		if( $scope.entityHandleScript.target === _entity ){
 			$scope.entityHandleScript.deactivate();
 		}
+		if( $scope.currentEntity == _entity){
+			$scope.currentEntity = null;
+		}
 		_entity.destroy();
+
+		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 	};
 
 	$scope.lockEntity = function(_entity){
@@ -502,30 +507,36 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	//Mainly called by the modal settings. Changes the camera size of the game. Not the editor view
 	$scope.changeGameCamera = function(_dataCam){
-		if( _dataCam.fixedToCamera){ 
- 			_dataCam.x = 0; _dataCam.y = 0; 
- 		} 
 		$scope.dataSettings.camera = _dataCam;
 		//Create Graphics if not already done
 		if( $scope.game.camera.ed_debugObject != null ){
 			$scope.game.camera.ed_debugObject.destroy();
 		}
-		$scope.game.camera.ed_debugObject = $scope.game.add.graphics(0, 0);
-		$scope.game.camera.ed_debugObject.lineStyle(2, 0x0000FF, 1);
-		$scope.game.camera.ed_debugObject.name = "__cam_rect";
-		$scope.moveEntityToEditorGroup($scope.game.camera.ed_debugObject);
-    	
-    	$scope.game.camera.ed_debugObject.drawRect($scope.dataSettings.camera.x, $scope.dataSettings.camera.y,
-															 $scope.dataSettings.camera.width, $scope.dataSettings.camera.height);
-		$scope.game.camera.ed_debugObject.visible = _dataCam.debug;
-
-		$scope.game.camera.ed_debugObject.fixedToCamera = _dataCam.fixedToCamera;
-		$scope.game.camera.ed_debugObject.cameraOffset.x = 
-			(window.innerWidth - _dataCam.width) * 0.5;
-		$scope.game.camera.ed_debugObject.cameraOffset.y = 
-			(window.innerHeight - _dataCam.height) * 0.5;
+		//Create standing camera
+		_dataCam.fixedToCamera = false;
+		$scope.game.camera.ed_debugObject = this.createDebugCameraRect(_dataCam,0x0000FF,1);
+		//Create rect fixed to the editor's camera
+		_dataCam.x = 0; _dataCam.y = 0; 
+		_dataCam.fixedToCamera = true;
+		$scope.game.camera.ed_debugObject2 = this.createDebugCameraRect(_dataCam, 0xFFFFFF, 0.15);
 	}
 
+	$scope.createDebugCameraRect = function(_dataCam,_color,_alpha){
+		var rectCam = $scope.game.add.graphics(0, 0);
+		rectCam.lineStyle(2, _color,_alpha);
+		rectCam.name = "__cam_rect";
+		$scope.moveEntityToEditorGroup(rectCam);
+    	
+    	rectCam.drawRect($scope.dataSettings.camera.x, $scope.dataSettings.camera.y,
+						$scope.dataSettings.camera.width, $scope.dataSettings.camera.height);
+		rectCam.visible = _dataCam.debug;
+
+		rectCam.fixedToCamera = _dataCam.fixedToCamera;
+		rectCam.cameraOffset.x = 
+			(window.innerWidth - _dataCam.width) * 0.5;
+		rectCam.cameraOffset.y = 
+			(window.innerHeight - _dataCam.height) * 0.5;
+	}
 
 	main();
 }]);
