@@ -85,12 +85,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 			$scope.export(_args.levelPath, _args.levelName, _args.levelStorage);
 		});
 
-		$scope.$on("changeGameCameraBroadcast", function(_event, _args) {
-			$scope.changeGameCamera(_args);
-		});
-
 		$scope.$on("saveCutscenesBroadcast", function(_event, _args) {
 			$scope.cutscenes = _args.cutscenes;
+		});
+
+		$scope.$on("saveSettingsBroadcast", function(_event, _args) {
+			$scope.saveSettings(_args);
 		});
 
 		$timeout(function() {
@@ -218,6 +218,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 			$scope.entityHandleScript.deactivate();
 		}
 	}
+
+
+	//===================================================================
+	//					ADDING OPERATIONS
+	//===================================================================
 
 	$scope.addGroup = function() {
 		var group = new LR.Entity.Group($scope.game);
@@ -397,7 +402,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	//$scope.export = function(_url, _levelName, _storage) {
 	$scope.export = function(_levelPath, _levelName, _storage) {
-		console.log($scope.cutscenes);
 		var exporter = new LR.LevelExporter();
 		var level = exporter.export($scope.game,$scope.dataSettings,$scope.cutscenes);
 		var lvlStr = JSON.stringify(level);
@@ -491,12 +495,14 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 	//							GAME SETTINGS
 	//===============================================================
 
+	//send current settings to other controllers
 	$scope.sendSettings = function(){
 		if( $scope.dataSettings ){
 			$scope.$emit("sendSettingsEmit", $scope.dataSettings);
 		}
 	}
 
+	//called when importing a level
 	$scope.importSettings = function(_dataSettings){
 		if( _dataSettings == null)
 			return;
@@ -505,9 +511,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		$scope.changeGameCamera(_dataSettings.camera);
 	}
 
+	//called when settings are saved
+	$scope.saveSettings = function(_dataSettings){
+		if( _dataSettings == null)
+			return;
+		$scope.dataSettings = _dataSettings;
+		$scope.changeGameCamera(_dataSettings.camera);
+	}
+
 	//Mainly called by the modal settings. Changes the camera size of the game. Not the editor view
 	$scope.changeGameCamera = function(_dataCam){
-		$scope.dataSettings.camera = _dataCam;
+		//Copy data
+		$scope.dataSettings.camera = jQuery.extend(true, {}, _dataCam);
 		//Create Graphics if not already done
 		if( $scope.game.camera.ed_debugObject != null ){
 			$scope.game.camera.ed_debugObject.destroy();

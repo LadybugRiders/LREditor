@@ -8,6 +8,14 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	function($scope, $http, $modal, $timeout) {
 	function main() {
 
+		$scope.images = new Array();
+
+		$scope.$on("sendImagesBroadcast", function(_event, _args) {
+			if (_args.images) {
+				$scope.images = _args.images;
+			}
+		});
+
 		$scope.$on("importCutsceneBroadcast", function(_event, _args) {
 			$scope.importCutscene();
 		});
@@ -20,7 +28,17 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.setCutscenes(_args.cutscenes);
 		});
 
-		$scope.images = new Array();
+		//Receive settings from phaser when importing
+		$scope.$on("sendSettingsBroadcast", function(_event, _args) {
+			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
+			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
+		});
+		//When settings are modified in the modal
+		$scope.$on("saveSettingsBroadcast", function(_event, _args) {
+			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
+			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
+		});
+
 
 		$scope.modalData = {
 			// images
@@ -31,12 +49,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			// level import/export
 			levelPath: "app/game/assets/levels",
 			levelName: "level1"
-		};
-
-		$scope.modalSettingsData = {
-			worldWidth : 640,
-			worldHeight : 360,
-			camera : {}
 		};
 
 		//modal data for cutscenes edition
@@ -54,15 +66,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			isLong : false
 		};
 
-		$scope.$on("sendImagesBroadcast", function(_event, _args) {
-			if (_args.images) {
-				$scope.images = _args.images;
-			}
-		});
-
-		$scope.$on("sendSettingsBroadcast", function(_event, _args) {
-			$scope.modalSettingsData.camera = _args.camera;
-		});
+		$scope.modalSettingsData = {
+			world :{},
+			camera : {}
+		};
 	};
 
 	$scope.play = function() {
