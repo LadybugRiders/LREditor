@@ -122,9 +122,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	$scope.preload = function() {
 		$scope.game.load.image("none", "assets/images/none.png");
-		$scope.game.load.image("select", "assets/images/select.png");
-		$scope.game.load.image("x_move", "assets/images/x_move.png");
-		$scope.game.load.image("y_move", "assets/images/y_move.png");
+		$scope.game.load.image("__select", "assets/images/select.png");
+		$scope.game.load.image("__x_move", "assets/images/x_move.png");
+		$scope.game.load.image("__y_move", "assets/images/y_move.png");
 	};
 
 	$scope.create = function() {
@@ -178,7 +178,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		//Camera DEbug
 		$scope.changeGameCamera($scope.dataSettings.camera);
 		//entity handle
-		$scope.entityHandle = new LR.Entity.Sprite($scope.game,0,0,"select");
+		$scope.entityHandle = new LR.Entity.Sprite($scope.game,0,0,"__select");
 		$scope.entityHandle.name = "__entity_handle";
 		$scope.entityHandleScript = $scope.entityHandle.go.addBehaviour( new LR.Editor.Behaviour.EntityHandle($scope.entityHandle.go,$scope));
 		$scope.editorGroup.add($scope.entityHandle);

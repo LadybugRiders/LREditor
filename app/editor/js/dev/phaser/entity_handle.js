@@ -16,7 +16,7 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
 	this.draggerY = false;
 
     //Handles axis
-    this.axisX = this.$scope.game.add.sprite(100,100,"x_move");
+    this.axisX = this.$scope.game.add.sprite(100,100,"__x_move");
     this.axisX.anchor.setTo(0,0.5);
     this.axisX.name = "__xAxis";
     //AXIS X Input
@@ -24,7 +24,7 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
     this.axisX.input.allowVerticalDrag = false;
     this.$scope.$emit("moveEntityToEditorEmit",{ entity : this.axisX});
 
-    this.axisY = this.$scope.game.add.sprite(100,100,"y_move");
+    this.axisY = this.$scope.game.add.sprite(100,100,"__y_move");
     this.axisY.anchor.setTo(0.5,1);
     this.axisY.name = "__yAxis";
     //AXIS X Input
