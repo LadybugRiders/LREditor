@@ -375,8 +375,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 			$http.get(url).success(function(_data) {
 				var importer = new LR.Editor.LevelImporterEditor($scope);
 				importer.import(_data, $scope.game, function(err, data) {
-					$scope.$apply();
-					$scope.$emit("refreshListEmit", {world: $scope.game.world});
+					$scope.$apply(function() {
+						$scope.$emit("refreshListEmit", {world: $scope.game.world});
+					});
 				});
 
 			$scope.importSettings(_data.settings);
