@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" ng-app="Loopy">
+<head>
+  <meta charset="utf-8">
+  <title>Loopy - Game</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../shared/css/bootstrap.min.css">
+  <!-- Bootstrap theme (Optional) -->
+  <link rel="stylesheet" href="../shared/css/bootstrap-theme.min.css">
+  <!-- custom style -->
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+  <div ng-view class="container"></div>
+  
+  <!-- JAVASCRIPT -->
+  <!-- jQuery -->
+  <script src="../shared/js/lib/jquery-2.1.0.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="../shared/js/lib/bootstrap.min.js"></script>
+  <!-- Phaser -->
+  <script src="../shared/js/lib/phaser.js"></script>
+  <!-- AngularJs -->
+  <script src="../shared/js/lib/angular.js"></script>
+  <script src="../shared/js/lib/angular-route.min.js"></script>
+  <script src="js/dev/angular/app.js"></script>
+  <script src="js/dev/angular/services.js"></script>
+  <script src="js/dev/angular/controllers.js"></script>
+  <script src="js/dev/angular/filters.js"></script>
+  <script src="js/dev/angular/directives.js"></script>
+  <!-- LADYBUG RIDERS -->
+  <script src="../shared/js/dev/lr.js"></script>
+  <script src="../shared/js/dev/phaser/entity/sprite.js"></script>
+  <script src="../shared/js/dev/phaser/entity/tilesprite.js"></script>
+  <script src="../shared/js/dev/phaser/entity/group.js"></script>
+  <script src="../shared/js/dev/phaser/entity/text.js"></script>
+  <!-- Shared -->
+  <script src="../shared/js/dev/phaser/state.js"></script>
+  <script src="../shared/js/dev/phaser/behaviour.js"></script>
+  <script src="../shared/js/dev/phaser/gameobject.js"></script>
+  <script src="../shared/js/dev/phaser/levelutilities.js"></script>
+  <script src="../shared/js/dev/phaser/levelimporter.js"></script>
+  <script src="../shared/js/dev/phaser/levelimportergame.js"></script>
+  <script src="../shared/js/dev/phaser/utils.js"></script>
+  <script src="../shared/js/dev/phaser/collision_manager.js"></script>  
+
+  <script src="../shared/js/dev/phaser/plugin/pollinator.js"></script>
+  <script src="../shared/js/dev/phaser/plugin/input_manager.js"></script>
+  <script src="../shared/js/dev/phaser/plugin/cutscene_manager.js"></script>    
+  <script src="../shared/js/dev/phaser/plugin/dialog_manager.js"></script> 
+
+  <!-- ui -->
+  <script src="../shared/js/dev/phaser/ui/dialog_box.js"></script>  
+
+  <!-- triggers -->
+  <script src="../shared/js/dev/phaser/trigger/trigger.js"></script>  
+  <script src="../shared/js/dev/phaser/trigger/trigger_cutscene.js"></script>  
+  <script src="../shared/js/dev/phaser/trigger/trigger_message_object.js"></script>    
+  <!-- controllers -->
+  <script src="js/dev/angular/controller_home.js"></script>
+  <script src="js/dev/angular/controller_phaser.js"></script>
+
+
+  <!--******-->
+  <!-- game -->
+  <!--******-->
+  <script src="js/dev/loopy.js"></script>
+
+  <script src="js/dev/phaser/game_core.js"></script>
+  <script src="js/dev/phaser/controllers/player_runner_controller.js"></script>          
+  <script src="js/dev/phaser/controllers/camera_follow.js"></script>  
+  <!-- setttings -->
+   <script src="js/dev/phaser/settings/physics_settings.js"></script> 
+   <script src="js/dev/phaser/settings/input_settings.js"></script> 
+   <script src="js/dev/phaser/settings/fonts_settings.js"></script> 
+   <script src="js/dev/phaser/settings/global.js"></script>
+  <!-- gamedata -->
+  <script src="js/dev/phaser/gamedata/inventory_manager.js"></script>      
+  <!-- state -->
+  <script src="js/dev/phaser/states/boot_state.js"></script> 
+  <script src="js/dev/phaser/states/loading_state.js"></script> 
+  <script src="js/dev/phaser/states/play_state.js"></script>  
+  <script src="js/dev/phaser/states/level_state.js"></script>  
+  <script src="js/dev/phaser/states/selection_menu_state.js"></script> 
+  <!-- obstacles -->
+  <script src="js/dev/phaser/objects/obstacles/obstacle.js"></script>  
+  <!-- enemies -->
+  <script src="js/dev/phaser/enemies/enemy.js"></script>  
+  <!-- collectables -->
+  <script src="js/dev/phaser/objects/collectables/collectable.js"></script>  
+  <script src="js/dev/phaser/objects/collectables/coin.js"></script>  
+  <script src="js/dev/phaser/objects/weapon.js"></script>  
+  <!-- ui -->
+  <script src="js/dev/phaser/ui/ingame/level_coins_count.js"></script>  
+  <script src="js/dev/phaser/ui/ingame/loopy_health.js"></script>  
+
+</body>
+</html>

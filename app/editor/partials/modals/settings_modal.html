@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3>Settings</h3>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <!-- WORLD -->
+    <div class="form-group">
+        <div class="row">
+            <!-- SIZE -->
+            <div class="col-md-4">
+                <label>World Size</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" ng-model="modalSettingsData.worldWidth" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <input type="text" ng-model="modalSettingsData.worldHeight" class="form-control"/>
+            </div>
+        </div>
+    </div>
+    <!-- CAMERA -->
+    <div class="form-group">
+        <div class="row">
+            <div class="form-group col-md-3"> <label> GameCamera </label> </div>
+            <div class="form-group col-md-3">
+                <input type="checkbox" ng-model="modalSettingsData.camera.debug"/>
+            </div>
+        </div>
+        <div class="row">
+            <!-- POSITION -->
+            <div class="col-md-3">
+                <label>Postion</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" ng-model="modalSettingsData.camera.x" class="form-control"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" ng-model="modalSettingsData.camera.y" class="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3"> <label> FixedToCamera </label> </div>
+            <div class="form-group col-md-3">
+                <input type="checkbox" ng-model="modalSettingsData.camera.fixedToCamera"/>
+            </div>
+        </div>
+        <div class="row">
+            <!-- SIZE -->
+            <div class="col-md-3">
+                <label>Size</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" ng-model="modalSettingsData.camera.width" class="form-control"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" ng-model="modalSettingsData.camera.height" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="save()">Save</button>
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>

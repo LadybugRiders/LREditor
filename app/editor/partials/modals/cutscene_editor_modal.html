@@ -1,0 +1,185 @@
+<div class="modal-header">
+    <div ng-if="modalCSData.state == 'none'">
+        <h3> Edit Cutscene </h3>
+    </div>    
+    <div ng-if="modalCSData.state != 'none'">
+        <h3> Edit {{modalCSData.currentCutscene.name}}</h3>
+    </div>
+</div>
+<div class="modal-body">
+    <!-- CUTSCENES -->
+    <table class="table table-striped"  ng-if="modalCSData.state == 'none'">
+        <thead>
+            <th>Scene</th>
+            <th>Edit</th>
+            <th>Copy/Paste</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="cutscene in modalCSData.cutscenes">
+                <td>
+                    <input type="text" ng-model="cutscene.name" class="form-control" />
+                </td>
+                <td>
+                    <button class="btn btn-default" ng-click="editCutscene(cutscene)">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                    </button>
+                </td>    
+
+                <td>
+                    <button class="btn btn-default" ng-click="copyCutscene(cutscene)">
+                        <span class="glyphicon glyphicon-export"></span>
+                    </button>
+
+                    <button class="btn btn-default" ng-click="PasteCutscene(cutscene)">
+                        <span class="glyphicon glyphicon-import"></span>
+                    </button>
+                </td>
+
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteCutscene(cutscene)">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" ng-model="_newName" class="form-control"/>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addCutscene(_newName)">New Scene</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div ng-if="modalCSData.state == 'events'">
+        <h3> Edit Events </h3>
+    </div>
+
+    <!-- EVENTS EDITION -->
+    <table class="table table-striped"  ng-if="modalCSData.state == 'events'">
+        <thead>
+            <th>Event</th>
+            <th>Actions</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Order</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="event in modalCSData.currentCutscene.events">
+                <td>
+                    <input type="text" ng-model="event.name" class="form-control" />
+                </td>
+                <td>
+                    <input type="text" ng-model="event.actions.length" class="form-control" />
+                </td>
+                <!-- edit / delete-->
+                <td>
+                    <button class="btn btn-default" ng-click="editEvent(event)">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteEvent(event)">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
+                </td>
+                <!-- move up -->
+                <td>
+                    <button class="btn btn-default" ng-click="moveEventUp($index)">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" ng-model="_newName" class="form-control"/>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addEvent(_newName)">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+
+     <div ng-if="modalCSData.state == 'events'">
+        <button class="btn btn-default" ng-click="backToCutscenes()">Back To Cutscenes</button>
+    </div>
+
+    
+    <!-- ACTIONS EDITION -->
+    <div ng-if="modalCSData.state == 'actions'">
+        <h3> Edit Actions </h3><h4>{{modalCSData.currentEvent.name}}</h4>
+    </div>
+
+    <table class="table table-striped"  ng-if="modalCSData.state == 'actions'">
+        <thead>
+            <th>Type</th>
+            <th>Target</th>
+            <th>Data</th>
+            <th>Delete</th>
+            <th>MoveUp</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="action in modalCSData.currentEvent.actions">
+                <td>
+                    <select ng-model="action.type" 
+                            ng-options="t as t for t in ['tween', 'set', 'dialog', 'wait','function', 'other']" 
+                            class="form-control">
+                    </select>
+                   <!-- <input type="text" ng-model="action.type" class="form-control" /> -->
+                </td>
+                <td>
+                    <div ng-if="action.type != 'other'">
+                        <input type="text" ng-model="action.target" class="form-control" />
+                    </div>
+                    <div ng-if="action.type == 'other'">
+                        <select ng-model="action.target" 
+                                ng-options="t as t for t in modalCSData.otherFuncs" 
+                                ng-change ="otherActionChanged(action)"
+                                class="form-control">
+                        </select>
+                    <div>
+                </td>
+
+                <td>
+                    <button class="btn btn-default" ng-click="openEditModal(action,'data',true)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteAction(action)">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
+                </td>
+                <!-- move up -->
+                <td>
+                    <button class="btn btn-default" ng-click="moveActionUp($index)">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select ng-model="_newType" 
+                            ng-options="t as t for t in ['tween','set','dialog', 'wait', 'function', 'other']" 
+                            class="form-control">
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addAction(_newType)">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+
+     <div ng-if="modalCSData.state == 'actions'">
+        <button class="btn btn-default" ng-click="backToEvents()">Back To Events</button>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save()">Save</button>
+    <button class="btn btn-danger" ng-click="close()">Close</button>
+</div>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" ng-app="Loopy">
+<head>
+  <meta charset="utf-8">
+  <title>Loopy - Editor</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../shared/css/bootstrap.min.css">
+  <!-- Bootstrap theme (Optional) -->
+  <link rel="stylesheet" href="../shared/css/bootstrap-theme.min.css">
+  <!-- custom style -->
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body ng-controller="EditorCtrl">
+  <header ng-include="'partials/header.html'" ng-controller="HeaderCtrl"></header>
+
+  <div ng-view></div>
+
+  <!--<footer ng-include="'partials/footer.html'"></footer>-->
+
+  <!-- JAVASCRIPT -->
+  <!-- jQuery -->
+  <script src="../shared/js/lib/jquery-2.1.0.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="../shared/js/lib/bootstrap.min.js"></script>
+  <!-- Phaser -->
+  <script src="../shared/js/lib/phaser.js"></script>
+
+  <!-- LADYBUG RIDERS -->
+  <script src="/shared/js/dev/lr.js"></script>
+
+  <!-- Editor -->
+  <script src="/editor/js/dev/editor.js"></script>
+
+  <!-- AngularJs -->
+  <script src="../shared/js/lib/angular.js"></script>
+  <script src="../shared/js/lib/angular-route.min.js"></script>
+  <script src="js/dev/angular/app.js"></script>
+  <script src="js/dev/angular/services.js"></script>
+  <script src="js/dev/angular/controllers.js"></script>
+  <script src="js/dev/angular/filters.js"></script>
+  <script src="js/dev/angular/directives.js"></script>
+    <!-- controllers -->
+    <script src="js/dev/angular/controller_header.js"></script>
+    <script src="js/dev/angular/controller_home.js"></script>
+    <script src="js/dev/angular/controller_editor.js"></script>
+    <script src="js/dev/angular/controller_settings.js"></script>
+    <script src="js/dev/angular/controller_objects.js"></script>
+    <script src="js/dev/angular/controller_phaser.js"></script>
+    <script src="js/dev/angular/controller_attributes.js"></script>
+    <!-- modals -->
+    <script src="js/dev/angular/modal_controller_cutscene_editor.js"></script>
+    <script src="js/dev/angular/modal_controller_behaviour_args.js"></script>
+    <script src="js/dev/angular/modal_controller_imagesload.js"></script>
+    <script src="js/dev/angular/modal_controller_levelimporter.js"></script>
+    <script src="js/dev/angular/modal_controller_levelexporter.js"></script>
+    <script src="js/dev/angular/modal_controller_edit_text.js"></script>
+    <script src="js/dev/angular/modal_controller_settings.js"></script>
+  <!-- UI AngularJs/Bootstrap -->
+  <script src="../shared/js/lib/ui-bootstrap-tpls-0.10.0.js"></script>
+  
+  <!--**********************-->
+  <!-- LadybugRiders Shared -->
+  <!--**********************-->
+  <script src="../shared/js/dev/phaser/entity/sprite.js"></script>
+  <script src="../shared/js/dev/phaser/entity/group.js"></script>
+  <script src="../shared/js/dev/phaser/entity/text.js"></script>
+  <script src="../shared/js/dev/phaser/entity/tilesprite.js"></script>
+  <script src="../shared/js/dev/phaser/gameobject.js"></script>
+  <script src="../shared/js/dev/phaser/behaviour.js"></script>
+  <script src="../shared/js/dev/phaser/levelutilities.js"></script>
+  <script src="../shared/js/dev/phaser/levelexporter.js"></script>
+  <script src="../shared/js/dev/phaser/levelimporter.js"></script>
+  <!--plugins-->
+  <script src="../shared/js/dev/phaser/plugin/pollinator.js"></script>
+  <script src="../shared/js/dev/phaser/plugin/input_manager.js"></script>
+  <script src="../shared/js/dev/phaser/plugin/cutscene_manager.js"></script>    
+  <script src="../shared/js/dev/phaser/plugin/dialog_manager.js"></script> 
+  <script src="../shared/js/dev/phaser/utils.js"></script> 
+  <!-- ui -->
+  <script src="../shared/js/dev/phaser/ui/dialog_box.js"></script> 
+
+   <!--**********************-->
+  <!-- LadybugRiders Editor -->
+  <!--**********************-->
+  <script src="../editor/js/dev/phaser/levelimportereditor.js"></script>
+  <script src="../editor/js/dev/phaser/scrollerhorizontal.js"></script>
+  <script src="../editor/js/dev/phaser/scrollervertical.js"></script>
+  <script src="../editor/js/dev/phaser/entity_handle.js"></script>
+  <script src="../editor/js/dev/phaser/entity_input_handler.js"></script>
+  <script src="../editor/js/dev/phaser/settings.js"></script>
+</body>
+</html>

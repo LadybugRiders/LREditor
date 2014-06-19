@@ -1,0 +1,13 @@
+{
+	"name": "Loopy's API",
+	"description": "Documentation for Editor, Game & Shared",
+	"version": "0.0.1",
+	"options": {
+		"paths": [
+		"app/editor/js/dev",
+		"app/game/js/dev",
+		"app/shared/js/dev"
+		],
+		"outdir": "app/doc"	
+	}
+}

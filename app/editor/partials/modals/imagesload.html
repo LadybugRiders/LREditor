@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h3>Images</h3>
+</div>
+<div class="modal-body">
+    <table class="table table-striped">
+        <thead>
+            <th>Path</th>
+            <th>Name</th>
+            <th>Frame Width</th>
+            <th>Frame Height</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="image in images">
+                <td>
+                    <input type="text" ng-model="image.attributes.src.nodeValue" class="form-control" ng-disabled="'true'"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="image.name" class="form-control" ng-disabled="'true'"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="image.width" class="form-control" ng-disabled="'true'"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="image.height" class="form-control" ng-disabled="'true'"/>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteImage(image)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" ng-model="modalData.imagesPath" class="form-control"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="modalData.imagesName" class="form-control"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="modalData.imagesFrameWidth" class="form-control"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="modalData.imagesFrameHeight" class="form-control"/>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="loadImage()">Load</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>

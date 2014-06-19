@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app/game/js/dev/phaser/objects/weapon.js - Loopy&#x27;s API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="Loopy&#x27;s API"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Behaviour.Coin.html">Behaviour.Coin</a></li>
+            
+                <li><a href="../classes/Behaviour.Collectable.html">Behaviour.Collectable</a></li>
+            
+                <li><a href="../classes/Behaviour.Enemy.html">Behaviour.Enemy</a></li>
+            
+                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+            
+                <li><a href="../classes/Behaviour.PhysicsSettings.html">Behaviour.PhysicsSettings</a></li>
+            
+                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+            
+                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+            
+                <li><a href="../classes/Behaviour.TriggerMessageObject.html">Behaviour.TriggerMessageObject</a></li>
+            
+                <li><a href="../classes/Behaviour.UILevelCoinsCount.html">Behaviour.UILevelCoinsCount</a></li>
+            
+                <li><a href="../classes/Behaviour.Weapon.html">Behaviour.Weapon</a></li>
+            
+                <li><a href="../classes/LR.html">LR</a></li>
+            
+                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+            
+                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+            
+                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+            
+                <li><a href="../classes/LR.InputManager.html">LR.InputManager</a></li>
+            
+                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+            
+                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+            
+                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+            
+                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+            
+                <li><a href="../classes/Phaser.Plugin.Pollinator.html">Phaser.Plugin.Pollinator</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: app/game/js/dev/phaser/objects/weapon.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&quot;use strict&quot;;
+
+/**
+* The weapon doesn&#x27;t need to be visible. It&#x27;s basically a bounding box that will be activated when the owner attacks.
+* 
+* @class Weapon
+*/
+var Weapon = function(_gameobject){
+	LR.Behaviour.call(this,_gameobject);
+	_gameobject.enablePhysics(PhysicsSettings.DYNAMIC);
+	_gameobject.enableEvents();
+
+	//offset of the wepon from the owner body center point of view
+	this.offsetX = 25;
+	this.offsetY = 0;
+
+	//Create shape 
+	this.weaponShape = _gameobject.body.setRectangle(50, 100, 0, 0, 0);
+	this.weaponShape.sensor = true;
+	this.go.enableDebugBounds();
+
+	this.direction = 1;
+
+	/**
+	* @property attacking
+	* @type {boolean}
+	*/
+	this.attacking = false;
+
+	/**
+	* Owner of the weapon ( different from gameobject to which to script&#x27;s attached )
+	*@type {GameObject}
+	*/
+	this.owner = null;
+
+	/**
+	* How long the attack will last, in seconds
+	* @property {number} seconds
+	*/
+	this.timeAttack = 0.4;
+
+	this.go.kill();
+}
+
+Weapon.prototype = Object.create(LR.Behaviour.prototype);
+Weapon.prototype.constructor = Weapon;
+
+Weapon.prototype.update = function(){
+	this.place();
+}
+
+/**
+* Sets the owner object of the weapong. You can say the wielder.
+* 
+* @method setOwner
+* @param {GameObject} owner The owner of the weapon. When the weapon attacks, it follows its owner. A GameObject is recommended here, although it could work
+* with any object having x and y properties
+*/
+Weapon.prototype.setOwner = function(_owner){
+	this.owner = _owner;
+}
+
+/**
+* Attacks in the given direction 
+* @method attack
+* @param direction
+*/
+Weapon.prototype.attack = function(_direction){
+	this.attacking = true;
+	this.go.revive();
+	this.direction = _direction;
+	if( this.owner != null ){
+		this.place();
+		this.go.game.time.events.add(Phaser.Timer.SECOND * this.timeAttack, this.endAttack, this);
+	}else{
+		console.log(&quot; Weapon &quot; + this + &quot; has no owner&quot;);
+	}
+}
+
+Weapon.prototype.endAttack = function(){
+	this.go.kill();
+	this.attacking = false;
+}
+
+//Process the shape origin of the signal and call specific methods
+Weapon.prototype.onBeginContact = function(_otherBody, _myShape, _otherShape, _equation){
+	if( this.attacking ){		
+		var data = { &quot;sender&quot; : this, &quot;senderShape&quot; : _myShape };
+		_otherBody.go.sendMessage(&quot;hit&quot;, data);
+	}
+}
+
+Weapon.prototype.place = function(){
+	if( this.owner != null ){
+		this.go.body.x = this.owner.body.x + this.offsetX;
+		this.go.body.y = this.owner.body.y + this.offsetY;
+	}
+}
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

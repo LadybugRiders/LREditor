@@ -1,0 +1,56 @@
+.navbar {
+	margin-bottom: 0;
+}
+
+accordion .panel-heading:hover {
+	cursor: move;
+}
+
+accordion a:hover {
+	cursor: pointer;
+}
+
+.draggable-panel {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	min-width: 200px;
+	max-width: 500px;
+}
+
+#entities {
+	left: 100px;
+}
+
+#attributes {
+	left: 450px;
+}
+
+.list-entities ul {
+	padding-left: 15px;
+}
+
+.list-entities > ul {
+	padding-left: 0px;
+}
+
+.list-entities li {
+	list-style: none;
+}
+
+.list-entities li .chevron {
+	margin-right: 3px;
+}
+
+.list-entities .margin-left {
+	margin-left: 17px;
+}
+
+.list-entities li .arrows {
+	float: right;
+	display: none;
+}
+
+.list-entities li:hover > .arrows {
+	display: inline;
+}

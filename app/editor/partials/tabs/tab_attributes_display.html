@@ -1,0 +1,49 @@
+<!-- DEPTH -->
+<label> Depth </label>
+<div class="row">
+	<div class="form-group col-md-4">
+		<button ng-click="changeDepth(-1)" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-minus-sign"></span>
+		</button>
+	</div>
+	<div class="form-group col-md-4">
+		<label>
+			{{currentEntity.z}}
+		</label>
+	</div>
+	<div class="form-group col-md-4">
+		<button ng-click="changeDepth(1)" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus-sign"></span>
+		</button>
+	</div>
+</div>
+
+<div ng-if="data.type != 'group' " class="form-group">
+	<!-- IMAGE -->
+	<div class="form-group">
+		<label>Image</label>
+		<select ng-model="data.image" ng-options="image.name for image in data.images" class="form-control">
+		</select>
+	</div>
+	<!-- FRAME -->
+	<div class="form-group">
+		<label>Frame</label>
+		<input type="text" ng-model="data.imageFrame" class="form-control"/>
+	</div>
+	<!-- APPLY -->
+	<div class="form-group">
+		<button ng-click="changeTexture(data.image, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
+	</div>
+</div>
+<!-- VISIBLE -->
+<div class="form-group">
+	<label>
+		Visible <input type="checkbox" ng-model="currentEntity.visible"/>
+	</label>
+</div>
+<!-- FIXED TO CAMERA -->
+<div class="form-group">
+	<label>
+		Fixed To Camera <input type="checkbox" ng-model="currentEntity.fixedToCamera"/>
+	</label>
+</div>

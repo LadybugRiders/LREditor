@@ -1,0 +1,37 @@
+<accordion accordion-draggable>
+	<accordion-group heading="Attributes">
+		<div class="row">
+			<div class="col-md-12">
+				<span>{{currentEntity.name}} - z: {{currentEntity.z}}</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<tabset justified="true">
+					<tab heading="General">
+						<div ng-include="'partials/tabs/tab_attributes_general.html'"> </div>
+					</tab>
+					<tab heading="Display">				
+						<div ng-include="'partials/tabs/tab_attributes_display.html'"> </div>
+					</tab>
+					<tab heading="Physics">
+						<div ng-include="'partials/tabs/tab_attributes_physics.html'"> </div>
+					</tab>
+					<tab heading="Behaviours">
+						<div ng-include="'partials/tabs/tab_attributes_behaviours.html'"> </div>				
+					</tab>
+				</tabset>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<button ng-click="clone()"  type="button" class="btn btn-primary">Clone</button>
+			</div>
+			<div class="col-md-4">
+				<button ng-click="delete()"  type="button" class="btn btn-danger">Delete</button>
+			</div>
+		</div>
+	</accordion-group>
+</accordion>
