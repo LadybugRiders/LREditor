@@ -346,7 +346,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		for (var i = 0; i < keys.length; i++) {
 			var key = keys[i];
 			var image = $scope.game.cache.getImage(key);
-			images.push(image);
+			if ($scope.isEditorImage(image) == false) {
+				images.push(image);
+			}
 		};
 
 		return images;
@@ -372,6 +374,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		}
 	};
 
+	$scope.isEditorImage = function(_image) {
+		var editorImage = false;
+
+		if (typeof _image.name === "string") {
+			if (_image.name[0] == "_" && _image.name[1] == "_") {
+				editorImage = true;
+			}
+		}
+
+		return editorImage;
+	};
+
 	//===================================================================
 	//					IMPORT / EXPORT
 	//===================================================================
@@ -385,7 +399,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 				var importer = new LR.Editor.LevelImporterEditor($scope);
 				importer.import(_data, $scope.game, function(err, data) {
 					$scope.$apply(function() {
+						// refresh the list of entities
 						$scope.$emit("refreshListEmit", {world: $scope.game.world});
+						
+						// refresh the list of images
+						var images = $scope.getImages();
+						$scope.sendImages(images);
 					});
 				});
 

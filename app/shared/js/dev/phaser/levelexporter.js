@@ -69,7 +69,9 @@ LR.LevelExporter.prototype.exportImages = function(_cache) {
 			var cachedImage = _cache.getImage(key);
 			var frame = _cache.getFrameByIndex(key, 0);
 			var image = this.exportImage(cachedImage, frame);
-			images.push(image);
+			if (LR.LevelUtilities.IsEditorImage(image) == false) {
+				images.push(image);
+			}
 		};
 
 		return images;

@@ -63,6 +63,18 @@ LR.LevelUtilities.GetType = function(_object) {
 	return type;
 };
 
+LR.LevelUtilities.IsEditorImage = function(_image) {
+	var editorImage = false;
+
+	if (typeof _image.name === "string") {
+		if (_image.name[0] == "_" && _image.name[1] == "_") {
+			editorImage = true;
+		}
+	}
+
+	return editorImage;
+};
+
 function addBody(_object,_entity){
 	var motionState = Phaser.Physics.P2.Body.DYNAMIC;
 	if( _object.body.motion === "STATIC"){
