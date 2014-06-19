@@ -51,10 +51,9 @@
 		<!-- SHAPES EDITING -->
 		<label> Shapes </label>
 		<accordion>
-			<accordion-group ng-repeat="shape in data.body.shapes" >
+			<accordion-group ng-repeat="shape in data.body.shapes" heading="{{currentEntity.go.getShape(shape.id).lr_name}}">
 				<!-- heading -->
-				<accordion-heading class="row">
-					<label class="col-md-4"> {{currentEntity.go.getShape(shape.id).lr_name}} </label>
+				<div class="row">
 					<button ng-click="openEditModal(currentEntity.go.getShape(shape.id),'lr_name')" type="button" class="btn btn-default" tooltip="rename">
 						<span class="glyphicon glyphicon-pencil"></span>
 					</button>
@@ -64,7 +63,7 @@
 					<button ng-click="deleteShape(shape.id)" type="button" class="btn btn-danger">
 						<span class="glyphicon glyphicon-remove-sign" tooltip="remove"></span>
 					</button>
-				</accordion-heading>
+				</div>
 				<!-- EDIT A SHAPE -->
 				<div class="form-group">
 					<!-- Sensor -->		
@@ -94,19 +93,19 @@
 								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
 					</div>
 				</div>
-				<div class="row">
-					
-				</div>
 			</accordion-group>
-			<div class="row">
-				<div class="col-md-8">
-					<input type="text" ng-model="shapeName" class="form-control"/>
-				</div>
-				<div class="col-md-4">
-					<button ng-click="addShapeToCurrentEntity(shapeName)" type="button" class="btn btn-default">Add Shape</button>
-				</div>
-			</div>
 		</accordion>
 
-	</div>		
+		<!-- Add New Shape -->
+		<div class="row">
+			<div class="col-md-8">
+				<input type="text" ng-model="shapeName" class="form-control"/>
+			</div>
+			<div class="col-md-4">
+				<button ng-click="addShapeToCurrentEntity(shapeName)" type="button" class="btn btn-default">Add Shape</button>
+			</div>
+		</div>
+
+	</div>	<!-- end if(body != null) -->
+	
 </div>

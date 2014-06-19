@@ -262,7 +262,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 	//===================================================================
 
 	$scope.cloneEntity = function(_entity) {
-		console.log(_entity);
 		var exporter = new LR.LevelExporter();
 		var eObj = exporter.exportEntities(_entity);
 

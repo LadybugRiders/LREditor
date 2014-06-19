@@ -100,9 +100,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.data.entityY = _entity.y;
 			}
 			//body
-			if( _forceBody == null )
-				_forceBody = true;
-			if( (isNew || _forceBody) && $scope.currentEntity.body ){
+			if( (isNew || _forceBody==true) && $scope.currentEntity.body ){
 				$scope.data.body.shapes = new Array();
 				//Get shapes and store their data
 				for(var i=0; i < $scope.currentEntity.go.getShapesCount(); i++){
@@ -250,7 +248,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			//move group of the debug body in the editor group ( preventing from exporting it )
 			$scope.$emit("moveEntityToEditorEmit",{ entity : $scope.currentEntity.body.debugBody});
 
-			$scope.refreshCurrentEntity($scope.currentEntity);
+			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
 	};
 
@@ -258,6 +256,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		if( $scope.currentEntity && $scope.currentEntity.go ){
 			$scope.currentEntity.go.removePhysics();
 			$scope.currentEntity.body = null;
+			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
 	};
 
@@ -294,7 +293,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			newShape.mass = 0;
 			newShape.sensor = true;
 			newShape.lr_name = _name;
-			$scope.refreshCurrentEntity($scope.currentEntity);
+			$scope.refreshCurrentEntity($scope.currentEntity,true);
 			$scope.shapeName = "";
 		}
 	}
@@ -317,6 +316,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 						};
 			var shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, dataShape )		
 			shape.sensor = true;
+			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
 	}
 
@@ -325,7 +325,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			console.log("Delete Shape");
 			$scope.currentEntity.body.removeShape($scope.currentEntity.go.getShape(_index));
 			$scope.currentEntity.body.shapeChanged();
-			$scope.refreshCurrentEntity($scope.currentEntity);
+			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
 	}
 
