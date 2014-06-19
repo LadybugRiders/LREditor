@@ -37,7 +37,7 @@ var CutsceneEditorCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.addCutscene = function(_name){
       if( _name == "" ||_name == null){
-        return;
+        _name = "Cutscene"+($scope.modalCSData.cutscenes.length +1 );
       }
       $scope.modalCSData.cutscenes.push(
         {
@@ -75,7 +75,7 @@ var CutsceneEditorCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.addEvent = function(_eventName){
       if( _eventName == "" ||_eventName == null){
-        return;
+        _eventName = "Event"+($scope.modalCSData.currentCutscene.events.length+1);
       }
       $scope.modalCSData.currentCutscene.events.push(
         {

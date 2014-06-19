@@ -12,6 +12,7 @@ LR.Editor.Behaviour.EntityInputHandler = function(_gameobject,_$scope) {
 	this.entity.input.enableDrag();
 	this.entity.input.useHandCursor = true;
 	this.entity.input.draggable = false;
+	this.lastPriorityID = 0;
 
 	this.entity.events.onDragStart.add(this.startDrag, this);
     this.entity.events.onDragStop.add(this.stopDrag, this);
@@ -89,6 +90,8 @@ LR.Editor.Behaviour.EntityInputHandler.prototype.onInputDown = function() {
 	if( this.locked )
 		return;
 	this.$scope.$emit("selectEntityEmit", {entity : this.entity});
+	if( this.go )
+		this.go.sendMessage("onSelected");
 	if( this.entity.body ){
 		this.pointerOffset.x = this.entity.body.x - this.entity.game.input.activePointer.worldX ;
 		this.pointerOffset.y = this.entity.body.y - this.entity.game.input.activePointer.worldY ;
