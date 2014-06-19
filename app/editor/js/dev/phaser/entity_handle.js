@@ -62,19 +62,20 @@ LR.Editor.Behaviour.EntityHandle.prototype.update = function() {
 
 		//if an axis handle is being dragged
 		if( this.draggerX ){
-			this.setPosition();
+			this.setPosition(this.axisX);
 			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
+			this.$scope.forceAttributesRefresh(this.target);
 			//this.checkDrag();
 		}else if( this.draggerY ){
-			this.setPosition();
+			this.setPosition(this.axisY);
 			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
+			this.$scope.forceAttributesRefresh(this.target);
 			//this.checkDrag();
 		}else{			
 			//Replace axis
 			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
 			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
 		}
-		this.$scope.forceAttributesRefresh(this.target);
 	}
 }
 
@@ -101,8 +102,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.activate = function(_target) {
 	this.entity.visible = true;
 }
 
-LR.Editor.Behaviour.EntityHandle.prototype.deactivate = function() {
-	
+LR.Editor.Behaviour.EntityHandle.prototype.deactivate = function() {	
 	this.entity.visible = false;
 	this.toggleAxises(false);
 	if( this.target != null )
@@ -150,14 +150,14 @@ LR.Editor.Behaviour.EntityHandle.prototype.deactivateTotalDrag = function() {
 //=================================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.startDrag = function(_sender) {
-	if( _sender.key == "x_move")
+	if( _sender.key == "__x_move")
 		this.draggerX = true;
 	else
 		this.draggerY = true;
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.stopDrag = function(_sender) {
-	if( _sender.key == "x_move")
+	if( _sender.key == "__x_move")
 		this.draggerX = false;
 	else
 		this.draggerY = false;
@@ -201,6 +201,6 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateInputOnEntity = function(_ent
     _entity.events.onInputOut.add(this.inputOut, this);
 }
 
-LR.Editor.Behaviour.EntityHandle.prototype.setPosition = function(){
-	this.target.go.setPosition(this.axisX.x,this.axisX.y);
+LR.Editor.Behaviour.EntityHandle.prototype.setPosition = function(_spriteAxis){
+	this.target.go.setPosition(_spriteAxis.x,_spriteAxis.y);
 }

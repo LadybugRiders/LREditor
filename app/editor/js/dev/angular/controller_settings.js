@@ -14,11 +14,9 @@ LREditorCtrlMod.controller('SettingsCtrl', ["$scope", "$http", "$timeout",
 			worldHeight: 0,
 		};
 
-		$scope.$on("sendCameraBroadcast", function(_event, _args) {
+		$scope.$on("sendSettingsBroadcast", function(_event, _args) {
 			$scope.camera = _args.camera;
-
-			$scope.data.cameraX = $scope.camera.x;
-			$scope.data.cameraY = $scope.camera.y;
+			console.log("yay");
 		});
 
 		$scope.$on("sendWorldBroadcast", function(_event, _args) {
