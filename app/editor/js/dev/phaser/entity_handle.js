@@ -62,11 +62,11 @@ LR.Editor.Behaviour.EntityHandle.prototype.update = function() {
 
 		//if an axis handle is being dragged
 		if( this.draggerX ){
-			this.target.go.setPosition(this.axisX.x,this.axisX.y);
+			this.setPosition();
 			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
 			//this.checkDrag();
 		}else if( this.draggerY ){
-			this.target.go.setPosition(this.axisY.x,this.axisY.y);
+			this.setPosition();
 			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
 			//this.checkDrag();
 		}else{			
@@ -199,4 +199,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateInputOnEntity = function(_ent
     _entity.events.onDragStop.add(this.stopDrag, this);
     _entity.events.onInputOver.add(this.inputOver, this);
     _entity.events.onInputOut.add(this.inputOut, this);
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.setPosition = function(){
+	this.target.go.setPosition(this.axisX.x,this.axisX.y);
 }

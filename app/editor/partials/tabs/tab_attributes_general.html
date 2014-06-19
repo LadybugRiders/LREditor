@@ -40,21 +40,35 @@
 	<!-- POSITION -->
 	<div class="form-group">
 		<label>Position</label>
-		<input type="text" ng-model="data.entityX" ng-change="setX(data.entityX)" class="form-control" float/>
-		<input type="text" ng-model="data.entityY" ng-change="setY(data.entityY)" class="form-control" float/>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)"
+					 class="form-control" float/>
+			</div>
+			<div class="col-md-6">
+				<input type="number" ng-model="data.entityY" ng-change="setY(data.entityY)" 
+				class="form-control" float/>
+			</div>
+		</div>
 	</div>
 	<!-- SIZE -->
 	<div class="form-group">
 		<label>Size</label>
-		<input type="text" ng-model="currentEntity.width" class="form-control" float/>
-		<input type="text" ng-model="currentEntity.height" class="form-control" float/>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="number" ng-model="currentEntity.width" class="form-control" float/>
+			</div>
+			<div class="col-md-6">
+				<input type="number" ng-model="currentEntity.height" class="form-control" float/>
+			</div>
+		</div>
 	</div>
 </div>
 
 <!-- ROTATION -->
 <div class="form-group">
 	<label>Rotation</label>
-	<input type="text" ng-model="currentEntity.angle" class="form-control" float/>
+	<input type="number" ng-model="currentEntity.angle" class="form-control" float/>
 </div>
 <!-- DEBUG -->
 <div class="form-group">

@@ -27,21 +27,30 @@ LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) 
 		)
 		_object.key = "none";
 
-	var cObj = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
+	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
 
 	//add input behaviour on sprites /text
-	if( cObj.type != Phaser.GROUP ){
-		cObj.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(cObj.go, this.$scope));
+	if( entity.type != Phaser.GROUP ){
+		entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(entity.go, this.$scope));
 	}
 
+	//Lock
 	if( _object.locked ){
-		cObj.ed_locked = true;
-		this.$scope.lockEntity(cObj);
+		entity.ed_locked = true;
+		this.$scope.lockEntity(entity);
 	}else{
-		cObj.ed_locked = false;
+		entity.ed_locked = false;
 	}
 
-	return cObj;
+	//Fixed to Camera
+	if( _object.fixedToCamera == true ){
+		entity.ed_fixedToCamera = true;
+		this.$scope.fixEntityToCamera(entity,true);
+	}else{
+		entity.ed_fixedToCamera = false;
+	}
+
+	return entity;
 }
 
 /*

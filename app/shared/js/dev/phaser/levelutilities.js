@@ -13,7 +13,7 @@ LR.LevelUtilities = function() {
 
 LR.LevelUtilities.OBJECT_ATTRIBUTES = [
 	"name", "x", "y", "width", "height", "angle", "behaviours", "layer", "visible",
-	"key", "frame", "fixedToCamera"
+	"key", "frame"
 ];
 
 LR.LevelUtilities.TYPE_GAME_OBJECT = "GameObject";

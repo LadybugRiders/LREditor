@@ -32,6 +32,10 @@ LR.LevelImporterGame.prototype.importEntity = function(_object, _game) {
 	
 	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
 
+	if( _object.fixedToCamera ){
+		entity.fixedToCamera = true;
+	}
+
 	if (entity.behaviours) {
 		if (entity.behaviours.length > 0) {
 			for (var i = 0; i < entity.behaviours.length; i++) {

@@ -25,8 +25,7 @@ LR.LevelExporter.prototype.export = function(_game,_dataSettings,_cutscenes) {
 	level.objects = this.exportEntities(_game.world);
 	if( _dataSettings )
 		level.settings = _dataSettings;
-	if( _cutscenes.length > 0)
-		level.cutscenes = _cutscenes;
+	level.cutscenes = _cutscenes;
 
 	return level;
 };
@@ -160,6 +159,12 @@ LR.LevelExporter.prototype.exportEntity = function(_entity) {
 	//add locked properties only if it's set to true
 	if( _entity.ed_locked == true ){
 		eObj.locked = true;
+	}	
+	//fixedToCamera
+	if( _entity.ed_fixedToCamera == true ){
+		eObj.fixedToCamera = true;
+		eObj.x = _entity.cameraOffset.x;
+		eObj.y = _entity.cameraOffset.y;
 	}
 	//set key to null if none
 	if(eObj.key == "none")

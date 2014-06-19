@@ -16,26 +16,32 @@
 		<accordion>
 			<accordion-group heading="Body">
 				<!-- layer -->
-				<div class="form-group">
-					<label>Layer</label>
-					<input type="text" ng-model="currentEntity.layer" class="form-control"/>
+				<div class="row">
+					<label class="col-md-4">Layer</label>
+					<input type="text" ng-model="currentEntity.layer" class="col-md-4"/>
 				</div>
 				<!-- Motion State -->
-				<label> Motion State </label>
-				<form>
-					<select ng-model="currentEntity.body.ed_motion" 
-							ng-options="motion as motion for motion in ['DYNAMIC', 'STATIC', 'KINEMATIC']" 
-							class="form-control">
-					</select>
-					<input type="hidden" name="motionValue" value="{{currentEntity.body.ed_motion}}" />
-				</form>
+				<div class="row">
+					<label class="col-md-4"> Motion State </label>
+					<form class="col-md-4">
+						<select ng-model="currentEntity.body.ed_motion" 
+								ng-options="motion as motion for motion in ['DYNAMIC', 'STATIC', 'KINEMATIC']" 
+								class="form-control">
+						</select>
+						<input type="hidden" name="motionValue" value="{{currentEntity.body.ed_motion}}" />
+					</form>
+				</div>
+				<div>
+					<label>Fixed Rotation </label>
+					<input type="checkbox" ng-model="currentEntity.body.fixedRotation"/>
+				</div>
 
-				<label>
-				Fixed Rotation <input type="checkbox" ng-model="currentEntity.body.fixedRotation"/>
-				</label>
-
-				<label>Angle</label>
-				<input type="text" ng-model="currentEntity.body.angle" class="form-control" float/>
+				<div class="row">
+					<label class="col-md-3">Angle</label>
+					<input type="number" ng-model="currentEntity.body.angle" 
+					min="-180" max="180"
+					class="col-md-4" float/>
+				</div>
 
 				<button ng-click="removeBodyFromCurrentEntity()" type="button" class="btn btn-danger">Remove Body</button>
 
@@ -45,44 +51,51 @@
 		<!-- SHAPES EDITING -->
 		<label> Shapes </label>
 		<accordion>
-			<accordion-group ng-repeat="shape in data.body.shapes" heading="{{currentEntity.go.getShape(shape.id).lr_name}}">
-				<div class="row">
-					<!-- EDIT A SHAPE -->
-					<div class="form-group col-md-12">
-						<!-- Sensor -->		
-						<label>
-						Is Sensor <input type="checkbox" ng-model="currentEntity.go.getShape(shape.id).ed_sensor" />
-						</label>
-						<!-- size -->
-						<div class="form-group">
-							<label>Position</label>
-							<input type="text" ng-model="data.body.shapes[shape.id].x" 
-							ng-change="resizeShape(shape.id)" class="form-control" float/>
-							<input type="text" ng-model="data.body.shapes[shape.id].y" 
-									ng-change="resizeShape(shape.id)" class="form-control" float/>
+			<accordion-group ng-repeat="shape in data.body.shapes" >
+				<!-- heading -->
+				<accordion-heading class="row">
+					<label class="col-md-4"> {{currentEntity.go.getShape(shape.id).lr_name}} </label>
+					<button ng-click="openEditModal(currentEntity.go.getShape(shape.id),'lr_name')" type="button" class="btn btn-default" tooltip="rename">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</button>
+					<button ng-click="resetShape(shape.id)" type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-repeat" tooltip="reset"></span>
+					</button>
+					<button ng-click="deleteShape(shape.id)" type="button" class="btn btn-danger">
+						<span class="glyphicon glyphicon-remove-sign" tooltip="remove"></span>
+					</button>
+				</accordion-heading>
+				<!-- EDIT A SHAPE -->
+				<div class="form-group">
+					<!-- Sensor -->		
+					<label>
+					Is Sensor <input type="checkbox" ng-model="currentEntity.go.getShape(shape.id).ed_sensor" />
+					</label>
+					<!-- size -->
+					<div class="row">
+						<label class="col-md-4">Position</label>
+						<input type="number" ng-model="data.body.shapes[shape.id].x" 
+						ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+						<input type="number" ng-model="data.body.shapes[shape.id].y" 
+								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+					</div>
 
-							<label>Size</label>
-							<input type="text" ng-model="data.body.shapes[shape.id].width" 
-									ng-change="resizeShape(shape.id)" class="form-control" float/>
-							<input type="text" ng-model="data.body.shapes[shape.id].height" 
-									ng-change="resizeShape(shape.id)" class="form-control" float/>	
+					<div class="row">
+						<label class="col-md-4">Size</label>
+						<input type="number" ng-model="data.body.shapes[shape.id].width" 
+								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+						<input type="number" ng-model="data.body.shapes[shape.id].height" 
+								ng-change="resizeShape(shape.id)" class="col-md-4" float/>	
+					</div>
 
-							<label>Rotation</label>						
-							<input type="text" ng-model="data.body.shapes[shape.id].rotation" 
-									ng-change="resizeShape(shape.id)" class="form-control" float/>
-						</div>
+					<div class="row">
+						<label class="col-md-4">Rotation</label>						
+						<input type="number" ng-model="data.body.shapes[shape.id].rotation" 
+								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
 					</div>
 				</div>
 				<div class="row">
-					<button ng-click="openEditModal(currentEntity.go.getShape(shape.id),'lr_name')" type="button" class="btn btn-default">
-						Name
-					</button>
-					<button ng-click="resetShape(shape.id)" type="button" class="btn btn-default">
-						Reset
-					</button>
-					<button ng-click="deleteShape(shape.id)" type="button" class="btn btn-danger">
-						Delete
-					</button>
+					
 				</div>
 			</accordion-group>
 			<div class="row">

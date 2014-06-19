@@ -55,6 +55,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 			$scope.moveEntityToEditorGroup(_args.entity);
 		});
 
+		$scope.$on("fixEntityToCameraBroadcast", function(_event, _args) {
+			$scope.fixEntityToCamera(_args.entity);
+		});
+
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesBroadcast", function(_event, _args) {
@@ -230,6 +234,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		//add Input Handler, for dragging and other events
 		sprite.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(sprite.go, $scope));
 		sprite.ed_locked = false;
+		sprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(sprite);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
@@ -246,6 +251,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		//add Input Handler, for dragging and other events
 		tilesprite.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(tilesprite.go, $scope));
 		tilesprite.ed_locked = false;
+		tilesprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(tilesprite);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
@@ -288,7 +294,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	$scope.forceAttributesRefresh = function(_currentEntity,_forceBodyRefresh){
 		$timeout( function() { 
-					$scope.$emit("refreshCurrentEntityEmit",{currentEntity : _currentEntity, forceBodyRefresh : _forceBodyRefresh});
+					$scope.$emit("refreshCurrentEntityEmit",{entity : _currentEntity, forceBodyRefresh : _forceBodyRefresh});
 				},
 				100);
 	}
@@ -297,6 +303,27 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		var oldParent = _entity.parent;
 		oldParent.remove(_entity);
 		$scope.editorGroup.add(_entity);
+	}
+
+	// Fix the entity the game camera (simulated in the editor)
+	// This will add a EntityCameraFixer behaviour to the entity
+	// You can chose to keep the current x & y values as the cameraOffset's
+	$scope.fixEntityToCamera = function(_entity,_keepValues){
+		if( _keepValues != null && _keepValues == true ){
+			_entity.cameraOffset.x = _entity.x;
+			_entity.cameraOffset.y = _entity.y;
+		}else{			
+			_entity.cameraOffset.x = 0;
+			_entity.cameraOffset.y = 0;
+		}
+		//
+		var bh = _entity.go.getBehaviour(LR.Editor.Behaviour.EntityCameraFixer);
+		if( bh == null ){
+			_entity.go.addBehaviour( new LR.Editor.Behaviour.EntityCameraFixer(_entity.go,$scope) );
+		}else{
+			bh.enabled = true;
+		}
+		$scope.$emit("refreshCurrentEntityEmit",{entity : _entity} );
 	}
 
 	//===================================================================
@@ -365,6 +392,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	//$scope.export = function(_url, _levelName, _storage) {
 	$scope.export = function(_levelPath, _levelName, _storage) {
+		console.log($scope.cutscenes);
 		var exporter = new LR.LevelExporter();
 		var level = exporter.export($scope.game,$scope.dataSettings,$scope.cutscenes);
 		var lvlStr = JSON.stringify(level);
@@ -474,6 +502,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	//Mainly called by the modal settings. Changes the camera size of the game. Not the editor view
 	$scope.changeGameCamera = function(_dataCam){
+		if( _dataCam.fixedToCamera){ 
+ 			_dataCam.x = 0; _dataCam.y = 0; 
+ 		} 
 		$scope.dataSettings.camera = _dataCam;
 		//Create Graphics if not already done
 		if( $scope.game.camera.ed_debugObject != null ){

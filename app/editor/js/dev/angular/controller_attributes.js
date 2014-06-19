@@ -44,13 +44,21 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.setX = function(_x){
 		if( $scope.currentEntity && $scope.currentEntity.go){
-			$scope.currentEntity.go.setX(_x);
+			if( $scope.currentEntity.ed_fixedToCamera){
+				$scope.currentEntity.cameraOffset.x = _x;
+			}else{				
+				$scope.currentEntity.go.setX(_x);
+			}
 		}
 	};
 
 	$scope.setY = function(_y){
 		if( $scope.currentEntity && $scope.currentEntity.go ){
-			$scope.currentEntity.go.setY(_y);
+			if( $scope.currentEntity.ed_fixedToCamera){
+				$scope.currentEntity.cameraOffset.y = _y;
+			}else{				
+				$scope.currentEntity.go.setY(_y);
+			}
 		}
 	};
 
@@ -68,6 +76,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( _entity.type == Phaser.GROUP ){
 				$scope.data.type = "group";
 				return;
+			}else if( _entity.type == Phaser.TEXT){
+				$scope.data.type = "text";
 			}else{
 				$scope.data.type = "sprite";
 			}
@@ -82,8 +92,13 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.data.imageFrame = $scope.currentEntity.frame;
 
 			//position
-			$scope.data.entityX = _entity.x;
-			$scope.data.entityY = _entity.y;
+			if( _entity.ed_fixedToCamera == true){
+				$scope.data.entityX = _entity.cameraOffset.x;
+				$scope.data.entityY = _entity.cameraOffset.y;
+			}else{
+				$scope.data.entityX = _entity.x;
+				$scope.data.entityY = _entity.y;
+			}
 			//body
 			if( _forceBody == null )
 				_forceBody = true;
@@ -201,6 +216,17 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.$emit("lockEntityEmit",{ entity : $scope.currentEntity});
 			else
 				$scope.currentEntity.go.sendMessage("unlock");
+		}
+	}
+
+	$scope.toggleFixedToCamera = function(){
+		if( $scope.currentEntity && $scope.currentEntity.ed_fixedToCamera ){
+			$scope.$emit("fixEntityToCameraEmit",{entity : $scope.currentEntity});
+		}else{
+			var bh = $scope.currentEntity.go.getBehaviour(LR.Editor.Behaviour.EntityCameraFixer);
+			if( bh ){
+				bh.enabled = false;
+			}
 		}
 	}
 
