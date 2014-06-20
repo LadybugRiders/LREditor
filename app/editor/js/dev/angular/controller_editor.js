@@ -31,6 +31,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("addTileSpriteBroadcast");
 		});
 
+		$scope.$on("addTextEmit", function(_event) {
+			$scope.$broadcast("addTextBroadcast");
+		});
+
 		//================== CLONE & STUFF ======================
 
 		$scope.$on("cloneEntityEmit", function(_event, _args) {

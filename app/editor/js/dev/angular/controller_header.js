@@ -110,6 +110,26 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
+	/******************
+	** ADDING ENTITIES **
+	******************/
+
+	$scope.addGroup = function() {
+		$scope.$emit("addGroupEmit");
+	};
+
+	$scope.addSprite = function() {
+		$scope.$emit("addSpriteEmit");
+	};
+
+	$scope.addTileSprite = function() {
+		$scope.$emit("addTileSpriteEmit");
+	};
+
+	$scope.addText = function() {
+		$scope.$emit("addTextEmit");
+	};
+
 	/*******************
 	** LEVEL IMPORTER **
 	*******************/

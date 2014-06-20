@@ -32,6 +32,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 			$scope.addTileSprite();
 		});
 
+		$scope.$on("addTextBroadcast", function(_event) {
+			$scope.addText();
+		});
+
 		//================== DELETE / CLONE / MISC ======================
 
 		$scope.$on("cloneEntityBroadcast", function(_event, _args) {
@@ -259,6 +263,21 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		tilesprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(tilesprite);
+		$scope.$emit("refreshListEmit", {world: $scope.game.world});
+	};
+
+	$scope.addText = function() {
+		var text = new LR.Entity.Text($scope.game, 
+										$scope.game.camera.view.centerX, /* x */
+										$scope.game.camera.view.centerY, /* y */
+										"New Text");
+		text.name = "Text";
+		//add Input Handler, for dragging and other events
+		text.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(text.go, $scope));
+		text.ed_locked = false;
+		text.ed_fixedToCamera = false;
+		//Add to editor game
+		$scope.game.add.existing(text);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 	};
 

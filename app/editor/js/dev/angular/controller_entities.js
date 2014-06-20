@@ -44,18 +44,6 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", funct
 		}
 	};
 
-	$scope.addGroup = function() {
-		$scope.$emit("addGroupEmit");
-	};
-
-	$scope.addSprite = function() {
-		$scope.$emit("addSpriteEmit");
-	};
-
-	$scope.addTileSprite = function() {
-		$scope.$emit("addTileSpriteEmit");
-	};
-
 	$scope.isGroup = function(_entity) {
 		return _entity instanceof LR.Entity.Group
 						|| _entity instanceof Phaser.Group;

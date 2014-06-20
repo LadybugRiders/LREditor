@@ -88,6 +88,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.activate = function(_target) {
 	if( _target === this.target)
 		return;
 
+	this.entity.anchor = _target.anchor;
+
 	this.lastTarget = this.target;
 	this.target = _target;
 

@@ -13,7 +13,10 @@
 * @param {stirng} name Name of the GameObject attached
 */
 LR.Entity.Text = function(_game, _x, _y, _baseText, _style, _name) {
-
+	//Create default style if none is given
+	if( _style == null ){
+		_style = { font: "35px Arial", fill: "#ffffff", align: "center" };
+	}
 	Phaser.Text.call(this, _game, _x, _y, _baseText,_style);
 
 	this.go = new LR.GameObject(this);

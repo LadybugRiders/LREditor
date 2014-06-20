@@ -15,7 +15,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			image: $scope.noneImage,
 			imageFrame: 0,
 			images: new Array(),
-			body : {shapes : []}
+			body : {shapes : []},
+			text : {}
 		};
 
 		$scope.modalArgsData = {
@@ -89,15 +90,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}else{
 				$scope.data.type = "sprite";
 			}
-			
-			var key = $scope.currentEntity.key;
-			if (key === "" || key === "__missing" || key == null) {
-				$scope.data.image = $scope.noneImage;
-			} if (key !== "none") {
-				var image = $scope.currentEntity.game.cache.getImage(key);
-				$scope.data.image = image;
-			}
-			$scope.data.imageFrame = $scope.currentEntity.frame;
 
 			//position
 			if( _entity.ed_fixedToCamera == true){
@@ -107,6 +99,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.data.entityX = _entity.x;
 				$scope.data.entityY = _entity.y;
 			}
+			
+			//image
+			if( $scope.data.type == "sprite"){
+				var key = $scope.currentEntity.key;
+				if (key === "" || key === "__missing" || key == null) {
+					$scope.data.image = $scope.noneImage;
+				} if (key !== "none") {
+					var image = $scope.currentEntity.game.cache.getImage(key);
+					$scope.data.image = image;
+				}
+				$scope.data.imageFrame = $scope.currentEntity.frame;
+			}
+
 			//body
 			if( (isNew || _forceBody==true) && $scope.currentEntity.body ){
 				$scope.data.body.shapes = new Array();
@@ -122,6 +127,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 						};
 					$scope.data.body.shapes.push(edDataShape);
 				}
+			}
+			//text
+			if( $scope.data.type == 'text' ){
+				$scope.data.text.value = _entity.text;
+				$scope.data.text.fontSize = _entity.fontSize;
 			}
 		} else {
 			this.resetData();
@@ -346,6 +356,14 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.currentEntity.body.shapeChanged();
 			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
+	}
+
+	//=========================================================
+	//					TEXT
+	//=========================================================
+
+	$scope.changeText = function( _text ){
+
 	}
 
 	//=========================================================

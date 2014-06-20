@@ -43,11 +43,11 @@
 		<div class="row">
 			<div class="col-md-6">
 				<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)"
-					 class="form-control" float/>
+					 class="form-control" integer/>
 			</div>
 			<div class="col-md-6">
 				<input type="number" ng-model="data.entityY" ng-change="setY(data.entityY)" 
-				class="form-control" float/>
+				class="form-control" integer/>
 			</div>
 		</div>
 	</div>
@@ -56,19 +56,36 @@
 		<label>Size</label>
 		<div class="row">
 			<div class="col-md-6">
-				<input type="number" ng-model="currentEntity.width" class="form-control" float/>
+				<input type="number" ng-model="currentEntity.width" class="form-control" integer/>
 			</div>
 			<div class="col-md-6">
-				<input type="number" ng-model="currentEntity.height" class="form-control" float/>
+				<input type="number" ng-model="currentEntity.height" class="form-control" integer/>
 			</div>
 		</div>
 	</div>
 </div>
 
+<!-- Text Editing -->
+<div ng-if="data.type == 'text' " class="form-group">
+	<div class="row">
+		<div class = "col-md-8">
+			<input type="text" ng-model="currentEntity.text" ng-change="changeText(currentEntity.text)" 
+					class="form-control" />
+		</div>
+		<div class="col-md-4">
+			<button ng-click="openEditModal(currentEntity,'text',true)" type="button" class="btn btn-default" tooltip="Edit Text">
+					<span class="glyphicon glyphicon-pencil"></span>
+			</button>	
+		</div>	
+	</div>
+
+	<input type="number" ng-model="currentEntity.fontSize"
+			class="form-control" integer/>
+</div>
 <!-- ROTATION -->
 <div class="form-group">
 	<label>Rotation</label>
-	<input type="number" ng-model="currentEntity.angle" class="form-control" float/>
+	<input type="number" ng-model="currentEntity.angle" class="form-control" integer/>
 </div>
 <!-- DEBUG -->
 <div class="form-group">
