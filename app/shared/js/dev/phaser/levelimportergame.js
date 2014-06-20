@@ -21,10 +21,9 @@ LR.LevelImporterGame.prototype.import = function(_level, _game, _promise) {
 		_game.cutsceneManager.loadCutscenes( _level.cutscenes );
 	//Place Camera
 	if( _level.settings ){
-		console.log(_game.camera.x);
 		_game.camera.bounds = null;
-		_game.camera.x = -200;
-		console.log(_game.camera.x);
+		_game.camera.x = _level.settings.camera.x;
+		_game.camera.y = _level.settings.camera.y;
 	}
 };
 

@@ -85,13 +85,13 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("moveEntityToEditorBroadcast", _args);
 		});
 
-
+		//from phaser to header
 		$scope.$on("sendSettingsEmit", function(_event, _args) {
 			$scope.$broadcast("sendSettingsBroadcast", _args);
 		});
-
-		$scope.$on("changeGameCameraEmit", function(_event, _args) {
-			$scope.$broadcast("changeGameCameraBroadcast", _args);
+		//from modale_settings to phaser & header
+		$scope.$on("saveSettingsEmit", function(_event, _args) {
+			$scope.$broadcast("saveSettingsBroadcast", _args);
 		});
 		
 		$scope.$on("openEditModalEmit", function(_event, _args) {

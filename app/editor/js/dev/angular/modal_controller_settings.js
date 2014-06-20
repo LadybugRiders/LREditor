@@ -14,14 +14,16 @@ var SettingsCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.modalSettingsData.camera.width = parseInt($scope.modalSettingsData.camera.width);
       $scope.modalSettingsData.camera.height = parseInt($scope.modalSettingsData.camera.height);
 
-      console.log($scope.modalSettingsData.camera);
+      //console.log($scope.modalSettingsData.camera);
 
-    	$scope.$emit("changeGameCameraEmit",$scope.modalSettingsData.camera);
+    	$scope.$emit("saveSettingsEmit",$scope.modalSettingsData);
     }
     $modalInstance.close($scope.modalSettingsData);
   };
 
   $scope.close = function () {
+    console.log("close");
+    $scope.modalSettingsData = jQuery.extend(true, {}, $scope.modalSettingsSave);
     $modalInstance.dismiss();
   };
 
