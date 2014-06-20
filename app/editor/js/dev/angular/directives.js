@@ -222,6 +222,7 @@ moduleDirectives.directive('listEntities', function() {
 
 		var a = document.createElement("a");
 		a.textContent = _entity.name;
+
 		a.onclick = function(_event) {
 				_scope.$apply(function() {
 					_scope.selectEntity(_entity);
