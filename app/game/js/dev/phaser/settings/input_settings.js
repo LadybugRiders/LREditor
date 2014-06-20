@@ -5,6 +5,7 @@ var InputSettings = function(){
 }
 
 InputSettings.keys = {
- "valid" : { key : Phaser.Keyboard.SPACEBAR },
- "cancel" : { key : Phaser.Keyboard.C }
+ "left" : { key : Phaser.Keyboard.LEFT },
+ "right" : { key : Phaser.Keyboard.RIGHT },
+ "jump" : { key : Phaser.Keyboard.UP }
 }

@@ -27,12 +27,10 @@ PhysicsSettings.DYNAMIC = Phaser.Physics.P2.Body.DYNAMIC;
 PhysicsSettings.KINEMATIC = Phaser.Physics.P2.Body.KINEMATIC;
 
 PhysicsSettings.LAYERS = {
-	"default" : {"collisions" :[] },
-	"player" : {"collisions" : ["death","ground","item","enemy","trigger_player"] },
-	"ground" : {"collisions" : ["player","enemy"] },
+	"default" : {"collisions" :[]},
+	"player" : {"collisions" : ["death","ground","trigger_player"]},
+	"ground" : {"collisions" : ["player"]},
 	"death": {"collisions" : ["player"]},
-	"item" : {"collisions" : ["player"]}, 
-	"enemy" : {"collisions" : ["player","ground"]},	
 	"trigger_player" : {"collisions" : ["player"]}
 };
 
