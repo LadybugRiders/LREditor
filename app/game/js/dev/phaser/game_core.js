@@ -11,11 +11,11 @@ var GameCore = function() {
 		this.game.plugins.add(Phaser.Plugin.CutsceneManager);
 		this.game.plugins.add(Phaser.Plugin.DialogManager);
 
-		var bootstate = new LR.Loopy.State.BootState(this);
-		var loadstate = new LR.Loopy.State.LoadingState(this);
-		var selectstate = new LR.Loopy.State.SelectionMenuState(this);
-		var playstate = new LR.Loopy.State.PlayState(this);
-		var levelstate = new LR.Loopy.State.LevelState(this);
+		var bootstate = new BootState(this);
+		var loadstate = new LoadingState(this);
+		var selectstate = new SelectionMenuState(this);
+		var playstate = new PlayState(this);
+		var levelstate = new LevelState(this);
 
 		this.state.start("Boot");
 	};

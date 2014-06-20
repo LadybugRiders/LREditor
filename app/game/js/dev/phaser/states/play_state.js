@@ -3,19 +3,19 @@
 var PLAYER;
 var BG;
 
-LR.Loopy.State.PlayState = function(_game) {
+var PlayState = function(_game) {
 	LR.State.call(this, _game);
 	_game.state.add("Play", this, false);
 };
 
-LR.Loopy.State.PlayState.prototype = Object.create(LR.State.prototype);
-LR.Loopy.State.PlayState.prototype.constructor = LR.Loopy.State.PlayState;
+PlayState.prototype = Object.create(LR.State.prototype);
+PlayState.prototype.constructor = PlayState;
 
-LR.Loopy.State.PlayState.prototype.preload = function(){
+PlayState.prototype.preload = function(){
 
 }
 
-LR.Loopy.State.PlayState.prototype.create = function(){
+PlayState.prototype.create = function(){
 	//this has to be done since 2.0.3 is not working well with inputs
 	this.game.inputManager.init(InputSettings.keys);
 
@@ -86,14 +86,14 @@ LR.Loopy.State.PlayState.prototype.create = function(){
 	this.game.camera.follow(PLAYER.entity);
 }
 
-LR.Loopy.State.PlayState.prototype.update = function(){
+PlayState.prototype.update = function(){
 	BG.tilePosition.x += PLAYER.body.velocity.x * 0.1;
 }
 
 //===============================================================
 //						OBSTACLES
 //===============================================================
-LR.Loopy.State.PlayState.prototype.createObstacles = function(){
+PlayState.prototype.createObstacles = function(){
 	//Create a group for obstacles and enable the body
 	this.obstacles = this.game.add.group();
     this.obstacles.enableBody = true;
@@ -126,7 +126,7 @@ LR.Loopy.State.PlayState.prototype.createObstacles = function(){
 	triggerScript.create({ callbackName : "win", interactives : ["player"]	});
 }
 
-LR.Loopy.State.PlayState.prototype.createGround = function(_x,_y,_width,_height,_name){
+PlayState.prototype.createGround = function(_x,_y,_width,_height,_name){
 	var obstacle;
 	obstacle = new LR.Entity.Sprite(this.game,_x,_y,"",_name).go;
 	obstacle.enablePhysics(PhysicsSettings.STATIC,"ground",_width,_height);
@@ -141,7 +141,7 @@ LR.Loopy.State.PlayState.prototype.createGround = function(_x,_y,_width,_height,
 //						COINS
 //==============================================================
 
-LR.Loopy.State.PlayState.prototype.createCoins = function(){
+PlayState.prototype.createCoins = function(){
 	this.coins = this.game.add.group();
     this.coins.enableBody = true;
     this.coins.physicsBodyType = Phaser.Physics.P2JS;
@@ -149,7 +149,7 @@ LR.Loopy.State.PlayState.prototype.createCoins = function(){
 	var coin = this.createCoin(300,-200);
 }
 
-LR.Loopy.State.PlayState.prototype.createCoin = function(_x,_y){
+PlayState.prototype.createCoin = function(_x,_y){
 	var coin = new LR.Entity.Sprite(this.game,_x,_y,"coin","Coin").go;
 	var collectScript = new LR.Loopy.Behaviour.Collectable(coin);
 	coin.addBehaviour(collectScript);
@@ -165,7 +165,7 @@ LR.Loopy.State.PlayState.prototype.createCoin = function(_x,_y){
 //						MENU IN GAME
 //==============================================================
 
-LR.Loopy.State.PlayState.prototype.createMenu = function(_inventory){
+PlayState.prototype.createMenu = function(_inventory){
 	var group = this.game.add.group();
 	//TOP RIGTH == coin
 	var coin = new LR.Entity.Sprite(this.game,530, 24, "coin", "menu_coin");

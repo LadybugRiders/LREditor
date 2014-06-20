@@ -1,18 +1,18 @@
 "use strict";
 
-LR.Loopy.State.SelectionMenuState = function(_game) {
+var SelectionMenuState = function(_game) {
 	LR.State.call(this, _game);
 	_game.state.add("SelectionMenu", this, false);
 };
 
-LR.Loopy.State.SelectionMenuState.prototype = Object.create(LR.State.prototype);
-LR.Loopy.State.SelectionMenuState.prototype.constructor = LR.Loopy.State.SelectionMenuState;
+SelectionMenuState.prototype = Object.create(LR.State.prototype);
+SelectionMenuState.prototype.constructor = SelectionMenuState;
 
-LR.Loopy.State.SelectionMenuState.prototype.preload = function() {
+SelectionMenuState.prototype.preload = function() {
 	this.game.load.spritesheet('levels_sheet', 'assets/images/menus/main/levels.png', 90, 90 , 6);	
 }
 
-LR.Loopy.State.SelectionMenuState.prototype.create = function(){
+SelectionMenuState.prototype.create = function(){
 	this.playButtons = new Array();	
 
 	this.playButtons.push( this.game.add.button(200,100, 'levels_sheet', this.onClick1,
@@ -28,14 +28,14 @@ LR.Loopy.State.SelectionMenuState.prototype.create = function(){
 	
 }
 
-LR.Loopy.State.SelectionMenuState.prototype.onClick1 = function() {
+SelectionMenuState.prototype.onClick1 = function() {
 	this.game.state.start("Level", true, false, {levelName: "level1"});
 }
 
-LR.Loopy.State.SelectionMenuState.prototype.onClick2 = function() {
+SelectionMenuState.prototype.onClick2 = function() {
 	this.game.state.start("Level", true, false, {levelName: "level2"});
 }
 
-LR.Loopy.State.SelectionMenuState.prototype.onClick3 = function() {
+SelectionMenuState.prototype.onClick3 = function() {
 	this.game.state.start("Level", true, false, {levelName: "level3"});
 }

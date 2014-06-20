@@ -1,16 +1,16 @@
 "use strict";
 
-LR.Loopy.State.LevelState = function(_game) {
+var LevelState = function(_game) {
 	LR.State.call(this, _game);
 	_game.state.add("Level", this, false);
 
 	this.level = null;
 };
 
-LR.Loopy.State.LevelState.prototype = Object.create(LR.State.prototype);
-LR.Loopy.State.LevelState.prototype.constructor = LR.Loopy.State.LevelState;
+LevelState.prototype = Object.create(LR.State.prototype);
+LevelState.prototype.constructor = LevelState;
 
-LR.Loopy.State.LevelState.prototype.init = function(_args) {
+LevelState.prototype.init = function(_args) {
 	if (_args) {
 		if (_args.levelName) {
 			this.levelName = _args.levelName;
@@ -19,7 +19,7 @@ LR.Loopy.State.LevelState.prototype.init = function(_args) {
 	}
 };
 
-LR.Loopy.State.LevelState.prototype.preload = function() {
+LevelState.prototype.preload = function() {
 	if (this.levelName == null) {
 		this.levelName = GameCore.GetUrlParamValue("levelname");
 	}
@@ -41,7 +41,7 @@ LR.Loopy.State.LevelState.prototype.preload = function() {
 
 };
 
-LR.Loopy.State.LevelState.prototype.create = function() {
+LevelState.prototype.create = function() {
 	//this has to be done since 2.0.3 is not working well with inputs
 	this.game.inputManager.init(InputSettings.keys);
 	//physics
