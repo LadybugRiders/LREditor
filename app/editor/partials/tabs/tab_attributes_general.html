@@ -29,12 +29,6 @@
 	<label>Name</label>
 	<input type="text" ng-model="currentEntity.name" class="form-control"/>
 </div>
-<!-- PARENT -->
-<div class="form-group">
-	<label>Parent</label>
-	<select ng-model="_newParent" ng-change="setParent(_newParent)" ng-options="parent.name for parent in currentEntity.game.world.children | groups" class="form-control">
-	</select>
-</div>
 
 <div ng-if="data.type != 'group' " class="form-group">
 	<!-- POSITION -->
