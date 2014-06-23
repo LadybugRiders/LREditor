@@ -68,6 +68,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	};
 
 	$scope.refreshCurrentEntity = function(_entity,_forceBody) {
+		
 		if( _entity.game == null ){
 			this.resetData();
 			return;
@@ -80,6 +81,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 
 			$scope.currentEntity = _entity;
+
 			//TYPE
 			if( _entity.type == Phaser.GROUP ){
 				$scope.data.type = "group";
@@ -133,11 +135,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.data.text.fontSize = _entity.fontSize;
 			}
 
-			console.log($scope.data);
 		} else {
 			this.resetData();
 			console.error("entity is null");
 		}
+		$scope.$apply();
 	};
 
 	$scope.clone = function() {
@@ -180,7 +182,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				if (b === _behaviour) {
 					behaviours.splice(i, 1);
 				}
-
 				i++;
 			}
 		}
