@@ -194,5 +194,14 @@ LR.LevelExporter.prototype.exportEntity = function(_entity) {
 			);
 		}
 	}
+	//Text
+	if( _entity.type == Phaser.TEXT){
+		eObj.textData = {
+			text : _entity.text,
+			style : {
+				fontSize : _entity.fontSize
+			}
+		};
+	}
 	return eObj;
 };

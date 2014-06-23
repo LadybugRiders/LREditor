@@ -80,7 +80,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 
 			$scope.currentEntity = _entity;
-
 			//TYPE
 			if( _entity.type == Phaser.GROUP ){
 				$scope.data.type = "group";
@@ -133,6 +132,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.data.text.value = _entity.text;
 				$scope.data.text.fontSize = _entity.fontSize;
 			}
+
+			console.log($scope.data);
 		} else {
 			this.resetData();
 			console.error("entity is null");

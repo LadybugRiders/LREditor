@@ -168,6 +168,15 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 		if( entity.body ){
 			this.setBody(_object,entity);
 		}
+
+		//TEXT
+		if( entity.type == Phaser.TEXT){
+			entity.width = _object.textData.style.fontSize; 
+			entity.text = _object.textData.text;
+			//Reset width after font settings are filled
+			entity.width = _object.width;
+			entity.height = _object.height;
+		}
 	}
 
 	return entity;

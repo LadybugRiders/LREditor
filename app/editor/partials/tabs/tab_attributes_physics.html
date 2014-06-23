@@ -40,7 +40,7 @@
 					<label class="col-md-3">Angle</label>
 					<input type="number" ng-model="currentEntity.body.angle" 
 					min="-180" max="180"
-					class="col-md-4" float/>
+					class="col-md-4" integer/>
 				</div>
 
 				<button ng-click="removeBodyFromCurrentEntity()" type="button" class="btn btn-danger">Remove Body</button>
@@ -74,23 +74,23 @@
 					<div class="row">
 						<label class="col-md-4">Position</label>
 						<input type="number" ng-model="data.body.shapes[shape.id].x" 
-						ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+						ng-change="resizeShape(shape.id)" class="col-md-4" integer/>
 						<input type="number" ng-model="data.body.shapes[shape.id].y" 
-								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>
 					</div>
 
 					<div class="row">
 						<label class="col-md-4">Size</label>
 						<input type="number" ng-model="data.body.shapes[shape.id].width" 
-								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>
 						<input type="number" ng-model="data.body.shapes[shape.id].height" 
-								ng-change="resizeShape(shape.id)" class="col-md-4" float/>	
+								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>	
 					</div>
 
 					<div class="row">
 						<label class="col-md-4">Rotation</label>						
 						<input type="number" ng-model="data.body.shapes[shape.id].rotation" 
-								ng-change="resizeShape(shape.id)" class="col-md-4" float/>
+								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>
 					</div>
 				</div>
 			</accordion-group>
