@@ -156,6 +156,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 
 		$scope.sendSettings();
+
+		$scope.import("app/game/assets/levels", "level1", "file");
 	};
 
 	$scope.update = function() {

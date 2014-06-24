@@ -94,355 +94,6 @@ moduleDirectives.directive('accordionDraggable', function() {
 	};
 });
 
-moduleDirectives.directive('listEntities', function() {
-	function link(_scope, _element, _attrs) {
-		var element = _element;
-		if (element.length > 0) element = element[0];
-
-		fillListEntities(_scope, element, _scope.entities);
-
-		_scope.$watch('entities', function(_value) {
-			fillListEntities(_scope, element, _value);
-		});
-	};
-
-	// create the entities list
-	function fillListEntities(_scope, _element, _entities, _allClose) {
-		var rootEntities = new Array();
-		if (_entities) {
-			if (_entities.length == null) {
-				rootEntities.push(_entities);
-			} else {
-				rootEntities = _entities;
-			}
-		}
-
-		// empty the root list
-		empty(_element);
-		var ul = document.createElement("ul");
-		_element.appendChild(ul);
-
-		for (var i = (rootEntities.length - 1); i >= 0; i--) {
-			printEntity(_scope, rootEntities[i], ul);
-		};
-	};
-
-	// empty a DOM element (using jQuery)
-	function empty(_element) {
-		if (_element.empty) {
-			_element.empty();
-		} else {
-			$(_element).empty();
-		}
-	};
-
-	// create an entity and its descendants recursively
-	function printEntity(_scope, _entity, _parentElement) {
-		if (_entity) {
-			if (isEditorEntity(_entity) == false) {
-				var isGroup = _scope.isGroup(_entity);
-
-				// create the entity's li element
-				var li = document.createElement("li");
-				li.setAttribute("class", "entity");
-				li.entity = _entity;
-				
-				_parentElement.appendChild(li);
-
-				// only group can have children
-				if (isGroup) {
-					// create button to show/hide descendants
-					createCollapse(_scope, _entity, li);
-				}
-
-				// create the a element with the entity's name
-				createA(_scope, _entity, li);
-
-				// create arrows to change entity's z-index
-				createArrows(_scope, _entity, li);
-
-				// create the a element with the entity's name
-				createEdit(_scope, _entity, li);
-
-				// only group can have children
-				if (isGroup) {
-					var ul = document.createElement("ul");
-					ul.style.display = "none";
-					li.appendChild(ul);
-
-					// for each child
-					if (_entity.children) {
-						if (_entity.children.length > 0) {
-							for (var i = (_entity.children.length - 1); i >= 0; i--) {
-								var child = _entity.children[i];
-								// create entity and its descendants
-								printEntity(_scope, child, ul);
-							};
-						}
-					}
-				}
-			}
-		}
-	};
-
-	// create button to show/hide entity's descendants
-	function createCollapse(_scope, _entity, _parentElement) {
-		var collapse = document.createElement("a");
-
-		collapse.setAttribute("type", "button");
-		collapse.setAttribute("class", "chevron");
-		var chevron = document.createElement("span");
-		chevron.setAttribute("class", "glyphicon glyphicon-chevron-right");
-		collapse.onclick = function(_event) {
-			var element = $(_event.target);
-			if (element.attr("type") != "button") {
-				element = element.parent();
-			}
-			var parent = element.parent();
-			
-			var lists = parent.children("ul");
-			if (lists) {
-				if (lists.length > 0) {
-					var ul = lists[0];
-					if (ul.style.display == "none") {
-						ul.style.display = "block";
-						element.children("span").attr("class", "glyphicon glyphicon-chevron-down")
-					} else {
-						ul.style.display = "none";
-						element.children("span").attr("class", "glyphicon glyphicon-chevron-right")
-					}
-				}
-			}
-		};
-		collapse.appendChild(chevron);
-
-		_parentElement.appendChild(collapse);
-	}
-
-	// create the a element with the entity's name
-	function createA(_scope, _entity, _parentElement) {
-		var isGroup = _scope.isGroup(_entity);
-
-		var a = document.createElement("a");
-		a.textContent = _entity.name;
-
-		a.onclick = function(_event) {
-			_scope.selectEntity(_entity);
-		};
-
-		if (isGroup == false) {
-			a.setAttribute("class", "margin-left");
-		}
-		a.draggable = true;
-		a.ondragstart = drag;
-		// only group can have children
-		if (isGroup) {
-			a.ondrop = drop;
-			a.ondragover = dragOver;
-			a.ondragenter = dragEnter;
-			a.ondragleave = dragLeave;
-		}
-		
-		_parentElement.appendChild(a);
-	};
-
-	// create the a element with the entity's name
-	function createEdit(_scope, _entity, _parentElement) {
-		var arrowUp = document.createElement("a");
-		arrowUp.setAttribute("class", "edit");
-		var arrowUpSpan = document.createElement("span");
-		arrowUpSpan.setAttribute("class", "glyphicon glyphicon-pencil");
-		arrowUpSpan.onclick = function(_event) {
-			_entity.name = "LBAL";
-			_scope.selectEntity(_entity);
-		};
-		arrowUp.appendChild(arrowUpSpan);
-		
-		_parentElement.appendChild(arrowUp);
-	};
-
-	// create arrows to change entity's z-index
-	function createArrows(_scope, _entity, _parentElement) {
-		var arrows = document.createElement("span");
-
-		arrows.setAttribute("class", "arrows");
-
-		var arrowDown = document.createElement("a");
-		var arrowDownSpan = document.createElement("span");
-		arrowDownSpan.setAttribute("class", "glyphicon glyphicon-arrow-down");
-		arrowDownSpan.onclick = function(_event) {
-			var li = null;
-			if (_event.target.localName == "span") {
-				li = _event.target.parentNode.parentNode.parentNode;
-			} else if (_event.target.localName == "a") {
-				li = _event.target.parentNode.parentNode;
-			}
-
-			if (li) {
-				var prev = li.nextSibling;
-				if (prev) {
-					li.parentNode.insertBefore(prev, li);
-				} else {
-					console.warn("no next li");
-				}
-			}
-
-			_scope.moveDown(_entity);
-		};
-		arrowDown.appendChild(arrowDownSpan);
-		arrows.appendChild(arrowDown);
-
-		var arrowUp = document.createElement("a");
-		var arrowUpSpan = document.createElement("span");
-		arrowUpSpan.setAttribute("class", "glyphicon glyphicon-arrow-up");
-		arrowUpSpan.onclick = function(_event) {
-			var li = null;
-			if (_event.target.localName == "span") {
-				li = _event.target.parentNode.parentNode.parentNode;
-			} else if (_event.target.localName == "a") {
-				li = _event.target.parentNode.parentNode;
-			}
-
-			if (li) {
-				var prev = li.previousSibling;
-				if (prev) {
-					li.parentNode.insertBefore(li, prev);
-				} else {
-					console.warn("no previous li");
-				}
-			}
-
-			_scope.moveUp(_entity);
-		};
-		arrowUp.appendChild(arrowUpSpan);
-		arrows.appendChild(arrowUp);
-
-		_parentElement.appendChild(arrows);
-	}
-
-	function dragOver(ev) {
-	  ev.preventDefault();
-	}
-
-	function dragEnter(ev) {
-		if (ev.target) {
-			var element = ev.target;
-			if (element.localName != "li") element = element.parentNode;
-
-	    if (element.localName == "li") {
-	    	// show borders
-	    	element.style.border = "1px dashed black";
-	    }
-	  }
-	}
-
-	function dragLeave(ev) {
-		if (ev.target) {
-			var element = ev.target;
-			if (element.localName != "li") element = element.parentNode;
-	    
-	    if (element.localName == "li") {
-	    	// hide borders
-	    	element.style.border = "0px";
-	    }
-	  }
-	}
-
-	function drag(ev) {
-		var element = ev.target;
-
-		var cpt = 0;
-		// get parent li
-		while (element.localName != "li" && cpt < 10) {
-			element = element.parentNode;
-
-			cpt++;
-		}
-
-		if (element) {
-			element.id = "dragged-item";
-	  	ev.dataTransfer.setData("Text", element.id);
-	  	ev.dataTransfer.setData("Object", element.entity);
-		}
-	}
-
-	function drop(ev) {
-		if (ev.target) {
-			var element = ev.target;
-			if (element.localName != "li") element = element.parentNode;
-			var uls = element.getElementsByTagName("ul");
-			if (uls.length > 0) {
-				var ul = uls[0];
-
-				ev.preventDefault();
-			  var data = ev.dataTransfer.getData("Text");
-			  var draggedItem = document.getElementById(data);
-			  if (draggedItem) {
-			  	var entity = element.entity;
-			  	if (entity) {
-			  		var draggedEntity = draggedItem.entity;
-			  		if (draggedEntity) {
-			  			if (entity != draggedEntity) {
-			  				if (isDescendantOf(entity, draggedEntity) == false) {
-				  				var oldParent = draggedEntity.parent;
-									oldParent.remove(draggedEntity);
-									entity.add(draggedEntity);
-
-									ul.insertBefore(draggedItem, ul.firstChild);
-					  			draggedItem.id = "";
-				  			} else {
-				  				console.error("dragged item is parent of current item");
-				  			}
-			  			} else {
-			  				console.error("dragged item and current item are the same");
-			  			}
-			  		} else{
-				  		console.warn("no entity attached to dragged li");
-				  	}
-			  	} else{
-			  		console.warn("no entity attached to li");
-			  	}
-			  }
-			}
-		}
-
-		// hide all borders
-		$("#entities .list-entities *").css("border", "0px")
-	};
-
-	// check if an entity is descendant of an other
-	function isDescendantOf(_descendant, _parent) {
-		var isDescendant = false;
-
-		var parent = _descendant.parent;
-		while (parent) {
-			if (parent == _parent) {
-				isDescendant = true;
-			}
-
-			parent = parent.parent;
-		}
-
-		return isDescendant;
-	}
-
-	function isEditorEntity(_entity) {
-		var editorEntity = false;
-
-		if (typeof _entity.name === "string") {
-			if (_entity.name[0] == "_" && _entity.name[1] == "_") {
-				editorEntity = true;
-			}
-		}
-
-		return editorEntity;
-	}
-
-	return {
-		link: link
-	};
-});
-
 moduleDirectives.directive('entityCollapse', function() {
 	function link(_scope, _element, _attrs) {
 		_element.click(function() {
@@ -463,5 +114,152 @@ moduleDirectives.directive('entityCollapse', function() {
 
 	return {
 		link: link
+	};
+});
+
+moduleDirectives.directive('entityDrag', function() {
+	function link(_scope, _element, _attrs) {
+
+		_scope.init = function(_scope, _element, _attrs) {
+			var isGroup = _scope.isGroup(_scope.entity);
+
+			_element.attr("draggable" , true);
+			_element.on({dragstart: _scope.drag});
+			// only group can have children
+			if (isGroup) {
+				_element.on({
+					drop: _scope.drop,
+					drag: _scope.drag,
+					dragover: _scope.dragOver,
+					dragenter: _scope.dragEnter,
+					dragleave: _scope.dragLeave
+				});
+			}
+
+			console.log("ok");
+		};
+
+		_scope.isGroup = function(_entity) {
+			return _entity instanceof LR.Entity.Group
+							|| _entity instanceof Phaser.Group
+							|| _entity.type === Phaser.GROUP;
+		};
+
+		_scope.dragOver = function(ev) {
+	  	ev.preventDefault();
+		};
+
+		_scope.dragEnter = function(ev) {
+			/*if (ev.target) {
+				var element = ev.target;
+				if (element.localName != "li") element = element.parentNode;
+
+		    if (element.localName == "li") {
+		    	// show borders
+		    	element.style.border = "1px dashed black";
+		    }
+		  }*/
+		};
+
+		_scope.dragLeave = function(ev) {
+			/*if (ev.target) {
+				var element = ev.target;
+				if (element.localName != "li") element = element.parentNode;
+		    
+		    if (element.localName == "li") {
+		    	// hide borders
+		    	element.style.border = "0px";
+		    }
+		  }*/
+		};
+
+		_scope.drag = function(ev) {
+			/*var element = ev.target;
+
+			var cpt = 0;
+			// get parent li
+			while (element.localName != "li" && cpt < 10) {
+				element = element.parentNode;
+
+				cpt++;
+			}
+
+			if (element) {
+				element.id = "dragged-item";
+		  	ev.dataTransfer.setData("Text", element.id);
+		  	ev.dataTransfer.setData("Object", element.entity);
+			}*/
+			//ev.originalEvent.dataTransfer.effectAllowed = 'move';
+			console.log(ev);
+			ev.target.id = "dragged-item";
+			ev.target.entity = _scope.entity;
+			ev.originalEvent.dataTransfer.setData("Text", ev.target.id);
+			//ev.dataTransfer.setData("Object", _scope.entity);
+		};
+
+		_scope.drop = function(ev) {
+			console.log(ev);
+			if (ev.target) {
+				/*var element = ev.target;
+				if (element.localName != "li") element = element.parentNode;
+				var uls = element.getElementsByTagName("ul");
+				if (uls.length > 0) {
+					var ul = uls[0];
+
+					ev.preventDefault();
+				  var data = ev.dataTransfer.getData("Text");
+				  var draggedItem = document.getElementById(data);
+				  if (draggedItem) {
+				  	var entity = element.entity;
+				  	if (entity) {
+				  		var draggedEntity = draggedItem.entity;
+				  		if (draggedEntity) {
+				  			if (entity != draggedEntity) {
+				  				if (isDescendantOf(entity, draggedEntity) == false) {
+					  				var oldParent = draggedEntity.parent;
+										oldParent.remove(draggedEntity);
+										entity.add(draggedEntity);
+
+										ul.insertBefore(draggedItem, ul.firstChild);
+						  			draggedItem.id = "";
+					  			} else {
+					  				console.error("dragged item is parent of current item");
+					  			}
+				  			} else {
+				  				console.error("dragged item and current item are the same");
+				  			}
+				  		} else{
+					  		console.warn("no entity attached to dragged li");
+					  	}
+				  	} else{
+				  		console.warn("no entity attached to li");
+				  	}
+				  }
+				}*/
+			}
+
+			var id = ev.originalEvent.dataTransfer.getData("Text");
+			console.log(id);
+			var draggedItem = document.getElementById(id);
+			var draggedEntity = draggedItem.entity;
+
+			var oldParent = draggedEntity.parent;
+			oldParent.remove(draggedEntity);
+			_scope.entity.add(draggedEntity);
+
+			_scope.$apply();
+			// hide all borders
+			//$("#entities .list-entities *").css("border", "0px")
+		};
+
+
+		_scope.init(_scope, _element, _attrs);
+	};
+
+	return {
+		link: link,
+		scope: {
+			entity: '=entityDrag'
+		},
 	};
 });
