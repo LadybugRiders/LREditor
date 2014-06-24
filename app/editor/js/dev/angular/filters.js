@@ -49,3 +49,20 @@ moduleFilters.filter('gameobjects', [function() {
 		return array;
 	};
 }]);
+
+moduleFilters.filter('entities', [function() {
+	return function(items) {
+		var array = new Array();
+		for (var i = (items.length - 1); i >= 0; i--) {
+			var item = items[i];
+			if (item.name) {
+				if ((item.name[0] == "_" && item.name[0] == "_") == false) {
+					array.push(item);
+				}
+			} else {
+				array.push(item);
+			}
+		};
+		return array;
+	};
+}]);

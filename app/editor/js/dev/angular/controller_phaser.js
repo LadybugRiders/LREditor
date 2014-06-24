@@ -232,7 +232,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		var group = new LR.Entity.Group($scope.game);
 		group.name = "group" + $scope.game.world.children.length;
 		$scope.game.add.existing(group);
-		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 	};
 
 	$scope.addSprite = function() {
@@ -246,7 +245,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		sprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(sprite);
-		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 	};
 
 	$scope.addTileSprite = function() {
@@ -263,7 +261,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		tilesprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(tilesprite);
-		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 	};
 
 	$scope.addText = function() {
@@ -278,7 +275,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		text.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(text);
-		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 	};
 
 	//===================================================================

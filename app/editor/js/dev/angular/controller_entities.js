@@ -46,7 +46,8 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", funct
 
 	$scope.isGroup = function(_entity) {
 		return _entity instanceof LR.Entity.Group
-						|| _entity instanceof Phaser.Group;
+						|| _entity instanceof Phaser.Group
+						|| _entity.type === Phaser.GROUP;
 	};
 
 	main();

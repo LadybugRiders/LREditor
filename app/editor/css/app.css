@@ -27,6 +27,7 @@ accordion a:hover {
 }
 
 .list-entities ul {
+	display: none;
 	padding-left: 15px;
 }
 
@@ -46,11 +47,11 @@ accordion a:hover {
 	margin-left: 17px;
 }
 
-.list-entities li .arrows {
+.list-entities li > div > .arrows {
 	float: right;
 	display: none;
 }
 
-.list-entities li:hover > .arrows {
-	display: inline;
+.list-entities li:hover > div > .arrows {
+	display: inline-block;
 }

@@ -161,6 +161,9 @@ moduleDirectives.directive('listEntities', function() {
 				// create arrows to change entity's z-index
 				createArrows(_scope, _entity, li);
 
+				// create the a element with the entity's name
+				createEdit(_scope, _entity, li);
+
 				// only group can have children
 				if (isGroup) {
 					var ul = document.createElement("ul");
@@ -224,9 +227,7 @@ moduleDirectives.directive('listEntities', function() {
 		a.textContent = _entity.name;
 
 		a.onclick = function(_event) {
-				_scope.$apply(function() {
-					_scope.selectEntity(_entity);
-			});
+			_scope.selectEntity(_entity);
 		};
 
 		if (isGroup == false) {
@@ -243,6 +244,21 @@ moduleDirectives.directive('listEntities', function() {
 		}
 		
 		_parentElement.appendChild(a);
+	};
+
+	// create the a element with the entity's name
+	function createEdit(_scope, _entity, _parentElement) {
+		var arrowUp = document.createElement("a");
+		arrowUp.setAttribute("class", "edit");
+		var arrowUpSpan = document.createElement("span");
+		arrowUpSpan.setAttribute("class", "glyphicon glyphicon-pencil");
+		arrowUpSpan.onclick = function(_event) {
+			_entity.name = "LBAL";
+			_scope.selectEntity(_entity);
+		};
+		arrowUp.appendChild(arrowUpSpan);
+		
+		_parentElement.appendChild(arrowUp);
 	};
 
 	// create arrows to change entity's z-index
@@ -427,3 +443,25 @@ moduleDirectives.directive('listEntities', function() {
 	};
 });
 
+moduleDirectives.directive('entityCollapse', function() {
+	function link(_scope, _element, _attrs) {
+		_element.click(function() {
+			var ul = _element.parent().next("ul");
+			if (ul.css("display") === "none") {
+				ul.css("display", "block");
+				_element.children("span").attr(
+					"class", "glyphicon glyphicon-chevron-down"
+				);
+			} else {
+				ul.css("display", "none");
+				_element.children("span").attr(
+					"class", "glyphicon glyphicon-chevron-right"
+				);
+			}
+		});
+	};
+
+	return {
+		link: link
+	};
+});

@@ -139,7 +139,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			this.resetData();
 			console.error("entity is null");
 		}
-		$scope.$apply();
+		//$scope.$apply();
 	};
 
 	$scope.clone = function() {
