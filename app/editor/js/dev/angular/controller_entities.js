@@ -50,5 +50,17 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", funct
 						|| _entity.type === Phaser.GROUP;
 	};
 
+	$scope.getNbChildren = function(_entity) {
+		var cpt = 0;
+		for (var i = _entity.children.length - 1; i >= 0; i--) {
+			var child = _entity.children[i];
+			if ((child.name[0] == "_" && child.name[1] == "_") == false) {
+				cpt++;
+			}
+		};
+
+		return cpt;
+	}
+
 	main();
 }]);
