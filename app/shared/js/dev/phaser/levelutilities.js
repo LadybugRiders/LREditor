@@ -37,7 +37,7 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 		cObj = new LR.Entity.Group(_game);
 		_game.add.existing(cObj);
 	}else if (_object.type === LR.LevelUtilities.TYPE_TEXT) {
-		cObj = new LR.Entity.Text(_game,0,0,"");
+		cObj = new LR.Entity.Text(_game,0,0,"",_object.textData.style);
 		_game.add.existing(cObj);
 	}else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
 		//cObj = new Phaser.World(_game);

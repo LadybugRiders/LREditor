@@ -156,6 +156,12 @@ LR.LevelExporter.prototype.exportEntity = function(_entity) {
 	//general
 	for (var i = 0; i < LR.LevelUtilities.OBJECT_ATTRIBUTES.length; i++) {
 		var attr = LR.LevelUtilities.OBJECT_ATTRIBUTES[i];
+		//Don't export these for Text
+		if(_entity.type == "LR.Entity.Text" ){
+				if( attr == "width" || attr == "height"){
+					continue;
+				}
+			} 	
 		eObj[attr] = _entity[attr];
 	};
 	//add locked properties only if it's set to true
@@ -199,9 +205,20 @@ LR.LevelExporter.prototype.exportEntity = function(_entity) {
 		eObj.textData = {
 			text : _entity.text,
 			style : {
-				fontSize : _entity.fontSize
+				font : _entity.font,
+				fill : _entity.fill
 			}
 		};
+		//stroke thickness
+		if( _entity.strokeThickness > 0){
+			eObj.textData.style.strokeThickness = _entity.strokeThickness;
+			eObj.textData.style.stroke = _entity.stroke;
+		}
+		//wrap
+		if( _entity.wordWrap ){
+			eObj.textData.style.wordWrap = true;
+			eObj.textData.style.wordWrapWidth = _entity.wordWrapWidth;
+		}
 	}
 	return eObj;
 };

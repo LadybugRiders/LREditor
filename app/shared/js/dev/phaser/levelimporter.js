@@ -148,7 +148,11 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 	if (entity) {
 		for (var i = 0; i < LR.LevelUtilities.OBJECT_ATTRIBUTES.length; i++) {
 			var attr = LR.LevelUtilities.OBJECT_ATTRIBUTES[i];
-			
+			if(_object.type == "LR.Entity.Text" ){
+				if( attr == "width" || attr == "height"){
+					continue;
+				}
+			} 			
 			entity[attr] = _object[attr];
 		};
 
@@ -171,11 +175,9 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 
 		//TEXT
 		if( entity.type == Phaser.TEXT){
-			entity.width = _object.textData.style.fontSize; 
 			entity.text = _object.textData.text;
 			//Reset width after font settings are filled
-			entity.width = _object.width;
-			entity.height = _object.height;
+			entity.updateTransform();
 		}
 	}
 

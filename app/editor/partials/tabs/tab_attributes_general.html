@@ -30,21 +30,22 @@
 	<input type="text" ng-model="currentEntity.name" class="form-control"/>
 </div>
 
-<div ng-if="data.type != 'group' " class="form-group">
-	<!-- POSITION -->
-	<div class="form-group">
-		<label>Position</label>
-		<div class="row">
-			<div class="col-md-6">
-				<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)"
-					 class="form-control" integer/>
-			</div>
-			<div class="col-md-6">
-				<input type="number" ng-model="data.entityY" ng-change="setY(data.entityY)" 
-				class="form-control" integer/>
-			</div>
+<!-- POSITION -->
+<div class="form-group">
+	<label>Position</label>
+	<div class="row">
+		<div class="col-md-6">
+			<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)"
+				 class="form-control" integer/>
+		</div>
+		<div class="col-md-6">
+			<input type="number" ng-model="data.entityY" ng-change="setY(data.entityY)" 
+			class="form-control" integer/>
 		</div>
 	</div>
+</div>
+
+<div ng-if="data.type != 'group' && data.type != 'text' " class="form-group">
 	<!-- SIZE -->
 	<div class="form-group">
 		<label>Size</label>
@@ -59,8 +60,15 @@
 	</div>
 </div>
 
+<!-- ROTATION -->
+<div class="form-group">
+	<label>Rotation</label>
+	<input type="number" ng-model="currentEntity.angle" class="form-control" integer/>
+</div>
+
 <!-- Text Editing -->
 <div ng-if="data.type == 'text' " class="form-group">
+	<label> Text </label>
 	<div class="row">
 		<div class = "col-md-8">
 			<input type="text" ng-model="currentEntity.text" ng-change="changeText(currentEntity.text)" 
@@ -73,14 +81,44 @@
 		</div>	
 	</div>
 
+	<label> Font {{currentEntity._font}} </label>
+	<select ng-model="currentEntity.fontName" ng-change="changeFont()"
+                            ng-options="t as t for t in fonts" 
+                            class="form-control">
+                    </select>
+
+	<label> Font Size </label>
 	<input type="number" ng-model="currentEntity.fontSize"
 			class="form-control" integer/>
+
+	<label> Color </label>
+	<input type = "color" ng-model="currentEntity.fill"
+		class="form-control" />
+
+	<label> Stroke </label>
+	<div class="row">
+		<div class = "col-md-4">
+			<input type = "number" ng-model="currentEntity.strokeThickness"
+				class="form-control" min="0" integer/>
+		</div>
+		<div class = "col-md-4">
+			<input type = "color" ng-model="currentEntity.stroke"
+				class="form-control" />
+		</div>
+	</div>
+
+	<label> Wrap 
+		<input type="checkbox" ng-model="currentEntity.wordWrap"/>
+	</label>
+	<div class="row" ng-if="currentEntity.wordWrap">
+		<label class = "col-md-3"> Width </label>
+		<div class = "col-md-4">
+			<input type = "number" ng-model="currentEntity.wordWrapWidth"
+				class="form-control" min="0" integer/>
+		</div>
+	</div>
 </div>
-<!-- ROTATION -->
-<div class="form-group">
-	<label>Rotation</label>
-	<input type="number" ng-model="currentEntity.angle" class="form-control" integer/>
-</div>
+
 <!-- DEBUG -->
 <div class="form-group">
 	<label>

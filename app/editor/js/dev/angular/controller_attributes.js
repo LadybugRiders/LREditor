@@ -19,6 +19,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			text : {}
 		};
 
+		$scope.fonts = ["Arial", "Arial Black",
+		"Comic Sans MS", "Courier New",
+		"Verdana",
+		"Times New Roman"];
+
 		$scope.modalArgsData = {
 			args : {}
 		};
@@ -85,7 +90,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			//TYPE
 			if( _entity.type == Phaser.GROUP ){
 				$scope.data.type = "group";
-				return;
 			}else if( _entity.type == Phaser.TEXT){
 				$scope.data.type = "text";
 			}else{
@@ -366,6 +370,15 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.changeText = function( _text ){
 
+	}
+
+	$scope.changeFont = function( _fontName ){
+		var font = $scope.currentEntity.fontWeight + " "
+				+ $scope.currentEntity.fontSize + "px "
+				+ $scope.currentEntity.fontName;
+		$scope.currentEntity.font = font;
+		console.log($scope.currentEntity);
+		$scope.currentEntity.updateTransform();
 	}
 
 	//=========================================================
