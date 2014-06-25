@@ -17,9 +17,9 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", funct
 
 	$scope.refreshList = function(_world) {
 		if (_world != null) {
-			$scope.entities = new Object();
 			$timeout(function() {
-				$scope.entities = _world.children;
+				$scope.entities = new Array();
+				$scope.entities.push(_world);
 			}, 100);
 		}
 	};

@@ -1,13 +1,10 @@
 <accordion accordion-draggable>
 	<accordion-group heading="Entities" is-open="'true'">
 		<div class="row">
-			<!--<div list-entities class="col-md-12 list-entities">
-			</div>-->
 			<ul class="list-entities">
-				<li ng-repeat='data in entities | entities' ng-include="'partials/directives/entity_directive.html'">
+				<li ng-repeat='data in entities | noeditorentities' ng-include="'partials/directives/entity_directive.html'">
 				</li>
 			</ul>
 		</div>
-		
 	</accordion-group>
 </accordion>

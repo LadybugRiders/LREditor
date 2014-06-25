@@ -120,7 +120,7 @@ moduleDirectives.directive('entityCollapse', function() {
 moduleDirectives.directive('entityDrag', function() {
 	function link(_scope, _element, _attrs) {
 
-		_scope.init = function(_scope, _element, _attrs) {
+		_scope.main = function(_scope, _element, _attrs) {
 			var isGroup = _scope.isGroup(_scope.entity);
 
 			_element.attr("draggable" , true);
@@ -129,14 +129,84 @@ moduleDirectives.directive('entityDrag', function() {
 			if (isGroup) {
 				_element.on({
 					drop: _scope.drop,
-					drag: _scope.drag,
 					dragover: _scope.dragOver,
 					dragenter: _scope.dragEnter,
 					dragleave: _scope.dragLeave
 				});
 			}
+		};
 
-			console.log("ok");
+		_scope.dragOver = function(ev) {
+	  	ev.preventDefault();
+		};
+
+		_scope.dragEnter = function(ev) {
+			_scope.addBorder($(ev.target));
+		};
+
+		_scope.dragLeave = function(ev) {
+			_scope.removeBorder($(ev.target));
+		};
+
+		_scope.drag = function(ev) {
+			ev.target.id = "dragged-item";
+			ev.target.entity = _scope.entity;
+			ev.originalEvent.dataTransfer.setData("Text", ev.target.id);
+		};
+
+		_scope.drop = function(ev) {
+			_scope.removeBorder($(ev.target));
+
+			var id = ev.originalEvent.dataTransfer.getData("Text");
+			var draggedItem = document.getElementById(id);
+			draggedItem.id = "";
+			var draggedEntity = draggedItem.entity;
+
+			if (_scope.entity != draggedEntity) {
+				if (draggedEntity.parent != _scope.entity) {
+					var isDescendant = _scope.isDescendantOf(_scope.entity, draggedEntity);
+					if (isDescendant == false) {
+						var oldParent = draggedEntity.parent;
+						oldParent.remove(draggedEntity);
+						_scope.entity.add(draggedEntity);
+
+						_scope.$apply();
+					} else {
+						console.warn(
+							"Dragged entity '" +
+							draggedEntity.name +
+							"'' is parent of entity '" +
+							_scope.entity.name +
+							"'"
+						);
+					}
+				} else {
+					console.warn(
+					"Dragged entity '" +
+					_scope.entity.name +
+					"' is already parent of '" +
+					draggedEntity.name +
+					"'"
+				);
+				}
+			} else {
+				console.warn(
+					"Dragged entity '" +
+					draggedEntity.name +
+					"' and entity '" +
+					_scope.entity.name +
+					"' are the same"
+				);
+			}
+		};
+
+		_scope.addBorder = function(_element) {
+		  var color = _element.css("color");
+		  _element.css("border", "2px dashed " + color);
+		};
+
+		_scope.removeBorder = function(_element) {
+		  _element.css("border", "0");
 		};
 
 		_scope.isGroup = function(_entity) {
@@ -145,115 +215,25 @@ moduleDirectives.directive('entityDrag', function() {
 							|| _entity.type === Phaser.GROUP;
 		};
 
-		_scope.dragOver = function(ev) {
-	  	ev.preventDefault();
-		};
+		// check if an entity is descendant of an other
 
-		_scope.dragEnter = function(ev) {
-			/*if (ev.target) {
-				var element = ev.target;
-				if (element.localName != "li") element = element.parentNode;
+		_scope.isDescendantOf = function(_descendant, _parent) {
 
-		    if (element.localName == "li") {
-		    	// show borders
-		    	element.style.border = "1px dashed black";
-		    }
-		  }*/
-		};
+			var isDescendant = false;
 
-		_scope.dragLeave = function(ev) {
-			/*if (ev.target) {
-				var element = ev.target;
-				if (element.localName != "li") element = element.parentNode;
-		    
-		    if (element.localName == "li") {
-		    	// hide borders
-		    	element.style.border = "0px";
-		    }
-		  }*/
-		};
+			var parent = _descendant.parent;
+			while (parent) {
+				if (parent == _parent) {
+					isDescendant = true;
+				}
 
-		_scope.drag = function(ev) {
-			/*var element = ev.target;
-
-			var cpt = 0;
-			// get parent li
-			while (element.localName != "li" && cpt < 10) {
-				element = element.parentNode;
-
-				cpt++;
+				parent = parent.parent;
 			}
 
-			if (element) {
-				element.id = "dragged-item";
-		  	ev.dataTransfer.setData("Text", element.id);
-		  	ev.dataTransfer.setData("Object", element.entity);
-			}*/
-			//ev.originalEvent.dataTransfer.effectAllowed = 'move';
-			console.log(ev);
-			ev.target.id = "dragged-item";
-			ev.target.entity = _scope.entity;
-			ev.originalEvent.dataTransfer.setData("Text", ev.target.id);
-			//ev.dataTransfer.setData("Object", _scope.entity);
-		};
+			return isDescendant;
+		}
 
-		_scope.drop = function(ev) {
-			console.log(ev);
-			if (ev.target) {
-				/*var element = ev.target;
-				if (element.localName != "li") element = element.parentNode;
-				var uls = element.getElementsByTagName("ul");
-				if (uls.length > 0) {
-					var ul = uls[0];
-
-					ev.preventDefault();
-				  var data = ev.dataTransfer.getData("Text");
-				  var draggedItem = document.getElementById(data);
-				  if (draggedItem) {
-				  	var entity = element.entity;
-				  	if (entity) {
-				  		var draggedEntity = draggedItem.entity;
-				  		if (draggedEntity) {
-				  			if (entity != draggedEntity) {
-				  				if (isDescendantOf(entity, draggedEntity) == false) {
-					  				var oldParent = draggedEntity.parent;
-										oldParent.remove(draggedEntity);
-										entity.add(draggedEntity);
-
-										ul.insertBefore(draggedItem, ul.firstChild);
-						  			draggedItem.id = "";
-					  			} else {
-					  				console.error("dragged item is parent of current item");
-					  			}
-				  			} else {
-				  				console.error("dragged item and current item are the same");
-				  			}
-				  		} else{
-					  		console.warn("no entity attached to dragged li");
-					  	}
-				  	} else{
-				  		console.warn("no entity attached to li");
-				  	}
-				  }
-				}*/
-			}
-
-			var id = ev.originalEvent.dataTransfer.getData("Text");
-			console.log(id);
-			var draggedItem = document.getElementById(id);
-			var draggedEntity = draggedItem.entity;
-
-			var oldParent = draggedEntity.parent;
-			oldParent.remove(draggedEntity);
-			_scope.entity.add(draggedEntity);
-
-			_scope.$apply();
-			// hide all borders
-			//$("#entities .list-entities *").css("border", "0px")
-		};
-
-
-		_scope.init(_scope, _element, _attrs);
+		_scope.main(_scope, _element, _attrs);
 	};
 
 	return {

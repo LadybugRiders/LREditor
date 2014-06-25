@@ -110,9 +110,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
-	/******************
-	** ADDING ENTITIES **
-	******************/
+	/*********************
+	 ** ADDING ENTITIES **
+	 *********************/
 
 	$scope.addGroup = function() {
 		$scope.$emit("addGroupEmit");
