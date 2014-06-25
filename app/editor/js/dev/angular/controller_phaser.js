@@ -126,6 +126,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	$scope.preload = function() {
 		$scope.game.load.image("none", "assets/images/none.png");
+		$scope.game.load.image("__background", "assets/images/background.png");
 		$scope.game.load.image("__select", "assets/images/select.png");
 		$scope.game.load.image("__x_move", "assets/images/x_move.png");
 		$scope.game.load.image("__y_move", "assets/images/y_move.png");
@@ -157,7 +158,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 		$scope.sendSettings();
 
-		$scope.import("app/game/assets/levels", "level1", "file");
+		//$scope.import("app/game/assets/levels", "level1", "file");
 	};
 
 	$scope.update = function() {
@@ -177,9 +178,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 	};
 
 	$scope.createEditorEntities = function() {
+		var worldBounds = $scope.game.world.bounds;
+		var background = $scope.game.add.tileSprite(
+			worldBounds.x, worldBounds.y, worldBounds.width, worldBounds.height,
+			"__background", 0
+		);
+		background.name = "__background";
+		
 		$scope.editorGroup = new LR.Entity.Group($scope.game);
 		$scope.game.add.existing($scope.editorGroup);
 		$scope.editorGroup.name = "__editor";
+
+
 
 		//Camera DEbug
 		$scope.changeGameCamera($scope.dataSettings.camera);

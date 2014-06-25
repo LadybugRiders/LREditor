@@ -42,8 +42,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		$scope.modalData = {
 			// images
-			imagesPath: "/game/assets/images/loopy/loopy_temp.png",
-	      	imagesName: "loopy",
+			imagesPath: "/game/assets/images/",
+	      	imagesName: "image_name",
 	      	imagesFrameWidth: 32,
 	      	imagesFrameHeight: 32,
 			// level import/export
