@@ -202,11 +202,12 @@ LR.LevelExporter.prototype.exportEntity = function(_entity) {
 	}
 	//Text
 	if( _entity.type == Phaser.TEXT){
+		
 		eObj.textData = {
 			text : _entity.text,
 			style : {
-				font : _entity.font,
-				fill : _entity.fill
+				font : _entity.style.font,
+				fill : _entity.style.fill
 			}
 		};
 		//stroke thickness

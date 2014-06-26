@@ -384,9 +384,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		var font = $scope.currentEntity.fontWeight + " "
 				+ $scope.currentEntity.fontSize + "px "
 				+ $scope.currentEntity.fontName;
-		$scope.currentEntity.font = font;
-		console.log($scope.currentEntity);
-		$scope.currentEntity.updateTransform();
+		var style = $scope.currentEntity.style;
+		style.font = font;
+		$scope.currentEntity.setStyle(style);
+		//$scope.currentEntity.updateTransform();
 	}
 
 	//=========================================================
