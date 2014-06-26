@@ -40,7 +40,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		});
 
 		$scope.$on("refreshCurrentEntityBroadcast", function(_event, _args) {
-			$scope.refreshCurrentEntity(_args.entity,_args.forceBodyRefresh);
+			if( _args.phaser == true ){
+				$scope.refreshCurrentEntityFromPhaser(_args.entity,_args.forceBodyRefresh);
+			}else{
+				$scope.refreshCurrentEntity(_args.entity,_args.forceBodyRefresh);
+			}
 		});
 
 		$timeout(function() {
@@ -71,6 +75,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 		}
 	};
+
+	$scope.refreshCurrentEntityFromPhaser = function(_entity,_forceBody){
+		$scope.refreshCurrentEntity(_entity,_forceBody);		
+		$scope.$apply();
+	}
 
 	$scope.refreshCurrentEntity = function(_entity,_forceBody) {
 		
@@ -143,7 +152,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			this.resetData();
 			console.error("entity is null");
 		}
-		//$scope.$apply();
 	};
 
 	$scope.clone = function() {

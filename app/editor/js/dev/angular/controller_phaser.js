@@ -330,7 +330,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 	$scope.forceAttributesRefresh = function(_currentEntity,_forceBodyRefresh){
 		$timeout( function() { 
-					$scope.$emit("refreshCurrentEntityEmit",{entity : _currentEntity, forceBodyRefresh : _forceBodyRefresh});
+					$scope.$emit("refreshCurrentEntityEmit",
+								{entity : _currentEntity,
+								forceBodyRefresh : _forceBodyRefresh,
+								phaser : true
+					});
 				},
 				100);
 	}

@@ -89,7 +89,7 @@ LR.Editor.Behaviour.EntityInputHandler.prototype.checkDrag = function() {
 LR.Editor.Behaviour.EntityInputHandler.prototype.onInputDown = function() {
 	if( this.locked )
 		return;
-	this.$scope.$emit("selectEntityEmit", {entity : this.entity});
+	this.$scope.$emit("selectEntityEmit", {entity : this.entity,phaser:true});
 	if( this.go )
 		this.go.sendMessage("onSelected");
 	if( this.entity.body ){
