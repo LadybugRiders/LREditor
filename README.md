@@ -12,7 +12,7 @@ Just clone this repository into your working directory.
 Launch
 ------
 On your terminal:
-* `cd path/to/my/working/directory/LREditor`
+* `cd path/to/your/working/directory/LREditor`
 * `node bin/www`
 
 Then on your web browser:
