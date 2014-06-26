@@ -9,8 +9,8 @@ Install
 
 Just clone this repository into your working directory.
 
-Use
----
+Launch
+------
 On your terminal:
 * `cd path/to/my/working/directory/LREditor`
 * `node bin/www`
