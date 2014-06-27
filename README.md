@@ -1,7 +1,7 @@
 LREditor
 ========
 
-Free & OpenSource HTML5 2D Game Editor (using [Phaser](http://phaser.io/ "Phaser"))
+Free & OpenSource HTML5 2D Game Editor (using [Phaser](http://phaser.io/ "Phaser")) **in your Web Browser** !
 
 Install
 -------
