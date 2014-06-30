@@ -2,7 +2,12 @@
 
 LR.Editor.Settings = function(){
 
-}
+};
+
+LR.Editor.Settings.project = {
+	path: "app/game/wildrush/public",
+	playUrl: "/game/wildrush/public",
+};
 
 LR.Editor.Settings.keysData = {
 	"valid" : { key : Phaser.Keyboard.SPACEBAR, capture : false },

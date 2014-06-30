@@ -39,15 +39,15 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
 		});
 
-
+		console.log(LR.Editor.Settings);
 		$scope.modalData = {
 			// images
-			imagesPath: "/game/assets/images/",
-	      	imagesName: "image_name",
-	      	imagesFrameWidth: 32,
-	      	imagesFrameHeight: 32,
+			imagesPath: LR.Editor.Settings.project.path + "/assets/images/",
+    	imagesName: "image_name",
+    	imagesFrameWidth: 32,
+    	imagesFrameHeight: 32,
 			// level import/export
-			levelPath: "app/game/assets/levels",
+			levelPath: LR.Editor.Settings.project.path + "/assets/levels",
 			levelName: "level1"
 		};
 
@@ -82,7 +82,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 
 		$timeout(function() {
-			var url = "../game/#/home";
+			//var url = "/game/#/home";
+			var url = LR.Editor.Settings.project.playUrl;
 			url += "?levelname=" + levelName;
 			url += "&storage=" + storage;
 			var win = window.open(url, '_blank');
