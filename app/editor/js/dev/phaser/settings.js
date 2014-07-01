@@ -5,7 +5,7 @@ LR.Editor.Settings = function(){
 };
 
 LR.Editor.Settings.project = {
-	path: "app/game/wildrush/public",
+	path: "/game/wildrush/public",
 	playUrl: "/game/wildrush/public",
 };
 
