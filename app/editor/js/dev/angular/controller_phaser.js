@@ -158,7 +158,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 		$scope.sendSettings();
 
-		//$scope.import("app/game/assets/levels", "level1", "file");
+		//$scope.import("/game/wildrush/public/assets/levels", "tuto", "file");
 	};
 
 	$scope.update = function() {

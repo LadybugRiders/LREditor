@@ -67,7 +67,8 @@ LR.Behaviour.Trigger.prototype.constructor = LR.Behaviour.Trigger;
 
 /**
 * Creation data properties :
-* messageObject - See property
+* messageObject - If you want the message sent to the colliding GameObject to have custom properties,
+*                 put here an object containing these properties ie : _data.messageObject = { "customProp":"hello"}
 * callbackName - See property
 * interactives - See porperty
 *

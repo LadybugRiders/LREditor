@@ -98,29 +98,29 @@ LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _prom
 * @param {Object} Objects Entities informations
 * @param {Phaser.Game} game The game where entities will be imported
 */
-LR.LevelImporter.prototype.importEntities = function(_parent, _game) {
-	var cParent = null;
-	if (_parent.name === "__world") {
+LR.LevelImporter.prototype.importEntities = function(_object, _game) {
+	var entity = null;
+	if (_object.name === "__world") {
 		// do nothing (already created by Phaser)
-		cParent = _game.world;
-		cParent.setBounds(0, 0, _parent.width, _parent.height);
+		entity = _game.world;
+		entity.setBounds(0, 0, _object.width, _object.height);
 	} else {
-		cParent = this.importEntity(_parent, _game);
+		entity = this.importEntity(_object, _game);
 	}
 
-	if (_parent.children != null) {
-		for (var i = 0; i < _parent.children.length; i++) {
-			var child = _parent.children[i];
+	if (_object.children != null) {
+		for (var i = 0; i < _object.children.length; i++) {
+			var child = _object.children[i];
 			var cChild = this.importEntities(child, _game);
-			if( cParent == null ){
+			if( entity == null ){
 				console.log("Parent is null");
 			}else if (cChild) {
-				cParent.add(cChild);
+				entity.add(cChild);
 			}
 		};
 	}
 
-	return cParent;
+	return entity;
 }
 
 /**
@@ -146,48 +146,63 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 	var entity = LR.LevelUtilities.CreateEntityByType(_object, _game);
 
 	if (entity) {
-		for (var i = 0; i < LR.LevelUtilities.OBJECT_ATTRIBUTES.length; i++) {
-			var attr = LR.LevelUtilities.OBJECT_ATTRIBUTES[i];
-			if(_object.type == "LR.Entity.Text" ){
-				if( attr == "width" || attr == "height"){
-					continue;
-				}
-			} 			
-			entity[attr] = _object[attr];
-		};
+		this.setGeneral(_object, entity);
 
-		entity.go.name = _object.name;
-		entity.go.layer = _object.layer;
+		this.setDisplay(_object, entity);
 
-		if (entity.key) {
-			// we have to use "_object.frame" because entity.frame is always null
-			// if no texture is set
-			var w = entity.width;
-			var h = entity.height;
-			entity.loadTexture(entity.key, _object.frame);
-			entity.width = w;
-			entity.height = h;
+		if (_object.body) {
+			this.setPhysics(_object, entity);
 		}
 
-		if( entity.body ){
-			this.setBody(_object,entity);
-		}
-
-		//TEXT
-		if( entity.type == Phaser.TEXT){
-			entity.text = _object.textData.text;
-			//Reset width after font settings are filled
-			entity.updateTransform();
-		}
+		this.setBehaviours(_object, entity);
 	}
 
 	return entity;
-}
+};
+
+LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
+	_entity.name = _objectData.name;
+	_entity.go.name = _objectData.name;
+	_entity.x = _objectData.x;
+	_entity.y = _objectData.y;
+	_entity.angle = _objectData.angle;
+
+	if(_objectData.type !== "LR.Entity.Text" ) {
+		_entity.width = _objectData.width;
+		_entity.height = _objectData.height;
+	} else {
+		_entity.text = _objectData.textData.text;
+		//Reset width after font settings are filled
+		_entity.updateTransform();
+	}
+};
+
+LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
+	_entity.visible = _objectData.visible;
+
+	if (_objectData.key) {
+		var w = _entity.width;
+		var h = _entity.height;
+		_entity.loadTexture(_objectData.key, _objectData.frame);
+		_entity.width = w;
+		_entity.height = h;
+	}
+};
 
 /*
 * Adds a body to the entity with the data provided by objectData and creates all shapes
 */
-LR.LevelImporter.prototype.setBody = function(_objectData,_entity){
+LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
+	_entity.go.layer = _objectData.layer;
+
+	var motionState = Phaser.Physics.P2.Body.DYNAMIC;
+	if (_objectData.body.motion === "STATIC"){
+		motionState = Phaser.Physics.P2.Body.STATIC;
+	} else if( _objectData.body.motion === "KINEMATIC"){
+		motionState = Phaser.Physics.P2.Body.KINEMATIC;
+	}
+	_entity.go.enablePhysics(motionState);
+
 	//adding a body has prevented us from setting the position directly to the sprite
 	_entity.body.x = _objectData.x;
 	_entity.body.y = _objectData.y;
@@ -199,8 +214,12 @@ LR.LevelImporter.prototype.setBody = function(_objectData,_entity){
 	for( var i=0; i < _objectData.body.shapes.length ; i++){
 		var shapeData = _objectData.body.shapes[i];
 		//this will replace a shape or replace the current one
-		var newShape = _entity.go.replaceShapeByRectangle(i,shapeData);		
+		var newShape = _entity.go.replaceShapeByRectangle(i, shapeData);		
 		newShape.sensor = shapeData.sensor;
 		newShape.lr_name = shapeData.name;
 	}
-}
+};
+
+LR.LevelImporter.prototype.setBehaviours = function(_objectData, _entity) {
+	_entity.behaviours = _objectData.behaviours;
+};

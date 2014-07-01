@@ -17,10 +17,12 @@ LR.LevelImporterGame.prototype.constructor = LR.LevelImporterGame;
 LR.LevelImporterGame.prototype.import = function(_level, _game, _promise) {
 	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
 	
-	if(_game.cutsceneManager)
+	if (_game.cutsceneManager) {
 		_game.cutsceneManager.loadCutscenes( _level.cutscenes );
+	}
+
 	//Place Camera
-	if( _level.settings ){
+	if (_level.settings) {
 		_game.camera.bounds = null;
 		_game.camera.x = _level.settings.camera.x;
 		_game.camera.y = _level.settings.camera.y;
@@ -32,37 +34,57 @@ LR.LevelImporterGame.prototype.doAfterImportEntitiesAndBeforePromise = function(
 	this.callBehavioursCreate(_game);
 };
 
-var BH;
-
 LR.LevelImporterGame.prototype.importEntity = function(_object, _game) {
 	
 	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
 
-	if( _object.fixedToCamera ){
-		entity.fixedToCamera = true;
-	}
+	// Add GameObject to the state. Don't add to game. Events are on.
+	_game.state.getCurrentState().addGameObject(entity.go, false, true);
 
-	if (entity.behaviours) {
-		if (entity.behaviours.length > 0) {
-			for (var i = 0; i < entity.behaviours.length; i++) {
-				var behaviour = entity.behaviours[i];
+	return entity;
+};
+
+LR.LevelImporterGame.prototype.setGeneral = function(_objectData, _entity) {
+	LR.LevelImporter.prototype.setGeneral.call(this, _objectData, _entity);
+
+	if(_objectData.fixedToCamera) {
+		_entity.fixedToCamera = true;
+	}
+};
+
+LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
+	//Call base method
+	LR.LevelImporter.prototype.setPhysics.call(this, _objectData, _entity);
+	
+	if( _objectData.body.debug)
+		_entity.body.debug = true;
+}
+
+LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
+	LR.LevelImporter.prototype.setBehaviours.call(this, _objectData, _entity);
+
+	if (_entity.behaviours) {
+		if (_entity.behaviours.length > 0) {
+			for (var i = 0; i < _entity.behaviours.length; i++) {
+				var behaviour = _entity.behaviours[i];
 				var behaviourClass = behaviour.classname;
 
 				var classes = behaviourClass.split(".");
 
 				var Class = null;
+				
 				for( var j = 0 ; j < classes.length ; j++){
 					var curClassName = classes[j];
 					if( Class == null ){
 						Class = (window || this)[curClassName];
-					}else{
+					} else{
 						Class = Class[curClassName];
 					}
 				}
 
 				if (Class) {
 					var args = JSON.parse(behaviour.args);
-					var behaviour = entity.go.addBehaviour( new Class(entity.go) );
+					var behaviour = _entity.go.addBehaviour( new Class(_entity.go) );
 					behaviour.args_create = args;
 				} else {
 					console.error(
@@ -71,23 +93,9 @@ LR.LevelImporterGame.prototype.importEntity = function(_object, _game) {
 			};
 		}
 	}
-
-	// Add GameObject to the state. Don't add to game. Events are on.
-	_game.state.getCurrentState().addGameObject(entity.go,false,true);
-
-	return entity;
-}
-
-LR.LevelImporterGame.prototype.setBody = function(_objectData,_entity){
-	//Call base method
-	LR.LevelImporter.prototype.setBody.call(this,_objectData,_entity);
-	
-	if( _objectData.body.debug)
-		_entity.body.debug = true;
-}
+};
 
 LR.LevelImporterGame.prototype.callBehavioursCreate = function(_game) {
-
 	// call behaviours create for every gameobjects
 	var gameobjects = _game.state.getCurrentState().gameobjects;
 
