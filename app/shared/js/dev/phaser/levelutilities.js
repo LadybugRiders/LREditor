@@ -41,10 +41,6 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 		_game.add.existing(cObj);
 	}else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
 		//cObj = new Phaser.World(_game);
-	}	
-
-	if( _object.body ){
-		addBody(_object,cObj);
 	}
 
 	return cObj;
@@ -79,13 +75,3 @@ LR.LevelUtilities.IsEditorImage = function(_image) {
 
 	return editorImage;
 };
-
-function addBody(_object,_entity){
-	var motionState = Phaser.Physics.P2.Body.DYNAMIC;
-	if( _object.body.motion === "STATIC"){
-		motionState = Phaser.Physics.P2.Body.STATIC;
-	}else if( _object.body.motion === "KINEMATIC"){
-		motionState = Phaser.Physics.P2.Body.KINEMATIC;
-	}
-	_entity.go.enablePhysics(motionState);
-}

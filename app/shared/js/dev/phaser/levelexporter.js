@@ -108,24 +108,24 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 * Export all the level's entities.
 *
 * @method exportEntities
-* @param {Phaser.Group | GameObject} parent The parent object
-* @return {Phaser.Group | GameObject} the exported parent and its descendants
+* @param {Phaser.Group | GameObject} entity The entity object
+* @return {Phaser.Group | GameObject} the exported entity and its descendants
 */
-LR.LevelExporter.prototype.exportEntities = function(_parent) {
+LR.LevelExporter.prototype.exportEntities = function(_entity) {
 	var eObjects = null;
 
 	//don't export editor's entities
-	if (_parent.name) {
-		if (_parent.name === "__world"
-			|| (_parent.name[0] == "_" && _parent.name[1] == "_") == false) {
+	if (_entity.name) {
+		if (_entity.name === "__world"
+			|| (_entity.name[0] == "_" && _entity.name[1] == "_") == false) {
 			// export parent
-			eObjects = this.exportEntity(_parent);
+			eObjects = this.exportEntity(_entity);
 
 			// if parent has children
-			if (_parent.children.length > 0) {
+			if (_entity.children.length > 0) {
 				eObjects.children = new Array();
-				for (var i=0; i<_parent.children.length; i++) {
-					var child = _parent.children[i];
+				for (var i=0; i<_entity.children.length; i++) {
+					var child = _entity.children[i];
 					// export child
 					var obj = this.exportEntities(child);
 					// add exported child
@@ -150,79 +150,108 @@ LR.LevelExporter.prototype.exportEntities = function(_parent) {
 LR.LevelExporter.prototype.exportEntity = function(_entity) {
 	var eObj = new Object();
 
-	eObj.type = LR.LevelUtilities.GetType(_entity);
+	eObj = this.setGeneral(_entity, eObj);
 
-	if(eObj.type == "" || eObj.type == null){
-		console.log("Type wasn't found for ");
-		console.log(_entity);
-	}
-	//general
-	for (var i = 0; i < LR.LevelUtilities.OBJECT_ATTRIBUTES.length; i++) {
-		var attr = LR.LevelUtilities.OBJECT_ATTRIBUTES[i];
-		//Don't export these for Text
-		if(_entity.type == "LR.Entity.Text" ){
-				if( attr == "width" || attr == "height"){
-					continue;
-				}
-			} 	
-		eObj[attr] = _entity[attr];
-	};
-	//add locked properties only if it's set to true
-	if( _entity.ed_locked == true ){
-		eObj.locked = true;
-	}	
-	//fixedToCamera
-	if( _entity.ed_fixedToCamera == true ){
-		eObj.fixedToCamera = true;
-		eObj.x = _entity.cameraOffset.x;
-		eObj.y = _entity.cameraOffset.y;
-	}
-	//set key to null if none
-	if(eObj.key == "none")
-		eObj.key = null;
+	eObj = this.setDisplay(_entity, eObj);
+	
 	//body
-	if( _entity.body ){
-		eObj.body = new Object();
-		eObj.body.motion = _entity.body.ed_motion;
-		eObj.body.enabled = _entity.body.ed_enabled;
-		eObj.body.fixedRotation = _entity.body.fixedRotation;
-		eObj.body.angle = _entity.body.angle;
-		eObj.body.debug = _entity.body.ed_debugEditor;
-		//export shapes
-		eObj.body.shapes = new Array();
-		for(var i=0; i < _entity.go.getShapesCount(); i++){
-			var data = _entity.go.getShapeData(i);
-			var shape = _entity.go.getShape(i);
-			eObj.body.shapes.push( { 
-				"x" : data.x , "y" : data.y, 
-				"width" : data.width, "height" : data.height,
-				"rotation" : data.rotation,
-				"name": shape.lr_name, "id":i,
-				"sensor": shape.ed_sensor
-				} 
-			);
-		}
+	if (_entity.body) {
+		eObj = this.setPhysics(_entity, eObj);
 	}
-	//Text
-	if( _entity.type == Phaser.TEXT){
-		
-		eObj.textData = {
+
+	eObj = this.setBehaviours(_entity, eObj);
+
+	return eObj;
+};
+
+LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
+	_object.type = LR.LevelUtilities.GetType(_entity);
+
+	_object.name = _entity.name;
+	_object.x = _entity.x;
+	_object.y = _entity.y;
+	_object.angle = _entity.angle;
+
+	if(_entity.ed_locked == true) {
+		_object.locked = true;
+	}	
+
+	if(_entity.type !== "LR.Entity.Text" ) {
+		_object.width = _entity.width;
+		_object.height = _entity.height;
+	} else {
+		_object.textData = {
 			text : _entity.text,
 			style : {
 				font : _entity.style.font,
 				fill : _entity.style.fill
 			}
 		};
+
 		//stroke thickness
 		if( _entity.strokeThickness > 0){
-			eObj.textData.style.strokeThickness = _entity.strokeThickness;
-			eObj.textData.style.stroke = _entity.stroke;
+			_object.textData.style.strokeThickness = _entity.strokeThickness;
+			_object.textData.style.stroke = _entity.stroke;
 		}
 		//wrap
 		if( _entity.wordWrap ){
-			eObj.textData.style.wordWrap = true;
-			eObj.textData.style.wordWrapWidth = _entity.wordWrapWidth;
+			_object.textData.style.wordWrap = true;
+			_object.textData.style.wordWrapWidth = _entity.wordWrapWidth;
 		}
 	}
-	return eObj;
+
+	return _object
+};
+
+LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
+	_object.visible = _entity.visible;
+
+	//set key to null if none
+	if (_entity.key && _entity.key != "none") {
+		_object.key = _entity.key;
+		_object.frame = _entity.frame;
+	}
+
+	//fixedToCamera
+	if (_entity.ed_fixedToCamera == true) {
+		_object.fixedToCamera = true;
+		_object.x = _entity.cameraOffset.x;
+		_object.y = _entity.cameraOffset.y;
+	}
+
+	return _object;
+};
+
+LR.LevelExporter.prototype.setPhysics = function(_entity, _object) {
+	_object.layer = _entity.go.layer;
+
+	_object.body = new Object();
+	_object.body.motion = _entity.body.ed_motion;
+	_object.body.enabled = _entity.body.ed_enabled;
+	_object.body.fixedRotation = _entity.body.fixedRotation;
+	_object.body.angle = _entity.body.angle;
+	_object.body.debug = _entity.body.ed_debugEditor;
+
+	//export shapes
+	_object.body.shapes = new Array();
+	for(var i=0; i < _entity.go.getShapesCount(); i++){
+		var data = _entity.go.getShapeData(i);
+		var shape = _entity.go.getShape(i);
+		_object.body.shapes.push( { 
+			"x" : data.x , "y" : data.y, 
+			"width" : data.width, "height" : data.height,
+			"rotation" : data.rotation,
+			"name": shape.lr_name, "id":i,
+			"sensor": shape.ed_sensor
+			} 
+		);
+	}
+
+	return _object;
+};
+
+LR.LevelExporter.prototype.setBehaviours = function(_entity, _object) {
+	_object.behaviours = _entity.behaviours;
+
+	return _object;
 };

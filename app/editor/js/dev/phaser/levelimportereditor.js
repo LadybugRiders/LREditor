@@ -21,46 +21,52 @@ LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promis
 };
 
 LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) {
-	//set key to none if null
-	if(_object.key == null && 
-		( _object.type == LR.LevelUtilities.TYPE_SPRITE ||_object.type == LR.LevelUtilities.TYPE_TILESPRITE)
-		)
-		_object.key = "none";
-
 	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
 
-	//add input behaviour on sprites /text
-	if( entity.type != Phaser.GROUP ){
-		entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(entity.go, this.$scope));
+	return entity;
+};
+
+LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _entity){
+	LR.LevelImporter.prototype.setDisplay.call(this, _objectData, _entity);
+
+	//set key to none if null
+	if(_objectData.key == null && 
+		( _objectData.type == LR.LevelUtilities.TYPE_SPRITE ||_objectData.type == LR.LevelUtilities.TYPE_TILESPRITE)
+		) {
+		var w = _entity.width;
+		var h = _entity.height;
+		_entity.loadTexture("none", _objectData.frame);
+		_entity.width = w;
+		_entity.height = h;
 	}
 
 	//Lock
-	if( _object.locked ){
-		entity.ed_locked = true;
-		this.$scope.lockEntity(entity);
-	}else{
-		entity.ed_locked = false;
+	if (_objectData.locked) {
+		_entity.ed_locked = true;
+		this.$scope.lockEntity(_entity);
+	} else {
+		_entity.ed_locked = false;
 	}
 
 	//Fixed to Camera
-	if( _object.fixedToCamera == true ){
-		entity.ed_fixedToCamera = true;
-		this.$scope.fixEntityToCamera(entity,true);
-	}else{
-		entity.ed_fixedToCamera = false;
+	if (_objectData.fixedToCamera == true) {
+		_entity.ed_fixedToCamera = true;
+		this.$scope.fixEntityToCamera(_entity, true);
+	} else {
+		_entity.ed_fixedToCamera = false;
 	}
-
-	return entity;
-}
+};
 
 /*
 * Adds a body to the entity with the data provided by objectData
 */
-LR.Editor.LevelImporterEditor.prototype.setBody = function(_objectData,_entity){
+LR.Editor.LevelImporterEditor.prototype.setPhysics = function(_objectData, _entity){
 	//force dynamic ( we won't be able to move the entity otherwise )
-	_entity.go.enablePhysics(Phaser.Physics.P2.Body.DYNAMIC);
+	//_entity.go.enablePhysics(Phaser.Physics.P2.Body.DYNAMIC);
 	//Call base method
-	LR.LevelImporter.prototype.setBody.call(this,_objectData,_entity);
+	LR.LevelImporter.prototype.setPhysics.call(this, _objectData, _entity);
+
+	_entity.go.motionState = Phaser.Physics.P2.Body.DYNAMIC;
 	//Enable sensor ( we don't want our entities to collide in the editor )
 	_entity.go.enableSensor();
 
@@ -80,4 +86,13 @@ LR.Editor.LevelImporterEditor.prototype.setBody = function(_objectData,_entity){
 		var shape = _entity.go.getShape(i);
 		shape.ed_sensor = _objectData.body.shapes[i].sensor;
 	}
-}
+};
+
+LR.Editor.LevelImporterEditor.prototype.setBehaviours = function(_objectData, _entity) {
+	LR.LevelImporter.prototype.setBehaviours.call(this, _objectData, _entity);
+	
+	//add input behaviour on sprites /text
+	if (_entity.type != Phaser.GROUP) {
+		_entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
+	}
+};

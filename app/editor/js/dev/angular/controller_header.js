@@ -39,7 +39,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
 		});
 
-		console.log(LR.Editor.Settings);
 		$scope.modalData = {
 			// images
 			imagesPath: LR.Editor.Settings.project.path + "/assets/images/",
