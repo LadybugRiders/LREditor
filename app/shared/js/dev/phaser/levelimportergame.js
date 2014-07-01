@@ -51,8 +51,8 @@ LR.LevelImporterGame.prototype.importEntity = function(_object, _game) {
 				var classes = behaviourClass.split(".");
 
 				var Class = null;
-				for( var i = 0 ; i < classes.length ; i++){
-					var curClassName = classes[i];
+				for( var j = 0 ; j < classes.length ; j++){
+					var curClassName = classes[j];
 					if( Class == null ){
 						Class = (window || this)[curClassName];
 					}else{

@@ -66,7 +66,7 @@ LR.Behaviour.Trigger.prototype = Object.create(LR.Behaviour.prototype);
 LR.Behaviour.Trigger.prototype.constructor = LR.Behaviour.Trigger;
 
 /**
-* Assign variables :
+* Creation data properties :
 * messageObject - See property
 * callbackName - See property
 * interactives - See porperty
