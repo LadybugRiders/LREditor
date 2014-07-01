@@ -111,24 +111,27 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 * @param {Phaser.Group | GameObject} parent The parent object
 * @return {Phaser.Group | GameObject} the exported parent and its descendants
 */
-LR.LevelExporter.prototype.exportEntities= function(_parent) {
+LR.LevelExporter.prototype.exportEntities = function(_parent) {
 	var eObjects = null;
 
 	//don't export editor's entities
-	if (_parent.name !== "__editor") {
-		// export parent
-		eObjects = this.exportEntity(_parent);
+	if (_parent.name) {
+		if (_parent.name === "__world"
+			|| (_parent.name[0] == "_" && _parent.name[1] == "_") == false) {
+			// export parent
+			eObjects = this.exportEntity(_parent);
 
-		// if parent has children
-		if (_parent.children.length > 0) {
-			eObjects.children = new Array();
-			for (var i=0; i<_parent.children.length; i++) {
-				var child = _parent.children[i];
-				// export child
-				var obj = this.exportEntities(child);
-				// add exported child
-				if (obj != null) {
-					eObjects.children.push(obj);
+			// if parent has children
+			if (_parent.children.length > 0) {
+				eObjects.children = new Array();
+				for (var i=0; i<_parent.children.length; i++) {
+					var child = _parent.children[i];
+					// export child
+					var obj = this.exportEntities(child);
+					// add exported child
+					if (obj != null) {
+						eObjects.children.push(obj);
+					}
 				}
 			}
 		}
