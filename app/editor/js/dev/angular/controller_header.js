@@ -39,6 +39,22 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
 		});
 
+		$scope.modalProjectData = {
+			projectName: "Project",
+      projectPath: "/game/"
+		};
+
+		if (localStorage) {
+			var name = localStorage.getItem("projectName");
+			var path = localStorage.getItem("projectPath");
+			if (name && path) {
+				$scope.modalProjectData.projectName = name;
+				$scope.modalProjectData.projectPath = path;
+			}
+    } else {
+      console.warn("no localStorage");
+    }
+
 		$scope.modalData = {
 			// images
 			imagesPath: LR.Editor.Settings.project.path + "/assets/images/",
@@ -88,6 +104,26 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			var win = window.open(url, '_blank');
 	  		win.focus();
 		}, 100);
+	};
+
+	/************
+	** PROJECT **
+	************/
+
+	$scope.changeCurrentProject = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/project.html',
+			controller: ProjectCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			$scope.modalProjectData = _data;
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
 	};
 
 	/******************

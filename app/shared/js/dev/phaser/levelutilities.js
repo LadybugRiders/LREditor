@@ -33,13 +33,13 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 	} else if (_object.type === LR.LevelUtilities.TYPE_TILESPRITE) {
 		cObj = new LR.Entity.TileSprite(_game,0,0);
 		_game.add.existing(cObj);
-	}else if (_object.type === LR.LevelUtilities.TYPE_GROUP) {
+	} else if (_object.type === LR.LevelUtilities.TYPE_GROUP) {
 		cObj = new LR.Entity.Group(_game);
 		_game.add.existing(cObj);
-	}else if (_object.type === LR.LevelUtilities.TYPE_TEXT) {
+	} else if (_object.type === LR.LevelUtilities.TYPE_TEXT) {
 		cObj = new LR.Entity.Text(_game,0,0,"",_object.textData.style);
 		_game.add.existing(cObj);
-	}else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
+	} else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
 		//cObj = new Phaser.World(_game);
 	}
 
