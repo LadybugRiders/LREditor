@@ -128,6 +128,15 @@ LR.Entity.Text.prototype.update = function() {
 	}
 };
 
+LR.Entity.Text.prototype.postUpdate = function() {
+	Phaser.Text.prototype.postUpdate.call(this);
+	if (this.go) {
+		if (this.exists) {
+			this.go.postUpdate();
+		}
+	}
+};
+
 LR.Entity.Text.prototype.render = function() {
 	Phaser.Text.prototype.render.call(this);
 	if (this.go) {

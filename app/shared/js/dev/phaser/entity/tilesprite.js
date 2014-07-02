@@ -51,6 +51,15 @@ LR.Entity.TileSprite.prototype.update = function() {
 	}
 };
 
+LR.Entity.TileSprite.prototype.postUpdate = function() {
+	Phaser.TileSprite.prototype.postUpdate.call(this);
+	if (this.go) {
+		if (this.exists) {
+			this.go.postUpdate();
+		}
+	}
+};
+
 LR.Entity.TileSprite.prototype.render = function() {
 	Phaser.TileSprite.prototype.render.call(this);
 	if (this.go) {

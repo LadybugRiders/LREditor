@@ -44,6 +44,15 @@ LR.Entity.Sprite.prototype.update = function() {
 	}
 };
 
+LR.Entity.Sprite.prototype.postUpdate = function() {
+	Phaser.Sprite.prototype.postUpdate.call(this);
+	if (this.go) {
+		if (this.exists) {
+			this.go.postUpdate();
+		}
+	}
+};
+
 LR.Entity.Sprite.prototype.render = function() {
 	Phaser.Sprite.prototype.render.call(this);
 	if (this.go) {

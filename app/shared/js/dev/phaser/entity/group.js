@@ -25,6 +25,15 @@ LR.Entity.Group.prototype.update = function() {
 	}
 };
 
+LR.Entity.Group.prototype.postUpdate = function() {
+	Phaser.Group.prototype.postUpdate.call(this);
+	if (this.go) {
+		if (this.exists) {
+			this.go.postUpdate();
+		}
+	}
+};
+
 LR.Entity.Group.prototype.render = function() {
 	Phaser.Group.prototype.render.call(this);
 	if (this.go) {
