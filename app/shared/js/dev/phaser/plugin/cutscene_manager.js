@@ -316,7 +316,8 @@ function getPropertyTargetByString( _object, _string){
 */
 Phaser.Plugin.CutsceneManager.otherFunctions = [
 	"moveCamera", "resetCamera", "cameraFollow",
-	"freezeInputAll", "unfreezeInputAll", "freezeInput", "unfreezeInput"
+	"freezeInputAll", "unfreezeInputAll", "freezeInput", "unfreezeInput",
+	"changeLevel"
 ];
 
 Phaser.Plugin.CutsceneManager.prototype.moveCamera = function(_args){
@@ -400,4 +401,10 @@ Phaser.Plugin.CutsceneManager.prototype.unfreezeInput = function(_args){
 		}
 	}
 	return true;
+}
+
+//================= CHANGE LEVEL ====================================
+
+Phaser.Plugin.CutsceneManager.prototype.changeLevel = function(_args){
+	this.game.state.start("Level", true, false, {levelName: _args.levelName});
 }

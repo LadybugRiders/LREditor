@@ -28,6 +28,13 @@ LR.Behaviour.TriggerCutscene = function(_gameobject){
 LR.Behaviour.TriggerCutscene.prototype = Object.create(LR.Behaviour.Trigger.prototype);
 LR.Behaviour.TriggerCutscene.prototype.constructor = LR.Behaviour.TriggerCutscene;
 
+/**
+* Creation data properties 
+* cutscene - name of the cutscene that has to be triggered
+*
+* @method create
+* @param {data} data Object containing properties to be assigned at the creation of the game
+*/
 LR.Behaviour.TriggerCutscene.prototype.create = function(_data){
 	if( _data == null )
 		return;
