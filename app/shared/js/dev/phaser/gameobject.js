@@ -67,6 +67,9 @@ LR.GameObject = function(_entity) {
 	this.broadphaseListened = false;
 	this.postBroadphaseCallback = null;
 	this.postBroadphaseContext = null;
+
+	//behaviours to remove
+	this._behavioursToRemove = new Array();
 };
 
 LR.GameObject.prototype.constructor = LR.GameObject;
@@ -86,6 +89,20 @@ LR.GameObject.prototype.update = function() {
 		for(var i=0; i < this.behaviours.length; i++){
 			if( this.behaviours[i].update != null && this.behaviours[i].enabled  )
 				this.behaviours[i].update();
+		}
+	}
+};
+
+LR.GameObject.prototype.postUpdate = function() {
+	if (this.entity.exists && this._behavioursToRemove.length > 0) {
+		for(var r=0; r < this._behavioursToRemove.length; r++){
+			var bh = this._behavioursToRemove[r];
+			for( var i = 0; i < this.behaviours.length; i++){
+				if( this.behaviours[i] === bh){
+					this.behaviours.splice(i,1);
+					console.log("splice " + i )
+				}
+			}
 		}
 	}
 };
@@ -346,6 +363,17 @@ LR.GameObject.prototype.onEndContact = function(_otherBody, _otherShape, _myShap
 LR.GameObject.prototype.addBehaviour = function(_behaviour) {
 	this.behaviours.push(_behaviour);
 	return _behaviour;
+}
+
+/**
+* Removes a behaviour from the gameobject
+* @method removeBehaviour
+* @param {Behaviour} behaviour Behaviour instance
+* @return the behaviour 
+*/
+LR.GameObject.prototype.removeBehaviour = function(_behaviour){
+	if( _behaviour != null)
+		this._behavioursToRemove.push( _behaviour );
 }
 
 /**
