@@ -44,17 +44,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
       projectPath: "/game/"
 		};
 
-		if (localStorage) {
-			var name = localStorage.getItem("projectName");
-			var path = localStorage.getItem("projectPath");
-			if (name && path) {
-				$scope.modalProjectData.projectName = name;
-				$scope.modalProjectData.projectPath = path;
-			}
-    } else {
-      console.warn("no localStorage");
-    }
-
 		$scope.modalData = {
 			// images
 			imagesPath: LR.Editor.Settings.project.path + "/assets/images/",
@@ -64,6 +53,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			// level import/export
 			levelPath: LR.Editor.Settings.project.path + "/assets/levels",
 			levelName: "level1"
+		};
+
+		$scope.modalLayersData = {
+			layers: new Object()
 		};
 
 		//modal data for cutscenes edition
@@ -85,6 +78,18 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			world :{},
 			camera : {}
 		};
+
+		// load current project data
+		if (localStorage) {
+			var name = localStorage.getItem("projectName");
+			var path = localStorage.getItem("projectPath");
+			if (name && path) {
+				$scope.modalProjectData.projectName = name;
+				$scope.modalProjectData.projectPath = path;
+			}
+    } else {
+      console.warn("no localStorage");
+    }
 	};
 
 	$scope.play = function() {
@@ -135,6 +140,26 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			scope: $scope,
 			templateUrl: 'partials/modals/imagesload.html',
 			controller: ImagesLoadCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// do nothing
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	/***********
+	** LAYERS **
+	***********/
+
+	$scope.manageLayers = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/layers.html',
+			controller: LayersCtrlModal,
 			resolve: {
 			}
 		});
