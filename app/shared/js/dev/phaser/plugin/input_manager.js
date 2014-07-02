@@ -362,6 +362,11 @@ Phaser.Plugin.InputManager.prototype.initMouseWheelEvents = function(){
 //									INPUT FREEZE
 //=====================================================================================
 
+/**
+* Freezes all the inputs
+*
+* @method freezeInputAll
+*/
 Phaser.Plugin.InputManager.prototype.freezeInputAll = function(){	
 	this.freezeInputMouse([0,1,2]);
 	console.log(this.mouseEventsTargets);
@@ -370,6 +375,11 @@ Phaser.Plugin.InputManager.prototype.freezeInputAll = function(){
 	}
 }
 
+/**
+* Unfreezes all the inputs
+*
+* @method unfreezeInputAll
+*/
 Phaser.Plugin.InputManager.prototype.unfreezeInputAll = function(){
 	this.unfreezeInputMouse([0,1,2]);
 	for(var keyName in this.keysData){
@@ -377,6 +387,12 @@ Phaser.Plugin.InputManager.prototype.unfreezeInputAll = function(){
 	}
 }
 
+/**
+* Freezes the input keys for the specified action
+*
+* @method freezeInputKeys
+* @param {_actionNames} actionNames ie ["valid","cancel"]
+*/
 Phaser.Plugin.InputManager.prototype.freezeInputKeys = function(_actionNames){
 	for(var i=0; i < _actionNames.length; i++){
 		var actionName = _actionNames[i];
@@ -386,6 +402,12 @@ Phaser.Plugin.InputManager.prototype.freezeInputKeys = function(_actionNames){
 	}
 }
 
+/**
+* Unfreezes the input keys for the specified action
+*
+* @method unfreezeInputKeys
+* @param {_actionNames} actionNames ie ["valid","cancel"]
+*/
 Phaser.Plugin.InputManager.prototype.unfreezeInputKeys = function(_actionNames){
 	for(var i=0; i < _actionNames.length; i++){
 		var actionName = _actionNames[i];
@@ -395,6 +417,12 @@ Phaser.Plugin.InputManager.prototype.unfreezeInputKeys = function(_actionNames){
 	}
 }
 
+/**
+* Freezes the mouse input for the specified buttons
+*
+* @method freezeInputMouse
+* @param {_buttons} buttons ie : [ Phaser.MOUSE.LEFT_BUTTON ]
+*/
 Phaser.Plugin.InputManager.prototype.freezeInputMouse = function( _buttons ){
 	for(var i = 0 ; i < _buttons.length ; i++){
 		var buttonID = _buttons[i];
@@ -403,6 +431,12 @@ Phaser.Plugin.InputManager.prototype.freezeInputMouse = function( _buttons ){
 	}
 }
 
+/**
+* Unfreezes the mouse input for the specified buttons
+*
+* @method unfreezeInputMouse
+* @param {_buttons} buttons ie : [ Phaser.MOUSE.LEFT_BUTTON ]
+*/
 Phaser.Plugin.InputManager.prototype.unfreezeInputMouse = function( _buttons ){
 	for(var i = 0 ; i < _buttons.length ; i++){
 		var buttonID = _buttons[i];
