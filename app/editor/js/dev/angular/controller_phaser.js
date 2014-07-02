@@ -424,7 +424,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 	$scope.import = function(_levelPath, _levelName, _storage) {
 		if (_storage === "file") {
 			var url = "/editorserverapi/v0/level";
-			url += "?name=" + _levelName;
+			url += "?name=" + _levelName + ".json";
 			url += "&path=" + _levelPath;
 			$http.get(url).success(function(_data) {
 				var importer = new LR.Editor.LevelImporterEditor($scope);
@@ -462,7 +462,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		} else if (_storage === "file") {
 			var url = "/editorserverapi/v0/level";
 			var params = {
-				name: _levelName,
+				name: _levelName + ".json",
 				path: _levelPath,
 				data: lvlStr
 			};

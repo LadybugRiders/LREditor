@@ -55,6 +55,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			levelName: "level1"
 		};
 
+		$scope.modalBehavioursData = {
+			behaviours: new Object()
+		};
+
 		$scope.modalLayersData = {
 			layers: new Object()
 		};
@@ -86,6 +90,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			if (name && path) {
 				$scope.modalProjectData.projectName = name;
 				$scope.modalProjectData.projectPath = path;
+
+				$scope.loadCurrentProjectData();
 			}
     } else {
       console.warn("no localStorage");
@@ -114,6 +120,12 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	/************
 	** PROJECT **
 	************/
+
+	$scope.loadCurrentProjectData = function() {
+		$scope.loadCurrentProjectLayers();
+		$scope.loadCurrentProjectBehaviours();
+	};
+
 
 	$scope.changeCurrentProject = function() {
 		var modalInstance = $modal.open({
@@ -151,9 +163,66 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
+	/***************
+	** BEHAVIOURS **
+	***************/
+
+	$scope.loadCurrentProjectBehaviours = function() {
+		var url = "/editorserverapi/v0/behaviour";
+		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/behaviours";
+		$http.get(url).success(function(_data) {
+			console.log(_data);
+			$scope.modalBehavioursData.behaviours = _data.behaviours;
+		}).error(function(_error) {
+			$scope.modalBehavioursData.behaviours = new Object();
+			console.error(_error);
+		});
+	}
+
+	$scope.manageBehaviours = function() {
+		/*var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/layers.html',
+			controller: LayersCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// save layers data in a file
+			var url = "/editorserverapi/v0/layers";
+      var params = {
+        name: "layers.json",
+        path: $scope.modalProjectData.projectPath + "/assets/physics",
+        data: JSON.stringify($scope.modalLayersData.layers)
+      };
+      $http.post(url, params, function(error, data) {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("Layers saved!!");
+        }
+      });
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});*/
+	};
+
 	/***********
 	** LAYERS **
 	***********/
+
+	$scope.loadCurrentProjectLayers = function() {
+		var url = "/editorserverapi/v0/layers";
+		url += "?name=layers.json";
+		url += "&path=" + $scope.modalProjectData.projectPath + "/assets/physics";
+		$http.get(url).success(function(_data) {
+			$scope.modalLayersData.layers = _data;
+		}).error(function(_error) {
+			$scope.modalLayersData.layers = new Object();
+			console.error(_error);
+		});
+	}
 
 	$scope.manageLayers = function() {
 		var modalInstance = $modal.open({
@@ -165,7 +234,20 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 
 		modalInstance.result.then(function (_data) {
-			// do nothing
+			// save layers data in a file
+			var url = "/editorserverapi/v0/layers";
+      var params = {
+        name: "layers.json",
+        path: $scope.modalProjectData.projectPath + "/assets/physics",
+        data: JSON.stringify($scope.modalLayersData.layers)
+      };
+      $http.post(url, params, function(error, data) {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("Layers saved!!");
+        }
+      });
 		}, function () {
 			console.info('Modal dismissed at: ' + new Date());
 		});
