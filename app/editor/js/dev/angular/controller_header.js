@@ -41,7 +41,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		$scope.modalProjectData = {
 			projectName: "Project",
-      projectPath: "/game/"
+      projectPath: "/game/",
+      projectFile: "project.json"
 		};
 
 		$scope.modalData = {
@@ -93,11 +94,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		// load current project data
 		if (localStorage) {
-			var name = localStorage.getItem("projectName");
 			var path = localStorage.getItem("projectPath");
-			if (name && path) {
-				$scope.modalProjectData.projectName = name;
+			var file = localStorage.getItem("projectFile");
+			if (path && file) {
 				$scope.modalProjectData.projectPath = path;
+				$scope.modalProjectData.projectFile = file;
 
 				$scope.loadCurrentProjectData();
 			}
@@ -130,9 +131,20 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	************/
 
 	$scope.loadCurrentProjectData = function() {
-		$scope.loadCurrentProjectImages();
-		$scope.loadCurrentProjectBehaviours();
-		$scope.loadCurrentProjectLayers();
+		var url = "/editorserverapi/v0/project";
+		url += "?name=" + $scope.modalProjectData.projectFile;
+		url += "&path=" + $scope.modalProjectData.projectPath;
+		$http.get(url).success(function(_data) {
+			console.log(_data);
+			$scope.modalProjectData.projectName = _data.name;
+			$scope.modalProjectData.projectFirstLevel = _data.firstLevel;
+
+			$scope.loadCurrentProjectImages();
+			$scope.loadCurrentProjectBehaviours();
+			$scope.loadCurrentProjectLayers();
+		}).error(function(_error) {
+			console.error(_error);
+		});
 	};
 
 
@@ -160,7 +172,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		var url = "/editorserverapi/v0/image";
 		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/images";
 		$http.get(url).success(function(_data) {
-			console.log(_data);
 			$scope.modalImagesData.images = _data.images;
 		}).error(function(_error) {
 			$scope.modalImagesData.images = new Object();
@@ -192,7 +203,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		var url = "/editorserverapi/v0/behaviour";
 		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/behaviours";
 		$http.get(url).success(function(_data) {
-			console.log(_data);
 			$scope.modalBehavioursData.behaviours = _data.behaviours;
 		}).error(function(_error) {
 			$scope.modalBehavioursData.behaviours = new Object();
