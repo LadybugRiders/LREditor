@@ -67,6 +67,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			layers: new Object()
 		};
 
+		$scope.modalInputsData = {
+			inputs: new Object()
+		};
+
 		//modal data for cutscenes edition
 		$scope.modalCSData = {
 			state : "none",
@@ -263,6 +267,51 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
           console.error(error);
         } else {
           console.log("Layers saved!!");
+        }
+      });
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	/***********
+	** INPUTS **
+	***********/
+
+	$scope.loadCurrentProjectInputs = function() {
+		var url = "/editorserverapi/v0/inputs";
+		url += "?name=inputs.json";
+		url += "&path=" + $scope.modalProjectData.projectPath + "/assets/inputs";
+		$http.get(url).success(function(_data) {
+			$scope.modalLayersData.inputs = _data;
+		}).error(function(_error) {
+			$scope.modalLayersData.inputs = new Object();
+			console.error(_error);
+		});
+	}
+
+	$scope.manageInputs = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/inputs.html',
+			controller: InputsCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// save inputs data in a file
+			var url = "/editorserverapi/v0/inputs";
+      var params = {
+        name: "inputs.json",
+        path: $scope.modalProjectData.projectPath + "/assets/inputs",
+        data: JSON.stringify($scope.modalInputsData.inputs)
+      };
+      $http.post(url, params, function(error, data) {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("Inputs saved!!");
         }
       });
 		}, function () {
