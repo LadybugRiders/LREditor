@@ -85,6 +85,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 			$scope.import(_args.levelPath, _args.levelName, _args.levelStorage);
 		});
 
+		$scope.$on("importEntityBroadcast", function(_event, _args) {
+			$scope.importEntity(_args.entity);
+		});
+
 		$scope.$on("exportLevelBroadcast", function(_event, _args) {
 			$scope.export(_args.levelPath, _args.levelName, _args.levelStorage);
 		});
@@ -448,6 +452,14 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 				console.error(_error);
 			});
 		}
+	};
+
+	$scope.importEntity = function(_entity) {
+		var importer = new LR.Editor.LevelImporterEditor($scope);
+		var iObj = importer.importEntities(_entity, $scope.game);
+
+		$scope.$emit("refreshListEmit", {world: $scope.game.world});
+		$scope.forceAttributesRefresh(iObj);
 	};
 
 	//$scope.export = function(_url, _levelName, _storage) {

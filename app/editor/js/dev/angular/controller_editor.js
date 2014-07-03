@@ -105,6 +105,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 
 		$scope.$on("importLevelEmit", function(_event, _args) {
 			$scope.$broadcast("importLevelBroadcast", _args);
+		});
+
+		$scope.$on("importEntityEmit", function(_event, _args) {
+			$scope.$broadcast("importEntityBroadcast", _args);
 		});	
 
 		$scope.$on("exportLevelEmit", function(_event, _args) {

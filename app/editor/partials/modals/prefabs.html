@@ -4,7 +4,7 @@
 <div class="modal-body">
   <div class="form-group">
     <div class="row">
-        <!-- SELECT -->
+        <!-- TABLE -->
         <div class="col-md-12">
             <table class="table table-hover">
                 <thead>
@@ -13,16 +13,31 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th><input type="text" ng-model="modalPrefabsData.prefabName" class="form-control"/></th>
-                        <th><button class="btn btn-warning" ng-click="save()">Save</button></th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr ng-repeat="prefab in modalPrefabsData.prefabs">
-                        <td>{{prefab.name}}<td>
-                        <td><button class="btn btn-warning" ng-click="update()">Update</button><td>
+                        <td>{{prefab.name}}</td>
+                        <td><button class="btn btn-warning" ng-click="update(prefab)" ng-disabled="'true'">Update</button><button class="btn btn-primary" ng-click="import(prefab)">Import</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <!-- ADD -->
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Entity</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{currentEntity.name}}</td>
+                        <td><input type="text" ng-model="modalPrefabsData.prefabName" class="form-control"/></td>
+                        <td><button class="btn btn-success" ng-click="add()">Add</button></td>
                     </tr>
                 </tbody>
             </table>

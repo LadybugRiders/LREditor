@@ -28,6 +28,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.setCutscenes(_args.cutscenes);
 		});
 
+		$scope.$on("refreshCurrentEntityBroadcast", function(_event, _args) {
+			$scope.currentEntity = _args.entity;
+		});
+
 		//Receive settings from phaser when importing
 		$scope.$on("sendSettingsBroadcast", function(_event, _args) {
 			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
