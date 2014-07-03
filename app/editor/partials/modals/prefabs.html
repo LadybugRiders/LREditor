@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h3>Prefabs</h3>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <div class="row">
+        <!-- SELECT -->
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th><input type="text" ng-model="modalPrefabsData.prefabName" class="form-control"/></th>
+                        <th><button class="btn btn-warning" ng-click="save()">Save</button></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="prefab in modalPrefabsData.prefabs">
+                        <td>{{prefab.name}}<td>
+                        <td><button class="btn btn-warning" ng-click="update()">Update</button><td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>

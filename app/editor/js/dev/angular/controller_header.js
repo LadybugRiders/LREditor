@@ -56,6 +56,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			levelName: "level1"
 		};
 
+		$scope.modalPrefabsData = {
+			prefabs: new Object()
+		};
+
 		$scope.modalImagesData = {
 			images: new Object()
 		};
@@ -139,6 +143,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalProjectData.projectName = _data.name;
 			$scope.modalProjectData.projectFirstLevel = _data.firstLevel;
 
+			$scope.loadCurrentProjectPrefabs();
 			$scope.loadCurrentProjectImages();
 			$scope.loadCurrentProjectBehaviours();
 			$scope.loadCurrentProjectLayers();
@@ -146,7 +151,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			console.error(_error);
 		});
 	};
-
 
 	$scope.changeCurrentProject = function() {
 		var modalInstance = $modal.open({
@@ -159,6 +163,38 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		modalInstance.result.then(function (_data) {
 			$scope.modalProjectData = _data;
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	/************
+	** PREFABS **
+	************/
+
+	$scope.loadCurrentProjectPrefabs = function() {
+		var url = "/editorserverapi/v0/prefab";
+		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/prefabs";
+		$http.get(url).success(function(_data) {
+			$scope.modalPrefabsData.prefabs = _data.prefabs;
+			console.log(_data);
+		}).error(function(_error) {
+			$scope.modalPrefabsData.prefabs = new Object();
+			console.error(_error);
+		});
+	};
+
+	$scope.managePrefabs = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/prefabs.html',
+			controller: PrefabsCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// do nothing
 		}, function () {
 			console.info('Modal dismissed at: ' + new Date());
 		});
@@ -177,9 +213,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalImagesData.images = new Object();
 			console.error(_error);
 		});
-	}
+	};
 
-	$scope.imagesLoad = function() {
+	$scope.manageImages = function() {
 		var modalInstance = $modal.open({
 			scope: $scope,
 			templateUrl: 'partials/modals/imagesload.html',
