@@ -55,6 +55,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			levelName: "level1"
 		};
 
+		$scope.modalImagesData = {
+			images: new Object()
+		};
+
 		$scope.modalBehavioursData = {
 			behaviours: new Object()
 		};
@@ -122,8 +126,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	************/
 
 	$scope.loadCurrentProjectData = function() {
-		$scope.loadCurrentProjectLayers();
+		$scope.loadCurrentProjectImages();
 		$scope.loadCurrentProjectBehaviours();
+		$scope.loadCurrentProjectLayers();
 	};
 
 
@@ -146,6 +151,18 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	/******************
 	** IMAGES LOADER **
 	******************/
+
+	$scope.loadCurrentProjectImages = function() {
+		var url = "/editorserverapi/v0/image";
+		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/images";
+		$http.get(url).success(function(_data) {
+			console.log(_data);
+			$scope.modalImagesData.images = _data.images;
+		}).error(function(_error) {
+			$scope.modalImagesData.images = new Object();
+			console.error(_error);
+		});
+	}
 
 	$scope.imagesLoad = function() {
 		var modalInstance = $modal.open({
