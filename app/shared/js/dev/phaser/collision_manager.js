@@ -36,7 +36,7 @@ CollisionManager.prototype.init = function(_layersObjectData){
 	//for each layer
 	for(var key in _layersObjectData){
 		//Create it
-		this.addLayer(key);
+		this.addLayer(key, _layersObjectData[key].collisions);
 	}
 }
 
@@ -47,14 +47,15 @@ CollisionManager.prototype.init = function(_layersObjectData){
 * @param {string} layerName Name of the new layer
 * @returns {number} the ID of the created layer
 */
-CollisionManager.prototype.addLayer = function(_layerName){
+CollisionManager.prototype.addLayer = function(_layerName, _collisionsLayers){
 	if( this.layersData[_layerName] != null )
 		return;
 
 	this.layersData[_layerName] = { "id" : this.nbLayers,
 									"objects" : new Array(),
 									"name":_layerName,
-									"group" : this.game.physics.p2.createCollisionGroup()
+									"group" : this.game.physics.p2.createCollisionGroup(),
+									"collisionsLayers" : _collisionsLayers
 								 };
 
 	this.layersData[_layerName].group.name = _layerName;
@@ -102,7 +103,7 @@ CollisionManager.prototype.changeGameObjectLayer = function(_gameobject, _layer 
     _gameobject.body.setCollisionGroup(layerData.group);
 
     //Get Names of layers that can collide with the gameobject 
-    var collisions = PhysicsSettings.GetCollisionsForLayer(_gameobject.layer);	
+    var collisions = layerData.collisionsLayers;	
     // Tells body to collide with layers enabled
     var collGroups = new Array();
     for(var i=0; i < collisions.length; i++){
