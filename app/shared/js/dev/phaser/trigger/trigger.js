@@ -15,7 +15,9 @@ LR.Behaviour.Trigger = function(_gameobject){
 	_gameobject.enableEvents();
 
 	/**
-	* Interactive Layers that will trigger the callback
+	* Interactive Layers that will trigger the callback. If empty, all layers can be interactives.
+	* Note that collision the trigger's layer and the interactives' one has to be active ( see CollisionManager)
+	* In short, this is used to filter the layers that will trigger the message
 	*
 	* @property interactives
 	* @type {Array}
@@ -100,24 +102,33 @@ LR.Behaviour.Trigger.prototype.onBeginContact = function(_otherBody, _myShape, _
 	if( this.activeCountLimit > 0 && this.activeCount >= this.activeCountLimit ){
 		return;
 	}
-	//check if the colliding body is an interactive one 
-	for( var i=0; i < this.interactives.length ; i++){
-		//if so, send "die" message to the gameobject
-		if(this.interactives[i] == _otherBody.go.layer){
-			this.activeCount ++;
-			//Creates data to send
-			this.messageObject.sender = this.go;
-			this.messageObject.senderShape = _myShape;
-			this.messageObject.collShape = _otherShape;
-			this.messageObject.equation = _equation;
-
-			if( this.callbackName != null )
-				_otherBody.go.sendMessage(this.callbackName,this.messageObject);
-
-			//call internal function
-			this.onTriggered(_otherBody.go);
+	//if no interactives is assigned, the default behaviour acts on all layers
+	if( this.interactives.length == 0){
+		this.sendData(_otherBody, _myShape, _otherShape, _equation);
+	}else{
+		//check if the colliding body is an interactive one 
+		for( var i=0; i < this.interactives.length ; i++){
+			//if so, send "die" message to the gameobject
+			if(this.interactives[i] == _otherBody.go.layer){
+				this.activeCount ++;
+				this.sendData(_otherBody, _myShape, _otherShape, _equation);
+			}
 		}
 	}
+}
+
+LR.Behaviour.Trigger.prototype.sendData = function(_otherBody, _myShape, _otherShape, _equation){
+	//Creates data to send
+	this.messageObject.sender = this.go;
+	this.messageObject.senderShape = _myShape;
+	this.messageObject.collShape = _otherShape;
+	this.messageObject.equation = _equation;
+
+	if( this.callbackName != null )
+		_otherBody.go.sendMessage(this.callbackName,this.messageObject);
+
+	//call internal function
+	this.onTriggered(_otherBody.go);
 }
 
 /**
