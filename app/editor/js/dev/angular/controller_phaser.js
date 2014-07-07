@@ -18,6 +18,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 
 		$scope.cutscenes = [];
 
+		//============ PROJECT ===================
+
+		$scope.$on("sendProjectBroadcast", function(_event, _args) {
+			$scope.project = _args.project;
+		});
+
 		//============ ADDING ENTITIES ===================
 
 		$scope.$on("addGroupBroadcast", function(_event) {
@@ -393,13 +399,31 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 	}
 
 	$scope.loadImage = function(_image) {
-		$scope.game.load.spritesheet(_image.name, _image.path, _image.frameWidth, _image.frameHeight);
-		$scope.game.load.onLoadComplete.add(function() {
-			console.log(_image.name + " has been loaded.");
+		$scope.game.load.spritesheet(
+			_image.name,
+			$scope.project.projectPath + "/assets/images" + _image.path,
+			parseInt(_image.frameWidth),
+			parseInt(_image.frameHeight)
+		);
+
+		var successCallback = function() {
 			$scope.$apply(function() {
 				_image.loaded = true;
-			})
-		});
+			});
+
+			$scope.game.load.onFileComplete.remove(successCallback);
+			$scope.game.load.onFileComplete.remove(errorCallback);
+		};
+		var errorCallback = function() {
+			alert("Sorry but the editor can't load your image '" + _image.name + "' (maybe a frame width/frame height error).");
+			
+			$scope.game.load.onFileComplete.remove(successCallback);
+			$scope.game.load.onFileComplete.remove(errorCallback);
+		};
+		
+		$scope.game.load.onFileComplete.add(successCallback);
+		$scope.game.load.onFileError.add(errorCallback);
+
 		$scope.game.load.start();
 	};
 

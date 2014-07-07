@@ -30,7 +30,7 @@ LR.LevelImporterGame.prototype.import = function(_level, _game, _promise) {
 };
 
 LR.LevelImporterGame.prototype.importAssets = function(_assets, _loader) {
-	LR.LevelImporter.prototype.doAfterImportEntitiesAndBeforePromise.call(this, _assets, _loader);
+	LR.LevelImporter.prototype.importAssets.call(this, _assets, _loader);
 
 	this.importBehaviours(_assets.behaviours, _loader)
 };

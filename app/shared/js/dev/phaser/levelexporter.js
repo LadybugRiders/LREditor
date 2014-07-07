@@ -81,7 +81,7 @@ LR.LevelExporter.prototype.exportImages = function(_game) {
 LR.LevelExporter.prototype.getImageKeys = function(_entity, _keys) {
 	if (_entity.key) {
 		if (_keys.indexOf(_entity.key) < 0) {
-			images.push(_entity.key);
+			_keys.push(_entity.key);
 		}
 	}
 
@@ -100,22 +100,23 @@ LR.LevelExporter.prototype.getImageKeys = function(_entity, _keys) {
 *
 * @method exportImages
 * @param {Phaser.Cache} cache The game's cache of the level
-* @return {Object} exportable level's images
+* @return {Array} level's image keys
+* @return {Array} exportable level's images
 */
-LR.LevelExporter.prototype.getExportableImages = function(_cache, _images) {
+LR.LevelExporter.prototype.getExportableImages = function(_cache, _keys) {
 	var images = new Array();
 
-		for (var i = 0; i < _images.length; i++) {
-			var key = keys[i];
-			var cachedImage = _cache.getImage(key);
-			var frame = _cache.getFrameByIndex(key, 0);
-			var image = this.exportImage(cachedImage, frame);
-			if (LR.LevelUtilities.IsEditorImage(image) == false) {
-				images.push(image);
-			}
-		};
+	for (var i = 0; i < _keys.length; i++) {
+		var key = _keys[i];
+		var cachedImage = _cache.getImage(key);
+		var frame = _cache.getFrameByIndex(key, 0);
+		var image = this.exportImage(cachedImage, frame);
+		if (LR.LevelUtilities.IsEditorImage(image) == false) {
+			images.push(image);
+		}
+	};
 
-		return images;
+	return images;
 };
 
 /**

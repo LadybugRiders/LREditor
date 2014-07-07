@@ -146,6 +146,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalProjectData.projectName = _data.name;
 			$scope.modalProjectData.projectFirstLevel = _data.firstLevel;
 
+			$timeout(function() {
+				$scope.$emit("sendProjectEmit", {project: $scope.modalProjectData});
+			}, 100);
+
 			$scope.loadCurrentProjectPrefabs();
 			$scope.loadCurrentProjectImages();
 			$scope.loadCurrentProjectBehaviours();

@@ -7,6 +7,11 @@ var LREditorCtrlMod = angular.module('LREditor.controllers');
 LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $http) {
 	function main() {
 
+		//================== PROJECT ======================
+		$scope.$on("sendProjectEmit", function(_event, _args) {
+			$scope.$broadcast("sendProjectBroadcast", _args);
+		});
+
 		//================== REFRESH ======================
 
 		$scope.$on("refreshListEmit", function(_event, _args) {

@@ -235,16 +235,22 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		if (typeof _image !== "object") {
 			_image = new Image();
 		}
-		if (_image.name === "" || _image.name == null) {
+		if (_image.name == null || _image.name === "") {
 			_image.name = null;
 		}
 
-		if (_frame === "" || _frame == null) {
+		if (_frame == null || _frame === "") {
 			_frame = 0;
 		}
+		
+		console.log(_image);
 
-		$scope.currentEntity.loadTexture(_image.name);
-		$scope.currentEntity.frame = parseInt(_frame);
+		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
+			$scope.currentEntity.loadTexture(_image.name);
+			$scope.currentEntity.frame = parseInt(_frame);
+		} else {
+			console.error("No image with the name '" + _image.name +"'' in cache");
+		}
 	};
 
 	$scope.changeDepth = function(_value){
