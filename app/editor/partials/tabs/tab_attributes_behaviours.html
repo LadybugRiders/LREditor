@@ -2,10 +2,10 @@
 <div class="form-group">
 	<label>Behaviours</label>
 	<accordion>
-		<accordion-group ng-repeat="behaviour in currentEntity.behaviours" heading="{{behaviour.classname}}">
+		<accordion-group ng-repeat="behaviour in currentEntity.behaviours" heading="{{behaviour.name}}">
 			<div class="row">
 				<div class="form-group col-md-10">
-					<input type="text" ng-model="behaviour.args" class="form-control" ng-disabled="'true'"/>
+					<input json-text type="text" ng-model="behaviour.params" class="form-control" ng-disabled="'true'"/>
 				</div>
 				<div class="form-group col-md-2">
 					<button ng-click="openBehaviourArgsModal(behaviour)" type="button" class="btn btn-default">
@@ -14,9 +14,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<button ng-click="openEditModal(behaviour,'classname')" type="button" class="btn btn-default">
-					Name
-				</button>
 				<button ng-click="deleteBehaviour(behaviour)" type="button" class="btn btn-danger">
 					Delete
 				</button>
@@ -25,10 +22,11 @@
 	</accordion>
 	<div class="row">
 		<div class="col-md-8">
-			<input type="text" ng-model="data.newBehaviour" class="form-control"/>
+			<select ng-model="selectedBehaviour" ng-options="behaviour.name for behaviour in data.behaviours" class="form-control">
+			</select>
 		</div>
 		<div class="col-md-4">
-			<button ng-click="addBehaviour(data.newBehaviour)" type="button" class="btn btn-default">Add</button>
+			<button ng-click="addBehaviour(selectedBehaviour)" type="button" class="btn btn-default">Add</button>
 		</div>
 	</div>
 </div>

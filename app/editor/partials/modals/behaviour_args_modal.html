@@ -1,6 +1,6 @@
 <div class="modal-header">
-    <h3> Edit Args </h3>
-    <h4> {{ modalArgsData.behaviour.classname }} </h4>
+    <h3>Edit Args</h3>
+    <h4>{{modalParamsData.tmp.behaviour.name}}</h4>
 </div>
 <div class="modal-body">
     <table class="table table-striped">
@@ -11,16 +11,16 @@
             <th>Delete</th>
         </thead>
         <tbody>
-            <tr ng-repeat="(name,val) in modalArgsData.args">
+            <tr ng-repeat="(name,val) in modalParamsData.tmp.behaviour.params">
                 <td>
-                    <input type="text" ng-model="name" class="form-control" ng-disabled = "true" />
+                    {{name}}
                 </td>
                 <td>
-                    <input type="text" ng-model="modalArgsData.args[name]" class="form-control" />
+                    <input json-text type="text" ng-model="val" class="form-control" disabled/>
                 </td>
 
                 <td>
-                    <button class="btn btn-default" ng-click="openEditModal(modalArgsData.args,name,true)">
+                    <button class="btn btn-default" ng-click="openEditModal(modalParamsData.tmp.behaviour.params, name, true)">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </td>
@@ -32,10 +32,10 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" ng-model="modalArgsData.newName" class="form-control"/>
+                    <input type="text" ng-model="modalParamsData.newName" class="form-control"/>
                 </td>
                 <td>
-                    <input type="text" ng-model="modalArgsData.newValue" class="form-control"/>
+                    <input type="text" ng-model="modalParamsData.newValue" class="form-control"/>
                 </td>
                 <td>
                     <button class="btn btn-primary" ng-click="addArg()">Add</button>

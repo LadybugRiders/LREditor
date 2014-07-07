@@ -79,6 +79,11 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("sendCameraBroadcast", _args);
 		});	
 
+		//================== BEHAVIOURS ======================
+		$scope.$on("sendBehavioursEmit", function(_event, _args) {
+			$scope.$broadcast("sendBehavioursBroadcast", _args);
+		});
+
 		//================== WORLD & SETTINGS======================
 
 		$scope.$on("sendWorldEmit", function(_event, _args) {

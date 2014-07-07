@@ -7,9 +7,10 @@ var EditTextCtrlModal = function ($scope, $modalInstance, $timeout) {
   };
 
   $scope.edit = function () {
-    if( $scope.modalEditData.context != null ){
+    if($scope.modalEditData.context != null) {
       $scope.modalEditData.context[$scope.modalEditData.varName] = $scope.modalEditData.edit_text;
     }
+    
     $modalInstance.close($scope.modalEditData);
   };
 
