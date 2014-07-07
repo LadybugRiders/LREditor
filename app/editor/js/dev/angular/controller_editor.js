@@ -135,6 +135,12 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 		$scope.$on("sendCutscenesEmit", function(_event, _args) {
 			$scope.$broadcast("sendCutscenesBroadcast", _args);
 		});	
+
+
+		//from the controller_header 
+		$scope.$on("sendLayersEmit", function(_event, _args) {
+			$scope.$broadcast("sendLayersBroadcast", _args);
+		});	
 	};
 
 	main();

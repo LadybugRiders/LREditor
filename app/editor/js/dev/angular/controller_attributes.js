@@ -10,6 +10,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.currentEntity = null;
 		$scope.noneImage = new Image();
 		$scope.noneImage.name = "none";
+		$scope.layersNames = [];
 		$scope.data = {
 			newBehaviour: "",
 			image: $scope.noneImage,
@@ -54,6 +55,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}else{
 				$scope.refreshCurrentEntity(_args.entity,_args.forceBodyRefresh);
 			}
+		});
+
+		$scope.$on("sendLayersBroadcast", function(_event, _args) {
+			$scope.layersNames = _args.layersNames;
 		});
 
 		$timeout(function() {

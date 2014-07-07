@@ -285,13 +285,19 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	/***********
 	** LAYERS **
 	***********/
-
+	//Load the layers file and build/send the layers names array
 	$scope.loadCurrentProjectLayers = function() {
 		var url = "/editorserverapi/v0/layers";
 		url += "?name=layers.json";
 		url += "&path=" + $scope.modalProjectData.projectPath + "/assets/physics";
 		$http.get(url).success(function(_data) {
 			$scope.modalLayersData.layers = _data;
+			//Get the array of layers
+			var layersNames = new Array();
+			for( var key in $scope.modalLayersData.layers){
+		      layersNames.push( key );
+		    }
+		    $scope.$emit("sendLayersEmit",{"layersNames" : layersNames });
 		}).error(function(_error) {
 			$scope.modalLayersData.layers = new Object();
 			console.error(_error);

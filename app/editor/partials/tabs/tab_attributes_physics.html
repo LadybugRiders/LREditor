@@ -18,7 +18,9 @@
 				<!-- layer -->
 				<div class="row">
 					<label class="col-md-4">Layer</label>
-					<input type="text" ng-model="currentEntity.go.layer" class="col-md-4"/>
+					<select type="text" ng-model="currentEntity.go.layer"
+						ng-options="layer as layer for layer in layersNames"
+						class="col-md-4"/>
 				</div>
 				<!-- Motion State -->
 				<div class="row">
@@ -41,6 +43,19 @@
 					<input type="number" ng-model="currentEntity.body.angle" 
 					min="-180" max="180"
 					class="col-md-4" integer/>
+				</div>
+
+				<div class="row">
+					<label class="col-md-3">Gravity</label>
+					<input type="number" ng-model="currentEntity.body.data.gravityScale"
+					class="col-md-4" float/>
+				</div>
+
+
+				<div class="row">
+					<label class="col-md-3">Mass</label>
+					<input type="number" ng-model="currentEntity.body.data.mass"
+					class="col-md-4" float/>
 				</div>
 
 				<button ng-click="removeBodyFromCurrentEntity()" type="button" class="btn btn-danger">Remove Body</button>

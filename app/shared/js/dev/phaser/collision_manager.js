@@ -92,8 +92,10 @@ CollisionManager.prototype.changeGameObjectLayer = function(_gameobject, _layer 
 	if( _gameobject.body == null)
 		return;
 	var layerData = this.getLayerData(_layer);
-	if(layerData == null)
+	if(layerData == null){
+		console.error("Layer " + _layer + " doesnt exists.");
 		return;
+	}
 	//clear collisions on the body
 	_gameobject.body.clearCollision(true,true);
 	//  Sets the collision group of the body
