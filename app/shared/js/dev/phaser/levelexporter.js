@@ -44,7 +44,7 @@ LR.LevelExporter.prototype.export = function(_game,_dataSettings,_cutscenes) {
 LR.LevelExporter.prototype.exportAssets = function(_game) {
 	var assets = new Object();
 
-	assets.images = this.exportImages(_game.cache);
+	assets.images = this.exportImages(_game);
 	assets.behaviours = this.exportBehaviours(_game.world);
 
 	return assets;
@@ -58,14 +58,54 @@ LR.LevelExporter.prototype.exportAssets = function(_game) {
 * Export all the level's images.
 *
 * @method exportImages
+* @param {Phaser.World} level's world
+* @return {Array} level's images
+*/
+LR.LevelExporter.prototype.exportImages = function(_game) {
+	var keys = new Array();
+
+	keys = this.getImageKeys(_game.world, keys);
+
+	var images = this.getExportableImages(_game.cache, keys);
+
+	return images;
+};
+
+/**
+* Return the image keys of the entities and its children.
+*
+* @method getImages
+* @param {LR.Entity} entity
+* @return {Array} image keys
+*/
+LR.LevelExporter.prototype.getImageKeys = function(_entity, _keys) {
+	if (_entity.key) {
+		if (_keys.indexOf(_entity.key) < 0) {
+			images.push(_entity.key);
+		}
+	}
+
+	if (_entity.children != null) {
+		for (var i = 0; i < _entity.children.length; i++) {
+			var child = _entity.children[i];
+			_keys = this.getImageKeys(child, _keys);
+		};
+	}
+
+	return _keys;
+};
+
+/**
+* Export all the level's images.
+*
+* @method exportImages
 * @param {Phaser.Cache} cache The game's cache of the level
 * @return {Object} exportable level's images
 */
-LR.LevelExporter.prototype.exportImages = function(_cache) {
+LR.LevelExporter.prototype.getExportableImages = function(_cache, _images) {
 	var images = new Array();
 
-		var keys = _cache.getKeys(Phaser.Cache.IMAGE);
-		for (var i = 0; i < keys.length; i++) {
+		for (var i = 0; i < _images.length; i++) {
 			var key = keys[i];
 			var cachedImage = _cache.getImage(key);
 			var frame = _cache.getFrameByIndex(key, 0);

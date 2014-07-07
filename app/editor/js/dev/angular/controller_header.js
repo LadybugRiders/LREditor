@@ -211,6 +211,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/images";
 		$http.get(url).success(function(_data) {
 			$scope.modalImagesData.images = _data.images;
+
+			$scope.$emit("sendImagesEmit", $scope.modalImagesData);
 		}).error(function(_error) {
 			$scope.modalImagesData.images = new Object();
 			console.error(_error);
@@ -220,8 +222,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	$scope.manageImages = function() {
 		var modalInstance = $modal.open({
 			scope: $scope,
-			templateUrl: 'partials/modals/imagesload.html',
-			controller: ImagesLoadCtrlModal,
+			templateUrl: 'partials/modals/images.html',
+			controller: ImagesCtrlModal,
 			resolve: {
 			}
 		});
@@ -251,32 +253,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	}
 
 	$scope.manageBehaviours = function() {
-		/*var modalInstance = $modal.open({
-			scope: $scope,
-			templateUrl: 'partials/modals/layers.html',
-			controller: LayersCtrlModal,
-			resolve: {
-			}
-		});
-
-		modalInstance.result.then(function (_data) {
-			// save layers data in a file
-			var url = "/editorserverapi/v0/layers";
-      var params = {
-        name: "layers.json",
-        path: $scope.modalProjectData.projectPath + "/assets/physics",
-        data: JSON.stringify($scope.modalLayersData.layers)
-      };
-      $http.post(url, params, function(error, data) {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log("Layers saved!!");
-        }
-      });
-		}, function () {
-			console.info('Modal dismissed at: ' + new Date());
-		});*/
+		// nothing to do
 	};
 
 	/***********
