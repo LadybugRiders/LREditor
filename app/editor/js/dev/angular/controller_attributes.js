@@ -29,6 +29,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			args : {}
 		};
 
+		$scope.modalParamsData = {
+		};
+
 		$scope.$on("sendImagesBroadcast", function(_event, _args) {
 			if (_args.images) {
 				$scope.data.images = new Array();
@@ -37,6 +40,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 					var image = _args.images[i];
 					$scope.data.images.push(image);
 				};
+			}
+		});
+
+		$scope.$on("sendBehavioursBroadcast", function(_event, _args) {
+			if (_args.behaviours) {
+				$scope.data.behaviours = _args.behaviours;
 			}
 		});
 
@@ -196,7 +205,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			var found = false;
 			while (i<behaviours.length && found == false) {
 				var b = behaviours[i];
-				if (b === _behaviour) {
+				if (b.name === _behaviour.name) {
 					behaviours.splice(i, 1);
 				}
 				i++;
@@ -204,17 +213,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	};
 
-	$scope.addBehaviour = function(classname) {
+	$scope.addBehaviour = function(_behaviour) {
 		if ($scope.currentEntity) {
-			if (typeof classname === "string" && classname != "") {
-				if( $scope.currentEntity.behaviours == null )
+			if (_behaviour != null) {
+				if($scope.currentEntity.behaviours == null) {
 					$scope.currentEntity.behaviours = new Array();
-				var behaviour = {
-					classname: classname,
-					args: "{}"
-				};
-				$scope.currentEntity.behaviours.push(behaviour);
-				$scope.data.newBehaviour = "";
+				}
+
+				try {
+					var clone = JSON.parse(JSON.stringify(_behaviour));
+					$scope.currentEntity.behaviours.push(clone);
+				} catch (e) {
+					console.error(e);
+				}
 			}
 		}
 	};
@@ -322,7 +333,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.resizeBody = function(){
 		if( $scope.currentEntity && $scope.currentEntity.body ){
-			console.log($scope.data.body);
 			var newShape = $scope.currentEntity.body.setRectangle(
 					$scope.data.body.width, $scope.data.body.height,
 					$scope.data.body.x, $scope.data.body.y,
@@ -370,7 +380,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.deleteShape = function(_index){
 		if( $scope.currentEntity && $scope.currentEntity.body && $scope.currentEntity.go.getShapesCount() > 1){
-			console.log("Delete Shape");
 			$scope.currentEntity.body.removeShape($scope.currentEntity.go.getShape(_index));
 			$scope.currentEntity.body.shapeChanged();
 			$scope.refreshCurrentEntity($scope.currentEntity,true);
@@ -405,16 +414,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
    		$scope.$emit("openEditModalEmit", { context : _textContext, varName : _textVarName, isLong : _isLong});
 	};
 
-	$scope.openBehaviourArgsModal = function( _behaviour ) {
+	$scope.openBehaviourArgsModal = function(_behaviour) {
 
 		// we need args as an object, but it is stored as a string
-		$scope.modalArgsData.classname = _behaviour.classname;
-		$scope.modalArgsData.args = jQuery.parseJSON( _behaviour.args);
-		$scope.modalArgsData.behaviour = _behaviour;
-		//Stringify args value
-		for(var key in $scope.modalArgsData.args ){
-			$scope.modalArgsData.args[key] = JSON.stringify( $scope.modalArgsData.args[key]);
-		}
+		$scope.modalParamsData.behaviour = _behaviour;
 		
 		var modalInstance = $modal.open({
 			scope: $scope,

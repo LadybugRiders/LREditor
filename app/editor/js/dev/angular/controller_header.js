@@ -204,9 +204,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
-	/******************
-	** IMAGES LOADER **
-	******************/
+	/***********
+	** IMAGES **
+	***********/
 
 	$scope.loadCurrentProjectImages = function() {
 		var url = "/editorserverapi/v0/image";
@@ -244,6 +244,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/behaviours";
 		$http.get(url).success(function(_data) {
 			$scope.modalBehavioursData.behaviours = _data.behaviours;
+
+			console.log($scope.modalBehavioursData);
+			$scope.$emit("sendBehavioursEmit", $scope.modalBehavioursData);
 		}).error(function(_error) {
 			$scope.modalBehavioursData.behaviours = new Object();
 			console.error(_error);

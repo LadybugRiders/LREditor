@@ -243,3 +243,34 @@ moduleDirectives.directive('entityDrag', function() {
 		},
 	};
 });
+
+moduleDirectives.directive('jsonText', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attr, ngModel) {            
+          function into(input) {
+          	var json = input;
+          	try {
+          		json = JSON.parse(input);
+          	} catch(e) {
+          	}
+
+            return json;
+          };
+
+          function out(data) {
+          	var string = data;
+          	try {
+          		string = JSON.stringify(data);
+          	} catch(e) {
+          	}
+
+            return string;
+          };
+
+          ngModel.$parsers.push(into);
+          ngModel.$formatters.push(out);
+        }
+    };
+});
