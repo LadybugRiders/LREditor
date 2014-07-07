@@ -21,7 +21,7 @@ LR.LevelExporter = function() {
 LR.LevelExporter.prototype.export = function(_game,_dataSettings,_cutscenes) {
 	var level = new Object();
 
-	level.assets = this.exportAssets(_game.cache);
+	level.assets = this.exportAssets(_game);
 	level.objects = this.exportEntities(_game.world);
 	if( _dataSettings )
 		level.settings = _dataSettings;
@@ -41,10 +41,11 @@ LR.LevelExporter.prototype.export = function(_game,_dataSettings,_cutscenes) {
 * @param {Phaser.Cache} cache The game's cache of the level
 * @return {Object} exportable level's assets
 */
-LR.LevelExporter.prototype.exportAssets = function(_cache) {
+LR.LevelExporter.prototype.exportAssets = function(_game) {
 	var assets = new Object();
 
-	assets.images = this.exportImages(_cache);
+	assets.images = this.exportImages(_game.cache);
+	assets.behaviours = this.exportBehaviours(_game.world);
 
 	return assets;
 };
@@ -98,6 +99,80 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 	}
 
 	return image;
+};
+
+/***************
+** BEHAVIOURS **
+***************/
+
+/**
+* Export all the level's behaviours.
+*
+* @method exportBehaviours
+* @param {Phaser.World} level's world
+* @return {Array} level's behaviours
+*/
+LR.LevelExporter.prototype.exportBehaviours = function(_world) {
+	var behaviours = new Array();
+
+	behaviours = this.getBehaviours(_world, behaviours);
+
+	return behaviours;
+};
+
+/**
+* Return the behaviours of the entities and its children.
+*
+* @method getBehaviours
+* @param {LR.Entity} entity
+* @return {Array} behaviours
+*/
+LR.LevelExporter.prototype.getBehaviours = function(_entity, _behaviours) {
+	if (_entity.behaviours) {
+		_behaviours = this.mergeBehaviours(_entity.behaviours, _behaviours);
+	}
+
+	if (_entity.children != null) {
+		for (var i = 0; i < _entity.children.length; i++) {
+			var child = _entity.children[i];
+			_behaviours = this.getBehaviours(child, _behaviours);
+		};
+	}
+
+	return _behaviours;
+};
+
+/**
+* Return a merge array of behaviours (no doublons).
+*
+* @method mergeBehaviours
+* @param {LR.Entity} first group of behaviours
+* @param {LR.Entity} second group of behaviours
+* @return {Array} behaviours
+*/
+LR.LevelExporter.prototype.mergeBehaviours = function(_behaviours1, _behaviours2) {
+	var behaviours = new Array();
+	behaviours = behaviours.concat(_behaviours2);
+
+	for (var i = 0; i < _behaviours1.length; i++) {
+		var behaviour = _behaviours1[i];
+
+		var j = 0;
+		var found = false;
+		while (j < _behaviours2.length && found == false) {
+			if (behaviour.name == _behaviours2[j]) {
+				found = true;
+			}
+
+			j++;
+		}
+
+		if (found == false) {
+			behaviours.push(behaviour);
+		}
+	};
+
+	return behaviours;
 };
 
 /************

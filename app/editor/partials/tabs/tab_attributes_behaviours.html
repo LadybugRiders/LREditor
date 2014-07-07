@@ -1,32 +1,47 @@
 <!-- BEHAVIOURS -->
 <div class="form-group">
 	<label>Behaviours</label>
-	<accordion>
-		<accordion-group ng-repeat="behaviour in currentEntity.behaviours" heading="{{behaviour.name}}">
+	<ul class="list-group">
+		<li class="list-group-item">
+			<accordion>
+				<accordion-group ng-repeat="behaviour in currentEntity.behaviours" heading="{{behaviour.name}}">
+					<div class="row">
+						<div class="form-group col-md-10">
+							<input json-text type="text" ng-model="behaviour.params" class="form-control" ng-disabled="'true'"/>
+						</div>
+						<div class="form-group col-md-2">
+							<button ng-click="openBehaviourArgsModal(behaviour)" type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<button ng-click="deleteBehaviour(behaviour)" type="button" class="btn btn-danger">
+							Delete
+						</button>
+					</div>
+				</accordion-group>
+			</accordion>
+		</li>
+
+		<li class="list-group-item">
 			<div class="row">
-				<div class="form-group col-md-10">
-					<input json-text type="text" ng-model="behaviour.params" class="form-control" ng-disabled="'true'"/>
+				<div class="col-md-8">
+					<select ng-model="selectedBehaviour" ng-options="behaviour.name for behaviour in data.behaviours" class="form-control">
+					</select>
 				</div>
-				<div class="form-group col-md-2">
-					<button ng-click="openBehaviourArgsModal(behaviour)" type="button" class="btn btn-default">
-						<span class="glyphicon glyphicon-pencil"></span>
-					</button>
+				<div class="col-md-4">
+					<button ng-click="addBehaviour(selectedBehaviour)" type="button" class="btn btn-primary">Add</button>
 				</div>
 			</div>
+		</li>
+		
+		<li class="list-group-item">
 			<div class="row">
-				<button ng-click="deleteBehaviour(behaviour)" type="button" class="btn btn-danger">
-					Delete
-				</button>
+				<div class="col-md-12">
+					<button ng-click="removeAllBehaviours()" type="button" class="btn btn-danger">Remove all behaviours</button>
+				</div>
 			</div>
-		</accordion-group>
-	</accordion>
-	<div class="row">
-		<div class="col-md-8">
-			<select ng-model="selectedBehaviour" ng-options="behaviour.name for behaviour in data.behaviours" class="form-control">
-			</select>
-		</div>
-		<div class="col-md-4">
-			<button ng-click="addBehaviour(selectedBehaviour)" type="button" class="btn btn-default">Add</button>
-		</div>
-	</div>
+		</li>
+	</ul>
 </div>

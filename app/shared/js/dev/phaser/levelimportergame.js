@@ -29,6 +29,26 @@ LR.LevelImporterGame.prototype.import = function(_level, _game, _promise) {
 	}
 };
 
+LR.LevelImporterGame.prototype.importAssets = function(_assets, _loader) {
+	LR.LevelImporter.prototype.doAfterImportEntitiesAndBeforePromise.call(this, _assets, _loader);
+
+	this.importBehaviours(_assets.behaviours, _loader)
+};
+
+/**
+* Import all the behaviours
+*
+* @method importBehaviours
+* @param {Object} behaviours Behaviours informations
+* @param {Phaser.Loader} loader The loader used to import behaviours
+*/
+LR.LevelImporterGame.prototype.importBehaviours = function(_behaviours, _loader) {
+	for (var i = 0; i < _behaviours.length; i++) {
+		var behaviour = _behaviours[i];
+		_loader.script(behaviour.name, "assets/behaviours" + behaviour.path);
+	};
+};
+
 LR.LevelImporterGame.prototype.doAfterImportEntitiesAndBeforePromise = function(_objects, _game) {
 	LR.LevelImporter.prototype.doAfterImportEntitiesAndBeforePromise.call(this, _objects, _game);
 	this.callBehavioursCreate(_game);
@@ -67,28 +87,33 @@ LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
 		if (_entity.behaviours.length > 0) {
 			for (var i = 0; i < _entity.behaviours.length; i++) {
 				var behaviour = _entity.behaviours[i];
-				var behaviourClass = behaviour.classname;
+				if (behaviour.name) {
+					var behaviourClass = behaviour.name;
 
-				var classes = behaviourClass.split(".");
+					var classes = behaviourClass.split(".");
 
-				var Class = null;
-				
-				for( var j = 0 ; j < classes.length ; j++){
-					var curClassName = classes[j];
-					if( Class == null ){
-						Class = (window || this)[curClassName];
-					} else{
-						Class = Class[curClassName];
+					var Class = null;
+					
+					for (var j = 0 ; j < classes.length ; j++){
+						var curClassName = classes[j];
+						if (Class == null) {
+							Class = (window || this)[curClassName];
+						} else {
+							Class = Class[curClassName];
+						}
 					}
-				}
 
-				if (Class) {
-					var args = JSON.parse(behaviour.args);
-					var behaviour = _entity.go.addBehaviour( new Class(_entity.go) );
-					behaviour.args_create = args;
-				} else {
-					console.error(
-						"LR.LevelImporterGame - Unkown behaviour: " + behaviourClass);
+					if (Class) {
+						var behaviour = _entity.go.addBehaviour(new Class(_entity.go));
+						try {
+							var params = JSON.parse(behaviour.params);
+							behaviour.args_create = params;
+						} catch(e) {
+						}
+					} else {
+						console.error(
+							"LR.LevelImporterGame - Unkown behaviour: " + behaviourClass);
+					}
 				}
 			};
 		}

@@ -230,6 +230,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	};
 
+	$scope.removeAllBehaviours = function() {
+		if ($scope.currentEntity) {
+			$scope.currentEntity.behaviours = new Object();
+		}
+	};
+
 	//================================================================
 	//						DISPLAY
 	//================================================================

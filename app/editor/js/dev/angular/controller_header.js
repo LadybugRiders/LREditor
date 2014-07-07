@@ -143,7 +143,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?name=" + $scope.modalProjectData.projectFile;
 		url += "&path=" + $scope.modalProjectData.projectPath;
 		$http.get(url).success(function(_data) {
-			console.log(_data);
 			$scope.modalProjectData.projectName = _data.name;
 			$scope.modalProjectData.projectFirstLevel = _data.firstLevel;
 
@@ -181,7 +180,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/prefabs";
 		$http.get(url).success(function(_data) {
 			$scope.modalPrefabsData.prefabs = _data.prefabs;
-			console.log(_data);
 		}).error(function(_error) {
 			$scope.modalPrefabsData.prefabs = new Object();
 			console.error(_error);
@@ -245,7 +243,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$http.get(url).success(function(_data) {
 			$scope.modalBehavioursData.behaviours = _data.behaviours;
 
-			console.log($scope.modalBehavioursData);
 			$scope.$emit("sendBehavioursEmit", $scope.modalBehavioursData);
 		}).error(function(_error) {
 			$scope.modalBehavioursData.behaviours = new Object();
