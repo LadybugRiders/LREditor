@@ -53,7 +53,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		});
 
 		$scope.$on("sendLayersBroadcast", function(_event, _args) {
-			$scope.layersNames = _args.layersNames;
+			$scope.layers = _args.layers;
 		});
 	};
 

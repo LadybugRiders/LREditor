@@ -41,7 +41,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
     }
 
     $scope.modalLayersData.layers = layers;  
-    $scope.$emit("sendLayersEmit",{"layersNames" : $scope.modalLayersData.layersNames });
+    $scope.$emit("sendLayersEmit",{"layers" : $scope.modalLayersData.layers });
     
     $modalInstance.close(null);
   };
