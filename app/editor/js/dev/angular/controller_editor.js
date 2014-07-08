@@ -7,6 +7,11 @@ var LREditorCtrlMod = angular.module('LREditor.controllers');
 LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $http) {
 	function main() {
 
+		//================== PROJECT ======================
+		$scope.$on("sendProjectEmit", function(_event, _args) {
+			$scope.$broadcast("sendProjectBroadcast", _args);
+		});
+
 		//================== REFRESH ======================
 
 		$scope.$on("refreshListEmit", function(_event, _args) {
@@ -75,8 +80,8 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("loadImageBroadcast", _args);
 		});
 
-		$scope.$on("deleteImageEmit", function(_event, _args) {
-			$scope.$broadcast("deleteImageBroadcast", _args);
+		$scope.$on("unloadImageEmit", function(_event, _args) {
+			$scope.$broadcast("unloadImageBroadcast", _args);
 		});
 
 		$scope.$on("sendCameraEmit", function(_event, _args) {

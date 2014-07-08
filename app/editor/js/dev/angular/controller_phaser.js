@@ -19,6 +19,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.cutscenes = [];
 
+		//============ PROJECT ===================
+
+		$scope.$on("sendProjectBroadcast", function(_event, _args) {
+			$scope.project = _args.project;
+		});
+
 		//============ ADDING ENTITIES ===================
 
 		$scope.$on("addGroupBroadcast", function(_event) {
@@ -72,12 +78,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		});
 
 		$scope.$on("loadImageBroadcast", function(_event, _args) {
-			$scope.loadImage(
-				_args.path, _args.name, _args.frameWidth, _args.frameHeight);
+			$scope.loadImage(_args.image);
 		});
 
-		$scope.$on("deleteImageBroadcast", function(_event, _args) {
-			$scope.deleteImage(_args.image);
+		$scope.$on("unloadImageBroadcast", function(_event, _args) {
+			$scope.unloadImage(_args.image);
 		});
 
 		//============= IMPORT / EXPORT ======================
@@ -402,12 +407,36 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.$emit("sendImagesEmit", {images: _images});
 	}
 
-	$scope.loadImage = function(_path, _name, _frameWidth, _frameHeight) {
-		$scope.game.load.spritesheet(_name, _path, _frameWidth, _frameHeight);
+	$scope.loadImage = function(_image) {
+		$scope.game.load.spritesheet(
+			_image.name,
+			$scope.project.projectPath + "/assets/images" + _image.path,
+			parseInt(_image.frameWidth),
+			parseInt(_image.frameHeight)
+		);
+
+		var successCallback = function() {
+			$scope.$apply(function() {
+				_image.loaded = true;
+			});
+
+			$scope.game.load.onFileComplete.remove(successCallback);
+			$scope.game.load.onFileComplete.remove(errorCallback);
+		};
+		var errorCallback = function() {
+			alert("Sorry but the editor can't load your image '" + _image.name + "' (maybe a frame width/frame height error).");
+			
+			$scope.game.load.onFileComplete.remove(successCallback);
+			$scope.game.load.onFileComplete.remove(errorCallback);
+		};
+		
+		$scope.game.load.onFileComplete.add(successCallback);
+		$scope.game.load.onFileError.add(errorCallback);
+
 		$scope.game.load.start();
 	};
 
-	$scope.deleteImage = function(_image) {
+	$scope.unloadImage = function(_image) {
 		if (_image) {
 			$scope.forAllGameObjects($scope.game.world, function(_gameobject) {
 				if (_gameobject.key === _image.name) {
@@ -415,6 +444,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				}
 			});
 			$scope.game.cache.removeImage(_image.name);
+			_image.frameWidth = null;
+			_image.frameHeight = null;
+			_image.loaded = false;
 		}
 	};
 

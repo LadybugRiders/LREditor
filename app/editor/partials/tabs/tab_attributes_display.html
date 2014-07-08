@@ -2,7 +2,7 @@
 	<!-- IMAGE -->
 	<div class="form-group">
 		<label>Image</label>
-		<select ng-model="data.image" ng-options="image.name for image in data.images" class="form-control">
+		<select ng-model="data.image" ng-options="image.name for image in data.images | filter:{loaded:true}" class="form-control">
 		</select>
 	</div>
 	<!-- FRAME -->
