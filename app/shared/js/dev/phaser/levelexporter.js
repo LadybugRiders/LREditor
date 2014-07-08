@@ -18,10 +18,10 @@ LR.LevelExporter = function() {
 * @param {Phaser.Game} game The game of the level
 * @return {Object} exported level
 */
-LR.LevelExporter.prototype.export = function(_game,_dataSettings,_cutscenes) {
+LR.LevelExporter.prototype.export = function(_game, _project, _dataSettings,_cutscenes) {
 	var level = new Object();
 
-	level.assets = this.exportAssets(_game);
+	level.assets = this.exportAssets(_game, _project);
 	level.objects = this.exportEntities(_game.world);
 	if( _dataSettings )
 		level.settings = _dataSettings;
@@ -41,11 +41,11 @@ LR.LevelExporter.prototype.export = function(_game,_dataSettings,_cutscenes) {
 * @param {Phaser.Cache} cache The game's cache of the level
 * @return {Object} exportable level's assets
 */
-LR.LevelExporter.prototype.exportAssets = function(_game) {
+LR.LevelExporter.prototype.exportAssets = function(_game, _project) {
 	var assets = new Object();
 
-	assets.images = this.exportImages(_game);
-	assets.behaviours = this.exportBehaviours(_game.world);
+	assets.images = this.exportImages(_game, _project);
+	assets.behaviours = this.exportBehaviours(_game, _project);
 
 	return assets;
 };
@@ -61,7 +61,7 @@ LR.LevelExporter.prototype.exportAssets = function(_game) {
 * @param {Phaser.World} level's world
 * @return {Array} level's images
 */
-LR.LevelExporter.prototype.exportImages = function(_game) {
+LR.LevelExporter.prototype.exportImages = function(_game, _project) {
 	var keys = new Array();
 
 	keys = this.getImageKeys(_game.world, keys);
@@ -151,13 +151,16 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 * Export all the level's behaviours.
 *
 * @method exportBehaviours
-* @param {Phaser.World} level's world
+* @param {Phaser.Game} game
+* @param {Object} project data
 * @return {Array} level's behaviours
 */
-LR.LevelExporter.prototype.exportBehaviours = function(_world) {
+LR.LevelExporter.prototype.exportBehaviours = function(_game, _project) {
 	var behaviours = new Array();
 
-	behaviours = this.getBehaviours(_world, behaviours);
+	behaviours = this.getBehaviours(_game.world, behaviours);
+
+	behaviours = this.addPathToExportedBehaviours(behaviours, _project.assets.behaviours);
 
 	return behaviours;
 };
@@ -215,6 +218,34 @@ LR.LevelExporter.prototype.mergeBehaviours = function(_behaviours1, _behaviours2
 	};
 
 	return behaviours;
+};
+
+/**
+* Add project path to exported behaviours.
+*
+* @method addPathToExportedBehaviours
+* @param {Array} exported behaviours
+* @return {Array} All behaviours with full data
+*/
+LR.LevelExporter.prototype.addPathToExportedBehaviours = function(_exportedBehaviours, _behavioursData) {
+	for (var i = 0; i < _exportedBehaviours.length; i++) {
+		var behaviour = _exportedBehaviours[i];
+
+		var j = 0;
+		var found = false;
+		while (j < _behavioursData.length && found == false) {
+			var data = _behavioursData[j];
+			if (data.name == behaviour.name) {
+				behaviour.path = data.path;
+
+				found = true;
+			}
+
+			j++;
+		}
+	};
+
+	return _exportedBehaviours;
 };
 
 /************

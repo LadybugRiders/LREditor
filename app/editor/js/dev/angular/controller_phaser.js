@@ -506,7 +506,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	//$scope.export = function(_url, _levelName, _storage) {
 	$scope.export = function(_levelPath, _levelName, _storage) {
 		var exporter = new LR.LevelExporter();
-		var level = exporter.export($scope.game,$scope.dataSettings,$scope.cutscenes);
+		var level = exporter.export($scope.game, $scope.project, $scope.dataSettings,$scope.cutscenes);
 		var lvlStr = JSON.stringify(level);
 
 		if (_storage == null || _storage === "localstorage") {
