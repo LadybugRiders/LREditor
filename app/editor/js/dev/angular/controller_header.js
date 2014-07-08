@@ -7,9 +7,6 @@ var LREditorCtrlMod = angular.module('LREditor.controllers');
 LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout", 
 	function($scope, $http, $modal, $timeout) {
 	function main() {
-
-		$scope.images = new Array();
-
 		$scope.$on("sendImagesBroadcast", function(_event, _args) {
 			if (_args.images) {
 				$scope.images = _args.images;
@@ -43,42 +40,24 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
 		});
 
-		$scope.modalProjectData = {
-			projectName: "Project",
-      projectPath: "/game/",
-      projectFile: "project.json"
+		// tmp object (for modals for example)
+		$scope.tmp = new Object();
+
+		// project data
+		$scope.project = {
+			name: "Project",
+      path: "/game/",
+      file: "project.json"
 		};
 
-		$scope.modalData = {
-			// images
-			imagesPath: LR.Editor.Settings.project.path + "/assets/images/",
-    	imagesName: "image_name",
-    	imagesFrameWidth: 32,
-    	imagesFrameHeight: 32,
-			// level import/export
-			levelPath: LR.Editor.Settings.project.path + "/assets/levels",
-			levelName: "level1"
-		};
+		// project assets
+		$scope.project.assets = new Object();
 
-		$scope.modalPrefabsData = {
-			prefabs: new Object()
-		};
-
-		$scope.modalImagesData = {
-			images: new Object()
-		};
-
-		$scope.modalBehavioursData = {
-			behaviours: new Object()
-		};
-
-		$scope.modalLayersData = {
-			layers: new Object()
-		};
-
-		$scope.modalInputsData = {
-			inputs: new Object()
-		};
+		$scope.project.assets.prefabs = new Array();
+		$scope.project.assets.images = new Array();
+		$scope.project.assets.behaviours = new Array();
+		$scope.project.assets.layers = new Array();
+		$scope.project.assets.inputs = new Array();
 
 		//modal data for cutscenes edition
 		$scope.modalCSData = {
@@ -102,11 +81,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		// load current project data
 		if (localStorage) {
-			var path = localStorage.getItem("projectPath");
-			var file = localStorage.getItem("projectFile");
+			var path = localStorage.getItem("project.path");
+			var file = localStorage.getItem("project.file");
 			if (path && file) {
-				$scope.modalProjectData.projectPath = path;
-				$scope.modalProjectData.projectFile = file;
+				$scope.project.path = path;
+				$scope.project.file = file;
 
 				$scope.loadCurrentProjectData();
 			}
@@ -140,14 +119,14 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.loadCurrentProjectData = function() {
 		var url = "/editorserverapi/v0/project";
-		url += "?name=" + $scope.modalProjectData.projectFile;
-		url += "&path=" + $scope.modalProjectData.projectPath;
+		url += "?name=" + $scope.project.file;
+		url += "&path=" + $scope.project.path;
 		$http.get(url).success(function(_data) {
-			$scope.modalProjectData.projectName = _data.name;
-			$scope.modalProjectData.projectFirstLevel = _data.firstLevel;
+			$scope.project.name = _data.name;
+			$scope.project.projectFirstLevel = _data.firstLevel;
 
 			$timeout(function() {
-				$scope.$emit("sendProjectEmit", {project: $scope.modalProjectData});
+				$scope.$emit("sendProjectEmit", {project: $scope.project});
 			}, 100);
 
 			$scope.loadCurrentProjectPrefabs();
@@ -169,7 +148,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 
 		modalInstance.result.then(function (_data) {
-			$scope.modalProjectData = _data;
+			$scope.project = _data;
 		}, function () {
 			console.info('Modal dismissed at: ' + new Date());
 		});
@@ -181,11 +160,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.loadCurrentProjectPrefabs = function() {
 		var url = "/editorserverapi/v0/prefab";
-		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/prefabs";
+		url += "?path=" + $scope.project.path + "/assets/prefabs";
 		$http.get(url).success(function(_data) {
-			$scope.modalPrefabsData.prefabs = _data.prefabs;
+			$scope.project.assets.prefabs = _data.prefabs;
 		}).error(function(_error) {
-			$scope.modalPrefabsData.prefabs = new Object();
+			$scope.project.assets.prefabs = new Object();
 			console.error(_error);
 		});
 	};
@@ -212,13 +191,13 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.loadCurrentProjectImages = function() {
 		var url = "/editorserverapi/v0/image";
-		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/images";
+		url += "?path=" + $scope.project.path + "/assets/images";
 		$http.get(url).success(function(_data) {
-			$scope.modalImagesData.images = _data.images;
+			$scope.project.assets.images = _data.images;
 
-			$scope.$emit("sendImagesEmit", $scope.modalImagesData);
+			$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
 		}).error(function(_error) {
-			$scope.modalImagesData.images = new Object();
+			$scope.images = new Object();
 			console.error(_error);
 		});
 	};
@@ -245,13 +224,13 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.loadCurrentProjectBehaviours = function() {
 		var url = "/editorserverapi/v0/behaviour";
-		url += "?path=" + $scope.modalProjectData.projectPath + "/assets/behaviours";
+		url += "?path=" + $scope.project.path + "/assets/behaviours";
 		$http.get(url).success(function(_data) {
-			$scope.modalBehavioursData.behaviours = _data.behaviours;
+			$scope.project.assets.behaviours = _data.behaviours;
 
-			$scope.$emit("sendBehavioursEmit", $scope.modalBehavioursData);
+			$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
 		}).error(function(_error) {
-			$scope.modalBehavioursData.behaviours = new Object();
+			$scope.behaviours = new Object();
 			console.error(_error);
 		});
 	}
@@ -267,17 +246,17 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	$scope.loadCurrentProjectLayers = function() {
 		var url = "/editorserverapi/v0/layers";
 		url += "?name=layers.json";
-		url += "&path=" + $scope.modalProjectData.projectPath + "/assets/physics";
+		url += "&path=" + $scope.project.path + "/assets/physics";
 		$http.get(url).success(function(_data) {
-			$scope.modalLayersData.layers = _data;
+			$scope.project.assets.layers = _data;
 			//Get the array of layers
 			var layersNames = new Array();
-			for( var key in $scope.modalLayersData.layers){
+			for( var key in $scope.project.assets.layers){
 		      layersNames.push( key );
 		    }
-		    $scope.$emit("sendLayersEmit",{"layersNames" : layersNames });
+		    $scope.$emit("sendLayersEmit", {"layersNames": layersNames });
 		}).error(function(_error) {
-			$scope.modalLayersData.layers = new Object();
+			$scope.layers = new Object();
 			console.error(_error);
 		});
 	}
@@ -296,8 +275,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			var url = "/editorserverapi/v0/layers";
       var params = {
         name: "layers.json",
-        path: $scope.modalProjectData.projectPath + "/assets/physics",
-        data: JSON.stringify($scope.modalLayersData.layers)
+        path: $scope.project.path + "/assets/physics",
+        data: JSON.stringify($scope.project.assets.layers)
       };
       $http.post(url, params, function(error, data) {
         if (error) {
@@ -318,11 +297,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	$scope.loadCurrentProjectInputs = function() {
 		var url = "/editorserverapi/v0/inputs";
 		url += "?name=inputs.json";
-		url += "&path=" + $scope.modalProjectData.projectPath + "/assets/inputs";
+		url += "&path=" + $scope.project.path + "/assets/inputs";
 		$http.get(url).success(function(_data) {
-			$scope.modalLayersData.inputs = _data;
+			$scope.project.assets.inputs = _data;
 		}).error(function(_error) {
-			$scope.modalLayersData.inputs = new Object();
+			$scope.project.assets.inputs = new Object();
 			console.error(_error);
 		});
 	}
@@ -341,8 +320,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			var url = "/editorserverapi/v0/inputs";
       var params = {
         name: "inputs.json",
-        path: $scope.modalProjectData.projectPath + "/assets/inputs",
-        data: JSON.stringify($scope.modalInputsData.inputs)
+        path: $scope.project.path + "/assets/inputs",
+        data: JSON.stringify($scope.project.assets.inputs)
       };
       $http.post(url, params, function(error, data) {
         if (error) {

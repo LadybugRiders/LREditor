@@ -67,6 +67,7 @@ LR.LevelExporter.prototype.exportImages = function(_game) {
 	keys = this.getImageKeys(_game.world, keys);
 
 	var images = this.getExportableImages(_game.cache, keys);
+	console.log(images);
 
 	return images;
 };

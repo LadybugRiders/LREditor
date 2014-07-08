@@ -3,22 +3,20 @@
 var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
   
   function main() {
-    $scope.modalProjectData.projectNameTmp = $scope.modalProjectData.projectName;
-    $scope.modalProjectData.projectPathTmp = $scope.modalProjectData.projectPath;
-    $scope.modalProjectData.projectFileTmp = $scope.modalProjectData.projectFile;
+    $scope.tmp.project = new Object();
+    $scope.tmp.project.path = $scope.project.path;
+    $scope.tmp.project.file = $scope.project.file;
   };
 
   $scope.changeCurrentProject = function () {
     var data = {
-      projectName: $scope.modalProjectData.projectNameTmp,
-      projectPath: $scope.modalProjectData.projectPathTmp,
-      projectFile: $scope.modalProjectData.projectFileTmp
+      path: $scope.tmp.project.path,
+      file: $scope.tmp.project.file
     };
 
     if (localStorage) {
-      localStorage.setItem("projectName", data.projectName);
-      localStorage.setItem("projectPath", data.projectPath);
-      localStorage.setItem("projectFile", data.projectFile);
+      localStorage.setItem("project.path", data.path);
+      localStorage.setItem("project.file", data.file);
 
       var win = window.open(".", "_self");
     } else {

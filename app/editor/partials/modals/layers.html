@@ -9,25 +9,25 @@
                 <thead>
                     <tr> 
                         <th> layers </th>
-                        <th ng-repeat="layer in modalLayersData.layersNames">            
-                            <label>{{layer}}</label>
+                        <th ng-repeat="(key, value)  in project.assets.layers">
+                            <label>{{key}}</label>
                         </th>
                     </tr>
                 </thead>
                 <!-- rows -->
-                <tr ng-repeat="layer in modalLayersData.layersNames">
+                <tr ng-repeat="(key, value)  in project.assets.layers">
                     <td>
-                        <label> {{layer}} </label>
+                        <label> {{key}} </label>
                     </td>
                     <!-- checkboxes -->
-                    <td ng-repeat="layer2 in modalLayersData.layersNames">
+                    <td ng-repeat="(key2, value2)  in project.assets.layers">
                         <input type="checkbox" 
                         ng-model="modalLayersData.matrix[$parent.$index][$index]"
                         ng-change="onCollisionChanged($parent.$index,$index)"/>
                     </td>
                     <!-- remove -->
                     <td>
-                        <button class="btn btn-danger" ng-click="deleteLayer(layer)">
+                        <button class="btn btn-danger" ng-click="deleteLayer(key)">
                             <span class="glyphicon glyphicon-remove-sign"></span>
                         </button>
                     </td>

@@ -4,20 +4,19 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
   
   function main() {
     if ($scope.currentEntity) {
-      $scope.modalPrefabsData.prefabName = $scope.currentEntity.name;
+      $scope.tmp.prefabs = new Object();
+      $scope.tmp.prefabs.name = $scope.currentEntity.name;
     }
   };
 
   $scope.import = function (_prefab) {
     var url = "/editorserverapi/v0/prefab/" + _prefab.name;
-    url += "?path=" + $scope.modalProjectData.projectPath + "/assets/prefabs";
-    console.log(url);
+    url += "?path=" + $scope.project.path + "/assets/prefabs";
     $http.get(url).success(function(_data) {
       $scope.$emit("importEntityEmit", {
         entity: _data
       });
     }).error(function(_error) {
-      $scope.modalPrefabsData.prefabs = new Object();
       console.error(_error);
     });
 
@@ -31,8 +30,8 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
 
       var url = "/editorserverapi/v0/prefab";
       var params = {
-        name: $scope.modalPrefabsData.prefabName + ".json",
-        path: $scope.modalProjectData.projectPath + "/assets/prefabs",
+        name: $scope.tmp.prefabs.name + ".json",
+        path: $scope.project.path + "/assets/prefabs",
         data: JSON.stringify(prefab)
       };
 
@@ -40,12 +39,10 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
         if (error) {
           console.error(error);
         } else {
-          console.log("Prefab " + $scope.modalPrefabsData.prefabName + " saved!!");
+          console.log("Prefab " + $scope.tmp.prefabs.name + " saved!!");
         }
       });
     }
-
-    //$modalInstance.close(data);
   };
 
   $scope.close = function () {
