@@ -43,6 +43,8 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 		//cObj = new Phaser.World(_game);
 	}
 
+	cObj.go.id = _object.id;
+
 	return cObj;
 }
 

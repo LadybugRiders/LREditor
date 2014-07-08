@@ -4,7 +4,8 @@
 var LREditorCtrlMod = angular.module('LREditor.controllers');
 
 // create controller LoginCtrol in the module LREditor.controllers
-LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", function($scope, $http, $timeout) {
+LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", 
+	function($scope, $http, $timeout) {
 	function main() {
 
 		$scope.dataSettings = {
@@ -247,6 +248,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 	$scope.addGroup = function() {
 		var group = new LR.Entity.Group($scope.game);
 		group.name = "group" + $scope.game.world.children.length;
+		group.go.id = $scope.game.world.length + 1 ;
 		$scope.game.add.existing(group);
 	};
 
@@ -255,6 +257,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		var sprite = new LR.Entity.Sprite($scope.game, $scope.game.camera.view.centerX,
 										 $scope.game.camera.view.centerY, "none");
 		sprite.name = "sprite" + $scope.game.world.children.length;
+		sprite.go.id = $scope.game.world.length + 1 ;
 		//add Input Handler, for dragging and other events
 		sprite.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(sprite.go, $scope));
 		sprite.ed_locked = false;
@@ -271,6 +274,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 										32,32, /* width, height */
 										"none");
 		tilesprite.name = "tilesprite" + $scope.game.world.children.length;
+		tilesprite.go.id = $scope.game.world.length + 1 ;
 		//add Input Handler, for dragging and other events
 		tilesprite.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(tilesprite.go, $scope));
 		tilesprite.ed_locked = false;
@@ -285,6 +289,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 										$scope.game.camera.view.centerY, /* y */
 										"New Text");
 		text.name = "Text";
+		text.go.id = $scope.game.world.length + 1 ;
 		//add Input Handler, for dragging and other events
 		text.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(text.go, $scope));
 		text.ed_locked = false;
@@ -305,8 +310,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout", functio
 		var iObj = importer.importEntities(eObj, $scope.game);
 
 		iObj.name += " (clone)";
+		iObj.go.id = $scope.game.world.length + 1 ;
 		iObj.go.changeParent(_entity.parent);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
+		//Select clone
+		$scope.$emit("selectEntityEmit", {entity : iObj,phaser:true});
+
 		$scope.forceAttributesRefresh(iObj);
 	};
 

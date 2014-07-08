@@ -4,10 +4,15 @@
 var LREditorCtrlMod = angular.module('LREditor.controllers');
 
 // create controller LoginCtrol in the module LREditor.controllers
-LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", function($scope, $http, $timeout) {
+LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeout", 
+	function($scope, $http, $modal, $timeout) {
 	function main() {
 		$scope.$on("refreshListBroadcast", function(_event, _args) {
 			$scope.refreshList(_args.world);
+		});
+
+		$scope.$on("pickEntityBroadcast", function(_event, _args) {
+			$scope.openPickEntityModal(_args.context, _args.callback);
 		});
 
 		$scope.entities = new Array();
@@ -60,6 +65,30 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$timeout", funct
 		};
 
 		return cpt;
+	}
+
+	//===============================================================
+	//					PICK GAMEOBJECT
+	//===============================================================
+
+	$scope.openPickEntityModal = function(_context,_callback){
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/pick_entity_modal.html',
+			controller: PickEntityCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			if( _callback != null )
+				_callback.call(_context, _data);
+		}, function () {
+			if( _callback != null )
+				_callback.call(_context, null);
+			// clean modal data
+			console.info('Modal dismissed at: ' + new Date());
+		});
 	}
 
 	main();

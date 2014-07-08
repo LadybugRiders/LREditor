@@ -57,6 +57,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("fixEntityToCameraBroadcast", _args);
 		});
 
+		$scope.$on("pickEntityEmit", function(_event, _args) {
+			$scope.$broadcast("pickEntityBroadcast", _args);
+		});
+
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesEmit", function(_event, _args) {

@@ -8,6 +8,14 @@
 * @param {LR.Sprite | LR.Group | LR.TileSprite} LR entity
 */
 LR.GameObject = function(_entity) {
+	/**
+	* ID of the gameobject
+	*
+	* @property id
+	* @type Number
+	* @default -1
+	*/
+	this.id = -1;
 	/*
 	* LR entity
 	* 
@@ -673,8 +681,7 @@ LR.GameObject.prototype.onEndCutscene = function(){
 LR.GameObject.FindByName = function(_root, _name) {
 	var gameobject = null;
 
-	if (_root && _root.name === _name) {
-		console.log( _root );
+	if (_root && _root.go && _root.go.name === _name) {
 		gameobject = _root;
 	} else {
 		if (_root.children) {
@@ -683,6 +690,37 @@ LR.GameObject.FindByName = function(_root, _name) {
 				var child = _root.children[i];
 				if (LR.GameObject.FindByName(child, _name)) {
 					console.log(child);
+					gameobject = child;
+				}
+
+				i++;
+			};
+		}
+	}
+	return gameobject;
+};
+
+/**
+* Find a gameobject by its ID
+*
+* @method FindByID
+* @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
+* @param {Number} name Gameobject's ID
+* @return {Phaser.World | Phaser.Group | Phaser.Sprite} Found gameobject
+*/
+LR.GameObject.FindByID = function(_root, _id) {
+	var gameobject = null;
+
+	console.log(_root);
+
+	if (_root && _root.go && _root.go.id === _id) {
+		gameobject = _root;
+	} else {
+		if (_root.children) {
+			var i = 0;
+			while (i < _root.children.length && gameobject == null) {
+				var child = _root.children[i];
+				if (LR.GameObject.FindByID(child, _id)) {
 					gameobject = child;
 				}
 

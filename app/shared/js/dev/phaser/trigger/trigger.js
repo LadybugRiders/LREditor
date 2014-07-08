@@ -1,5 +1,8 @@
 "use strict";
 
+//>>LREditor.Behaviour.name: LR.Behaviour.Trigger
+//>>LREditor.Behaviour.params : {"callbackName":"", "messageObject" : {}, "interactives":[], "activeCountLimit": 0}
+
 /**
 * Class Trigger.
 * When colliding with a valid body, it calls the function callbackName on the colliding gameobject, with messageObject as a parameter.

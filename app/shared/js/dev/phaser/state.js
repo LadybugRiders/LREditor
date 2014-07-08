@@ -71,6 +71,23 @@ LR.State.prototype.findGameObjectByName = function(_name){
 	return gameobject;
 }
 
+/**
+* Return the GameObject of the current state with the id specified 
+*
+* @method findGameObjectByID
+* @param {string} name Name of the wanted GameObject
+*/
+LR.State.prototype.findGameObjectByID = function(_id){
+	var gameobject = null;
+	var i = 0;
+	while( i < this.gameobjects.length && gameobject == null){
+		if( this.gameobjects[i].id == _id )
+			gameobject = this.gameobjects[i];
+		i++;
+	}
+	return gameobject;
+}
+
 LR.State.prototype.shutdown = function(){
 	if( this.collisionManager != null ){
 		this.collisionManager.clear();
