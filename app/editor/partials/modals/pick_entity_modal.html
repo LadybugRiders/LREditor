@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h3>Pick GameObject</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <ul class="list-entities">
+            <li ng-repeat='data in $parent.entities | noeditorentities'>
+
+                <!-- hierarchy for selection -->
+                <div>
+                    <a type="button" ng-show="isGroup(data)" entity-collapse><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a class="margin-left" ng-show="!isGroup(data)"></a>
+                    <a type="button" ng-click="onSelect(data)" ng-attr-entity-drag="data">{{data.name}}</a>
+                    <a ng-show="isGroup(data)"><small>({{getNbChildren(data)}})</small></a>
+                </div>
+                <ul>
+                    <li ng-repeat='data in data.children | noeditorentities'>
+                        <div>
+                            <a type="button" ng-show="isGroup(data)" entity-collapse><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a class="margin-left" ng-show="!isGroup(data)"></a>
+                            <a type="button" ng-click="onSelect(data)" ng-attr-entity-drag="data">{{data.name}}</a>
+                            <a ng-show="isGroup(data)"><small>({{getNbChildren(data)}})</small></a>
+                        </div>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <h3 ng-if="pickedEntity != null"> Current Selection : {{pickedEntity.name}} </h3>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="pick()">Pick</button>
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>

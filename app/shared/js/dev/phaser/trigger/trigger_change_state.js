@@ -1,4 +1,6 @@
 "use strict";
+//>>LREditor.Behaviour.name: LR.Behaviour.TriggerChangeState
+//>>LREditor.Behaviour.params : {"levelName":"", "interactives":[]}
 
 /**
 * Class TriggerChangeState.

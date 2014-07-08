@@ -138,3 +138,28 @@ LR.Behaviour.prototype.onBeginCutscene = function(){
 LR.Behaviour.prototype.onEndCutscene = function(){
 	
 }
+
+/**
+* Find an instance of a specific Behaviour held by a gameobject 
+*
+* @method FindBehaviour
+* @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
+* @param {Class} Behaviour's class
+* @return {GameObject} Found gameobject
+*/
+LR.Behaviour.Find = function(_root, _behaviour) {
+	var behaviour = null;
+
+	behaviour = _root.go.getBehaviour(_behaviour);
+
+	if (!behaviour && _root.children) {
+		var i = 0;
+		while (i < _root.children.length && behaviour == null) {
+			var child = _root.children[i];
+			behaviour = LR.GameObject.FindBehaviour(child, _behaviour)
+			i++;
+		}
+	}
+
+	return behaviour;
+};

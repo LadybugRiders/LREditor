@@ -285,6 +285,8 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 	_object.type = LR.LevelUtilities.GetType(_entity);
 
 	_object.name = _entity.name;
+	if( _entity.go )
+		_object.id = _entity.go.id;
 	_object.x = _entity.x;
 	_object.y = _entity.y;
 	_object.angle = _entity.angle;

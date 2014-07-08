@@ -7,6 +7,7 @@
         <thead>
             <th>Name</th>
             <th>Value</th>
+            <th>Pick</th>
             <th>Edit</th>
             <th>Delete</th>
         </thead>
@@ -18,7 +19,11 @@
                 <td>
                     <input json-text type="text" ng-model="val" class="form-control" disabled/>
                 </td>
-
+                <td>                    
+                    <button class="btn btn-default" ng-click="pickEntity(name)">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </button>
+                </td>
                 <td>
                     <button class="btn btn-default" ng-click="openEditModal(modalParamsData.tmp.behaviour.params, name, true)">
                         <span class="glyphicon glyphicon-pencil"></span>

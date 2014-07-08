@@ -365,6 +365,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			var shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, $scope.data.body.shapes[_index] )		
 			shape.sensor = true;
 			shape.ed_sensor = formerEdSensor;
+
+			//Resize sprite if none
+			if( $scope.currentEntity.key == "none"){
+				$scope.currentEntity.width = $scope.data.body.shapes[0].width;
+				$scope.currentEntity.height = $scope.data.body.shapes[0].height;
+			}
 		}
 	}
 

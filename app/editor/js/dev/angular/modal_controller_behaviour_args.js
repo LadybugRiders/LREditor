@@ -57,5 +57,17 @@ var BehaviourArgsCtrlModal = function ($scope, $modalInstance, $timeout) {
     }
   };
 
+  $scope.pickEntity = function(_argName){  
+    $scope.currentArg = _argName;
+    $scope.$emit("pickEntityEmit",{context:this, callback : this.onGameObjectPicked});
+  }
+
+  $scope.onGameObjectPicked = function(_entity){
+    console.log(_entity);
+    if( _entity && $scope.currentArg ){
+      $scope.modalParamsData.tmp.behaviour.params[$scope.currentArg] = "#GO_"+_entity.go.id;
+    }
+  }
+
   main();
 };
