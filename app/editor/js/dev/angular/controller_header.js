@@ -80,6 +80,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			camera : {}
 		};
 
+		$scope.modalLayersData = { layers : {} };
+
 		// load current project data
 		if (localStorage) {
 			var path = localStorage.getItem("project.path");
