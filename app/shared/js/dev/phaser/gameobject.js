@@ -711,8 +711,6 @@ LR.GameObject.FindByName = function(_root, _name) {
 LR.GameObject.FindByID = function(_root, _id) {
 	var gameobject = null;
 
-	console.log(_root);
-
 	if (_root && _root.go && _root.go.id === _id) {
 		gameobject = _root;
 	} else {
