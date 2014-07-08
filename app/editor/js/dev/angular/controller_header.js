@@ -53,6 +53,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		// project assets
 		$scope.project.assets = new Object();
 
+		$scope.project.assets.levels = new Array();
 		$scope.project.assets.prefabs = new Array();
 		$scope.project.assets.images = new Array();
 		$scope.project.assets.behaviours = new Array();
