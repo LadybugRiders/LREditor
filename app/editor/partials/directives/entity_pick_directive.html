@@ -1,0 +1,10 @@
+<div>
+	<a type="button" ng-show="isGroup(data)" entity-collapse><span class="glyphicon glyphicon-chevron-right"></span></a>
+	<a class="margin-left" ng-show="!isGroup(data)"></a>
+	<a type="button" ng-click="onSelect(data)" ng-attr-entity-drag="data">{{data.name}}</a>
+	<a ng-show="isGroup(data)"><small>({{getNbChildren(data)}})</small></a>
+</div>
+<ul>
+	<li ng-repeat='data in data.children | noeditorentities' ng-include="'partials/directives/entity_pick_directive.html'">
+	</li>
+</ul>

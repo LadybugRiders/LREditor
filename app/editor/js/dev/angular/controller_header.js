@@ -80,6 +80,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			camera : {}
 		};
 
+		$scope.modalLayersData = { layers : {} };
+
 		// load current project data
 		if (localStorage) {
 			var path = localStorage.getItem("project.path");
@@ -250,12 +252,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "&path=" + $scope.project.path + "/assets/physics";
 		$http.get(url).success(function(_data) {
 			$scope.project.assets.layers = _data;
-			//Get the array of layers
-			var layersNames = new Array();
-			for( var key in $scope.project.assets.layers){
-		      layersNames.push( key );
-		    }
-		    $scope.$emit("sendLayersEmit", {"layersNames": layersNames });
+		    $scope.$emit("sendLayersEmit", {"layers": $scope.project.assets.layers });
 		}).error(function(_error) {
 			$scope.layers = new Object();
 			console.error(_error);

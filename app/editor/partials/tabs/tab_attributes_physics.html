@@ -18,9 +18,9 @@
 				<!-- layer -->
 				<div class="row">
 					<label class="col-md-4">Layer</label>
-					<select type="text" ng-model="currentEntity.go.layer"
-						ng-options="layer as layer for layer in layersNames"
-						class="col-md-4"/>
+					<select type="text" ng-model="currentEntity.go.layer" class="col-md-4">
+						<option ng-repeat="(key, value) in layers" ng-click="changeLayer(key)">{{key}}</option>
+					</select>
 				</div>
 				<!-- Motion State -->
 				<div class="row">

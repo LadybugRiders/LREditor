@@ -9,18 +9,18 @@
                 <thead>
                     <tr> 
                         <th> layers </th>
-                        <th ng-repeat="(key, value)  in project.assets.layers">
+                        <th ng-repeat="(key, value)  in modalLayersData.layers">
                             <label>{{key}}</label>
                         </th>
                     </tr>
                 </thead>
                 <!-- rows -->
-                <tr ng-repeat="(key, value)  in project.assets.layers">
+                <tr ng-repeat="(key, value)  in modalLayersData.layers">
                     <td>
                         <label> {{key}} </label>
                     </td>
                     <!-- checkboxes -->
-                    <td ng-repeat="(key2, value2)  in project.assets.layers">
+                    <td ng-repeat="(key2, value2)  in modalLayersData.layers">
                         <input type="checkbox" 
                         ng-model="modalLayersData.matrix[$parent.$index][$index]"
                         ng-change="onCollisionChanged($parent.$index,$index)"/>

@@ -5,10 +5,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
   //Basically we want to build a matrix representating the layer collisions
   
   function main() {
-    $scope.modalLayersData.layersText = "{}";
-    if (typeof $scope.modalLayersData.layers === "object") {
-      $scope.modalLayersData.layersText = JSON.stringify($scope.modalLayersData.layers);
-    }
+    $scope.modalLayersData.layers = jQuery.extend(true, {}, $scope.project.assets.layers);
     //get an array of layers names
     $scope.modalLayersData.layersNames = new Array();
     for( var key in $scope.modalLayersData.layers){
@@ -41,7 +38,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
     }
 
     $scope.modalLayersData.layers = layers;  
-    $scope.$emit("sendLayersEmit",{"layersNames" : $scope.modalLayersData.layersNames });
+    $scope.$emit("sendLayersEmit",{"layers" : $scope.modalLayersData.layers });
     
     $modalInstance.close(null);
   };
@@ -91,7 +88,11 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
   }
 
   $scope.addLayer = function(_layerName){
+    if( _layerName == null || _layerName == "")
+      return;
+    
     $scope.modalLayersData.layersNames.push( _layerName );
+    $scope.modalLayersData.layers[_layerName] = {collisions:{}};
 
     var matrix = $scope.modalLayersData.matrix;
     //Create new arraw for matrix row
@@ -114,6 +115,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
       return;
 
     $scope.modalLayersData.layersNames.splice(index,1);
+    delete $scope.modalLayersData.layers[_layerName];
 
     var matrix = $scope.modalLayersData.matrix;
     //delete row of the layer
