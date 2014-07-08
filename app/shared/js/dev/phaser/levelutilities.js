@@ -25,27 +25,27 @@ LR.LevelUtilities.TYPE_PHASER_GROUP = "Phaser.Group";
 LR.LevelUtilities.TYPE_PHASER_WORLD = "Phaser.World";
 
 LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
-	var cObj = null;
+	var entity = null;
 	//console.log(_object);
 	if (_object.type === LR.LevelUtilities.TYPE_SPRITE) {
-		cObj = new LR.Entity.Sprite(_game,0,0);	
-		_game.add.existing(cObj);
+		entity = new LR.Entity.Sprite(_game,0,0);	
+		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_TILESPRITE) {
-		cObj = new LR.Entity.TileSprite(_game,0,0);
-		_game.add.existing(cObj);
+		entity = new LR.Entity.TileSprite(_game,0,0);
+		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_GROUP) {
-		cObj = new LR.Entity.Group(_game);
-		_game.add.existing(cObj);
+		entity = new LR.Entity.Group(_game);
+		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_TEXT) {
-		cObj = new LR.Entity.Text(_game,0,0,"",_object.textData.style);
-		_game.add.existing(cObj);
+		entity = new LR.Entity.Text(_game,0,0,"",_object.textData.style);
+		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
-		//cObj = new Phaser.World(_game);
+		//entity = new Phaser.World(_game);
 	}
 
-	cObj.go.id = _object.id;
+	entity.go.id = _object.id;
 
-	return cObj;
+	return entity;
 }
 
 LR.LevelUtilities.GetType = function(_object) {
