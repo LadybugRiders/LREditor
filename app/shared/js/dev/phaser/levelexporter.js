@@ -403,7 +403,7 @@ LR.LevelExporter.prototype.setPhysics = function(_entity, _object) {
 };
 
 LR.LevelExporter.prototype.setBehaviours = function(_entity, _object) {
-	_object.behaviours = _entity.behaviours;
+	_object.behaviours = jQuery.extend(true, [],_entity.behaviours);
 
 	return _object;
 };

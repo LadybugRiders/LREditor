@@ -81,7 +81,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	};
 
 	$scope.refreshCurrentEntityFromPhaser = function(_entity,_forceBody){
-		$scope.refreshCurrentEntity(_entity,_forceBody);		
+		$scope.refreshCurrentEntity(_entity,_forceBody);
 		$scope.$apply();
 	}
 
