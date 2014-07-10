@@ -71,7 +71,10 @@ LR.Editor.LevelImporterEditor.prototype.getProjectImageByName = function(_name) 
 
 LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) {
 	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
-
+	//we want to know which is the higher ID. this is the perfect place
+	if( this.$scope.ID_count < entity.go.id ){
+		this.$scope.ID_count = entity.go.id;
+	}
 	return entity;
 };
 

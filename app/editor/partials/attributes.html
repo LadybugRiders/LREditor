@@ -1,15 +1,15 @@
 <accordion accordion-draggable>
 	<accordion-group heading="Attributes">
 		<div class="row">
-			<div class="col-md-12" ng-show="currentEntity">
+			<div class="col-md-12">
 				<span>{{currentEntity.name}} | z: {{currentEntity.z}} | id: {{currentEntity.go.id}} </span>
 			</div>
-			<div class="col-md-12" ng-show="!currentEntity">
+			<div class="col-md-12" ng-show="currentEntity==null">
 				<span>No entity selected</span>
 			</div>
 		</div>
 
-		<div class="row" ng-show="currentEntity">
+		<div class="row">
 			<div class="col-md-12">
 				<tabset justified="true">
 					<tab heading="General">

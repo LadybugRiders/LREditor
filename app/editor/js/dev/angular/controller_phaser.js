@@ -8,6 +8,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	function($scope, $http, $timeout) {
 	function main() {
 
+		$scope.ID_count = 0;
+
 		$scope.dataSettings = {
 			"camera" : {
 				x: -320, y: -180,
@@ -253,7 +255,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	$scope.addGroup = function() {
 		var group = new LR.Entity.Group($scope.game);
 		group.name = "group" + $scope.game.world.children.length;
-		group.go.id = $scope.game.world.length + 1 ;
+		group.go.id = $scope.getID() ;
 		$scope.game.add.existing(group);
 	};
 
@@ -262,7 +264,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		var sprite = new LR.Entity.Sprite($scope.game, $scope.game.camera.view.centerX,
 										 $scope.game.camera.view.centerY, "none");
 		sprite.name = "sprite" + $scope.game.world.children.length;
-		sprite.go.id = $scope.game.world.length + 1 ;
+		sprite.go.id = $scope.getID();
 		//add Input Handler, for dragging and other events
 		sprite.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(sprite.go, $scope));
 		sprite.ed_locked = false;
@@ -279,7 +281,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 										32,32, /* width, height */
 										"none");
 		tilesprite.name = "tilesprite" + $scope.game.world.children.length;
-		tilesprite.go.id = $scope.game.world.length + 1 ;
+		tilesprite.go.id = $scope.getID();
 		//add Input Handler, for dragging and other events
 		tilesprite.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(tilesprite.go, $scope));
 		tilesprite.ed_locked = false;
@@ -294,7 +296,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 										$scope.game.camera.view.centerY, /* y */
 										"New Text");
 		text.name = "Text";
-		text.go.id = $scope.game.world.length + 1 ;
+		text.go.id = $scope.getID();
 		//add Input Handler, for dragging and other events
 		text.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(text.go, $scope));
 		text.ed_locked = false;
@@ -302,6 +304,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//Add to editor game
 		$scope.game.add.existing(text);
 	};
+
+	$scope.getID = function(){
+		$scope.ID_count ++;
+		return $scope.ID_count;
+	}
 
 	//===================================================================
 	//					ENTITY OPERATIONS
@@ -311,15 +318,17 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		var exporter = new LR.LevelExporter();
 		var eObj = exporter.exportEntities(_entity);
 
+		console.log(eObj);
+
 		var importer = new LR.Editor.LevelImporterEditor($scope);
 		var iObj = importer.importEntities(eObj, $scope.game);
 
 		iObj.name += " (clone)";
-		iObj.go.id = $scope.game.world.length + 1 ;
+		iObj.go.id = $scope.getID();
 		iObj.go.changeParent(_entity.parent);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 		//Select clone
-		$scope.$emit("selectEntityEmit", {entity : iObj,phaser:true});
+		$scope.$emit("selectEntityEmit", {entity : iObj});
 
 		$scope.forceAttributesRefresh(iObj);
 	};

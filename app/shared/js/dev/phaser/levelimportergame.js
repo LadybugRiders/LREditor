@@ -101,14 +101,13 @@ LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
 }
 
 LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
-	LR.LevelImporter.prototype.setBehaviours.call(this, _objectData, _entity);
 
-	if (_entity.behaviours) {
-		if (_entity.behaviours.length > 0) {
-			for (var i = 0; i < _entity.behaviours.length; i++) {
-				var behaviour = _entity.behaviours[i];
-				if (behaviour.name) {
-					var behaviourClass = behaviour.name;
+	if (_objectData.behaviours) {
+		if (_objectData.behaviours.length > 0) {
+			for (var i = 0; i < _objectData.behaviours.length; i++) {
+				var bhData = _objectData.behaviours[i];
+				if (bhData.name) {
+					var behaviourClass = bhData.name;
 
 					var classes = behaviourClass.split(".");
 
@@ -124,12 +123,9 @@ LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
 					}
 
 					if (Class) {
-						var behaviour = _entity.go.addBehaviour(new Class(_entity.go));
-						try {
-							var params = JSON.parse(behaviour.params);
-							behaviour.args_create = params;
-						} catch(e) {
-						}
+						var bhInstance = _entity.go.addBehaviour(new Class(_entity.go));
+						//keep args for the create() of behaviours, done later
+						bhInstance.args_create = bhData.params;
 					} else {
 						console.error(
 							"LR.LevelImporterGame - Unkown behaviour: " + behaviourClass);
@@ -149,8 +145,25 @@ LR.LevelImporterGame.prototype.callBehavioursCreate = function(_game) {
 
 		for(var j=0; j < go.behaviours.length; j++ ){
 			var bh = go.behaviours[j];
+			bh = this.processBehaviourArgs(_game,bh);
 			bh.create(bh.args_create);		
 			bh.args_create = null;	
 		}
 	}
+};
+
+// Check arguments value and find the gameobject if some are referenced
+// Form the editor, an arg value can have this form : #GO_XX where XX is a Number
+// This references the gameobject with the id equal to XX
+LR.LevelImporterGame.prototype.processBehaviourArgs = function(_game, _behaviour) {
+	for(var key in _behaviour.args_create){
+		var value = _behaviour.args_create[key];
+		if( typeof value === 'string'){
+			if( value.indexOf("#GO_") == 0){
+				value = value.substring(4);
+				_behaviour.args_create[key] = LR.GameObject.FindByID(_game.world,parseInt(value));
+			}
+		}
+	}
+	return _behaviour;
 };
