@@ -36,6 +36,26 @@ LR.LevelImporterGame.prototype.importAssets = function(_assets, _loader) {
 };
 
 /**
+* Import all the images
+*
+* @method importImages
+* @param {Object} images Images informations
+* @param {Phaser.Loader} loader The loader used to import images
+*/
+LR.LevelImporterGame.prototype.importImages = function(_images, _loader) {
+	for (var i = 0; i < _images.length; i++) {
+		var img = _images[i];
+
+		var imgPath = "assets/images" + img.path;
+
+		_loader.spritesheet(
+			img.name, imgPath,
+			parseInt(img.frameWidth), parseInt(img.frameHeight)
+		);
+	};
+};
+
+/**
 * Import all the behaviours
 *
 * @method importBehaviours

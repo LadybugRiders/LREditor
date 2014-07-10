@@ -66,8 +66,8 @@ LR.LevelExporter.prototype.exportImages = function(_game, _project) {
 
 	keys = this.getImageKeys(_game.world, keys);
 
-	var images = this.getExportableImages(_game.cache, keys);
-	console.log(images);
+	//var images = this.getExportableImages(_game.cache, keys);
+	var images = this.getExportableImages(keys, _project.assets.images);
 
 	return images;
 };
@@ -104,7 +104,7 @@ LR.LevelExporter.prototype.getImageKeys = function(_entity, _keys) {
 * @return {Array} level's image keys
 * @return {Array} exportable level's images
 */
-LR.LevelExporter.prototype.getExportableImages = function(_cache, _keys) {
+/*LR.LevelExporter.prototype.getExportableImages = function(_cache, _keys) {
 	var images = new Array();
 
 	for (var i = 0; i < _keys.length; i++) {
@@ -114,6 +114,30 @@ LR.LevelExporter.prototype.getExportableImages = function(_cache, _keys) {
 		var image = this.exportImage(cachedImage, frame);
 		if (LR.LevelUtilities.IsEditorImage(image) == false) {
 			images.push(image);
+		}
+	};
+
+	return images;
+};*/
+LR.LevelExporter.prototype.getExportableImages = function(_keys, _imagesData) {
+	var images = new Array();
+
+	for (var i = 0; i < _keys.length; i++) {
+		var key = _keys[i];
+
+		var j = 0;
+		var found = false;
+		while (j<_imagesData.length && found == false) {
+			var imageData = _imagesData[j];
+			if (imageData.name == key) {
+				if (LR.LevelUtilities.IsEditorImage(imageData) == false) {
+					images.push(imageData);
+				}
+
+				found = true;
+			}
+
+			j++;
 		}
 	};
 

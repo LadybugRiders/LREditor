@@ -242,8 +242,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			_frame = 0;
 		}
 		
-		console.log(_image);
-
 		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
 			$scope.currentEntity.loadTexture(_image.name);
 			$scope.currentEntity.frame = parseInt(_frame);

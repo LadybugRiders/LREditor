@@ -65,7 +65,7 @@ LR.LevelImporter.prototype.importImages = function(_images, _loader) {
 	for (var i = 0; i < _images.length; i++) {
 		var img = _images[i];
 		_loader.spritesheet(
-			img.name, img.src, img.frameWidth, img.frameHeight);
+			img.name, img.path, img.frameWidth, img.frameHeight);
 	};
 };
 

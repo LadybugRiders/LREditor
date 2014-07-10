@@ -20,6 +20,55 @@ LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promis
 	this.$scope.cutscenes = _level.cutscenes;
 };
 
+/**
+* Import all the images
+*
+* @method importImages
+* @param {Object} images Images informations
+* @param {Phaser.Loader} loader The loader used to import images
+*/
+LR.Editor.LevelImporterEditor.prototype.importImages = function(_images, _loader) {
+	for (var i = 0; i < _images.length; i++) {
+		var imgData = _images[i];
+
+		var imgPath = this.$scope.project.path + "/assets/images" + imgData.path;
+
+		_loader.spritesheet(
+			imgData.name, imgPath,
+			parseInt(imgData.frameWidth), parseInt(imgData.frameHeight)
+		);
+
+		var projectImage = this.getProjectImageByName(imgData.name);
+		if (projectImage) {
+			projectImage.frameWidth = imgData.frameWidth;
+			projectImage.frameHeight = imgData.frameHeight;
+			projectImage.loaded = true;
+		} else {
+			console.warn("image '" + imgData.name + "' loaded but not linked with the editor.");
+		}
+	};
+};
+
+LR.Editor.LevelImporterEditor.prototype.getProjectImageByName = function(_name) {
+	var projectImage = null;
+
+	var projectImages = this.$scope.project.assets.images;
+
+	var i = 0;
+	var found = false;
+	while (i<projectImages.length && found == false) {
+		var img = projectImages[i];
+		if (img.name == _name) {
+			projectImage = img;
+			found = true;
+		}
+
+		i++;
+	}
+
+	return projectImage;
+};
+
 LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) {
 	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
 
