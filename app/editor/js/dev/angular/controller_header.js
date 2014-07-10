@@ -57,8 +57,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.project.assets.prefabs = new Array();
 		$scope.project.assets.images = new Array();
 		$scope.project.assets.behaviours = new Array();
-		$scope.project.assets.layers = new Array();
-		$scope.project.assets.inputs = new Array();
+		$scope.project.assets.layers = new Object();
+		$scope.project.assets.inputs = new Object();
 
 		//modal data for cutscenes edition
 		$scope.modalCSData = {
@@ -81,6 +81,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		};
 
 		$scope.modalLayersData = { layers : {} };
+		$scope.modalInputsData = { inputs : {} };
 
 		// load current project data
 		if (localStorage) {
@@ -136,6 +137,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.loadCurrentProjectImages();
 			$scope.loadCurrentProjectBehaviours();
 			$scope.loadCurrentProjectLayers();
+			$scope.loadCurrentProjectInputs();
 		}).error(function(_error) {
 			console.error(_error);
 		});
