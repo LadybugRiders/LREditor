@@ -16,7 +16,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				width: 640, height:360,
 				debug: true,
 				fixedToCamera: true
-			}
+			},
+			"debugBodiesInGame" : false
 		}
 
 		$scope.cutscenes = [];
