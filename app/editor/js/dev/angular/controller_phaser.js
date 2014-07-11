@@ -483,21 +483,13 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$http.get(url).success(function(_data) {
 				var importer = new LR.Editor.LevelImporterEditor($scope);
 				importer.import(_data, $scope.game, function(err, data) {
-					$scope.$apply(function() {
-						// refresh the list of entities
-						$scope.$emit("refreshListEmit", {world: $scope.game.world});
-						
-						// refresh the list of images
-						var images = $scope.getImages();
-						$scope.sendImages(images);
-					});
+					// do nothing
 				});
 
-			$scope.importSettings(_data.settings);
+				$scope.importSettings(_data.settings);
 
-			//cutscenes should be imported now
-			$scope.$emit("sendCutscenesEmit",{"cutscenes":$scope.cutscenes});
-
+				//cutscenes should be imported now
+				$scope.$emit("sendCutscenesEmit",{"cutscenes":$scope.cutscenes});
 			}).error(function(_error) {
 				console.error(_error);
 			});
