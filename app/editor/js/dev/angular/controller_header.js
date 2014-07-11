@@ -77,7 +77,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		$scope.modalSettingsData = {
 			world :{},
-			camera : {}
+			camera : {},
+			debugBodiesInGame : false
 		};
 
 		$scope.modalLayersData = { layers : {} };

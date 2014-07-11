@@ -223,5 +223,5 @@ LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
 };
 
 LR.LevelImporter.prototype.setBehaviours = function(_objectData, _entity) {
-	_entity.behaviours = _objectData.behaviours;
+	_entity.behaviours = jQuery.extend(true, [], _objectData.behaviours);
 };

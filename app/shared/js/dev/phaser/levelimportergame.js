@@ -15,6 +15,8 @@ LR.LevelImporterGame.prototype = Object.create(LR.LevelImporter.prototype);
 LR.LevelImporterGame.prototype.constructor = LR.LevelImporterGame;
 
 LR.LevelImporterGame.prototype.import = function(_level, _game, _promise) {
+	this.debugBodiesInGame = _level.settings.debugBodiesInGame;
+
 	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
 	
 	if (_game.cutsceneManager) {
@@ -96,7 +98,7 @@ LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
 	//Call base method
 	LR.LevelImporter.prototype.setPhysics.call(this, _objectData, _entity);
 	
-	if( _objectData.body.debug)
+	if( this.debugBodiesInGame && _objectData.body.debug)
 		_entity.body.debug = true;
 }
 
