@@ -17,10 +17,13 @@ LR.Entity.Button = function(_game, _x, _y, _key, _label, _font, _fontSize, _call
 
 	this.anchor.setTo(0.5, 0.5);
 
-	this.label = this.game.add.bitmapText(0, 0, _font, _label, _fontSize);
+  var style = { font: _fontSize + "px " + _font, fill: "white", align: "center" };
+  this.label = this.game.add.text(0, 0, _label, style);
+  this.label.anchor.setTo(0.5, 0.5);
   this.addChild(this.label);
-  this.label.align = 'center';
-  this.setLabel(_label);
+
+  this.label.stroke = '#000000';
+  this.label.strokeThickness = 6;
 
 	this.go = new LR.GameObject(this);
 	if (_name) {
