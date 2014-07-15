@@ -22,6 +22,12 @@ LR.State = function(_game) {
 LR.State.prototype = Object.create(Phaser.State.prototype);
 LR.State.prototype.constructor = LR.State;
 
+LR.State.prototype.createEntity =function(_key){
+	var entity = new LR.Entity.Sprite(this.game,0,0,_key);	
+	entity.anchor.setTo(0.5,0.5);
+	this.addGameObjectFull(entity.go);
+	return entity;
+}
 /**
 * Adds a GameObject to this state
 *
