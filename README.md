@@ -1,3 +1,5 @@
+![LREditor](http://ladybugriders.com/wp-content/uploads/2014/07/LREditor_logo_2-300x74.png "LREditor")
+
 LREditor
 ========
 
