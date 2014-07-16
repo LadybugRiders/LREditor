@@ -6,11 +6,15 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
   
   function main() {
     $scope.modalLayersData.layers = jQuery.extend(true, {}, $scope.project.assets.layers);
+    
+    console.log($scope.modalLayersData.layers);
     //get an array of layers names
     $scope.modalLayersData.layersNames = new Array();
     for( var key in $scope.modalLayersData.layers){
+      console.log(key);
       $scope.modalLayersData.layersNames.push( key );
     }
+    $scope.modalLayersData.layersNames.sort();
     //Build matrix from scratch
     $scope.modalLayersData.matrix = $scope.buildMatrix($scope.modalLayersData.layersNames);
     //Fill it with the right values
