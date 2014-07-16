@@ -45,7 +45,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		// project data
 		$scope.project = {
-			name: "Example",
+			name: "Project",
       path: "/game",
       file: "project.json"
 		};
@@ -92,7 +92,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 				$scope.project.path = path;
 				$scope.project.file = file;
 			}
-			
+
 			$scope.loadCurrentProjectData();
     } else {
       console.warn("no localStorage");

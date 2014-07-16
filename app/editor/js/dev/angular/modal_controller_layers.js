@@ -22,7 +22,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.save = function () {
    
-    /*var layers = new Object();
+    var layers = new Object();
     var m = $scope.modalLayersData.matrix;
     //for each layer in the matrix
     for(var i=0; i < m.length; i++){
@@ -41,7 +41,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
 
     $scope.modalLayersData.layers = layers;  
     
-    $modalInstance.close(layers);*/
+    $modalInstance.close(layers);
   };
 
   $scope.close = function () {
