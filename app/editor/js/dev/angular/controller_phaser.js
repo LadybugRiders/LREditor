@@ -171,7 +171,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.sendSettings();
 
-		$scope.import("/game/assets/levels", "example", "file");
+		$timeout(function() {
+			$scope.import("/game/assets/levels", "example", "file");
+		}, 500);
 	};
 
 	$scope.update = function() {

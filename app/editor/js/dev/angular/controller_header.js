@@ -91,9 +91,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			if (path && file) {
 				$scope.project.path = path;
 				$scope.project.file = file;
-
-				$scope.loadCurrentProjectData();
 			}
+			
+			$scope.loadCurrentProjectData();
     } else {
       console.warn("no localStorage");
     }
