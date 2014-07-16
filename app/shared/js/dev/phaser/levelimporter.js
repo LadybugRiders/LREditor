@@ -166,6 +166,11 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 	_entity.x = _objectData.x;
 	_entity.y = _objectData.y;
 	_entity.angle = _objectData.angle;
+	
+	if( _objectData.scaleX && _objectData.scaleY){
+		_entity.scale.x = _objectData.scaleX;
+		_entity.scale.y = _objectData.scaleY;
+	}
 
 	if(_objectData.type == "LR.Entity.Sprite" || _objectData.type == "LR.Entity.TileSprite" ) {
 		_entity.width = _objectData.width;
