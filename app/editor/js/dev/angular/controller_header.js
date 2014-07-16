@@ -46,7 +46,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		// project data
 		$scope.project = {
 			name: "Project",
-      path: "/game/",
+      path: "/game",
       file: "project.json"
 		};
 
@@ -91,9 +91,9 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			if (path && file) {
 				$scope.project.path = path;
 				$scope.project.file = file;
-
-				$scope.loadCurrentProjectData();
 			}
+
+			$scope.loadCurrentProjectData();
     } else {
       console.warn("no localStorage");
     }
@@ -110,7 +110,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		$timeout(function() {
 			//var url = "/game/#/home";
-			var url = LR.Editor.Settings.project.playUrl;
+			var url = $scope.project.path;
 			url += "?levelname=" + levelName;
 			url += "&storage=" + storage;
 			var win = window.open(url, '_blank');

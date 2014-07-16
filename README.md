@@ -1,7 +1,14 @@
+![LREditor](http://ladybugriders.com/wp-content/uploads/2014/07/LREditor_logo_2-300x74.png "LREditor")
+
 LREditor
 ========
 
-Free & OpenSource HTML5 2D Game Editor (using [Phaser](http://phaser.io/ "Phaser"))
+Free & OpenSource HTML5 2D Game Editor (using [Phaser](http://phaser.io/ "Phaser")) **in your Web Browser** !
+
+Try
+---
+
+Try our online demo : [http://lreditor.herokuapp.com](http://lreditor.herokuapp.com "http://lreditor.herokuapp.com")
 
 Install
 -------

@@ -42,14 +42,18 @@ LevelState.prototype.preload = function() {
 };
 
 LevelState.prototype.create = function() {
-	//this has to be done since 2.0.3 is not working well with inputs
-	this.game.inputManager.init(InputSettings.keys);
-	//physics
+	//====== PHYSICS ============
+	//init P2 system
 	this.game.physics.startSystem(Phaser.Physics.P2JS);
-    this.collisionManager = new CollisionManager(this.game);
-    this.collisionManager.init(PhysicsSettings.LAYERS);
-	this.game.physics.p2.gravity.y = PhysicsSettings.GLOBAL_GRAVITY;
-	
+	//Create the collision manager
+  this.collisionManager = new CollisionManager(this.game);
+  //Try getting layers data from the loaded file ( at assets/physics/layers.json )
+  var layersData = this.game.cache.getJSON("layersData")
+  if( layersData )
+  	this.collisionManager.init(layersData);
+	this.game.physics.p2.gravity.y = 600;
+
+
 	if (this.game.cache.getJSON("level")) {
 		this.level = this.game.cache.getJSON("level");
 	}

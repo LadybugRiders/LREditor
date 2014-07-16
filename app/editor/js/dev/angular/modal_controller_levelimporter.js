@@ -6,7 +6,7 @@ var LevelImportCtrlModal = function ($scope, $modalInstance, $timeout) {
     if ($scope.tmp.levels == null) $scope.tmp.levels = new Object();
     if ($scope.tmp.levels.path == null)
       $scope.tmp.levels.path = $scope.project.path + "/assets/levels";
-    if ($scope.tmp.levels.name == null) $scope.tmp.levels.name = "level1";
+    if ($scope.tmp.levels.name == null) $scope.tmp.levels.name = "example";
   };
 
   $scope.import = function () {

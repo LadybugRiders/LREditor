@@ -3,6 +3,10 @@
 var GameCore = function() {
 
 	var preload = function() {
+		// load layers from json file
+		this.game.load.json("layersData", "assets/physics/layers.json", true);
+		// load inputs from json file
+		this.game.load.json("inputsData", "assets/inputs/inputs.json", true);
 	};
 
 	var create = function() {
