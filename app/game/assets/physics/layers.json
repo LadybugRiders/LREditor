@@ -1,0 +1,1 @@
+{"default":{"collisions":[]},"player":{"collisions":["ground","death","trigger"]},"ground":{"collisions":["player"]},"death":{"collisions":["player"]},"trigger":{"collisions":["player"]}}
