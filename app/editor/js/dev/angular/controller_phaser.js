@@ -202,12 +202,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.game.add.existing($scope.editorGroup);
 		$scope.editorGroup.name = "__editor";
 
-
-
 		//Camera DEbug
 		$scope.changeGameCamera($scope.dataSettings.camera);
 		//entity handle
-		$scope.entityHandle = new LR.Entity.Sprite($scope.game,0,0,"__select");
+		$scope.entityHandle = new LR.Entity.Group($scope.game,0,0);
 		$scope.entityHandle.name = "__entity_handle";
 		$scope.entityHandleScript = $scope.entityHandle.go.addBehaviour( new LR.Editor.Behaviour.EntityHandle($scope.entityHandle.go,$scope));
 		$scope.editorGroup.add($scope.entityHandle);

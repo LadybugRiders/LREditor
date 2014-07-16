@@ -1,45 +1,46 @@
 "use strict";
 
 //
-// This behaviour is attached to the sprite/object that goes over the selected object.
+// This behaviour is attached to the Group that goes over the selected object.
 // It is unique in the game editor.
+// It contains the two axis for moving the sprite.These are created when the behaviour is instanciated
 //
 
 LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
 	LR.Behaviour.call(this, _gameobject);
 	this.target = null;
-	this.entity.anchor.setTo(0.5,0.5);
-	this.entity.visible = false;
+	//this.entity.visible = false;
 
 	this.$scope = _$scope;
 	this.draggerX = false;	
 	this.draggerY = false;
 
+	//Select sprite
+	this.selectSprite = this.entity.add( new LR.Entity.Sprite(_$scope.game,0,0,"__select") );
+	this.selectSprite.anchor.setTo(0.5,0.5);
     //Handles axis
-    this.axisX = this.$scope.game.add.sprite(100,100,"__x_move");
+    this.axisX = this.entity.add(new LR.Entity.Sprite(_$scope.game,0,0,"__x_move"));
     this.axisX.anchor.setTo(0,0.5);
     this.axisX.name = "__xAxis";
     //AXIS X Input
     this.activateInputOnEntity(this.axisX);
     this.axisX.input.allowVerticalDrag = false;
-    this.$scope.$emit("moveEntityToEditorEmit",{ entity : this.axisX});
 
-    this.axisY = this.$scope.game.add.sprite(100,100,"__y_move");
+    this.axisY = this.entity.add(new LR.Entity.Sprite(_$scope.game,0,0,"__y_move"));
     this.axisY.anchor.setTo(0.5,1);
     this.axisY.name = "__yAxis";
     //AXIS X Input
     this.activateInputOnEntity(this.axisY);
     this.axisY.input.allowHorizontalDrag = false;
-    this.$scope.$emit("moveEntityToEditorEmit",{ entity : this.axisY});
 
     this.toggleAxises(false);
 
     var inputManager = this.entity.game.inputManager;
     //Full drag on CTRL
-   inputManager.bindKeyPress("ctrl",this.activateTotalDrag, this );
-   inputManager.bindKeyRelease("ctrl",this.deactivateTotalDrag, this );
-   //Clone on D
-   inputManager.bindKeyRelease("C",this.duplicate, this );
+    inputManager.bindKeyPress("ctrl",this.activateTotalDrag, this );
+    inputManager.bindKeyRelease("ctrl",this.deactivateTotalDrag, this );
+    //Clone on C
+    inputManager.bindKeyRelease("C",this.duplicate, this );
 
     this.totalDragActive = false;
 };
@@ -54,54 +55,51 @@ LR.Editor.Behaviour.EntityHandle.prototype.update = function() {
 	LR.Behaviour.prototype.update.call(this);
 
 	if( this.target != null ){
-		//keep size up to date
-		this.entity.width = this.target.width;
-		this.entity.height = this.target.height;
-		//replace entity
-		this.entity.x = this.target.x; this.entity.y = this.target.y;
 
 		//if an axis handle is being dragged
-		if( this.draggerX ){
-			this.setPosition(this.axisX);
-			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
-			this.$scope.forceAttributesRefresh(this.target);
-			//this.checkDrag();
-		}else if( this.draggerY ){
-			this.setPosition(this.axisY);
-			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
-			this.$scope.forceAttributesRefresh(this.target);
-			//this.checkDrag();
-		}else{			
-			//Replace axis
-			this.axisX.x = this.target.x; this.axisX.y = this.target.y;
-			this.axisY.x = this.target.x; this.axisY.y = this.target.y;
+		if( this.draggerX || this.draggerY ){
+			if( this.draggerX ){
+				this.axisY.x = this.axisX.x; this.axisY.y = this.axisX.y;
+			}else{
+				this.axisX.x = this.axisY.x; this.axisX.y = this.axisY.y;
+			}
+			this.placeTarget(this.target,this.selectSprite);
+		}else if( this.totalDragActive ){
+			this.updateSpritesStick();
 		}
+
+		this.$scope.forceAttributesRefresh(this.target);
 	}
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.activate = function(_target) {
 
-	if( _target instanceof Phaser.Group){
-		this.deactivate();
-		return;
-	}
+	
 	if( _target === this.target)
 		return;
 
-	this.entity.anchor = _target.anchor;
+	if( _target.type === Phaser.GROUP ){
+		console.log(_target);
+		return;
+	}
+
+	this.selectSprite.anchor = _target.anchor;
 
 	this.lastTarget = this.target;
 	this.target = _target;
 
 	//if there's a target
-	if(this.target){
+	if(this.target && this.target.input){
+		//check if total drag is already active
 		if( this.totalDragActive ){
 			this.activateTotalDrag();
 		}else{
 			this.deactivateTotalDrag();
 		}
 	}
+	//Display
 	this.entity.visible = true;
+	this.placeTarget(this.target, this.selectSprite);
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.deactivate = function() {	
@@ -132,7 +130,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.duplicate = function(_key) {
 LR.Editor.Behaviour.EntityHandle.prototype.activateTotalDrag = function() {	
     this.totalDragActive = true;
     if(this.target){
-		this.entity.alpha = 1;
+		this.selectSprite.alpha = 1;
 		this.toggleAxises(false);
 		this.target.go.sendMessage("activateTotalDrag")
 	}
@@ -141,9 +139,13 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateTotalDrag = function() {
 LR.Editor.Behaviour.EntityHandle.prototype.deactivateTotalDrag = function() {
     this.totalDragActive = false;
     if(this.target){
-		this.entity.alpha = 0.5;
+		this.selectSprite.alpha = 0.5;
 		this.toggleAxises(true);
 		this.target.go.sendMessage("deactivateTotalDrag")
+
+		//Replace axises
+		this.axisX.x = this.target.x; this.axisX.y = this.target.y;
+		this.axisY.x = this.target.x; this.axisY.y = this.target.y;
 	}
 }
 
@@ -203,6 +205,23 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateInputOnEntity = function(_ent
     _entity.events.onInputOut.add(this.inputOut, this);
 }
 
-LR.Editor.Behaviour.EntityHandle.prototype.setPosition = function(_spriteAxis){
-	this.target.go.setPosition(_spriteAxis.x,_spriteAxis.y);
+// This will place the targetted object at its right place, according to the handle position
+LR.Editor.Behaviour.EntityHandle.prototype.placeTarget = function(_target,_selectSprite,_offset){
+	if( _offset == null )
+		_offset = new Phaser.Point();
+	//keep size up to date
+	_selectSprite.width = _target.width;
+	_selectSprite.height = _target.height;
+
+	//place Target with its offset
+	_target.go.setPosition(this.axisX.x + _offset.x ,
+								this.axisX.y + _offset.y );
+	//place selection sprite
+	_selectSprite.x = _target.x;
+	_selectSprite.y = _target.y;
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.updateSpritesStick = function(){
+	this.selectSprite.x = this.target.x;
+	this.selectSprite.y = this.target.y;
 }
