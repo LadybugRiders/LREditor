@@ -255,7 +255,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "&path=" + $scope.project.path + "/assets/physics";
 		$http.get(url).success(function(_data) {
 			$scope.project.assets.layers = _data;
-				console.log(_data);
 		    $scope.$emit("sendLayersEmit", {"layers": $scope.project.assets.layers });
 		}).error(function(_error) {
 			$scope.layers = new Object();

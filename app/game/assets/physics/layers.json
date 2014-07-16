@@ -1,1 +1,1 @@
-{"default":{"collisions":[]},"player":{"collisions":["ground","death","trigger"]},"ground":{"collisions":["player"]},"death":{"collisions":["player"]},"trigger":{"collisions":["player"]}}
+{"death":{"collisions":["player"]},"default":{"collisions":["ground","player"]},"ground":{"collisions":["default","player"]},"player":{"collisions":["death","default","ground","trigger"]},"trigger":{"collisions":["player"]}}
