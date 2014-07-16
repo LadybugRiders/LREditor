@@ -146,6 +146,7 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 	var entity = LR.LevelUtilities.CreateEntityByType(_object, _game);
 
 	if (entity) {
+
 		this.setGeneral(_object, entity);
 
 		this.setDisplay(_object, entity);
@@ -156,7 +157,6 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 
 		this.setBehaviours(_object, entity);
 	}
-
 	return entity;
 };
 
@@ -167,10 +167,11 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 	_entity.y = _objectData.y;
 	_entity.angle = _objectData.angle;
 
-	if(_objectData.type !== "LR.Entity.Text" ) {
+	if(_objectData.type == "LR.Entity.Sprite" || _objectData.type == "LR.Entity.TileSprite" ) {
 		_entity.width = _objectData.width;
 		_entity.height = _objectData.height;
-	} else {
+	}  
+	if(_objectData.type == "LR.Entity.Text"){
 		_entity.text = _objectData.textData.text;
 		//Reset width after font settings are filled
 		_entity.updateTransform();
