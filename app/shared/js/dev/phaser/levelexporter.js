@@ -344,6 +344,8 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 		_object.id = _entity.go.id;
 	_object.x = _entity.x;
 	_object.y = _entity.y;
+	_object.scaleX = _entity.scale.x;
+	_object.scaleY = _entity.scale.y;
 	_object.angle = _entity.angle;
 
 	if(_entity.ed_locked == true) {

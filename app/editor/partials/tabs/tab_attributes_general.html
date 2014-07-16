@@ -45,6 +45,21 @@
 	</div>
 </div>
 
+<!-- SCALE -->
+<div class="form-group">
+	<label>Scale</label>
+	<div class="row">
+		<div class="col-md-6">
+			<input type="number" ng-model="currentEntity.scale.x" 
+				 class="form-control" float/>
+		</div>
+		<div class="col-md-6">
+			<input type="number" ng-model="currentEntity.scale.y"
+			class="form-control" float/>
+		</div>
+	</div>
+</div>
+
 <div ng-if="data.type != 'group' && data.type != 'text' " class="form-group">
 	<!-- SIZE -->
 	<div class="form-group">
