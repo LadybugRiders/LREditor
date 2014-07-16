@@ -272,20 +272,22 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 
 		modalInstance.result.then(function (_data) {
+			$scope.project.assets.layers = jQuery.extend(true, {}, _data);
+    		$scope.$emit("sendLayersEmit",{"layers" : _data });
 			// save layers data in a file
 			var url = "/editorserverapi/v0/layers";
-      var params = {
-        name: "layers.json",
-        path: $scope.project.path + "/assets/physics",
-        data: JSON.stringify($scope.project.assets.layers)
-      };
-      $http.post(url, params, function(error, data) {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log("Layers saved!!");
-        }
-      });
+		    var params = {
+		        name: "layers.json",
+		        path: $scope.project.path + "/assets/physics",
+		        data: JSON.stringify($scope.project.assets.layers)
+		    };
+      	$http.post(url, params, function(error, data) {
+	        if (error) {
+	          console.error(error);
+	        } else {
+	          console.log("Layers saved!!");
+	        }
+      	});
 		}, function () {
 			console.info('Modal dismissed at: ' + new Date());
 		});
