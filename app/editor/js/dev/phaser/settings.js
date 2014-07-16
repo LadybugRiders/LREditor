@@ -5,8 +5,8 @@ LR.Editor.Settings = function(){
 };
 
 LR.Editor.Settings.project = {
-	path: "/game/wildrush/public",
-	playUrl: "/game/wildrush/public",
+	path: "/game",
+	playUrl: "/game",
 };
 
 LR.Editor.Settings.keysData = {
