@@ -1,7 +1,9 @@
 <div class="form-group">
 	<!-- ADD BODY -->
-	<div ng-if="currentEntity.body == null" class="form-group">
-		<button ng-click="addBodyToCurrentEntity()" type="button" class="btn btn-default">Add Body</button>
+	<div ng-if="data.type != 'group'" >
+		<div ng-if="currentEntity.body == null" class="form-group">
+			<button ng-click="addBodyToCurrentEntity()" type="button" class="btn btn-default">Add Body</button>
+		</div>
 	</div>
 
 	<!-- Conditionnal : only show if there's a body -->
