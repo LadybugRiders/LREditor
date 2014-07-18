@@ -252,7 +252,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.currentEntity.width = parseInt(_image.frameWidth);
 				$scope.currentEntity.height = parseInt(_image.frameHeight);
 			}
-			console.log($scope.currentEntity);
 		} else {
 			console.error("No image with the name '" + _image.name +"'' in cache");
 		}
