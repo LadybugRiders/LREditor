@@ -23,20 +23,8 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
 		this.createSprite();
 	//keep an array of references of active sprites
 	this.activeSprites = new Array();
-    //Handles axis
-    this.axisX = this.entity.add(new LR.Entity.Sprite(_$scope.game,0,0,"__x_move"));
-    this.axisX.anchor.setTo(0,0.5);
-    this.axisX.name = "__xAxis";
-    //AXIS X Input
-    this.activateInputOnEntity(this.axisX);
-    this.axisX.input.allowVerticalDrag = false;
-
-    this.axisY = this.entity.add(new LR.Entity.Sprite(_$scope.game,0,0,"__y_move"));
-    this.axisY.anchor.setTo(0.5,1);
-    this.axisY.name = "__yAxis";
-    //AXIS X Input
-    this.activateInputOnEntity(this.axisY);
-    this.axisY.input.allowHorizontalDrag = false;
+    //Create Handles ( for moving & scaling)
+    this.createHandles();
 
     this.toggleAxises(false);
 
@@ -45,7 +33,12 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
     inputManager.bindKeyPress("ctrl",this.activateTotalDrag, this );
     inputManager.bindKeyRelease("ctrl",this.deactivateTotalDrag, this );
     //Clone on C
-    inputManager.bindKeyRelease("C",this.duplicate, this );
+    inputManager.bindKeyRelease("clone",this.duplicate, this );
+    //Activate scale
+    inputManager.bindKeyPress("scale",this.activateScale, this );
+    inputManager.bindKeyRelease("scale",this.deactivateScale, this );
+
+    this.state = "move";
 
     this.totalDragActive = false;
 };
@@ -53,30 +46,48 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
 LR.Editor.Behaviour.EntityHandle.prototype = Object.create(LR.Behaviour);
 LR.Editor.Behaviour.EntityHandle.prototype.constructor = LR.Editor.Behaviour.EntityHandle;
 
-/*
-* Update the handle according to the gameobject position*
-*/
+//===========================================================
+//					UPDATES
+//===========================================================
+
 LR.Editor.Behaviour.EntityHandle.prototype.update = function() {
 	LR.Behaviour.prototype.update.call(this);
 
 	if( this.targets != null && this.targets.length > 0 ){
-
-		//if an axis handle is being dragged
-		if( this.draggerX || this.draggerY ){
-			if( this.draggerX ){
-				this.axisY.x = this.axisX.x; this.axisY.y = this.axisX.y;
-			}else{
-				this.axisX.x = this.axisY.x; this.axisX.y = this.axisY.y;
-			}
-
-			this.placeTargets();
+		switch(this.state){
+			case "move" : this.updateMoveHandle();
+				break;
+			case "scale" : this.updateScaleHandle();
+				break;
 		}
-
-		this.updateSpritesStick();
-
-		this.$scope.forceAttributesRefresh(this.mainTarget);
 	}
 }
+
+LR.Editor.Behaviour.EntityHandle.prototype.updateMoveHandle = function(){
+	//if an axis handle is being dragged
+	if( this.draggerX || this.draggerY ){
+		//replace the non-dragged axis 
+		if( this.draggerX ){
+			this.axisY.x = this.axisX.x; this.axisY.y = this.axisX.y;
+		}else{
+			this.axisX.x = this.axisY.x; this.axisX.y = this.axisY.y;
+		}
+
+		this.placeTargets();
+	}
+	//make the highlight follow the target(s)
+	this.updateSpritesStick();
+	//Refresh attributes ( position may change )
+	this.$scope.forceAttributesRefresh(this.mainTarget);
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
+	
+}
+
+//===========================================================
+//					ACTIVATION
+//===========================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.activate = function(_target) {
 
@@ -112,6 +123,20 @@ LR.Editor.Behaviour.EntityHandle.prototype.deactivate = function() {
 
 LR.Editor.Behaviour.EntityHandle.prototype.recoverLastTarget = function() {
 	this.activate(this.lastTarget);
+}
+
+//=================================================================
+//						SCALE 
+//=================================================================
+
+LR.Editor.Behaviour.EntityHandle.prototype.activateScale = function(){
+	this.state = "scale";
+	this.toggleAxises(false);
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.deactivateScale = function(){
+	this.state = "move";
+	this.toggleAxises(true);
 }
 
 //=================================================================
@@ -323,6 +348,23 @@ LR.Editor.Behaviour.EntityHandle.prototype.cleanSprites = function(){
 //=================================================================
 //						UTILS
 //=================================================================
+
+LR.Editor.Behaviour.EntityHandle.prototype.createHandles = function(){
+	//========= MOVING HANDLES ===================
+    this.axisX = this.entity.add(new LR.Entity.Sprite(this.$scope.game,0,0,"__x_move"));
+    this.axisX.anchor.setTo(0,0.5);
+    this.axisX.name = "__xAxis";
+    //AXIS X Input
+    this.activateInputOnEntity(this.axisX);
+    this.axisX.input.allowVerticalDrag = false;
+
+    this.axisY = this.entity.add(new LR.Entity.Sprite(this.$scope.game,0,0,"__y_move"));
+    this.axisY.anchor.setTo(0.5,1);
+    this.axisY.name = "__yAxis";
+    //AXIS X Input
+    this.activateInputOnEntity(this.axisY);
+    this.axisY.input.allowHorizontalDrag = false;
+}
 
 LR.Editor.Behaviour.EntityHandle.prototype.activateInputOnEntity = function(_entity){	
 	_entity.inputEnabled = true;

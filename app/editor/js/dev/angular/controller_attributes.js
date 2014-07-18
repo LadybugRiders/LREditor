@@ -241,10 +241,18 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		if (_frame == null || _frame === "") {
 			_frame = 0;
 		}
+
+		console.log(_image);
 		
 		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
+			var lastTexture = $scope.currentEntity.key;
 			$scope.currentEntity.loadTexture(_image.name);
-			$scope.currentEntity.frame = parseInt(_frame);
+			$scope.currentEntity.frame = ( parseInt(_frame) );
+			if( lastTexture == "none"){
+				$scope.currentEntity.width = parseInt(_image.frameWidth);
+				$scope.currentEntity.height = parseInt(_image.frameHeight);
+			}
+			console.log($scope.currentEntity);
 		} else {
 			console.error("No image with the name '" + _image.name +"'' in cache");
 		}
