@@ -35,6 +35,9 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
     //Activate scale
     inputManager.bindKeyPress("scale",this.activateScale, this );
     inputManager.bindKeyRelease("scale",this.deactivateScale, this );
+    //Activate rotate
+    inputManager.bindKeyPress("rotate",this.activateRotate, this );
+    inputManager.bindKeyRelease("rotate",this.deactivateRotate, this );
 
     this.state = "move";
 
@@ -56,6 +59,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.update = function() {
 			case "move" : this.updateMoveHandle();
 				break;
 			case "scale" : this.updateScaleHandle();
+				break;
+			case "rotate" : this.updateRotateHandle();
 				break;
 		}
 	}
@@ -104,6 +109,20 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
 	this.$scope.forceAttributesRefresh(this.mainTarget);
 }
 
+LR.Editor.Behaviour.EntityHandle.prototype.updateRotateHandle = function(){
+	if( this.rotater.input.isDragged ){
+		var dir = Phaser.Point.subtract( this.mainTarget.position,this.rotater.position );
+		var angle = dir.normalize().angle(new Phaser.Point(),true);
+		this.mainTarget.angle = angle;
+		if( this.mainTarget.body ){
+			this.mainTarget.body.angle = angle;
+		}
+		this.updateSpritesStick();
+		//Refresh attributes ( position may change )
+		this.$scope.forceAttributesRefresh(this.mainTarget);
+	}
+}
+
 //===========================================================
 //					ACTIVATION
 //===========================================================
@@ -149,7 +168,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.recoverLastTarget = function() {
 //=================================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.activateScale = function(){
-	if( this.targets.length > 1)
+	if(this.mainTarget == null || this.targets.length > 1)
 		return;
 	this.state = "scale";
 	this.toggleAxises(false);
@@ -163,9 +182,39 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateScale = function(){
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.deactivateScale = function(){
+	if( this.mainTarget == null )
+		return;
 	this.state = "move";
 	this.toggleAxises(true);
 	this.toggleScalers(false);
+}
+
+//=================================================================
+//						ROTATE 
+//=================================================================
+
+LR.Editor.Behaviour.EntityHandle.prototype.activateRotate = function(){
+	if( this.mainTarget == null )
+		return;
+	this.state = "rotate";
+	this.rotater.visible = true;
+	//we need a position to display the rotater handle. We'll take the higher size prop
+	var distance = this.mainTarget.width;
+	if( this.mainTarget.height > distance )
+		distance = this.mainTarget.height;
+	distance *= 0.6;
+	this.rotater.position.rotate( this.mainTarget.x, this.mainTarget.y,
+								this.mainTarget.angle, true, distance
+							);
+	this.toggleAxises(false);
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.deactivateRotate = function(){
+	if( this.mainTarget == null )
+		return;
+	this.state = "move";
+	this.toggleAxises(true);
+	this.rotater.visible = false;
 }
 
 //=================================================================
@@ -414,10 +463,18 @@ LR.Editor.Behaviour.EntityHandle.prototype.createHandles = function(){
     this.scalerY.name = "__yScaler";
     //AXIS X Input
     this.activateInputOnEntity(this.scalerY);
-    this.scalerY.input.allowHorizontalDrag = false;    
+    this.scalerY.input.allowHorizontalDrag = false;  
+
+    this.rotater = this.entity.add(new LR.Entity.Sprite(this.$scope.game,0,0,"__y_move"));
+    this.rotater.anchor.setTo(0.45,1);
+    this.rotater.angle = 45;
+    this.rotater.scale = new Phaser.Point(2,0.2);
+    this.rotater.name = "__rotater";
+    this.activateInputOnEntity(this.rotater);
 
     this.toggleAxises(false);
     this.toggleScalers(false);
+	this.rotater.visible = false;
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.activateInputOnEntity = function(_entity){	

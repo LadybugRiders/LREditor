@@ -126,6 +126,9 @@ LR.Editor.LevelImporterEditor.prototype.setPhysics = function(_objectData, _enti
 	_entity.body.ed_motion = _objectData.body.motion;
 	_entity.body.ed_sensor = _objectData.body.sensor;
 	_entity.body.ed_enabled = _objectData.body.enabled;
+	//deactivate fixedrotation for editor
+	_entity.body.ed_fixedRotation = _entity.body.fixedRotation;
+	_entity.body.fixedRotation = false;
 	//Debug Bodies
 	_entity.body.ed_debugEditor = _objectData.body.debug;
 	if( _objectData.body.debug == true ){
