@@ -86,16 +86,22 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
 		//distance between the anchor position of the object and the right edge
 		var dEdge = (this.mainTarget.width * (1 -this.mainTarget.anchor.x ));
 		var w = this.mainTarget.width + ( ( delta - dEdge ) * this.mainTarget.anchor.x ) ;
+		var deltaWidth = w - this.mainTarget.width;
 		this.mainTarget.width = w;
+		this.resizeShapes(deltaWidth,0);
 	}else if( this.draggerY) {
 		//distance between the scaler handle and the object position
 		var delta = this.mainTarget.y - this.scalerY.y;
 		//distance between the anchor position of the object and the right edge
 		var dEdge = (this.mainTarget.height * (1 -this.mainTarget.anchor.y ));
-		var w = this.mainTarget.height + ( ( delta - dEdge ) * this.mainTarget.anchor.y ) ;
-		this.mainTarget.height = w;
+		var h = this.mainTarget.height + ( ( delta - dEdge ) * this.mainTarget.anchor.y ) ;
+		var deltaHeight = h - this.mainTarget.height;
+		this.mainTarget.height = h;
+		this.resizeShapes(0,deltaHeight);
 	}
 	this.updateSpritesStick();
+	//Refresh attributes ( position may change )
+	this.$scope.forceAttributesRefresh(this.mainTarget);
 }
 
 //===========================================================
@@ -437,4 +443,29 @@ LR.Editor.Behaviour.EntityHandle.prototype.toggleAxises = function(_visible){
 LR.Editor.Behaviour.EntityHandle.prototype.toggleScalers = function(_visible){
 	this.scalerX.visible = _visible;
 	this.scalerY.visible = _visible;
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.resizeShapes = function(_deltaW,_deltaH){
+	for(var i=0; i < this.mainTarget.go.getShapesCount(); i++)
+		this.resizeShape(i,_deltaW,_deltaH);
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.resizeShape = function(_i,_deltaW,_deltaH){
+	if( this.mainTarget.body == null || this.mainTarget.key != "none"){
+		return;
+	}
+	//keep sensor value
+	var formerEdSensor = this.mainTarget.go.getShape(_i).ed_sensor;
+	//get data object of the shape
+	var dataShape = this.mainTarget.go.getShapeData(_i);
+	dataShape.width += _deltaW;
+	dataShape.height += _deltaH;
+	if( dataShape.width < 0 || dataShape.height < 0){
+		return;
+	}
+	//Resize shape with modified data
+	var shape = this.mainTarget.go.replaceShapeByRectangle(_i, dataShape )		
+	shape.sensor = true;
+	shape.ed_sensor = formerEdSensor;
+
 }
