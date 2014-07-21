@@ -313,7 +313,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.currentEntity.go.getShape().lr_name = "mainShape";
 			//move group of the debug body in the editor group ( preventing from exporting it )
 			$scope.$emit("moveEntityToEditorEmit",{ entity : $scope.currentEntity.body.debugBody});
-
+			
 			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
 	};

@@ -46,13 +46,15 @@ LR.State.StateLevel.prototype.create = function() {
 	//init P2 system
 	this.game.physics.startSystem(Phaser.Physics.P2JS);
 	//Create the collision manager
-  this.collisionManager = new CollisionManager(this.game);
-  //Try getting layers data from the loaded file ( at assets/physics/layers.json )
-  var layersData = this.game.cache.getJSON("layersData")
-  if( layersData )
-  	this.collisionManager.init(layersData);
+	this.collisionManager = new CollisionManager(this.game);
+	//Try getting layers data from the loaded file ( at assets/physics/layers.json )
+	var layersData = this.game.cache.getJSON("layersData")
+	if( layersData )
+  		this.collisionManager.init(layersData);
 	this.game.physics.p2.gravity.y = 600;
 
+	//init input right away
+	this.game.inputManager.init( this.game.cache.getJSON("inputsData"));
 
 	if (this.game.cache.getJSON("level")) {
 		this.level = this.game.cache.getJSON("level");
