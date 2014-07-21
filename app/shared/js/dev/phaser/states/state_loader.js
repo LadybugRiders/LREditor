@@ -13,8 +13,8 @@ LR.State.StateLoader.prototype.preload = function() {
 }
 
 LR.State.StateLoader.prototype.create = function() {
-	var levelname = GameCore.GetUrlParamValue("levelname");
-	var storage = GameCore.GetUrlParamValue("storage");
+	var levelname = LR.Game.GetUrlParamValue("levelname");
+	var storage = LR.Game.GetUrlParamValue("storage");
 	if (levelname && storage) {
 		this.game.state.start("Level");
 	} else {

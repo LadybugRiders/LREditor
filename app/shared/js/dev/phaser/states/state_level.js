@@ -21,11 +21,11 @@ LR.State.StateLevel.prototype.init = function(_args) {
 
 LR.State.StateLevel.prototype.preload = function() {
 	if (this.levelName == null) {
-		this.levelName = GameCore.GetUrlParamValue("levelname");
+		this.levelName = LR.Game.GetUrlParamValue("levelname");
 	}
 
 	if (this.storage == null) {
-		this.storage = GameCore.GetUrlParamValue("storage");
+		this.storage = LR.Game.GetUrlParamValue("storage");
 	}
 
 	//LEVEL JSON FILE LOADING

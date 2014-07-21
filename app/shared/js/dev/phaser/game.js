@@ -1,6 +1,6 @@
 "use strict";
 
-var GameCore = function() {
+LR.Game = function() {
 
 	var preload = function() {
 		// load layers from json file
@@ -39,10 +39,10 @@ var GameCore = function() {
 	Phaser.Game.call(this, 640, 360, Phaser.AUTO, 'phaser', functions);
 }
 
-GameCore.prototype = Object.create(Phaser.Game.prototype);
-GameCore.prototype.constructor = GameCore;
+LR.Game.prototype = Object.create(Phaser.Game.prototype);
+LR.Game.prototype.constructor = LR.Game;
 
-GameCore.GetUrlParamValue = function(_param) {
+LR.Game.GetUrlParamValue = function(_param) {
 	var value = null;
 
 	var href = window.location.href.split("?");
