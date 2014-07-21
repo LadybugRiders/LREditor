@@ -1,16 +1,16 @@
 "use strict";
 
-var LevelState = function(_game) {
+LR.State.StateLevel = function(_game) {
 	LR.State.call(this, _game);
 	_game.state.add("Level", this, false);
 
 	this.level = null;
 };
 
-LevelState.prototype = Object.create(LR.State.prototype);
-LevelState.prototype.constructor = LevelState;
+LR.State.StateLevel.prototype = Object.create(LR.State.prototype);
+LR.State.StateLevel.prototype.constructor = LR.State.StateLevel;
 
-LevelState.prototype.init = function(_args) {
+LR.State.StateLevel.prototype.init = function(_args) {
 	if (_args) {
 		if (_args.levelName) {
 			this.levelName = _args.levelName;
@@ -19,7 +19,7 @@ LevelState.prototype.init = function(_args) {
 	}
 };
 
-LevelState.prototype.preload = function() {
+LR.State.StateLevel.prototype.preload = function() {
 	if (this.levelName == null) {
 		this.levelName = GameCore.GetUrlParamValue("levelname");
 	}
@@ -41,7 +41,7 @@ LevelState.prototype.preload = function() {
 
 };
 
-LevelState.prototype.create = function() {
+LR.State.StateLevel.prototype.create = function() {
 	//====== PHYSICS ============
 	//init P2 system
 	this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -69,7 +69,7 @@ LevelState.prototype.create = function() {
 
 		
 	} else {
-		console.error("LevelState - No level");
+		console.error("No level");
 	}
 
 };

@@ -15,11 +15,9 @@ var GameCore = function() {
 		this.game.plugins.add(Phaser.Plugin.CutsceneManager);
 		this.game.plugins.add(Phaser.Plugin.DialogManager);
 
-		var bootstate = new BootState(this);
-		var loadstate = new LoadingState(this);
-		var selectstate = new SelectionMenuState(this);
-		var playstate = new PlayState(this);
-		var levelstate = new LevelState(this);
+		var stateBoot = new LR.State.StateBoot(this);
+		var stateLoader = new LR.State.StateLoader(this);
+		var stateLevel = new LR.State.StateLevel(this);
 
 		this.state.start("Boot");
 	};
