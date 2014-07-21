@@ -10,8 +10,10 @@ LR.Editor.Settings.project = {
 };
 
 LR.Editor.Settings.keysData = {
-	"valid" : { key : Phaser.Keyboard.SPACEBAR, capture : false },
-	"ctrl" : { key :Phaser.Keyboard.CONTROL, capture : false },
+	"valid" : { key : Phaser.Keyboard.SPACEBAR, capture : true },
+	"ctrl" : { key :Phaser.Keyboard.CONTROL, capture : true },
 	"alt" : { key :Phaser.Keyboard.ALT, capture : true },
-	"C" : { key :Phaser.Keyboard.C, capture : false }
+	"clone" : { key :Phaser.Keyboard.C, capture : false},
+	"scale" : { key : Phaser.Keyboard.S, capture : false },
+	"rotate" : { key : Phaser.Keyboard.R, capture : false }
 };
