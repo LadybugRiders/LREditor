@@ -52,7 +52,6 @@ LR.Behaviour.prototype.constructor = LR.Behaviour;
 * @method create
 */
 LR.Behaviour.prototype.create = function() {
-	
 };
 
 /**

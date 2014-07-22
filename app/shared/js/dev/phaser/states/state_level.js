@@ -42,6 +42,8 @@ LR.State.StateLevel.prototype.preload = function() {
 };
 
 LR.State.StateLevel.prototype.create = function() {
+	var instance = this;
+
 	//====== PHYSICS ============
 	//init P2 system
 	this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -67,11 +69,17 @@ LR.State.StateLevel.prototype.create = function() {
 		}
 
 		var importer = new LR.LevelImporterGame();
-		importer.import(this.level, this.game);
-
-		
+		importer.import(this.level, this.game, function(_error, _game) {
+			instance.startGameOjects();
+		});
 	} else {
 		console.error("No level");
 	}
+};
 
+LR.State.StateLevel.prototype.startGameOjects = function() {
+	for (var i = 0; i < this.gameobjects.length; i++) {
+		var go = this.gameobjects[i];
+		go.start();
+	};
 };
