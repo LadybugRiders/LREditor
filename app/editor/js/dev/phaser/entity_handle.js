@@ -77,11 +77,11 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateMoveHandle = function(){
 		}
 
 		this.placeTargets();
+		//make the highlight follow the target(s)
+		this.updateSpritesStick();
+		//Refresh attributes ( position may change )
+		this.$scope.forceAttributesRefresh(this.mainTarget);
 	}
-	//make the highlight follow the target(s)
-	this.updateSpritesStick();
-	//Refresh attributes ( position may change )
-	this.$scope.forceAttributesRefresh(this.mainTarget);
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
@@ -104,9 +104,12 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
 		this.mainTarget.height = h;
 		this.resizeShapes(0,deltaHeight);
 	}
-	this.updateSpritesStick();
-	//Refresh attributes ( position may change )
-	this.$scope.forceAttributesRefresh(this.mainTarget);
+	//when dragged, refresh attributes
+	if( this.draggerX || this.draggerY ){
+		this.updateSpritesStick();
+		//Refresh attributes ( position may change )
+		this.$scope.forceAttributesRefresh(this.mainTarget);
+	}
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.updateRotateHandle = function(){
