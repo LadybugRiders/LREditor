@@ -78,7 +78,14 @@
 <!-- ROTATION -->
 <div class="form-group">
 	<label>Rotation</label>
-	<input type="number" ng-model="currentEntity.angle" class="form-control" integer/>
+	<div ng-if="currentEntity.body == null">
+		<input type="number" ng-model="currentEntity.angle" class="form-control"
+		integer/>
+	</div>
+	<div ng-if="currentEntity.body != null">
+		<input type="number" ng-model="currentEntity.body.angle" class="form-control"
+		integer/>
+	</div>
 </div>
 
 <!-- Text Editing -->
