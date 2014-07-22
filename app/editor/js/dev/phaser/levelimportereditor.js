@@ -107,6 +107,15 @@ LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _enti
 	} else {
 		_entity.ed_fixedToCamera = false;
 	}
+
+	//autoscroll for tilesprites
+	if(_objectData.type == "LR.Entity.TileSprite"){
+		if( _objectData.scrollX != null)
+			_entity.scrollX = _objectData.scrollX;
+
+		if( _objectData.scrollY != null)
+			_entity.scrollY = _objectData.scrollY;
+	}
 };
 
 /*

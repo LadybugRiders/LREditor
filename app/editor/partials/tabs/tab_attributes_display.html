@@ -27,3 +27,16 @@
 		Fixed To Camera <input type="checkbox" ng-model="currentEntity.ed_fixedToCamera" ng-change="toggleFixedToCamera()"/>
 	</label>
 </div>
+<div ng-if="data.type == 'tilesprite'" class="form-group">
+	<label>AutoScroll</label>
+	<div class="row">
+		<div class="col-md-6">
+			<input type="number" ng-model="currentEntity.scrollX" 
+				 class="form-control" integer/>
+		</div>
+		<div class="col-md-6">
+			<input type="number" ng-model="currentEntity.scrollY" 
+			class="form-control" integer/>
+		</div>
+	</div>
+</div>

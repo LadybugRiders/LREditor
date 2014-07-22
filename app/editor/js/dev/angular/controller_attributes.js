@@ -105,6 +105,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.data.type = "group";
 			}else if( _entity.type == Phaser.TEXT){
 				$scope.data.type = "text";
+			}else if( _entity.type == Phaser.TILESPRITE){
+				$scope.data.type = "tilesprite";
 			}else{
 				$scope.data.type = "sprite";
 			}
