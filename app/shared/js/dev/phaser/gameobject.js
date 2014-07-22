@@ -94,9 +94,16 @@ LR.GameObject.prototype.start = function() {
 
 LR.GameObject.prototype.update = function() {
 	if (this.entity.exists && this.behaviours) {
-		for(var i=0; i < this.behaviours.length; i++){
-			if( this.behaviours[i].update != null && this.behaviours[i].enabled  )
-				this.behaviours[i].update();
+		var canUpate = true;
+		if (this.entity.game.state.forbidUpdate == true) {
+			canUpate = false;
+		}
+
+		if (canUpate) {
+			for(var i=0; i < this.behaviours.length; i++){
+				if( this.behaviours[i].update != null && this.behaviours[i].enabled  )
+					this.behaviours[i].update();
+			}
 		}
 	}
 };
