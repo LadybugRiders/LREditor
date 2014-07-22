@@ -395,6 +395,15 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 		_object.y = _entity.cameraOffset.y;
 	}
 
+	//autoscroll
+	if( _object.type == "LR.Entity.TileSprite"){
+		console.log(_entity);
+		if( _entity.scrollX != null ){
+			_object.scrollX = _entity.scrollX;
+			_object.scrollY = _entity.scrollY;
+		}
+	}
+
 	return _object;
 };
 

@@ -92,6 +92,19 @@ LR.LevelImporterGame.prototype.setGeneral = function(_objectData, _entity) {
 	if(_objectData.fixedToCamera) {
 		_entity.fixedToCamera = true;
 	}
+
+};
+
+LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
+	LR.LevelImporter.prototype.setDisplay.call(this, _objectData, _entity);
+	//auto scroll for tilesprites
+	if(_objectData.type == "LR.Entity.TileSprite"){
+		if( _objectData.scrollX != null)
+			_entity._scroll.x = _objectData.scrollX;
+
+		if( _objectData.scrollY != null)
+			_entity._scroll.y = _objectData.scrollY;
+	}
 };
 
 LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
