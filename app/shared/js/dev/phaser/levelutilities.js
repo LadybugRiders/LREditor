@@ -37,7 +37,6 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 		entity = new LR.Entity.Group(_game);
 		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_TEXT) {
-		console.log(_object);
 		var style = null;
 		if (_object.textData) {
 			style = _object.textData.style;

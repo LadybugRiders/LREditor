@@ -19,10 +19,12 @@ LR.Entity.Text = function(_game, _x, _y, _baseText, _style, _name) {
 	}
 	Phaser.Text.call(this, _game, _x, _y, _baseText,_style);
 
+	this.anchor.setTo(0.5, 0.5);
+
 	this.go = new LR.GameObject(this);
-	if( _name != null ){
+	if (_name != null) {
 		this.go.name = _name;
-	}else{
+	} else {
 		this.go.name = "Text";
 	}
 

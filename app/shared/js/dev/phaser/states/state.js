@@ -78,6 +78,23 @@ LR.State.prototype.findGameObjectByName = function(_name){
 }
 
 /**
+* Return the GameObject of the current state with the name specified 
+*
+* @method getGameObjectByName
+* @param {string} name Name of the wanted GameObject
+*/
+LR.State.prototype.getGameObjectByName = function(_name) {
+	var gameobject = null;
+	var i = 0;
+	while( i < this.gameobjects.length && gameobject == null){
+		if( this.gameobjects[i].name == _name )
+			gameobject = this.gameobjects[i];
+		i++;
+	}
+	return gameobject;
+}
+
+/**
 * Return the GameObject of the current state with the id specified 
 *
 * @method findGameObjectByID
