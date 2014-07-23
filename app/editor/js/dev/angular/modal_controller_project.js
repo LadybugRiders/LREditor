@@ -15,7 +15,12 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
     };
 
     if (localStorage) {
+      // clear localStorage
+      localStorage.clear();
+
+      // set new project path
       localStorage.setItem("project.path", data.path);
+      // set new project.json file
       localStorage.setItem("project.file", data.file);
 
       var win = window.open(".", "_self");

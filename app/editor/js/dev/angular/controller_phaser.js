@@ -170,6 +170,16 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 
 		$scope.sendSettings();
+
+		$timeout(function() {
+			if (localStorage) {
+				var lastExportedLevel = localStorage.getItem("project.lastExportedLevel");
+				if (lastExportedLevel) {
+					var levelPath = $scope.project.path + "/assets/levels";
+					$scope.import(levelPath, lastExportedLevel, "file");
+				}
+			}
+		}, 1000);
 	};
 
 	$scope.update = function() {

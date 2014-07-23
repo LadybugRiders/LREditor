@@ -15,6 +15,14 @@ var LevelExportCtrlModal = function ($scope, $modalInstance, $timeout) {
       levelPath: $scope.tmp.levels.path,
       levelStorage: "file"
     };
+
+    if (localStorage) {
+      // set last exported level
+      localStorage.setItem("project.lastExportedLevel", data.levelName);
+    } else {
+      console.warn("no localStorage");
+    }
+
     $modalInstance.close(data);
   };
 
