@@ -352,7 +352,7 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 		_object.locked = true;
 	}	
 
-	if(_entity.type !== "LR.Entity.Text" ) {
+	if (_object.type !== LR.LevelUtilities.TYPE_TEXT) {
 		_object.width = _entity.width;
 		_object.height = _entity.height;
 	} else {
@@ -365,7 +365,7 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 		};
 
 		//stroke thickness
-		if( _entity.strokeThickness > 0){
+		if(_entity.strokeThickness > 0){
 			_object.textData.style.strokeThickness = _entity.strokeThickness;
 			_object.textData.style.stroke = _entity.stroke;
 		}

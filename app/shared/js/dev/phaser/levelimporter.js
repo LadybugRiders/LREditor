@@ -177,9 +177,11 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 		_entity.height = _objectData.height;
 	}  
 	if(_objectData.type == "LR.Entity.Text"){
-		_entity.text = _objectData.textData.text;
-		//Reset width after font settings are filled
-		_entity.updateTransform();
+		if (_objectData.textData) {
+			_entity.text = _objectData.textData.text;
+			//Reset width after font settings are filled
+			_entity.updateTransform();
+		}
 	}
 };
 
