@@ -8,12 +8,13 @@
 
 LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
 	LR.Behaviour.call(this, _gameobject);
+	this.$scope = _$scope;
+
 	this.target = null;
 	//the targets moved by the handle ( these can be groups )
 	this.targets = new Array();
 	//this.entity.visible = false;
 
-	this.$scope = _$scope;
 	this.draggerX = false;	
 	this.draggerY = false;
 
@@ -358,9 +359,19 @@ LR.Editor.Behaviour.EntityHandle.prototype.placeTarget = function(_target,_selec
 	if( _offset == null )
 		_offset = new Phaser.Point();
 
-	//place Target with its offset
-	_target.go.setPosition(this.axisX.x + _offset.x ,
+	if( _target.ed_fixedToCamera){
+		//change cameraoffset, not position
+		//for that we need to compute the position of the handle from the 
+		//camera debug object point of view 
+		var rectObject = this.$scope.game.camera.ed_debugObject;
+        _target.cameraOffset.x = this.axisX.x - rectObject.graphicsData[0].points[0];
+        _target.cameraOffset.y = this.axisX.y - rectObject.graphicsData[0].points[1];
+	}else{		
+		//place Target with its offset
+		_target.go.setPosition(this.axisX.x + _offset.x ,
 								this.axisX.y + _offset.y );
+	}
+
 }
 
 //=================================================================

@@ -73,7 +73,7 @@ LR.State.StateLevel.prototype.create = function() {
 		var importer = new LR.LevelImporterGame();
 		importer.import(this.level, this.game, function(_error, _game) {
 			instance.startGameOjects();
-			this.forbidUpdate = false;
+			instance.forbidUpdate = false;
 		});
 	} else {
 		console.error("No level");
