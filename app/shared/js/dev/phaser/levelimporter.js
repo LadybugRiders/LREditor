@@ -28,6 +28,7 @@ LR.LevelImporter.prototype.import = function(_level, _game, _promise) {
 		loader.onLoadComplete.add(function() {
 			// now assets are loaded, we can import entities
 			this.importEntitiesAndDo(_level.objects, _game, _promise);
+			console.log("ASSETS IMPORTED");
 		}, this);	
 	} else {
 		// directly create object
