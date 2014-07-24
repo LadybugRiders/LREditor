@@ -1,0 +1,73 @@
+"use strict";
+
+var UglifyJS = require("uglify-js");
+var fs = require("fs");
+
+var ast = null;
+var files = new Array();
+
+console.log(__dirname);
+var jsDir = __dirname + "/../app/shared/js";
+
+console.log("GET JS FILES...");
+// first libs
+//listJsFilesRecursively(files, jsDir + "/libs");
+files.push(jsDir + "/lib/phaser.min.js");
+// then dev
+listJsFilesRecursively(files, jsDir + "/dev");
+
+console.log(files);
+console.log("GET JS FILES -> OK");
+
+console.log("COMPRESS CODE...");
+// get compressed code
+var code = "";
+files.forEach(function(_file) {
+    var content = fs.readFileSync(_file, "utf8");
+    ast = UglifyJS.parse(content, {filename: _file, ast: ast});
+    // compress
+    ast.figure_out_scope();
+	var compressor = UglifyJS.Compressor();
+	ast = ast.transform(compressor);
+	// mangle
+	ast.figure_out_scope();
+	ast.compute_char_frequency();
+	ast.mangle_names();
+	code += ast.print_to_string();
+});
+console.log("COMPRESS CODE -> OK");
+
+console.log("GET PACKAGE NAME...");
+// get package name
+var packageJsonFile = fs.readFileSync(__dirname + "/../package.json", "utf8");
+var packageJson = JSON.parse(packageJsonFile);
+if (packageJson.name == null || packageJson.name == "") {
+	packageJson.name = "noname";
+}
+console.log("package name: " + packageJson.name);
+console.log("GET PACKAGE NAME -> OK");
+
+console.log("WRITE COMPRESSED CODE...");
+var compressedCodeFile = jsDir + "/build/" + packageJson.name + ".min.js";
+// write compressed code in a js file
+fs.writeFileSync(compressedCodeFile, code);
+console.log("write compressed code in: " + compressedCodeFile);
+console.log("WRITE COMPRESSED CODE -> OK");
+
+
+///////////////
+// FUNCTIONS //
+///////////////
+
+// get all js files recursively
+function listJsFilesRecursively(_files, path) {
+	var stats = fs.statSync(path);
+	if (stats.isFile() == true && path.indexOf(".js") >= 0) {
+		_files.push(path);
+	} else if (stats.isDirectory() == true) {
+		var files = fs.readdirSync(path);
+		files.forEach(function(_file) {
+			listJsFilesRecursively(_files, path + "/" + _file);
+		});
+	}
+}
