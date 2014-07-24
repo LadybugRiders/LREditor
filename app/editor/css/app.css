@@ -18,6 +18,12 @@ accordion a:hover {
 	max-width: 500px;
 }
 
+.draggable-panel .tab-content {
+	max-height: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
 #entities {
 	left: 100px;
 }
@@ -54,4 +60,10 @@ accordion a:hover {
 
 .list-entities li:hover > div > .arrows {
 	display: inline-block;
+}
+
+.scrollable {
+	max-height: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }

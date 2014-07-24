@@ -354,6 +354,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.$emit("addTileSpriteEmit");
 	};
 
+	$scope.addButton = function() {
+		$scope.$emit("addButtonEmit");
+	};
+
 	$scope.addText = function() {
 		$scope.$emit("addTextEmit");
 	};

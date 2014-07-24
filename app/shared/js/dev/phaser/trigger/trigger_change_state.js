@@ -43,5 +43,5 @@ LR.Behaviour.TriggerChangeState.prototype.create = function(_data){
 
 LR.Behaviour.TriggerChangeState.prototype.onTriggered = function(_gameobject){
 	console.log(this.nextLevel);
-	this.entity.game.state.start(this.nextState, true, false, {levelName: this.nextLevel});
+	this.entity.game.state.start("Level", true, false, {levelName: this.nextLevel});
 }

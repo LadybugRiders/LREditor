@@ -42,6 +42,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.addTileSprite();
 		});
 
+		$scope.$on("addButtonBroadcast", function(_event) {
+			$scope.addButton();
+		});
+
 		$scope.$on("addTextBroadcast", function(_event) {
 			$scope.addText();
 		});
@@ -289,7 +293,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.addTileSprite = function() {
-		//Create Sprite at the center of the view
+		//Create TileSprite at the center of the view
 		var tilesprite = new LR.Entity.TileSprite($scope.game, 
 										$scope.game.camera.view.centerX, /* x */
 										$scope.game.camera.view.centerY, /* y */
@@ -303,6 +307,23 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		tilesprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(tilesprite);
+	};
+
+	$scope.addButton = function() {
+		//Create Button at the center of the view
+		var button = new LR.Entity.Button($scope.game, 
+										$scope.game.camera.view.centerX, /* x */
+										$scope.game.camera.view.centerY,
+										0, 0, 0, 0,
+										"none");
+		button.name = "button" + $scope.game.world.children.length;
+		button.go.id = $scope.getID();
+		//add Input Handler, for dragging and other events
+		button.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(button.go, $scope));
+		button.ed_locked = false;
+		button.ed_fixedToCamera = false;
+		//Add to editor game
+		$scope.game.add.existing(button);
 	};
 
 	$scope.addText = function() {

@@ -19,6 +19,7 @@ LR.LevelUtilities.OBJECT_ATTRIBUTES = [
 LR.LevelUtilities.TYPE_GAME_OBJECT = "GameObject";
 LR.LevelUtilities.TYPE_SPRITE = "LR.Entity.Sprite";
 LR.LevelUtilities.TYPE_TILESPRITE = "LR.Entity.TileSprite";
+LR.LevelUtilities.TYPE_BUTTON = "LR.Entity.Button";
 LR.LevelUtilities.TYPE_TEXT = "LR.Entity.Text";
 LR.LevelUtilities.TYPE_GROUP = "LR.Entity.Group";
 LR.LevelUtilities.TYPE_PHASER_GROUP = "Phaser.Group";
@@ -32,6 +33,9 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_TILESPRITE) {
 		entity = new LR.Entity.TileSprite(_game,0,0);
+		_game.add.existing(entity);
+	} else if (_object.type === LR.LevelUtilities.TYPE_BUTTON) {
+		entity = new LR.Entity.Button(_game,0,0);
 		_game.add.existing(entity);
 	} else if (_object.type === LR.LevelUtilities.TYPE_GROUP) {
 		entity = new LR.Entity.Group(_game);
@@ -59,9 +63,11 @@ LR.LevelUtilities.GetType = function(_object) {
 		type = LR.LevelUtilities.TYPE_SPRITE;
 	} else if (_object.type == Phaser.TILESPRITE){
 		type = LR.LevelUtilities.TYPE_TILESPRITE;
-	}else if (_object.type == Phaser.GROUP) {
+	} else if (_object.type == Phaser.BUTTON){
+		type = LR.LevelUtilities.TYPE_BUTTON;
+	} else if (_object.type == Phaser.GROUP) {
 		type = LR.LevelUtilities.TYPE_GROUP;
-	}else if(_object.type == Phaser.TEXT){
+	} else if(_object.type == Phaser.TEXT){
 		type = LR.LevelUtilities.TYPE_TEXT;
 	} else if (_object instanceof Phaser.World) {
 		type = "Phaser.World";

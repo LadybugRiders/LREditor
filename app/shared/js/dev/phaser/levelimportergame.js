@@ -116,7 +116,6 @@ LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
 }
 
 LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
-
 	if (_objectData.behaviours) {
 		if (_objectData.behaviours.length > 0) {
 			for (var i = 0; i < _objectData.behaviours.length; i++) {

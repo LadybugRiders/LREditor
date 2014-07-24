@@ -28,7 +28,6 @@ LR.LevelImporter.prototype.import = function(_level, _game, _promise) {
 		loader.onLoadComplete.add(function() {
 			// now assets are loaded, we can import entities
 			this.importEntitiesAndDo(_level.objects, _game, _promise);
-			console.log("ASSETS IMPORTED");
 		}, this);	
 	} else {
 		// directly create object
@@ -173,7 +172,10 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 		_entity.scale.y = _objectData.scaleY;
 	}
 
-	if(_objectData.type == "LR.Entity.Sprite" || _objectData.type == "LR.Entity.TileSprite" ) {
+	if(		_objectData.type == "LR.Entity.Sprite"
+		||	_objectData.type == "LR.Entity.TileSprite"
+		||	_objectData.type == "LR.Entity.Button"
+	) {
 		_entity.width = _objectData.width;
 		_entity.height = _objectData.height;
 	}  
