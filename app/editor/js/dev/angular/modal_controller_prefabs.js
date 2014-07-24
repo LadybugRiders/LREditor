@@ -24,7 +24,7 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
   };
 
   $scope.add = function () {
-    if ($scope.currentEntity && $scope.modalPrefabsData.prefabName != "") {
+    if ($scope.currentEntity && $scope.tmp.prefabs.name != "") {
       var exporter = new LR.LevelExporter();
       var prefab = exporter.exportEntities($scope.currentEntity);
 
