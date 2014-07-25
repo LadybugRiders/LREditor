@@ -60,6 +60,7 @@ if (app.get('env') === 'development') {
 
         next(err);
     });
+}
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
