@@ -1,13 +1,21 @@
-#!/usr/bin/env node
+"use strict";
+
+var open = require('open');
+
 var debug = require('debug')('loopy');
 var app = require('../app');
 
-app.set('port', process.env.PORT || 5000);
+var port = process.env.PORT || 5000;
+app.set('port', port);
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
+
+  open("http://localhost:" + port);
 }).on( 'error', function (e) { 
   if (e.code == 'EADDRINUSE') { 
+    open("http://localhost:" + port);
     console.error('Address in use');
   }
 });
+

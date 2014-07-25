@@ -7,6 +7,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 
 var routes = require('./routes');
 
@@ -22,6 +23,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(methodOverride());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app/')));
 app.use(app.router);
@@ -50,16 +52,18 @@ editorServerAPI.routing();
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+        console.log("EERERERERE");
         res.render('shared/error', {
             message: err.message,
             error: err
         });
-    });
-}
 
+        next(err);
+    });
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    console.log("PREORDOSROSRO");
     res.render('error', {
         message: err.message,
         error: {}
