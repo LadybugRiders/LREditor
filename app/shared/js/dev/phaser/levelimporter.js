@@ -198,6 +198,15 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 		_entity.width = w;
 		_entity.height = h;
 	}
+
+	if(_objectData.type == "LR.Entity.Button"){
+		_entity.setFrames(
+			_objectData.onOverFrameID,
+			_objectData.onOutFrameID,
+			_objectData.onDownFrameID,
+			_objectData.onUpFrameID
+		);
+	}
 };
 
 /*

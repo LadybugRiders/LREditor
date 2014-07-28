@@ -52,7 +52,6 @@ editorServerAPI.routing();
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        console.log("EERERERERE");
         res.render('shared/error', {
             message: err.message,
             error: err
@@ -60,10 +59,11 @@ if (app.get('env') === 'development') {
 
         next(err);
     });
+}
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    console.log("PREORDOSROSRO");
     res.render('error', {
         message: err.message,
         error: {}

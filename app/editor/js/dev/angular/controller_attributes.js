@@ -101,13 +101,15 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.currentEntity = _entity;
 
 			//TYPE
-			if( _entity.type == Phaser.GROUP ){
+			if (_entity.type == Phaser.GROUP) {
 				$scope.data.type = "group";
-			}else if( _entity.type == Phaser.TEXT){
+			} else if ( _entity.type == Phaser.TEXT) {
 				$scope.data.type = "text";
-			}else if( _entity.type == Phaser.TILESPRITE){
+			} else if ( _entity.type == Phaser.TILESPRITE) {
 				$scope.data.type = "tilesprite";
-			}else{
+			} else if ( _entity.type == Phaser.BUTTON) {
+				$scope.data.type = "button";
+			} else {
 				$scope.data.type = "sprite";
 			}
 
@@ -244,8 +246,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			_frame = 0;
 		}
 
-		console.log(_image);
-		
 		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
 			var lastTexture = $scope.currentEntity.key;
 			$scope.currentEntity.loadTexture(_image.name);
@@ -256,6 +256,32 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 		} else {
 			console.error("No image with the name '" + _image.name +"'' in cache");
+		}
+	};
+
+	$scope.changeTextureButton = function(_data) {
+		if (typeof _data.image !== "object") {
+			_data.image = new Image();
+		}
+		if (_data.image.name == null || _data.image.name === "") {
+			_data.image.name = null;
+		}
+
+		if ($scope.currentEntity.game.cache.getImage(_data.image.name)) {
+			var lastTexture = $scope.currentEntity.key;
+			$scope.currentEntity.loadTexture(_data.image.name, 0);
+			$scope.currentEntity.setFrames(
+				parseInt(_data.imageOverFrame),
+				parseInt(_data.imageOutFrame),
+				parseInt(_data.imageDownFrame),
+				parseInt(_data.imageUpFrame)
+			);
+			if(lastTexture == "none") {
+				$scope.currentEntity.width = parseInt(_data.image.frameWidth);
+				$scope.currentEntity.height = parseInt(_data.image.frameHeight);
+			}
+		} else {
+			console.error("No image with the name '" + _data.image.name +"'' in cache");
 		}
 	};
 

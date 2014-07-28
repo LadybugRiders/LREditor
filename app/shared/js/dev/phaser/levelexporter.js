@@ -395,12 +395,22 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 		_object.y = _entity.cameraOffset.y;
 	}
 
-	//autoscroll
-	if( _object.type == "LR.Entity.TileSprite"){
+	// TileSprite specifics
+	if( _object.type == "LR.Entity.TileSprite") {
+		// autoscroll
 		if( _entity.scrollX != null ){
 			_object.scrollX = _entity.scrollX;
 			_object.scrollY = _entity.scrollY;
 		}
+	}
+
+	// Button specifics
+	if( _object.type == "LR.Entity.Button") {
+		// frames
+		_object.onOverFrameID = _entity._onOverFrameID;
+		_object.onOutFrameID = _entity._onOutFrameID;
+		_object.onDownFrameID = _entity._onDownFrameID;
+		_object.onUpFrameID = _entity._onUpFrameID;
 	}
 
 	return _object;
