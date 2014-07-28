@@ -1,6 +1,13 @@
 "use strict";
 
 LR.Game = function() {
+	/*
+	* The Input Manager of LadybugRiders Engine
+	* 
+	* @property inputManager
+	* @type {Phaser.Plugin.InputManager}
+	*/
+	this.inputManager = null;
 
 	var preload = function() {
 		// load layers from json file
