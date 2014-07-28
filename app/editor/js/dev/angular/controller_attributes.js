@@ -285,6 +285,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	};
 
+	$scope.changeTint = function(){
+		var stringColor = "0x"+$scope.currentEntity.ed_tintColor.substring(1); 
+		$scope.currentEntity.tint = stringColor;
+	}
+
 	$scope.changeDepth = function(_value){
 		if( $scope.currentEntity ){
 			if( _value < 0 ){

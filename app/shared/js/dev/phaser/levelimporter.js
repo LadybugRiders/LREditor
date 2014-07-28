@@ -207,6 +207,10 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 			_objectData.onUpFrameID
 		);
 	}
+
+	if( _objectData.tint != null ){
+		_entity.tint = _objectData.tint;
+	}
 };
 
 /*

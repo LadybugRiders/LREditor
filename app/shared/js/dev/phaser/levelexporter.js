@@ -413,6 +413,13 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 		_object.onUpFrameID = _entity._onUpFrameID;
 	}
 
+	// TileSprite specifics
+	if( _object.type == "LR.Entity.TileSprite" || _object.type == "LR.Entity.Sprite"
+		|| _object.type == "LR.Entity.Button"
+	 ) {
+		_object.tint = _entity.tint;
+	}
+
 	return _object;
 };
 

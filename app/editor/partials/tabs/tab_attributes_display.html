@@ -16,6 +16,7 @@
 			<button ng-click="changeTexture(data.image, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
 		</div>
 	</div>
+
 	<div ng-if="data.type == 'button' " class="form-group">
 		<!-- FRAME -->
 		<div class="form-group">
@@ -32,6 +33,13 @@
 		<div class="form-group">
 			<button ng-click="changeTextureButton(data.image)" type="button" class="btn btn-default">Apply</button>
 		</div>
+	</div>
+	
+	<!-- COLOR -->
+	<div ng-show= "data.type == 'sprite' || data.type == 'tilesprite' || data.type =='button' " class="form-group">
+	<label> Color </label>
+		<input type = "color" ng-model="currentEntity.ed_tintColor"
+			ng-change = "changeTint()" class="form-control" />
 	</div>
 </div>
 <!-- VISIBLE -->
