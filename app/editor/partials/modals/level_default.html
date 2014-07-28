@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3>Level - Default Level</h3>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <div class="row">
+        <!-- NAME -->
+        <div class="col-md-2">
+            <label>Name</label>
+        </div>  
+        <div class="col-md-10">
+            <input type="text" ng-model="tmp.levels.name" class="form-control"/>
+        </div>
+    </div>
+</div> 
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="setDefault(true)">Update & Reload</button>
+    <button class="btn btn-primary" ng-click="setDefault()">Update</button>
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>

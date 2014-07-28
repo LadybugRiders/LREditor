@@ -9,7 +9,7 @@
 		<!-- FRAME -->
 		<div class="form-group">
 			<label>Frame</label>
-			<input type="text" ng-model="data.imageFrame" class="form-control"/>
+			<input type="number" ng-model="data.imageFrame" class="form-control"/>
 		</div>
 		<!-- APPLY -->
 		<div class="form-group">
@@ -20,17 +20,17 @@
 		<!-- FRAME -->
 		<div class="form-group">
 			<label>Frame - Over</label>
-			<input type="text" ng-model="data.imageOverFrame" class="form-control"/>
+			<input type="number" ng-model="currentEntity.onOverFrameID" class="form-control"/>
 			<label>Frame - Out</label>
-			<input type="text" ng-model="data.imageOutFrame" class="form-control"/>
+			<input type="number" ng-model="currentEntity.onOutFrameID" class="form-control"/>
 			<label>Frame - Down</label>
-			<input type="text" ng-model="data.imageDownFrame" class="form-control"/>
+			<input type="number" ng-model="currentEntity.onDownFrameID" class="form-control"/>
 			<label>Frame - Up</label>
-			<input type="text" ng-model="data.imageUpFrame" class="form-control"/>
+			<input type="number" ng-model="currentEntity.onUpFrameID" class="form-control"/>
 		</div>
 		<!-- APPLY -->
 		<div class="form-group">
-			<button ng-click="changeTextureButton(data)" type="button" class="btn btn-default">Apply</button>
+			<button ng-click="changeTextureButton(data.image)" type="button" class="btn btn-default">Apply</button>
 		</div>
 	</div>
 </div>

@@ -116,6 +116,15 @@ LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _enti
 		if( _objectData.scrollY != null)
 			_entity.scrollY = _objectData.scrollY;
 	}
+
+	// Button specifics
+	if( _objectData.type == "LR.Entity.Button") {
+		// frames
+		_entity.onOverFrameID = parseInt(_objectData.onOverFrameID);
+		_entity.onOutFrameID = parseInt(_objectData.onOutFrameID);
+		_entity.onDownFrameID = parseInt(_objectData.onDownFrameID);
+		_entity.onUpFrameID = parseInt(_objectData.onUpFrameID);
+	}
 };
 
 /*

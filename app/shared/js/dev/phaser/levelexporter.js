@@ -405,7 +405,7 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 	}
 
 	// Button specifics
-	if( _object.type == "LR.Entity.Button") {
+	if (_object.type == "LR.Entity.Button") {
 		// frames
 		_object.onOverFrameID = _entity._onOverFrameID;
 		_object.onOutFrameID = _entity._onOutFrameID;

@@ -259,29 +259,29 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	};
 
-	$scope.changeTextureButton = function(_data) {
-		if (typeof _data.image !== "object") {
-			_data.image = new Image();
+	$scope.changeTextureButton = function(_image) {
+		if (typeof _image !== "object") {
+			_image = new Image();
 		}
-		if (_data.image.name == null || _data.image.name === "") {
-			_data.image.name = null;
+		if (_image.name == null || _image.name === "") {
+			_image.name = null;
 		}
 
-		if ($scope.currentEntity.game.cache.getImage(_data.image.name)) {
+		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
 			var lastTexture = $scope.currentEntity.key;
-			$scope.currentEntity.loadTexture(_data.image.name, 0);
+			$scope.currentEntity.loadTexture(_image.name, 0);
 			$scope.currentEntity.setFrames(
-				parseInt(_data.imageOverFrame),
-				parseInt(_data.imageOutFrame),
-				parseInt(_data.imageDownFrame),
-				parseInt(_data.imageUpFrame)
+				parseInt($scope.currentEntity.onOverFrameID),
+				parseInt($scope.currentEntity.onOutFrameID),
+				parseInt($scope.currentEntity.onDownFrameID),
+				parseInt($scope.currentEntity.onUpFrameID)
 			);
 			if(lastTexture == "none") {
-				$scope.currentEntity.width = parseInt(_data.image.frameWidth);
-				$scope.currentEntity.height = parseInt(_data.image.frameHeight);
+				$scope.currentEntity.width = parseInt(_image.frameWidth);
+				$scope.currentEntity.height = parseInt(_image.frameHeight);
 			}
 		} else {
-			console.error("No image with the name '" + _data.image.name +"'' in cache");
+			console.error("No image with the name '" + _image.name +"'' in cache");
 		}
 	};
 

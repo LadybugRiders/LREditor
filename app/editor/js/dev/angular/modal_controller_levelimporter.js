@@ -9,7 +9,7 @@ var LevelImportCtrlModal = function ($scope, $modalInstance, $timeout) {
     if ($scope.tmp.levels.name == null) {
       if (localStorage) {
         // get last exported level
-        $scope.tmp.levels.name = localStorage.getItem("project.lastExportedLevel");
+        $scope.tmp.levels.name = localStorage.getItem("project.levelDefault");
         
         if ($scope.tmp.levels.name == null) {
           $scope.tmp.levels.name = "example";

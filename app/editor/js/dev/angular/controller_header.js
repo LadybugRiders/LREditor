@@ -404,6 +404,26 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
+	/******************
+	** LEVEL DEFAULT **
+	******************/
+
+	$scope.levelDefault = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/level_default.html',
+			controller: LevelDefaultCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// nothing to do
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
 
 	/*******************
 	** SETTINGS **

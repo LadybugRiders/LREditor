@@ -177,10 +177,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$timeout(function() {
 			if (localStorage) {
-				var lastExportedLevel = localStorage.getItem("project.lastExportedLevel");
-				if (lastExportedLevel) {
+				var levelDefault = localStorage.getItem("project.levelDefault");
+				if (levelDefault) {
 					var levelPath = $scope.project.path + "/assets/levels";
-					$scope.import(levelPath, lastExportedLevel, "file", function(err) {
+					$scope.import(levelPath, levelDefault, "file", function(err) {
 						if (err == null) {
 							$scope.$apply();
 						}
@@ -311,11 +311,13 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 	$scope.addButton = function() {
 		//Create Button at the center of the view
-		var button = new LR.Entity.Button($scope.game, 
-										$scope.game.camera.view.centerX, /* x */
-										$scope.game.camera.view.centerY,
-										0, 0, 0, 0,
-										"none");
+		var button = new LR.Entity.Button(
+			$scope.game, 
+			$scope.game.camera.view.centerX, /* x */
+			$scope.game.camera.view.centerY,
+			"none",
+			0, 0, 0, 0
+		);
 		button.name = "button" + $scope.game.world.children.length;
 		button.go.id = $scope.getID();
 		//add Input Handler, for dragging and other events
