@@ -42,6 +42,16 @@ LR.Behaviour = function(_gameobject, _args) {
 	* @default null
 	*/
 	this.args = _args;
+
+	/**
+	* If this property is set to false, the behaviours won't be noticed of contact events anymore
+	* ie : onBeginContact and onEndContact will not be triggered
+	*
+	* @property enableEvents
+	* @type boolean
+	* @default true
+	*/
+	this.enableEvents = true;
 };
 
 LR.Behaviour.prototype.constructor = LR.Behaviour;

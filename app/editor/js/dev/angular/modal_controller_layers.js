@@ -6,7 +6,10 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
   
   function main() {
     $scope.modalLayersData.layers = jQuery.extend(true, {}, $scope.project.assets.layers);
-    
+    $scope.buildAll();  
+  };
+
+  $scope.buildAll = function(){    
     //get an array of layers names
     $scope.modalLayersData.layersNames = new Array();
     for( var key in $scope.modalLayersData.layers){
@@ -17,8 +20,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
     $scope.modalLayersData.matrix = $scope.buildMatrix($scope.modalLayersData.layersNames);
     //Fill it with the right values
     $scope.fillMatrix( $scope.modalLayersData.matrix, $scope.modalLayersData.layers);
-
-  };
+  }
 
   $scope.save = function () {
    
@@ -95,19 +97,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
     $scope.modalLayersData.layersNames.push( _layerName );
     $scope.modalLayersData.layers[_layerName] = {collisions:{}};
 
-    var matrix = $scope.modalLayersData.matrix;
-    //Create new arraw for matrix row
-    var array = new Array();
-    for(var j=0; j < matrix.length ;j ++)
-      array.push(false)
-    matrix.push( array );
-
-    //We still have to add a new elements to columns 
-    for( var i = 0; i < matrix.length; i++){
-      matrix[i].push(false);
-    }
-
-    $scope.modalLayersData.matrix = matrix;
+    $scope.buildAll();
   }
 
   $scope.deleteLayer = function(_layerName){
@@ -117,14 +107,7 @@ var LayersCtrlModal = function ($scope, $modalInstance, $timeout) {
 
     $scope.modalLayersData.layersNames.splice(index,1);
     delete $scope.modalLayersData.layers[_layerName];
-
-    var matrix = $scope.modalLayersData.matrix;
-    //delete row of the layer
-    matrix.splice(index, 1);
-    //delete specific elements corresponding to this layer in the others
-    for( var i = 0; i < matrix.length; i++){
-      matrix[i].splice(index,1);
-    }
+    $scope.buildAll();
   }
 
   $scope.checkMatrix = function(_matrix, _i, _j,_value){
