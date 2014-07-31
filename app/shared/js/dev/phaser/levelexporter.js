@@ -413,11 +413,21 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 		_object.onUpFrameID = _entity._onUpFrameID;
 	}
 
-	// TileSprite specifics
+	// Tint Color
 	if( _object.type == "LR.Entity.TileSprite" || _object.type == "LR.Entity.Sprite"
 		|| _object.type == "LR.Entity.Button"
 	 ) {
 		_object.tint = _entity.tint;
+	}
+
+	// Animations
+	if( _entity.animations && _entity.animations._anims !== {}){
+		var entityAnims = _entity.animations._anims;
+		_object.anims = {};
+		for( var key in entityAnims){
+			_object.anims[key] = {};
+			_object.anims[key].frames = entityAnims[key]._frames;
+		}
 	}
 
 	return _object;

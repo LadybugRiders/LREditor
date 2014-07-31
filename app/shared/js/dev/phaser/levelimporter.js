@@ -208,8 +208,19 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 		);
 	}
 
+	//tint color
 	if( _objectData.tint != null ){
 		_entity.tint = _objectData.tint;
+	}
+
+	//Animations
+	if( _objectData.anims){
+		for( var key in _objectData.anims){
+			var newAnim = _entity.animations.add(
+				key,
+				_objectData.anims[key].frames
+			);
+		}
 	}
 };
 

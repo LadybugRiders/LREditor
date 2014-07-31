@@ -126,9 +126,19 @@ LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _enti
 		_entity.onUpFrameID = parseInt(_objectData.onUpFrameID);
 	}
 
-
+	//tint color
 	if( _objectData.tint != null && typeof _objectData.tint == 'string' ){	
 		_entity.ed_tintColor = "#"+_objectData.tint.substring(2); 
+	}
+
+	//animations
+	if( _entity.animations && _entity.animations._anims !== {}){
+		var entityAnims = _entity.animations._anims;
+		for( var key in entityAnims){
+			//for edition, we need the array as a string
+			entityAnims[key].ed_frames = JSON.stringify(entityAnims[key]._frames);
+			entityAnims[key].ed_loop = false;
+		}
 	}
 };
 

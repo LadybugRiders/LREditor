@@ -327,6 +327,37 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	}
 
+	//============ ANIMATION =============================
+    $scope.addAnimToCurrentEntity = function(_name){
+    	if(_name == null || _name =="")
+    		return;
+    	var newAnim = $scope.currentEntity.animations.add(_name);
+    	newAnim.ed_frames = "[ 0 ]";
+    	newAnim._frames = [0];
+    	console.log(newAnim);
+    }
+
+    $scope.changeAnim = function(_anim){
+    	var jsonAnim = null;
+    	try{
+    		jsonAnim = JSON.parse(_anim.ed_frames) ;
+    	}catch(e){
+   			return;
+    	}
+    	_anim._frames = jsonAnim;
+    	if( _anim.isPlaying)
+    		$scope.playAnim(_anim);
+    }
+
+    $scope.playAnim = function(_anim){
+    	$scope.currentEntity.ed_frameBeforeAnim = $scope.currentEntity.frame;
+    	$scope.currentEntity.animations.play(_anim.name,10,_anim.ed_loop);
+    }
+
+    $scope.stopAnim = function(_anim){
+    	$scope.currentEntity.animations.stop(_anim.name,true);
+    	$scope.currentEntity.frame = $scope.currentEntity.ed_frameBeforeAnim;
+    }
 
 	//================================================================
 	//						BODY
