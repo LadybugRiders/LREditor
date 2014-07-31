@@ -334,7 +334,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	var newAnim = $scope.currentEntity.animations.add(_name);
     	newAnim.ed_frames = "[ 0 ]";
     	newAnim._frames = [0];
-    	console.log(newAnim);
+    }
+
+    $scope.removeAnim = function(_anim){
+    	if(_anim == null)
+    		return;
+    	var anims = $scope.currentEntity.animations._anims;
+    	if( anims.hasOwnProperty(_anim.name)){
+    		delete anims[_anim.name];
+    	}
+    	if( Object.keys(anims).length == 0){
+    		$scope.currentEntity.autoPlayActive = false;
+    		$scope.currentEntity.autoPlay = null;
+    	}
     }
 
     $scope.changeAnim = function(_anim){
@@ -355,8 +367,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     }
 
     $scope.stopAnim = function(_anim){
-    	$scope.currentEntity.animations.stop(_anim.name,true);
+    	$scope.currentEntity.animations.stop(_anim.name);
     	$scope.currentEntity.frame = $scope.currentEntity.ed_frameBeforeAnim;
+    }
+
+    $scope.changeAutoPlay = function(){
+    	if(Object.keys($scope.currentEntity.animations._anims).length==0){
+    		$scope.currentEntity.autoPlayActive = false;
+    	}
+    	if( $scope.currentEntity.autoPlay == null)
+    		$scope.currentEntity.autoPlay = {
+    			name : Object.keys($scope.currentEntity.animations._anims)[0], 
+    			speed : 10, loop : true 
+    		};
     }
 
 	//================================================================

@@ -139,6 +139,8 @@ LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _enti
 			entityAnims[key].ed_frames = JSON.stringify(entityAnims[key]._frames);
 			entityAnims[key].ed_loop = false;
 		}
+		_entity.autoPlay = _objectData.autoPlay;
+		_entity.autoPlayActive = (_entity.autoPlay != null);
 	}
 };
 

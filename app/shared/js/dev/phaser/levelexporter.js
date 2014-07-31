@@ -421,13 +421,15 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 	}
 
 	// Animations
-	if( _entity.animations && _entity.animations._anims !== {}){
+	if( _entity.animations && _entity.animations._anims != {}){
 		var entityAnims = _entity.animations._anims;
 		_object.anims = {};
 		for( var key in entityAnims){
 			_object.anims[key] = {};
 			_object.anims[key].frames = entityAnims[key]._frames;
 		}
+		if( _entity.autoPlayActive == true )
+			_object.autoPlay = _entity.autoPlay;
 	}
 
 	return _object;

@@ -86,7 +86,11 @@
 				<span class="glyphicon glyphicon-stop"></span>
 			</button>
 			<!-- Allow loop -->
-			<input type="checkbox" ng-model = "anim.ed_loop">Loop</input>
+			<input type="checkbox" ng-model = "anim.ed_loop">Loop</input>			
+			<!-- Remove -->			
+			<button ng-click="removeAnim(anim)"> 
+				<span class="glyphicon glyphicon-remove-sign"></span>
+			</button>
 		</accordion-group>
 	</accordion>
 	<!-- Add New Animation -->
@@ -96,6 +100,39 @@
 		</div>
 		<div class="col-md-4">
 			<button ng-click="addAnimToCurrentEntity(animName)" type="button" class="btn btn-primary">Add Anim</button>
+		</div>
+	</div>
+	<!-- AutoPlay -->
+	<input type="checkbox" 
+			ng-model = "currentEntity.autoPlayActive"
+			ng-change="changeAutoPlay()">
+			AutoPlay
+	</input>
+	<div ng-show = "currentEntity.autoPlayActive">
+		<!-- Name -->
+		<div class="row">
+			<div class="col-md-4"><label>Name</label></div>
+			<div class="col-md-8">
+				<select type="text" ng-model="currentEntity.autoPlay.name">
+	            <option ng-repeat="(keyName, keyValue) in currentEntity.animations._anims">{{keyName}}</option>
+	            </select>
+			</div>
+		</div>
+		<!-- Speed -->
+		<div class="row">
+			<div class="col-md-4"><label>Speed</label></div>
+			<div class="col-md-8">
+				<input type="number" ng-model="currentEntity.autoPlay.speed" 
+				class="form-control"float/>
+			</div>
+		</div>
+		<!-- Loop -->
+		<div class="row">
+			<div class="col-md-4"><label>Loop</label></div>
+			<div class="col-md-8">
+				<input type="checkbox" ng-model="currentEntity.autoPlay.loop" 
+				class="form-control"/>
+			</div>
 		</div>
 	</div>
 </div>
