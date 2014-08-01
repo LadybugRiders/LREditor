@@ -299,7 +299,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.removeSpriteSticksRecursive = functio
 //=================================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.activateScale = function(){
-	if(this.mainTarget == null || this.targets.length > 1)
+	if(this.mainTarget == null || this.mainTarget.type == Phaser.GROUP || this.targets.length > 1)
 		return;
 	this.state = "scale";
 	this.toggleAxises(false);
@@ -350,12 +350,12 @@ LR.Editor.Behaviour.EntityHandle.prototype.deactivateRotate = function(){
 
 
 //=================================================================
-//						DUPLICATE
+//						DUPLICATE / DELETE
 //=================================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.duplicate = function(_key) {
 	if( this.mainTarget && _key.altKey ){
-		this.$scope.$emit("cloneEntityEmit",{ entity : this.target});
+		this.$scope.$emit("cloneEntityEmit",{ entity : this.mainTarget});
 	}
 }
 

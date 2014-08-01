@@ -381,6 +381,7 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 
 LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 	_object.visible = _entity.visible;
+	_object.alpha = _entity.alpha;
 
 	//set key to null if none
 	if (_entity.key && _entity.key != "none") {

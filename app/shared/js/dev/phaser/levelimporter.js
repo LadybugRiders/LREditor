@@ -190,6 +190,7 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 
 LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 	_entity.visible = _objectData.visible;
+	_entity.alpha = _objectData.alpha || 1;
 
 	if (_objectData.key) {
 		var w = _entity.width;
