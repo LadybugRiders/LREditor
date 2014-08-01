@@ -13,6 +13,7 @@ LR.Editor.Settings.keysData = {
 	"valid" : { key : Phaser.Keyboard.SPACEBAR, capture : true },
 	"ctrl" : { key :Phaser.Keyboard.CONTROL, capture : true },
 	"alt" : { key :Phaser.Keyboard.ALT, capture : true },
+	"del" : { key :Phaser.Keyboard.DELETE, capture : true },
 	"clone" : { key :Phaser.Keyboard.C, capture : false},
 	"scale" : { key : Phaser.Keyboard.S, capture : false },
 	"rotate" : { key : Phaser.Keyboard.R, capture : false }
