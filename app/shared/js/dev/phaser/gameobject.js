@@ -606,34 +606,6 @@ LR.GameObject.prototype.setPosition = function(_x, _y){
 }
 
 /**
-* Sets the X position of the GameObject. Takes the body in account
-*
-* @method setX
-* @param {number} x
-*/
-LR.GameObject.prototype.setX = function(_x){
-	if( this.body != null ){
-		this.body.x = _x;
-	}else{
-		this.entity.x = _x;
-	}
-}
-
-/**
-* Sets the Y position of the GameObject. Takes the body in account
-*
-* @method setY
-* @param {number} y
-*/
-LR.GameObject.prototype.setY = function(_y){
-	if( this.body != null ){
-		this.body.y = _y;
-	}else{
-		this.entity.y = _y;
-	}
-}
-
-/**
 * Accessor to the entity's body. Read only.
 *
 * @property body
@@ -643,6 +615,50 @@ Object.defineProperty( LR.GameObject.prototype, "body",
 	{
 		get : function(){
 			return this.entity.body;
+		}
+	}
+);
+
+/**
+* Accessor to the entity's x.
+*
+* @property x
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "x",
+	{
+		get : function(){
+			return this.entity.x;
+		},
+
+		set : function(_x){
+			if( this.body != null ){
+				this.body.x = _x;
+			}else{
+				this.entity.x = _x;
+			}
+		}
+	}
+);
+
+/**
+* Accessor to the entity's y.
+*
+* @property y
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "y",
+	{
+		get : function(){
+			return this.entity.y;
+		},
+
+		set : function(_y){
+			if( this.body != null ){
+				this.body.y = _y;
+			}else{
+				this.entity.y = _y;
+			}
 		}
 	}
 );
