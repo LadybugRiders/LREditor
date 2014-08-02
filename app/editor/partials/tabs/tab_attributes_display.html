@@ -16,6 +16,7 @@
 			<button ng-click="changeTexture(data.image, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
 		</div>
 	</div>
+
 	<div ng-if="data.type == 'button' " class="form-group">
 		<!-- FRAME -->
 		<div class="form-group">
@@ -33,6 +34,20 @@
 			<button ng-click="changeTextureButton(data.image)" type="button" class="btn btn-default">Apply</button>
 		</div>
 	</div>
+	
+	<!-- COLOR -->
+	<div ng-show= "data.type == 'sprite' || data.type == 'tilesprite' || data.type =='button' " class="form-group">
+	<label> Color </label>
+		<input type = "color" ng-model="currentEntity.ed_tintColor"
+			ng-change = "changeTint()" class="form-control" />
+	</div>
+</div>
+<!-- ALPHA -->
+<div>
+	<label>Alpha</label>
+	<input type="number" min="0" max ="1"
+	ng-model="currentEntity.alpha"
+	float/>
 </div>
 <!-- VISIBLE -->
 <div class="form-group">
@@ -56,6 +71,71 @@
 		<div class="col-md-6">
 			<input type="number" ng-model="currentEntity.scrollY" 
 			class="form-control" integer/>
+		</div>
+	</div>
+</div>
+
+<!-- ANIMATIONS -->
+<div ng-if="data.type == 'sprite'" class="form-group">
+	<label> Animations </label>
+	<accordion>
+		<accordion-group ng-repeat="anim in currentEntity.animations._anims" 
+		heading="{{anim.name}}">
+			<!-- Frames -->
+			<label> Frames </label>
+			<input type="text" ng-model="anim.ed_frames" ng-change="changeAnim(anim)" class="form-group">
+			</input>
+			<!-- Play / Stop-->
+			<button ng-click="playAnim(anim)"> 
+				<span class="glyphicon glyphicon-play"></span>
+			</button>
+			<button ng-click="stopAnim(anim)"> 
+				<span class="glyphicon glyphicon-stop"></span>
+			</button>
+			<!-- Allow loop -->
+			<div class="row">
+				<div class="col-md-4"><label>Loop</label></div>
+				<div class="col-md-8">
+					<input type="checkbox" ng-model = "anim.loop" />
+				</div>
+			</div>
+			<!-- Speed -->
+			<div class="row">
+				<div class="col-md-4"><label>Speed</label></div>
+				<div class="col-md-8">
+					<input type="number" ng-model="anim.speed" 
+					class="form-control"float/>
+				</div>
+			</div>			
+			<!-- Remove -->			
+			<button ng-click="removeAnim(anim)" class="btn btn-danger"> 
+				<span class="glyphicon glyphicon-remove-sign"></span>
+			</button>
+		</accordion-group>
+	</accordion>
+	<!-- Add New Animation -->
+	<div class="row">
+		<div class="col-md-8">
+			<input type="text" ng-model="animName" class="form-control"/>
+		</div>
+		<div class="col-md-4">
+			<button ng-click="addAnimToCurrentEntity(animName)" type="button" class="btn btn-primary">Add Anim</button>
+		</div>
+	</div>
+	<!-- AutoPlay -->	
+	<div  class="row">
+		<!-- Name -->
+		<div class="col-md-3">
+			<input type="checkbox" 
+				ng-model = "currentEntity.autoPlayActive"
+				ng-change="changeAutoPlay()">
+				AutoPlay
+			</input>
+		</div>
+		<div ng-show="currentEntity.autoPlayActive" class="col-md-7">
+			<select type="text" ng-model="currentEntity.autoPlayAnim">
+            <option ng-repeat="(keyName, keyValue) in currentEntity.animations._anims">{{keyName}}</option>
+            </select>
 		</div>
 	</div>
 </div>

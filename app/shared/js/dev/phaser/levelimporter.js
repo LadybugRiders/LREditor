@@ -190,6 +190,7 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 
 LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 	_entity.visible = _objectData.visible;
+	_entity.alpha = _objectData.alpha || 1;
 
 	if (_objectData.key) {
 		var w = _entity.width;
@@ -206,6 +207,23 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 			_objectData.onDownFrameID,
 			_objectData.onUpFrameID
 		);
+	}
+
+	//tint color
+	if( _objectData.tint != null ){
+		_entity.tint = _objectData.tint;
+	}
+
+	//Animations
+	if( _objectData.anims){
+		for( var key in _objectData.anims){
+			var newAnim = _entity.animations.add(
+				key,
+				_objectData.anims[key].frames,
+				_objectData.anims[key].speed,
+				_objectData.anims[key].loop
+			);
+		}
 	}
 };
 

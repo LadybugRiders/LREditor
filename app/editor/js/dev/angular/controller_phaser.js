@@ -373,9 +373,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 	$scope.deleteEntity = function(_entity) {
 		//Deactivate EntityHandle if its target is about to be deleted
-		if( $scope.entityHandleScript.target === _entity ){
-			$scope.entityHandleScript.deactivate();
-		}
+		$scope.entityHandleScript.deactivateEntity(_entity);
+
 		if( $scope.currentEntity == _entity){
 			$scope.currentEntity = null;
 		}

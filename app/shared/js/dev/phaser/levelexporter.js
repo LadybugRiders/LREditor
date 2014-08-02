@@ -381,6 +381,7 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 
 LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 	_object.visible = _entity.visible;
+	_object.alpha = _entity.alpha;
 
 	//set key to null if none
 	if (_entity.key && _entity.key != "none") {
@@ -411,6 +412,27 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 		_object.onOutFrameID = _entity._onOutFrameID;
 		_object.onDownFrameID = _entity._onDownFrameID;
 		_object.onUpFrameID = _entity._onUpFrameID;
+	}
+
+	// Tint Color
+	if( _object.type == "LR.Entity.TileSprite" || _object.type == "LR.Entity.Sprite"
+		|| _object.type == "LR.Entity.Button"
+	 ) {
+		_object.tint = _entity.tint;
+	}
+
+	// Animations
+	if( _entity.animations && _entity.animations._anims != {}){
+		var entityAnims = _entity.animations._anims;
+		_object.anims = {};
+		for( var key in entityAnims){
+			_object.anims[key] = {};
+			_object.anims[key].frames = entityAnims[key]._frames;
+			_object.anims[key].loop = entityAnims[key].loop;
+			_object.anims[key].speed = entityAnims[key].speed;
+		}
+		if( _entity.autoPlayActive == true )
+			_object.autoPlayAnim = _entity.autoPlayAnim;
 	}
 
 	return _object;

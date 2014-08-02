@@ -65,7 +65,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( $scope.currentEntity.ed_fixedToCamera){
 				$scope.currentEntity.cameraOffset.x = _x;
 			}else{				
-				$scope.currentEntity.go.setX(_x);
+				$scope.currentEntity.go.x = _x;
 			}
 		}
 	};
@@ -75,7 +75,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( $scope.currentEntity.ed_fixedToCamera){
 				$scope.currentEntity.cameraOffset.y = _y;
 			}else{				
-				$scope.currentEntity.go.setY(_y);
+				$scope.currentEntity.go.x = _y;
 			}
 		}
 	};
@@ -285,6 +285,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	};
 
+	$scope.changeTint = function(){
+		var stringColor = "0x"+$scope.currentEntity.ed_tintColor.substring(1); 
+		$scope.currentEntity.tint = stringColor;
+	}
+
 	$scope.changeDepth = function(_value){
 		if( $scope.currentEntity ){
 			if( _value < 0 ){
@@ -322,6 +327,60 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	}
 
+	//============ ANIMATION =============================
+    $scope.addAnimToCurrentEntity = function(_name){
+    	if(_name == null || _name =="")
+    		return;
+    	var newAnim = $scope.currentEntity.animations.add(_name);
+    	newAnim.ed_frames = "[ 0 ]";
+    	newAnim._frames = [0];
+    }
+
+    $scope.removeAnim = function(_anim){
+    	if(_anim == null)
+    		return;
+    	var anims = $scope.currentEntity.animations._anims;
+    	if( anims.hasOwnProperty(_anim.name)){
+    		delete anims[_anim.name];
+    	}
+    	if( Object.keys(anims).length == 0){
+    		$scope.currentEntity.autoPlayActive = false;
+    		$scope.currentEntity.autoPlay = null;
+    	}
+    }
+
+    $scope.changeAnim = function(_anim){
+    	var jsonAnim = null;
+    	try{
+    		jsonAnim = JSON.parse(_anim.ed_frames) ;
+    	}catch(e){
+   			return;
+    	}
+    	_anim._frames = jsonAnim;
+    	if( _anim.isPlaying)
+    		$scope.playAnim(_anim);
+    }
+
+    $scope.playAnim = function(_anim){
+    	$scope.currentEntity.ed_frameBeforeAnim = $scope.currentEntity.frame;
+    	$scope.currentEntity.animations.play(_anim.name);
+    }
+
+    $scope.stopAnim = function(_anim){
+    	$scope.currentEntity.animations.stop(_anim.name);
+    	$scope.currentEntity.frame = $scope.currentEntity.ed_frameBeforeAnim;
+    }
+
+    $scope.changeAutoPlay = function(){
+    	if(Object.keys($scope.currentEntity.animations._anims).length==0){
+    		$scope.currentEntity.autoPlayActive = false;
+    	}
+    	if( $scope.currentEntity.autoPlay == null)
+    		$scope.currentEntity.autoPlay = {
+    			name : Object.keys($scope.currentEntity.animations._anims)[0], 
+    			speed : 10, loop : true 
+    		};
+    }
 
 	//================================================================
 	//						BODY

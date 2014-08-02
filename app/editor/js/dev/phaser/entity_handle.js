@@ -33,6 +33,8 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
     inputManager.bindKeyRelease("ctrl",this.deactivateTotalDrag, this );
     //Clone on C
     inputManager.bindKeyRelease("clone",this.duplicate, this );
+    //Delete
+    inputManager.bindKeyRelease("del",this.deleteTargets, this );
     //Activate scale
     inputManager.bindKeyPress("scale",this.activateScale, this );
     inputManager.bindKeyRelease("scale",this.deactivateScale, this );
@@ -82,6 +84,10 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateMoveHandle = function(){
 		this.updateSpritesStick();
 		//Refresh attributes ( position may change )
 		this.$scope.forceAttributesRefresh(this.mainTarget);
+	}else{
+		this.computeGravityPoint();
+		//make the highlight follow the target(s)
+		this.updateSpritesStick();
 	}
 }
 
@@ -155,6 +161,12 @@ LR.Editor.Behaviour.EntityHandle.prototype.activate = function(_target) {
 	}
 }
 
+LR.Editor.Behaviour.EntityHandle.prototype.deactivateEntity = function(_entity) {	
+	if( this.mainTarget === _entity ){
+		this.deactivate();
+	}
+}
+
 LR.Editor.Behaviour.EntityHandle.prototype.deactivate = function() {	
 	this.entity.visible = false;
 	this.toggleAxises(false);
@@ -168,11 +180,130 @@ LR.Editor.Behaviour.EntityHandle.prototype.recoverLastTarget = function() {
 }
 
 //=================================================================
+//						ADD / REMOVE A TARGET
+//=================================================================
+
+LR.Editor.Behaviour.EntityHandle.prototype.addTarget = function(_target) {
+	//Check if target is not already added
+	if( this.isTargetSelected(_target) ){
+		//if it's already selected, remove it from the targets
+		this.removeTarget(_target);
+		return;
+	}
+	//Do total activation if no targets
+	if( this.targets.length == 0){
+		this.mainTarget = _target;
+		this.lastTarget = _target;
+		this.entity.visible = true;
+		this.deactivateTotalDrag();
+	}
+	//create target object
+	var objTarget = { entity: _target , offset : new Phaser.Point() };
+	this.targets.push(objTarget);
+	//add highlight sprites on every object under the target
+	this.addSpriteSticksRecursive(_target);
+	//compute position of the axis handles
+	this.computeGravityPoint();
+	this.updateSpritesStick();
+}
+
+//Removes a target a clean its stick sprites
+LR.Editor.Behaviour.EntityHandle.prototype.removeTarget = function(_target){
+	for(var i=0; i < this.targets.length; i++){
+		var isMain = false;
+		//Get target and removes its
+		if( this.targets[i].entity === _target ){
+			var targetData = this.targets[i];
+			isMain = targetData.entity === this.mainTarget;
+			//remove
+			this.removeSpriteSticksRecursive(_target);
+			this.targets.splice(i,1);
+		}
+		//if the removed target was the main one
+		if( isMain ){
+			//take another target ( if any )
+			if( this.targets.length > 0)
+				this.mainTarget = this.targets[0].entity;
+			//or deactivate all ( if no other target )
+			else
+				this.deactivate();
+		}
+	}
+	this.updateSpritesStick();
+	this.computeGravityPoint();
+}
+
+LR.Editor.Behaviour.EntityHandle.prototype.cleanTargets = function(){
+	this.targets = new Array();
+}
+
+//Returns true if the target is already selected by the handle
+LR.Editor.Behaviour.EntityHandle.prototype.isTargetSelected = function(_target){
+	for(var i=0; i < this.targets.length; i++){
+		if( this.targets[i].entity === _target ){
+			return true;
+		}
+	}
+	return false;
+}
+
+//Returns the target DATA of the entity if it is a direct target ( not a child of a target )
+LR.Editor.Behaviour.EntityHandle.prototype.getTargetByEntity = function(_entity){
+	for(var i=0; i < this.targets.length; i++){
+		if( this.targets[i].entity === _entity ){
+			return this.targets[i];
+		}
+	}
+	return null;
+}
+
+//===================== SPRITESS STICKS ==============================
+
+// Recursively add a stick to the entity and its children
+// A stick is the yellow rectangle used for selection
+LR.Editor.Behaviour.EntityHandle.prototype.addSpriteSticksRecursive = function(_entity) {
+	if( _entity.type == Phaser.GROUP ){
+		for(var i=0; i < _entity.children.length; i++)
+			this.addSpriteSticksRecursive(_entity.children[i]);
+	}else{
+		var sprite = this.getSprite();
+		sprite.target = _entity;
+		_entity.ed_spriteStick = sprite;
+		//set the anchor
+		if( _entity.anchor )
+			sprite.anchor = _entity.anchor;	
+		else
+			sprite.anchor.setTo(0.5,0.5);	
+		//keep size
+		sprite.width = _entity.width;
+		sprite.height = _entity.height;
+		//push the new target object
+		this.activeSprites.push(sprite);
+	}	
+}
+
+// Recursively removes the sticks affected to the entity and its children
+// A stick is the yellow rectangle used for selection
+LR.Editor.Behaviour.EntityHandle.prototype.removeSpriteSticksRecursive = function(_entity) {
+	if( _entity.type == Phaser.GROUP ){
+		for(var i=0; i < _entity.children.length; i++)
+			this.removeSpriteSticksRecursive(_entity.children[i]);
+	}else{
+		var index = this.activeSprites.indexOf(_entity.ed_spriteStick);
+		if( index >= 0){
+			var stick = this.activeSprites[index];
+			stick.target = null;
+			stick.kill();
+			this.activeSprites.splice(index, 1);
+		}
+	}	
+}
+//=================================================================
 //						SCALE 
 //=================================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.activateScale = function(){
-	if(this.mainTarget == null || this.targets.length > 1)
+	if(this.mainTarget == null || this.mainTarget.type == Phaser.GROUP || this.targets.length > 1)
 		return;
 	this.state = "scale";
 	this.toggleAxises(false);
@@ -221,51 +352,24 @@ LR.Editor.Behaviour.EntityHandle.prototype.deactivateRotate = function(){
 	this.rotater.visible = false;
 }
 
-//=================================================================
-//						ADD / REMOVE A TARGET
-//=================================================================
-
-LR.Editor.Behaviour.EntityHandle.prototype.addTarget = function(_target) {
-	//create target object
-	var objTarget = { entity: _target , offset : new Phaser.Point() };
-	this.targets.push(objTarget);
-	//add highlight sprites on every object under the target
-	this.addSpriteSticksRecursive(_target);
-	//compute position of the axis handles
-	this.computeGravityPoint();
-}
-
-LR.Editor.Behaviour.EntityHandle.prototype.addSpriteSticksRecursive = function(_entity) {
-	if( _entity.type == Phaser.GROUP ){
-		for(var i=0; i < _entity.children.length; i++)
-			this.addSpriteSticksRecursive(_entity.children[i]);
-	}else{
-		var sprite = this.getSprite();
-		sprite.target = _entity;
-		//set the anchor
-		if( _entity.anchor )
-			sprite.anchor = _entity.anchor;	
-		else
-			sprite.anchor.setTo(0.5,0.5);	
-		//keep size
-		sprite.width = _entity.width;
-		sprite.height = _entity.height;
-		//push the new target object
-		this.activeSprites.push(sprite);
-	}	
-}
-
-LR.Editor.Behaviour.EntityHandle.prototype.cleanTargets = function(){
-	this.targets = new Array();
-}
 
 //=================================================================
-//						DUPLICATE
+//						DUPLICATE / DELETE
 //=================================================================
 
 LR.Editor.Behaviour.EntityHandle.prototype.duplicate = function(_key) {
 	if( this.mainTarget && _key.altKey ){
-		this.$scope.$emit("cloneEntityEmit",{ entity : this.target});
+		this.$scope.$emit("cloneEntityEmit",{ entity : this.mainTarget});
+	}
+}
+
+//DELETES the target from the world. 
+LR.Editor.Behaviour.EntityHandle.prototype.deleteTargets = function(_key){
+	if( this.mainTarget && _key.altKey ){
+		for(var i=0; i < this.targets.length; i++){
+			this.$scope.$emit("deleteEntityEmit", {entity: this.targets[i].entity});
+		}
+		this.targets = new Array();
 	}
 }
 
@@ -378,7 +482,11 @@ LR.Editor.Behaviour.EntityHandle.prototype.placeTarget = function(_target,_selec
 //						GRAVITY POINT
 //=================================================================
 
-LR.Editor.Behaviour.EntityHandle.prototype.computeGravityPoint = function(){	
+LR.Editor.Behaviour.EntityHandle.prototype.computeGravityPoint = function(){
+	if(this.targets.length == 0 ){
+		this.deactivate();
+		return;
+	}	
 	var point = new Phaser.Point();
 	for(var i=0; i < this.targets.length; i++){
 		var target = this.targets[i];

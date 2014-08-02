@@ -205,6 +205,19 @@ LR.GameObject.prototype.enableEvents = function(){
 }
 
 /**
+* Disable the behaviours of the gameobject to receive the contact events
+* The onBeginContact and onEndContact will not be called anymore
+* @method disableEvents 
+*/
+LR.GameObject.prototype.disableEvents = function(){
+	this.enableContactEvents = false;
+	if( this.body != null ){
+		this.body.onBeginContact.remove(this.onBeginContact, this);
+		this.body.onEndContact.remove(this.onEndContact, this);
+	}
+}
+
+/**
 * Enables the sensor behaviour of the shapes of the GameObject
 * @method enableSensor
 * @param {Array} indexes Array of indexes of the shapes with we want to be sensors. If null, all the shapes will be sensors.
@@ -343,7 +356,7 @@ LR.GameObject.prototype.onPostBroadPhase = function(_body){
 
 LR.GameObject.prototype.onBeginContact = function(_otherBody, _otherShape, _myShape, _equation){
 	for(var i=0; i < this.behaviours.length; i++){
-		if( this.behaviours[i].onBeginContact != null && this.behaviours[i].enabled )
+		if( this.behaviours[i].onBeginContact != null && this.behaviours[i].enabled && this.behaviours[i].enableEvents )
 			this.behaviours[i].onBeginContact(_otherBody, _otherShape, _myShape, _equation);
 	}
 }
@@ -351,7 +364,7 @@ LR.GameObject.prototype.onBeginContact = function(_otherBody, _otherShape, _mySh
 LR.GameObject.prototype.onContact = function(_body2){
 	//console.log("contact!");
 	for(var i=0; i < this.behaviours.length; i++){
-		if( this.behaviours[i].onContact != null && this.behaviours[i].enabled )
+		if( this.behaviours[i].onContact != null && this.behaviours[i].enabled && this.behaviours[i].enableEvents )
 			this.behaviours[i].onContact(_body2);
 	}
 }
@@ -360,7 +373,7 @@ LR.GameObject.prototype.onEndContact = function(_otherBody, _otherShape, _myShap
 	//console.log("===collision ends from " + this.name);
 	//console.log("onBody : " + _otherBody.sprite.go.name);
 	for(var i=0; i < this.behaviours.length; i++){
-		if( this.behaviours[i].onEndContact != null && this.behaviours[i].enabled )
+		if( this.behaviours[i].onEndContact != null && this.behaviours[i].enabled && this.behaviours[i].enableEvents )
 			this.behaviours[i].onEndContact(_otherBody, _otherShape, _myShape);
 	}
 }
@@ -593,34 +606,6 @@ LR.GameObject.prototype.setPosition = function(_x, _y){
 }
 
 /**
-* Sets the X position of the GameObject. Takes the body in account
-*
-* @method setX
-* @param {number} x
-*/
-LR.GameObject.prototype.setX = function(_x){
-	if( this.body != null ){
-		this.body.x = _x;
-	}else{
-		this.entity.x = _x;
-	}
-}
-
-/**
-* Sets the Y position of the GameObject. Takes the body in account
-*
-* @method setY
-* @param {number} y
-*/
-LR.GameObject.prototype.setY = function(_y){
-	if( this.body != null ){
-		this.body.y = _y;
-	}else{
-		this.entity.y = _y;
-	}
-}
-
-/**
 * Accessor to the entity's body. Read only.
 *
 * @property body
@@ -630,6 +615,50 @@ Object.defineProperty( LR.GameObject.prototype, "body",
 	{
 		get : function(){
 			return this.entity.body;
+		}
+	}
+);
+
+/**
+* Accessor to the entity's x.
+*
+* @property x
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "x",
+	{
+		get : function(){
+			return this.entity.x;
+		},
+
+		set : function(_x){
+			if( this.body != null ){
+				this.body.x = _x;
+			}else{
+				this.entity.x = _x;
+			}
+		}
+	}
+);
+
+/**
+* Accessor to the entity's y.
+*
+* @property y
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "y",
+	{
+		get : function(){
+			return this.entity.y;
+		},
+
+		set : function(_y){
+			if( this.body != null ){
+				this.body.y = _y;
+			}else{
+				this.entity.y = _y;
+			}
 		}
 	}
 );
