@@ -137,10 +137,11 @@ LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _enti
 		for( var key in entityAnims){
 			//for edition, we need the array as a string
 			entityAnims[key].ed_frames = JSON.stringify(entityAnims[key]._frames);
-			entityAnims[key].ed_loop = false;
+			entityAnims[key].loop = _objectData.anims[key].loop;
+			entityAnims[key].speed = _objectData.anims[key].speed;
 		}
-		_entity.autoPlay = _objectData.autoPlay;
-		_entity.autoPlayActive = (_entity.autoPlay != null);
+		_entity.autoPlayAnim = _objectData.autoPlayAnim;
+		_entity.autoPlayActive = (_entity.autoPlayAnim != null);
 	}
 };
 

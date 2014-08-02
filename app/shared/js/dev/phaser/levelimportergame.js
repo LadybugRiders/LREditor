@@ -106,10 +106,8 @@ LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
 			_entity._scroll.y = _objectData.scrollY;
 	}
 	//animation autoplay
-	if( _objectData.autoPlay != null ){
-		_entity.animations.play(_objectData.autoPlay.name,
-								_objectData.autoPlay.speed,
-								_objectData.autoPlay.loop);
+	if( _objectData.autoPlayAnim != null ){
+		_entity.animations.play(_objectData.autoPlayAnim);
 	}
 };
 

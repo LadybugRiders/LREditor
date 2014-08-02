@@ -360,8 +360,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.duplicate = function(_key) {
 }
 
 //DELETES the target from the world. 
-LR.Editor.Behaviour.EntityHandle.prototype.deleteTargets = function(){
-	if( this.mainTarget ){
+LR.Editor.Behaviour.EntityHandle.prototype.deleteTargets = function(_key){
+	if( this.mainTarget && _key.altKey ){
 		for(var i=0; i < this.targets.length; i++){
 			this.$scope.$emit("deleteEntityEmit", {entity: this.targets[i].entity});
 		}

@@ -363,7 +363,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
     $scope.playAnim = function(_anim){
     	$scope.currentEntity.ed_frameBeforeAnim = $scope.currentEntity.frame;
-    	$scope.currentEntity.animations.play(_anim.name,10,_anim.ed_loop);
+    	$scope.currentEntity.animations.play(_anim.name);
     }
 
     $scope.stopAnim = function(_anim){

@@ -219,7 +219,9 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 		for( var key in _objectData.anims){
 			var newAnim = _entity.animations.add(
 				key,
-				_objectData.anims[key].frames
+				_objectData.anims[key].frames,
+				_objectData.anims[key].speed,
+				_objectData.anims[key].loop
 			);
 		}
 	}
