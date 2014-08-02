@@ -84,6 +84,10 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateMoveHandle = function(){
 		this.updateSpritesStick();
 		//Refresh attributes ( position may change )
 		this.$scope.forceAttributesRefresh(this.mainTarget);
+	}else{
+		this.computeGravityPoint();
+		//make the highlight follow the target(s)
+		this.updateSpritesStick();
 	}
 }
 

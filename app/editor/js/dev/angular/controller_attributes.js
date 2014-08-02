@@ -65,7 +65,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( $scope.currentEntity.ed_fixedToCamera){
 				$scope.currentEntity.cameraOffset.x = _x;
 			}else{				
-				$scope.currentEntity.go.setX(_x);
+				$scope.currentEntity.go.x = _x;
 			}
 		}
 	};
@@ -75,7 +75,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( $scope.currentEntity.ed_fixedToCamera){
 				$scope.currentEntity.cameraOffset.y = _y;
 			}else{				
-				$scope.currentEntity.go.setY(_y);
+				$scope.currentEntity.go.x = _y;
 			}
 		}
 	};
