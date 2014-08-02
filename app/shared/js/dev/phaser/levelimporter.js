@@ -157,6 +157,12 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 
 		this.setBehaviours(_object, entity);
 	}
+
+	//ANCHOR
+	if( _object.anchor ){
+		entity.anchor.setTo(_object.anchor.x , _object.anchor.y);
+	} 
+
 	return entity;
 };
 
@@ -166,6 +172,12 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 	_entity.x = _objectData.x;
 	_entity.y = _objectData.y;
 	_entity.angle = _objectData.angle;
+
+	/*if( _objectData.anchor ){
+		console.log(_objectData.anchor);
+		_entity.anchor.setTo(_objectData.anchor.x , _objectData.anchor.y);
+		console.log(_entity.anchor);
+	} */
 	
 	if( _objectData.scaleX && _objectData.scaleY){
 		_entity.scale.x = _objectData.scaleX;
