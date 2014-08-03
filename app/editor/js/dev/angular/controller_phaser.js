@@ -53,7 +53,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//================== DELETE / CLONE / MISC ======================
 
 		$scope.$on("cloneEntityBroadcast", function(_event, _args) {
-			$scope.cloneEntity(_args.entity);
+			$scope.cloneEntity(_args.entity,_args.position);
 		});
 
 		$scope.$on("deleteEntityBroadcast", function(_event, _args) {
@@ -352,7 +352,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	//					ENTITY OPERATIONS
 	//===================================================================
 
-	$scope.cloneEntity = function(_entity) {
+	$scope.cloneEntity = function(_entity,_position) {
 		var exporter = new LR.LevelExporter();
 		var eObj = exporter.exportEntities(_entity);
 
@@ -360,8 +360,13 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		var importer = new LR.Editor.LevelImporterEditor($scope);
 		var iObj = importer.importEntities(eObj, $scope.game);
-
-		iObj.name += " (clone)";
+		//rename
+		if( iObj.name.indexOf("(clone)") < 0 )
+			iObj.name += " (clone)";
+		//reposition
+		if( _position ){
+			iObj.go.x = _position.x; iObj.go.y = _position.y;
+		}
 		iObj.go.id = $scope.getID();
 		iObj.go.changeParent(_entity.parent);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
