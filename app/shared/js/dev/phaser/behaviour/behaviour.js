@@ -73,6 +73,15 @@ LR.Behaviour.prototype.update = function() {
 
 };
 
+/**
+* Called each frame after updaet() if the behaviour is enabled
+*
+* @method postUpdate
+*/
+LR.Behaviour.prototype.postUpdate = function() {
+
+};
+
 LR.Behaviour.prototype.render = function() {
 
 };
