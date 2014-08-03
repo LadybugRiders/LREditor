@@ -12,7 +12,7 @@
 * @param {string} texture Key of the texture to be used
 * @param {stirng} name Name of the GameObject attached
 */
-LR.Entity.Sprite = function(_game, _x, _y, _texture,_name) {
+LR.Entity.Sprite = function(_game, _x, _y, _texture, _name) {
 	Phaser.Sprite.call(this, _game, _x, _y, _texture);
 
 	this.anchor.setTo(0.5, 0.5);
