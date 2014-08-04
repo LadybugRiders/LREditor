@@ -347,6 +347,9 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 	_object.scaleX = _entity.scale.x;
 	_object.scaleY = _entity.scale.y;
 	_object.angle = _entity.angle;
+	
+	if(_entity.anchor) 
+		_object.anchor = { "x" : _entity.anchor.x, "y" : _entity.anchor.y };
 
 	if(_entity.ed_locked == true) {
 		_object.locked = true;

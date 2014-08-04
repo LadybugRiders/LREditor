@@ -359,7 +359,13 @@ LR.Editor.Behaviour.EntityHandle.prototype.deactivateRotate = function(){
 
 LR.Editor.Behaviour.EntityHandle.prototype.duplicate = function(_key) {
 	if( this.mainTarget && _key.altKey ){
-		this.$scope.$emit("cloneEntityEmit",{ entity : this.mainTarget});
+		this.$scope.$emit("cloneEntityEmit",
+							{ entity : this.mainTarget,
+							position : { x : this.entity.game.input.activePointer.worldX ,
+										 y : this.entity.game.input.activePointer.worldY
+										}
+						 	}
+						 );
 	}
 }
 

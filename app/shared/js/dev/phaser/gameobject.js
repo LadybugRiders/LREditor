@@ -120,6 +120,11 @@ LR.GameObject.prototype.postUpdate = function() {
 			}
 		}
 	}
+	//call postUpdate of behaviours
+	for(var i=0; i < this.behaviours.length; i++){
+		if( this.behaviours[i].postUpdate != null)
+			this.behaviours[i].postUpdate();
+	}
 };
 
 LR.GameObject.prototype.render = function() {
