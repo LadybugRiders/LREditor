@@ -98,15 +98,15 @@ LR.LevelImporterGame.prototype.setGeneral = function(_objectData, _entity) {
 LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
 	LR.LevelImporter.prototype.setDisplay.call(this, _objectData, _entity);
 	//auto scroll for tilesprites
-	if(_objectData.type == "LR.Entity.TileSprite"){
-		if( _objectData.scrollX != null)
+	if (_objectData.type == "LR.Entity.TileSprite") {
+		if ( _objectData.scrollX != null)
 			_entity._scroll.x = _objectData.scrollX;
 
-		if( _objectData.scrollY != null)
+		if ( _objectData.scrollY != null)
 			_entity._scroll.y = _objectData.scrollY;
 	}
 	//animation autoplay
-	if( _objectData.autoPlayAnim != null ){
+	if (_objectData.autoPlayAnim != null) {
 		_entity.animations.play(_objectData.autoPlayAnim);
 	}
 };
@@ -171,7 +171,7 @@ LR.LevelImporterGame.prototype.callBehavioursCreate = function(_game) {
 };
 
 // Check arguments value and find the gameobject if some are referenced
-// Form the editor, an arg value can have this form : #GO_XX where XX is a Number
+// From the editor, an arg value can have this form : #GO_XX where XX is a Number
 // This references the gameobject with the id equal to XX
 LR.LevelImporterGame.prototype.processBehaviourArgs = function(_game, _behaviour) {
 	for(var key in _behaviour.args_create){
