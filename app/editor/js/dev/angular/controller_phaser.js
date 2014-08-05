@@ -77,6 +77,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.fixEntityToCamera(_args.entity);
 		});
 
+		$scope.$on("reassignIDBroadcast", function(_event, _args) {
+			$scope.reassignID(_args.entity);
+		});
+
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesBroadcast", function(_event, _args) {
@@ -348,6 +352,15 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		return $scope.ID_count;
 	}
 
+	$scope.reassignID = function(_entity){
+		_entity.go.id = $scope.getID();
+		if( _entity.children != null ){
+			for( var i=0; i < _entity.children.length; i ++){
+				$scope.reassignID( _entity.children[i] );
+			}
+		}
+	}
+
 	//===================================================================
 	//					ENTITY OPERATIONS
 	//===================================================================
@@ -540,10 +553,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		}
 	};
 
+	//Used for prefabs
 	$scope.importEntity = function(_entity) {
 		var importer = new LR.Editor.LevelImporterEditor($scope);
 		var iObj = importer.importEntities(_entity, $scope.game);
 
+		$scope.reassignID( iObj );
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 		$scope.forceAttributesRefresh(iObj);
 	};

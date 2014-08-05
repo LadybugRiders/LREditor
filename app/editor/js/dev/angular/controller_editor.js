@@ -70,6 +70,9 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("pickEntityBroadcast", _args);
 		});
 
+		$scope.$on("reassignIDEmit", function(_event, _args) {
+			$scope.$broadcast("reassignIDBroadcast", _args);
+		});
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesEmit", function(_event, _args) {

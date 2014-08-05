@@ -35,14 +35,30 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
         data: JSON.stringify(prefab)
       };
 
-      $http.post(url, params, function(error, data) {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log("Prefab " + $scope.tmp.prefabs.name + " saved!!");
+      //add prefab to list
+      var i = 0;
+      var found = false;
+      while( i < $scope.project.assets.prefabs.length && found == false ){
+        var prefab = $scope.project.assets.prefabs[i];
+        //if the prefab already exists
+        if( params.name.indexOf(prefab.name) >= 0){
+          found = true;
+        }else{
+          i++;
         }
-      });
+      }
+      if( ! found )
+        $scope.project.assets.prefabs.push( {"name" : params.name, "path" : params.path} );
+
+      $http.post(url, params, function(error, data) {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("Prefab " + $scope.tmp.prefabs.name + " saved!!");
+          }
+        });
     }
+    
   };
 
   $scope.close = function () {
