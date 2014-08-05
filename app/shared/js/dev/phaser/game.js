@@ -1,6 +1,6 @@
 "use strict";
 
-LR.Game = function() {
+LR.Game = function(_containerId) {
 	/*
 	* The Input Manager of LadybugRiders Engine
 	* 
@@ -43,7 +43,7 @@ LR.Game = function() {
 		render: render
 	};
 
-	Phaser.Game.call(this, 640, 360, Phaser.AUTO, 'phaser', functions);
+	Phaser.Game.call(this, 640, 360, Phaser.AUTO, _containerId, functions);
 }
 
 LR.Game.prototype = Object.create(Phaser.Game.prototype);

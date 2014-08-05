@@ -33,6 +33,8 @@ Phaser.Plugin.InputManager = function(_game, _parent) {
 		_game.inputManager = Phaser.Plugin.InputManager.INSTANCE;
 	}
 
+	this.game = _game;
+
 	this.keysData = new Object();
 
 	this.mouseEventsTargets = new Object();
@@ -351,11 +353,12 @@ Phaser.Plugin.InputManager.prototype.callKeyEvents = function(_events,_key){
 
 //Add a listener to the mouse wheel event
 Phaser.Plugin.InputManager.prototype.initMouseWheelEvents = function(){
-		var element = document.getElementById("phaser");	
-	    // IE9, Chrome, Safari, Opera
-	    element.addEventListener("mousewheel", this.onMouseWheel.bind(this), false);
-	    // Firefox
-	    element.addEventListener("DOMMouseScroll", this.onMouseWheel.bind(this), false);
+		var element = this.game.canvas;
+
+    // IE9, Chrome, Safari, Opera
+    element.addEventListener("mousewheel", this.onMouseWheel.bind(this), false);
+    // Firefox
+    element.addEventListener("DOMMouseScroll", this.onMouseWheel.bind(this), false);
 }
 
 //=====================================================================================

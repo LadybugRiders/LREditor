@@ -315,7 +315,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.game, 
 			$scope.game.camera.view.centerX, /* x */
 			$scope.game.camera.view.centerY,
-			"none",
+			null,
 			0, 0, 0, 0
 		);
 		button.name = "button" + $scope.game.world.children.length;
