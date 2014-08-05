@@ -314,8 +314,8 @@ LR.GameObject.prototype.setMotionState = function(_motionState){
 * @param {string} layer
 */
 LR.GameObject.prototype.changeLayer = function(_layer){
+	this.layer = _layer;
 	if( this.collisionManager != null ){
-		this.layer = _layer;
 		this.collisionManager.changeGameObjectLayer(this,_layer,this.enableContactEvents);
 	}
 }
