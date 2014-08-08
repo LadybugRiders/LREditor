@@ -369,8 +369,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		var exporter = new LR.LevelExporter();
 		var eObj = exporter.exportEntities(_entity);
 
-		console.log(eObj);
-
 		var importer = new LR.Editor.LevelImporterEditor($scope);
 		var iObj = importer.importEntities(eObj, $scope.game);
 		//rename
@@ -380,7 +378,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if( _position ){
 			iObj.go.x = _position.x; iObj.go.y = _position.y;
 		}
-		iObj.go.id = $scope.getID();
+		$scope.reassignID(iObj);
 		iObj.go.changeParent(_entity.parent);
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 		//Select clone
