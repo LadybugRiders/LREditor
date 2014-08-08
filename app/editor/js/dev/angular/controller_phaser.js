@@ -110,6 +110,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.export(_args.levelPath, _args.levelName, _args.levelStorage);
 		});
 
+		$scope.$on("importPrefabBroadcast", function(_event, _args) {
+			$scope.importPrefab(_args.prefab);
+		});
+
 		$scope.$on("saveCutscenesBroadcast", function(_event, _args) {
 			$scope.cutscenes = _args.cutscenes;
 		});
@@ -353,6 +357,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.reassignID = function(_entity){
+		console.log(_entity);
 		_entity.go.id = $scope.getID();
 		if( _entity.children != null ){
 			for( var i=0; i < _entity.children.length; i ++){
@@ -551,7 +556,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		}
 	};
 
-	//Used for prefabs
 	$scope.importEntity = function(_entity) {
 		var importer = new LR.Editor.LevelImporterEditor($scope);
 		var iObj = importer.importEntities(_entity, $scope.game);
@@ -586,6 +590,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			});
 		}
 	};
+
+	//Used for prefabs
+	$scope.importPrefab = function(_prefabData) {
+		var importer = new LR.Editor.LevelImporterEditor($scope);
+		importer.import(_prefabData, $scope.game, $scope.onPrefabLoaded);
+	};
+
+	$scope.onPrefabLoaded = function(_rootEntity,_game){
+		$scope.reassignID( _rootEntity );
+		$scope.$emit("refreshListEmit", {world: _game.world});
+		$scope.forceAttributesRefresh(_rootEntity);
+	}
 
 	//===============================================================
 	//							EDITOR CAMERA

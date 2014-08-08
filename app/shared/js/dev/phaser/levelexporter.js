@@ -77,15 +77,19 @@ LR.LevelExporter.prototype.exportImages = function(_game, _project) {
 *
 * @method getImages
 * @param {LR.Entity} entity
+* @param {Array} keys array stored
 * @return {Array} image keys
 */
 LR.LevelExporter.prototype.getImageKeys = function(_entity, _keys) {
+	if( _keys == null)
+		_keys = new Array();
+
 	if (_entity.key) {
 		if (_keys.indexOf(_entity.key) < 0) {
 			_keys.push(_entity.key);
 		}
 	}
-
+	
 	if (_entity.children != null) {
 		for (var i = 0; i < _entity.children.length; i++) {
 			var child = _entity.children[i];

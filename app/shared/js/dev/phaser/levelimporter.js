@@ -80,15 +80,17 @@ LR.LevelImporter.prototype.importImages = function(_images, _loader) {
 * @param {Object} objects Entities informations
 * @param {Phaser.Game} game The game where entities will be imported
 * @param {function} promise A promise
+* @return the root of all entities
 */
 LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _promise) {
-	var world = this.importEntities(_objects, _game);
+	var root = this.importEntities(_objects, _game);
 
 	this.doAfterImportEntitiesAndBeforePromise(_objects, _game);
 	
 	if (typeof _promise === "function") {
-		_promise(null, _game);
+		_promise(root, _game);
 	}
+
 };
 
 /**

@@ -136,6 +136,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("exportLevelBroadcast", _args);
 		});	
 
+		$scope.$on("importPrefabEmit", function(_event, _args) {
+			$scope.$broadcast("importPrefabBroadcast", _args);
+		});	
+
 		$scope.$on("importCutsceneEmit", function(_event, _args) {
 			$scope.$broadcast("importCutsceneBroadcast", _args);
 		});	
