@@ -105,3 +105,34 @@ LR.Utils.angle = function(_pointA, _pointB){
 	var dot = a.x * b.x + a.y * b.y;
 	return Math.acos(dot) * 180 / Math.PI;
 }
+
+
+/**
+* This function returns the object's property defined by a complex string
+* ie : if string = "body.x"
+* the object value will be the body property of the object
+* If a property is not found, the object is returned as itself
+* example of returned object :
+* { object : instanceof P2.Body , property : "x"}
+* you can then access your property : object[property]
+*/
+LR.Utils.getPropertyByString = function( _object, _string){
+	var returnObject = { "object" : _object, "property" : _string};
+	var arrayProp = _string.split('.');
+	if(arrayProp.length < 2)
+		return returnObject;
+
+	var currentProp = _object;
+	for(var i=0; i < arrayProp.length -1; i++){
+		if( _object.hasOwnProperty(arrayProp[i])){
+			currentProp = currentProp[arrayProp[i]];
+		}else{
+			return returnObject;
+		}
+	}
+
+	returnObject.object = currentProp; // the target is the property we found
+	returnObject.property = arrayProp[arrayProp.length-1]; // the tweened property is the last in the array
+	
+	return returnObject;
+}

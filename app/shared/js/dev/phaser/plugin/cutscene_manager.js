@@ -216,8 +216,9 @@ Phaser.Plugin.CutsceneManager.prototype.processTween = function(_currentAction,_
 
 		//process relativeness (?). If a tween is marked as relative, the movement on x & y will be computed from the gameobject's current position
 		if( actionData.relative != null && actionData.relative == true ){
-			if( newProperties.x != null) newProperties.x += _target.x;
-			if( newProperties.y != null) newProperties.y += _target.y;
+			/*if( newProperties.x != null) newProperties.x += _target.x;
+			if( newProperties.y != null) newProperties.y += _target.y;*/
+			newProperties[targetData.property] += _target[targetData.property];
 		}
 
 		//repeat process. -1 is taken as infinite time of repeart (it's a loop then)

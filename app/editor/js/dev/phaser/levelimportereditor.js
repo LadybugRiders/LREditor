@@ -187,3 +187,8 @@ LR.Editor.LevelImporterEditor.prototype.setBehaviours = function(_objectData, _e
 		_entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
 	}
 };
+
+LR.Editor.LevelImporterEditor.prototype.setTweens = function(_objectData, _entity) {
+	if( _objectData.tweens != null )
+		_entity.ed_tweens = jQuery.extend(true, [], _objectData.tweens);
+};
