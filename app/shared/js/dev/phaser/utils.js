@@ -51,3 +51,57 @@ LR.Utils.toRadians = function(_degrees) {
 LR.Utils.toDegrees = function(_radians) {
   return _radians * 180 / Math.PI;
 };
+
+/**
+* Rotates a point with the given angle (in degrees)
+*
+* @method rotatePoint
+* @param {Phaser.Point} point
+* @param {Number} angle In degrees. Positive angle go counter-clokwise
+* @return Phaser.Point
+*/
+LR.Utils.rotatePoint = function(_point,_angle){
+	_angle = _angle * Math.PI / 180;
+   var point= new Phaser.Point();
+   point.x = _point.x*Math.cos(_angle) - _point.y*Math.sin(_angle);
+   point.y = _point.x*Math.sin(_angle) + _point.y*Math.cos(_angle);
+   return point;
+}
+
+/**
+* Rotates a point with the given angle (in degrees) around the specified anchor point
+*
+* @method rotatePointAround
+* @param {Phaser.Point} point
+* @param {Number} angle In degrees. Positive angle go counter-clokwise
+* @param {Phaser.Point} anchor The anchor point to rotate around
+* @return Phaser.Point
+*/
+LR.Utils.rotatePointAround = function(_point,_angle,_anchor){
+	_angle = _angle * Math.PI / 180;
+   //translate the point to rotate it around origin (0,0)
+   var tPoint= new Phaser.Point(_point.x - _anchor.x, _point.y - _anchor.y);
+   var newPoint = new Phaser.Point();
+   newPoint.x = tPoint.x*Math.cos(_angle) - tPoint.y*Math.sin(_angle);
+   newPoint.y = tPoint.x*Math.sin(_angle) + tPoint.y*Math.cos(_angle);
+   //Translate back to the anchor
+   newPoint.x += _anchor.x;
+   newPoint.y += _anchor.y;
+
+   return newPoint;
+}
+
+/**
+* Compute angle between two points / vectors
+*
+* @method angle
+* @param {Phaser.Point} pointA
+* @param {Phaser.Point} pointB
+*/
+LR.Utils.angle = function(_pointA, _pointB){
+	var a = _pointA.normalize();
+	var b = _pointB.normalize();
+
+	var dot = a.x * b.x + a.y * b.y;
+	return Math.acos(dot) * 180 / Math.PI;
+}
