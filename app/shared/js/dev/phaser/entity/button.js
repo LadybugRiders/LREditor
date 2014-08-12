@@ -20,6 +20,8 @@ LR.Entity.Button = function(_game, _x, _y, _key, _overFrame, _outFrame, _downFra
 	Phaser.Button.call(this, _game, _x, _y, _key, this.onClick, this, _overFrame, _outFrame, _downFrame, _upFrame);
 
 	this.anchor.setTo(0.5, 0.5);
+	this.onInputDown.add( this.onDown, this);
+	this.onInputUp.add( this.onUp, this);
 
 	this.go = new LR.GameObject(this);
 	if (_name) {
@@ -83,6 +85,40 @@ LR.Entity.Button.prototype.onClick = function() {
 
 			if (typeof behaviour.onClick === "function") {
 				behaviour.onClick();
+			}
+		};
+	}
+};
+
+/**
+* call behaviours onUp function
+*
+* @method onUp
+*/
+LR.Entity.Button.prototype.onUp = function() {
+	if (this.go) {
+		for (var i = 0; i < this.go.behaviours.length; i++) {
+			var behaviour = this.go.behaviours[i];
+
+			if (typeof behaviour.onInputUp === "function") {
+				behaviour.onInputUp();
+			}
+		};
+	}
+};
+
+/**
+* call behaviours onDown function
+*
+* @method onDown
+*/
+LR.Entity.Button.prototype.onDown = function() {
+	if (this.go) {
+		for (var i = 0; i < this.go.behaviours.length; i++) {
+			var behaviour = this.go.behaviours[i];
+
+			if (typeof behaviour.onInputDown === "function") {
+				behaviour.onInputDown();
 			}
 		};
 	}

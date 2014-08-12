@@ -772,7 +772,6 @@ LR.GameObject.FindByName = function(_root, _name) {
 			while (i < _root.children.length && gameobject == null) {
 				var child = _root.children[i];
 				if (LR.GameObject.FindByName(child, _name)) {
-					console.log(child);
 					gameobject = child;
 				}
 
