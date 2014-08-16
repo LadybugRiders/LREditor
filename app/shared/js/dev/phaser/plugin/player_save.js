@@ -30,15 +30,24 @@ Phaser.Plugin.PlayerSave.prototype.loadSave = function(_save){
 	this.tempData = jQuery.extend({},true,this.saveData);
 }
 
+/**
+* Write the save. If it's not done before the game is closed, the temporary save will be lost
+*
+* @method writeSave
+*/
 Phaser.Plugin.PlayerSave.prototype.writeSave = function(){
 	//write Save
-	this.saveData = jQuery.extend({},true,this.tempSave);;
+	this.saveData = jQuery.extend({},true,this.tempSave);
 	this.tempData = jQuery.extend({},true,this.saveData);
 }
 
-
+/**
+* Returns the temporary save for the actual game
+*
+* @method getSave
+*/
 Phaser.Plugin.PlayerSave.prototype.getSave = function(){
-	return this.tempSave;
+	return this.tempData;
 }
 
 /**

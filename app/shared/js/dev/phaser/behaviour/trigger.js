@@ -109,6 +109,7 @@ LR.Behaviour.Trigger.prototype.onBeginContact = function(_otherBody, _myShape, _
 	}
 	//if no interactives is assigned, the default behaviour acts on all layers
 	if( this.interactives.length == 0){
+		this.activeCount ++;
 		this.sendData(_otherBody, _myShape, _otherShape, _equation);
 	}else{
 		//check if the colliding body is an interactive one 

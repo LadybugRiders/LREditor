@@ -357,7 +357,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.reassignID = function(_entity){
-		console.log(_entity);
 		_entity.go.id = $scope.getID();
 		if( _entity.children != null ){
 			for( var i=0; i < _entity.children.length; i ++){
@@ -591,6 +590,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		}
 	};
 
+	//===============================================================
+	//							PREFABS
+	//===============================================================
+
 	//Used for prefabs
 	$scope.importPrefab = function(_prefabData) {
 		var importer = new LR.Editor.LevelImporterEditor($scope);
@@ -598,9 +601,62 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.onPrefabLoaded = function(_rootEntity,_game){
-		$scope.reassignID( _rootEntity );
+		//store references in behaviours params
+		//IDs will change so we need to keep them
+		var linkedObjects = $scope.storeBehavioursParamsReferences(_rootEntity,new Object(),_rootEntity);
+		//reassign IDs. The id of the imported objects may already be in use
+		$scope.reassignID( _rootEntity);
+		//Reassign parameters with new objects IDs
+		$scope.reassignBehavioursParamsReferences(_rootEntity,linkedObjects);
+
 		$scope.$emit("refreshListEmit", {world: _game.world});
 		$scope.forceAttributesRefresh(_rootEntity);
+	}
+
+	$scope.storeBehavioursParamsReferences = function(_entity,_linkedObjects,_prefabRoot){
+		
+		//For each behaviour
+		for(var i=0; i < _entity.behaviours.length; i++){
+			var bh = _entity.behaviours[i];
+			for(var key in bh.params){
+				var val = bh.params[key];
+				if(typeof val == "string" && val.indexOf("#GO_")>=0 ){
+					var id = parseInt( val.substring(4) );
+					_linkedObjects[val] = LR.Entity.FindByID(_prefabRoot,id);
+				}
+			}
+		}
+
+		//Recursive for children
+		if(_entity.children){
+			for(var i=0; i < _entity.children.length; i++){
+				$scope.storeBehavioursParamsReferences(_entity.children[i],_linkedObjects,_prefabRoot);
+			}
+		}
+
+		return _linkedObjects;
+	} 
+
+	$scope.reassignBehavioursParamsReferences = function(_entity,_linkedObjects){
+		//For each behaviour
+		for(var i=0; i < _entity.behaviours.length; i++){
+			var bh = _entity.behaviours[i];
+			for(var key in bh.params){
+				var val = bh.params[key];
+				if(typeof val == "string" && val.indexOf("#GO_")>=0 ){
+					var linkedObj = _linkedObjects[val];
+					if( linkedObj != null)
+						bh.params[key] = "#GO_"+linkedObj.id;
+				}
+			}
+		}
+
+		//Recursive for children
+		if(_entity.children){
+			for(var i=0; i < _entity.children.length; i++){
+				$scope.reassignBehavioursParamsReferences(_entity.children[i],_linkedObjects);
+			}
+		}
 	}
 
 	//===============================================================
