@@ -385,6 +385,10 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 		}
 	}
 
+	if( _entity.prefab ){
+		_object.prefab = _entity.prefab;
+	}
+
 	return _object
 };
 

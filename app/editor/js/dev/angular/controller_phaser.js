@@ -81,6 +81,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.reassignID(_args.entity);
 		});
 
+		$scope.$on("revertPrefabBroadcast", function(_event, _args) {
+			$scope.revertPrefab(_args.entity);
+		});
+
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesBroadcast", function(_event, _args) {
@@ -614,7 +618,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.storeBehavioursParamsReferences = function(_entity,_linkedObjects,_prefabRoot){
-		
 		//For each behaviour
 		for(var i=0; i < _entity.behaviours.length; i++){
 			var bh = _entity.behaviours[i];
@@ -626,14 +629,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				}
 			}
 		}
-
 		//Recursive for children
 		if(_entity.children){
 			for(var i=0; i < _entity.children.length; i++){
 				$scope.storeBehavioursParamsReferences(_entity.children[i],_linkedObjects,_prefabRoot);
 			}
 		}
-
 		return _linkedObjects;
 	} 
 
@@ -657,6 +658,42 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				$scope.reassignBehavioursParamsReferences(_entity.children[i],_linkedObjects);
 			}
 		}
+	}
+
+	$scope.revertPrefab = function(_rootPrefab){
+		var url = "/editorserverapi/v0/prefab/" + _rootPrefab.prefab.name;
+	    url += "?path=" + $scope.project.path + "/assets/prefabs";
+	    
+	    $http.get(url).success(function(_data) {
+	    	//set prefab data to new imported entity	    
+		    _data.prefabName = _rootPrefab.prefab.name;
+		    _data.prefabPath = _rootPrefab.prefab.path;
+		    //import	      
+			var importer = new LR.Editor.LevelImporterEditor($scope);
+			importer.import(_data, $scope.game, $scope.onRevertedPrefabLoaded);
+			$scope.currentRevertedPrefab = _rootPrefab;
+	    }).error(function(_error) {
+	      console.error(_error);
+	    });
+	}
+
+	$scope.onRevertedPrefabLoaded = function(_rootEntity,_game){
+		$scope.onPrefabLoaded(_rootEntity,_game);
+		//keep position
+		var oldPos = {x:$scope.currentRevertedPrefab.x,y:$scope.currentRevertedPrefab.y};
+		//Set new entity's parent
+		var parent = $scope.currentRevertedPrefab.parent;
+		var oldParent = _rootEntity.parent;
+		oldParent.remove(_rootEntity);
+		parent.add(_rootEntity);
+		_rootEntity.go.x = oldPos.x; _rootEntity.go.y = oldPos.y;
+		//Delete former entity
+		$scope.deleteEntity($scope.currentRevertedPrefab);
+		$scope.currentRevertedPrefab = null;
+
+		$scope.$emit("refreshListEmit", {world: $scope.game.world});
+		$scope.$emit("selectEntityEmit", {entity : _rootEntity});
+		$scope.forceAttributesRefresh(_rootEntity);
 	}
 
 	//===============================================================

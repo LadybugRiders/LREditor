@@ -73,6 +73,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 		$scope.$on("reassignIDEmit", function(_event, _args) {
 			$scope.$broadcast("reassignIDBroadcast", _args);
 		});
+
+		$scope.$on("revertPrefabEmit", function(_event, _args) {
+			$scope.$broadcast("revertPrefabBroadcast", _args);
+		});
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesEmit", function(_event, _args) {

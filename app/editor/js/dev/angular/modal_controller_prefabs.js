@@ -13,6 +13,8 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
     var url = "/editorserverapi/v0/prefab/" + _prefab.name;
     url += "?path=" + $scope.project.path + "/assets/prefabs";
     $http.get(url).success(function(_data) {
+      _data.prefabName = _prefab.name;
+      _data.prefabPath = _prefab.path;
       $scope.$emit("importPrefabEmit", {
         prefab : _data
       });
