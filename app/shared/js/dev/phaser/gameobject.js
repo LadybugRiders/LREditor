@@ -711,6 +711,38 @@ Object.defineProperty( LR.GameObject.prototype, "gravity",
 );
 
 /**
+* Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.
+*
+* @property velocityX
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "velocityX",
+	{
+		get : function(){
+			if( this.entity.body == null)
+				return 0;
+			return this.entity.game.physics.p2.mpxi(this.entity.body.velocity.x);
+		}
+	}
+);
+
+/**
+* Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.
+*
+* @property velocityX
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "velocityY",
+	{
+		get : function(){
+			if( this.entity.body == null)
+				return 0;
+			return this.entity.game.physics.p2.mpxi(this.entity.body.velocity.y);
+		}
+	}
+);
+
+/**
 * Changes the parent of the entity
 *
 * @method changeParent
