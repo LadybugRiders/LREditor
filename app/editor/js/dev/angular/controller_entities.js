@@ -15,6 +15,14 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 			$scope.openPickEntityModal(_args.context, _args.callback);
 		});
 
+		//when selected from phaser
+		$scope.$on("selectEntityBroadcast", function(_event, _args) {
+			if( _args.phaser ){
+				$scope.currentEntity = _args.entity;
+				$scope.$apply();
+			}
+		});
+
 		$scope.entities = new Array();
 
 		$scope.isCollapsed = true;
@@ -31,6 +39,7 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 
 	$scope.selectEntity = function(_entity) {
 		$scope.$emit("selectEntityEmit", {entity: _entity});
+		$scope.currentEntity = _entity;
 	}
 
 	$scope.moveDown = function(_entity) {

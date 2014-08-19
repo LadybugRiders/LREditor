@@ -45,3 +45,74 @@
 		</li>
 	</ul>
 </div>
+
+<div class="form-group">
+	<label>Tweens</label>
+	<ul class="list-group">
+		<li class="list-group-item">
+			<accordion>
+				<accordion-group ng-repeat="tween in currentEntity.ed_tweens" heading="{{tween.name}}">
+					<label>Properties</label>
+					<div class="row">
+						<div class="form-group col-md-10">
+							<input json-text type="text" ng-model="tween.properties" class="form-control"/>
+						</div>
+						<div class="form-group col-md-2">
+							<button ng-click="openEditModal(tween,'properties')" type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-md-4"> Duration </label>
+						<input type ="number" class="col-md-4" ng-model="tween.duration" integer/>
+						<label class="col-md-2"> ms </label>
+					</div>
+					<div class="row">
+						<label class="col-md-4"> Delay </label>
+						<input type ="number" class="col-md-4" ng-model="tween.delay" integer/>
+						<label class="col-md-4"> ms </label>
+					</div>
+					<div class="row">
+						<label class="col-md-4"> Times </label>
+						<input type ="number" class="col-md-4" ng-model="tween.repeat" integer/>
+						<small class="col-md-4"> (-1 == inf) </small>
+					</div>
+					<div class="row">
+						<label class="col-md-4"> Yoyo </label>
+						<input type ="checkbox" class="col-md-1" ng-model="tween.yoyo" />
+					</div>
+					<div class="row">
+						<label class="col-md-4"> Relative </label>
+						<input type ="checkbox" class="col-md-1" ng-model="tween.relative" />
+					</div>
+					<!-- Play / Stop-->
+					<div class="row">
+						<button ng-click="playTween($index)"> 
+							<span class="glyphicon glyphicon-play"></span>
+						</button>
+						<button ng-click="stopTween($index)"> 
+							<span class="glyphicon glyphicon-stop"></span>
+						</button>
+					</div>
+					<div class="row">
+						<button ng-click="removeTween($index)" type="button" class="btn btn-danger">
+							Delete
+						</button>
+					</div>
+				</accordion-group>
+			</accordion>
+		</li>
+	</ul>
+	<li class="list-group-item">
+		<div class="row">
+			<div class="col-md-8">
+				<input ng-model="newTweenName" type="text">
+				</input>
+			</div>
+			<div class="col-md-4">
+				<button ng-click="addTween(newTweenName)" type="button" class="btn btn-primary">Add</button>
+			</div>
+		</div>
+	</li>
+</div>

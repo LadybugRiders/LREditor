@@ -18,6 +18,9 @@ LR.Editor.LevelImporterEditor.prototype.constructor = LR.Editor.LevelImporterEdi
 LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promise) {
 	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
 	this.$scope.cutscenes = _level.cutscenes;
+	if(_level.prefabName){
+		this.prefab = { name : _level.prefabName, path : _level.prefabPath};
+	}
 };
 
 /**
@@ -74,6 +77,14 @@ LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) 
 	//we want to know which is the higher ID. this is the perfect place
 	if( this.$scope.ID_count < entity.go.id ){
 		this.$scope.ID_count = entity.go.id;
+	}
+	//if this.prefab exists, we are currently importing a prefab
+	if( this.prefab ){
+		entity.prefab = this.prefab;
+		this.prefab = null;
+	//else if the imported object contains a prefab property
+	}else if(_object.prefab){
+		entity.prefab = _object.prefab;
 	}
 	return entity;
 };
@@ -186,4 +197,9 @@ LR.Editor.LevelImporterEditor.prototype.setBehaviours = function(_objectData, _e
 	if (_entity.type != Phaser.GROUP) {
 		_entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
 	}
+};
+
+LR.Editor.LevelImporterEditor.prototype.setTweens = function(_objectData, _entity) {
+	if( _objectData.tweens != null )
+		_entity.ed_tweens = jQuery.extend(true, [], _objectData.tweens);
 };

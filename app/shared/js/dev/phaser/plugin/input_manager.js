@@ -39,6 +39,8 @@ Phaser.Plugin.InputManager = function(_game, _parent) {
 
 	this.mouseEventsTargets = new Object();
 
+	this.registeredButtons = new Array();
+
 	return Phaser.Plugin.InputManager.INSTANCE;
 };
 
@@ -115,11 +117,16 @@ Phaser.Plugin.InputManager.prototype.createActionKey = function(_actionName, _ke
 Phaser.Plugin.InputManager.prototype.onMouseDown = function(_event){
 	if( this.isMouseButtonFrozen( _event.button ) )
 		return;
+	if( this.isRegisteredButtonDown())
+		return;
+
 	this.callMouseEvents("justPressed",_event.button);
 }
 
 Phaser.Plugin.InputManager.prototype.onMouseUp = function(_event){
 	if( this.isMouseButtonFrozen( _event.button ) )
+		return;
+	if( this.isRegisteredButtonOvered())
 		return;
 	this.callMouseEvents("justReleased",_event.button);
 }
@@ -168,6 +175,7 @@ Phaser.Plugin.InputManager.prototype.onKeyUp = function(_key){
 * @param {Number} priority The priority of the callback
 */
 Phaser.Plugin.InputManager.prototype.bindMousePress = function(_callback,_context,_button,_priority){
+	
 	if( _button == null ) _button = Phaser.Mouse.LEFT_BUTTON;
 	if( _priority == null ) _priority = 1;
 
@@ -319,7 +327,7 @@ Phaser.Plugin.InputManager.prototype.callMouseEvents = function(_eventName,_butt
 			curPriority = array[i].priority;
 		}
 		//Call the callback
-		if( array[i].button == null || _button == array[i].button){
+		if( _button == null || array[i].button == null || _button == array[i].button){
 			var res = array[i].callback.call(array[i].context,_args);
 			if( res == true)
 				priorityTaken = true;
@@ -451,6 +459,56 @@ Phaser.Plugin.InputManager.prototype.unfreezeInputMouse = function( _buttons ){
 Phaser.Plugin.InputManager.prototype.isMouseButtonFrozen = function( _button ){
 	if( _button < this.mouseEventsTargets.frozenButtons.length)
 		return this.mouseEventsTargets.frozenButtons[_button];
+	return false;
+}
+
+//=====================================================================================
+//									BUTTONS IN GAME
+//=====================================================================================
+/**
+* Resiter a button so that it will block any mouse input if the action is donw on this
+* same button.
+* For example, if your button is clicked, it will override any other callback bound in 
+* the InputManager via boundMousePress and bindMouseRelease
+*
+* @method registerButton
+* @param {LR.Entity.Button} button
+*/
+Phaser.Plugin.InputManager.prototype.registerButton = function(_button){
+	this.registeredButtons.push(_button);
+}
+
+/**
+* Returns true is a registered button is down
+*
+* @method isRegisteredButtonDown
+* @return wheter a button is down or not
+*/
+Phaser.Plugin.InputManager.prototype.isRegisteredButtonDown = function(){
+	for(var i=0; i < this.registeredButtons.length; i++){
+		var button = this.registeredButtons[i];
+		if( button.input != null ){
+			if( button.input.checkPointerDown(this.game.input.activePointer) )
+				return true;
+		}
+	}
+	return false;
+}
+
+/**
+* Returns true is a registered button is overed by an input
+*
+* @method isRegisteredButtonOvered
+* @return wheter a button is down or not
+*/
+Phaser.Plugin.InputManager.prototype.isRegisteredButtonOvered = function(){
+	for(var i=0; i < this.registeredButtons.length; i++){
+		var button = this.registeredButtons[i];
+		if( button.input != null ){
+			if( button.input.checkPointerOver(this.game.input.activePointer) )
+				return true;
+		}
+	}
 	return false;
 }
 

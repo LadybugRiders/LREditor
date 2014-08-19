@@ -154,6 +154,37 @@ LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
 	}
 };
 
+LR.LevelImporterGame.prototype.setTweens = function(_objectData, _entity) {
+	if( _objectData.tweens != null ){
+		var tweens = jQuery.extend(true, [], _objectData.tweens);
+		for(var i=0; i < tweens.length; i ++){
+			//Get tween and convert its properties
+	    	var tween = tweens[i];
+	    	var props = null;
+	    	try{
+	    		props = JSON.parse(tween.properties);
+	    	}catch(e){
+	    		console.error("Invalid JSON properties");
+	    	}
+	    	//Go throught all properties and launch tweens in editor
+	    	for(var key in props){
+		    	var targetData = LR.Utils.getPropertyByString(_entity,key);
+		    	var createdTween = _entity.game.add.tween( targetData.object );
+		    	var newProp = {};
+		    	newProp[targetData.property] = props[key];
+		    	//process relativeness (?). If a tween is marked as relative, the movement on x & y will be computed from the gameobject's current position
+				if( tween.relative == true ){
+					newProp[targetData.property] += targetData.object[targetData.property];
+				}
+				//console.log(tween);
+				if( tween.repeat < 0)
+					tween.repeat = Number.MAX_VALUE;
+		    	createdTween.to(newProp, tween.duration, null, true,tween.delay, tween.repeat - 1, tween.yoyo);
+		    }
+		}
+	}
+};
+
 LR.LevelImporterGame.prototype.callBehavioursCreate = function(_game) {
 	// call behaviours create for every gameobjects
 	var gameobjects = _game.state.getCurrentState().gameobjects;

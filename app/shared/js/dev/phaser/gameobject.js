@@ -519,15 +519,35 @@ LR.GameObject.prototype.getShapesByNames = function(_shapesNames){
 }
 
 /**
-* Returns the size of the wanted shape
+* Returns the index of the shape found by its name (property lr_name)
+* 
+* @method getShapeIndexByName
+* @param {Array} shapeName The index of the researched shape
+* @return {Number} index
+*/
+LR.GameObject.prototype.getShapeIndexByName = function(_shapeName){
+	for(var i=0; i < this.getShapesCount(); i++ ){
+		if( this.getShape(i).lr_name == _shapeName ){
+			return i;
+		}
+	}
+	return -1;
+}
+
+/**
+* Returns the size of the wanted shape. You can either pass its index or its name
 *
 * @method getShapeData
-* @param {number} shapeIndex
+* @param {Number | string} shapeIndexOrName
 * @return {Object} object containing the following properties : x, y, width, height (in pixels), rotation (in degrees), sensor (bool), name
 */
 LR.GameObject.prototype.getShapeData = function(_shapeIndex){
 	var data = new Object();
-	if( _shapeIndex == null )
+
+	if( typeof _shapeIndex == "string")
+		_shapeIndex = this.getShapeIndexByName(_shapeIndex);
+
+	if( _shapeIndex == null || _shapeIndex < 0)
 		_shapeIndex = 0;
 	var shape = this.getShape(_shapeIndex);
 	if( shape ){
@@ -669,6 +689,60 @@ Object.defineProperty( LR.GameObject.prototype, "y",
 );
 
 /**
+* Accessor to the body's gravity. Returns 0 if no body affected.
+*
+* @property gravity
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "gravity",
+	{
+		get : function(){
+			if( this.entity.body == null)
+				return 0;
+			return this.entity.body.data.gravityScale;
+		},
+
+		set : function(_gravity){
+			if( this.entity.body != null ){
+				this.entity.body.data.gravityScale = _gravity;
+			}
+		}
+	}
+);
+
+/**
+* Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.
+*
+* @property velocityX
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "velocityX",
+	{
+		get : function(){
+			if( this.entity.body == null)
+				return 0;
+			return this.entity.game.physics.p2.mpxi(this.entity.body.velocity.x);
+		}
+	}
+);
+
+/**
+* Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.
+*
+* @property velocityX
+* @type Number
+*/
+Object.defineProperty( LR.GameObject.prototype, "velocityY",
+	{
+		get : function(){
+			if( this.entity.body == null)
+				return 0;
+			return this.entity.game.physics.p2.mpxi(this.entity.body.velocity.y);
+		}
+	}
+);
+
+/**
 * Changes the parent of the entity
 *
 * @method changeParent
@@ -730,7 +804,6 @@ LR.GameObject.FindByName = function(_root, _name) {
 			while (i < _root.children.length && gameobject == null) {
 				var child = _root.children[i];
 				if (LR.GameObject.FindByName(child, _name)) {
-					console.log(child);
 					gameobject = child;
 				}
 

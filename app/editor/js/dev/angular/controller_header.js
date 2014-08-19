@@ -165,14 +165,22 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	************/
 
 	$scope.loadCurrentProjectPrefabs = function() {
-		/*var url = "/editorserverapi/v0/prefab";
+		var url = "/editorserverapi/v0/prefab";
 		url += "?path=" + $scope.project.path + "/assets/prefabs";
 		$http.get(url).success(function(_data) {
 			$scope.project.assets.prefabs = _data.prefabs;
+			//clean .old
+			for( var i=0; i < $scope.project.assets.prefabs.length; i++ ){
+				var prefab = $scope.project.assets.prefabs[i];
+				if( prefab.name.indexOf(".old") >= 0){
+					$scope.project.assets.prefabs.splice(i,1);
+				}
+			}
 		}).error(function(_error) {
-			$scope.project.assets.prefabs = new Object();
+			$scope.project.assets.prefabs = new Array();
 			console.error(_error);
-		});*/
+		});
+
 	};
 
 	$scope.managePrefabs = function() {

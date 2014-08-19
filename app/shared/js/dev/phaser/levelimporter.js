@@ -80,15 +80,17 @@ LR.LevelImporter.prototype.importImages = function(_images, _loader) {
 * @param {Object} objects Entities informations
 * @param {Phaser.Game} game The game where entities will be imported
 * @param {function} promise A promise
+* @return the root of all entities
 */
 LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _promise) {
-	var world = this.importEntities(_objects, _game);
+	var root = this.importEntities(_objects, _game);
 
 	this.doAfterImportEntitiesAndBeforePromise(_objects, _game);
 	
 	if (typeof _promise === "function") {
-		_promise(null, _game);
+		_promise(root, _game);
 	}
+
 };
 
 /**
@@ -156,6 +158,8 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 		}
 
 		this.setBehaviours(_object, entity);
+
+		this.setTweens(_object, entity);
 	}
 
 	//ANCHOR
@@ -275,3 +279,5 @@ LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
 LR.LevelImporter.prototype.setBehaviours = function(_objectData, _entity) {
 	_entity.behaviours = jQuery.extend(true, [], _objectData.behaviours);
 };
+
+LR.LevelImporter.prototype.setTweens = function(_objectData, _entity) {};

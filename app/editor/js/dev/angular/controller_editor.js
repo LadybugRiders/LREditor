@@ -70,6 +70,13 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("pickEntityBroadcast", _args);
 		});
 
+		$scope.$on("reassignIDEmit", function(_event, _args) {
+			$scope.$broadcast("reassignIDBroadcast", _args);
+		});
+
+		$scope.$on("revertPrefabEmit", function(_event, _args) {
+			$scope.$broadcast("revertPrefabBroadcast", _args);
+		});
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesEmit", function(_event, _args) {
@@ -131,6 +138,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 
 		$scope.$on("exportLevelEmit", function(_event, _args) {
 			$scope.$broadcast("exportLevelBroadcast", _args);
+		});	
+
+		$scope.$on("importPrefabEmit", function(_event, _args) {
+			$scope.$broadcast("importPrefabBroadcast", _args);
 		});	
 
 		$scope.$on("importCutsceneEmit", function(_event, _args) {

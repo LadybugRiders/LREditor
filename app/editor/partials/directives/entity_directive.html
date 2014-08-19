@@ -1,8 +1,21 @@
 <div>
 	<a type="button" ng-show="isGroup(data)" entity-collapse><span class="glyphicon glyphicon-chevron-right"></span></a>
+
 	<a class="margin-left" ng-show="!isGroup(data)"></a>
-	<a type="button" ng-click="selectEntity(data)" ng-attr-entity-drag="data">{{data.name}}</a>
+	
+	<!-- set style to blue or red if selected or not -->
+	<a type="button" ng-click="selectEntity(data)" 
+		ng-show ="currentEntity == data"
+		ng-style="{color:'red'}"
+		ng-attr-entity-drag="data">{{data.name}}</a>
+
+	<a type="button" ng-click="selectEntity(data)" 
+		ng-show ="currentEntity != data"
+		ng-attr-entity-drag="data">{{data.name}}</a>
+
+	<!-- Children count -->
 	<a ng-show="isGroup(data)"><small>({{getNbChildren(data)}})</small></a>
+
 	<div class="arrows">
 		<a type="button" ng-click="moveDown(data)"><span class="glyphicon glyphicon-arrow-down"></span></a><a type="button"><span class="glyphicon glyphicon-arrow-up" ng-click="moveUp(data)"></span></a>
 	</div>

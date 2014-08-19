@@ -188,6 +188,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		};
 	}
 
+	$scope.revertPrefab = function(){
+		$scope.$emit("revertPrefabEmit", { entity : $scope.currentEntity});
+	}
+
 	//================================================================
 	//						BEHAVIOURS
 	//================================================================
@@ -328,6 +332,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	}
 
 	//============ ANIMATION =============================
+
     $scope.addAnimToCurrentEntity = function(_name){
     	if(_name == null || _name =="")
     		return;
@@ -382,6 +387,60 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     		};
     }
 
+    //================= TWEENS ======================================
+
+    $scope.addTween = function(_tweenName){
+    	if( $scope.currentEntity.ed_tweens == null )
+    		$scope.currentEntity.ed_tweens = new Array();
+    	if( _tweenName == null)
+    		_tweenName = "tween" + $scope.currentEntity.ed_tweens.length + 1;
+    	var tween = new Object();
+    	tween.name = _tweenName;
+    	tween.properties = "{}";
+    	tween.duration = 1000;
+    	tween.easing = null;
+    	tween.delay = 0;
+    	tween.repeat = 0;
+    	tween.yoyo = false;
+    	tween.relative = true;
+    	$scope.currentEntity.ed_tweens.push(tween);
+    }
+
+    $scope.removeTween = function(_index){
+    	$scope.currentEntity.ed_tweens.splice(_index,1);
+    }
+
+    $scope.playTween = function(_index){
+    	//Get tween and convert its properties
+    	var tween = $scope.currentEntity.ed_tweens[_index];
+    	var props = null;
+    	try{
+    		props = JSON.parse(tween.properties);
+    	}catch(e){
+    		console.error("Invalid JSON properties");
+    	}
+    	console.log("bite");
+    	//Go throught all properties and launch tweens 
+    	for(var key in props){
+	    	var targetData = LR.Utils.getPropertyByString($scope.currentEntity,key);
+	    	var createdTween = $scope.currentEntity.game.add.tween( targetData.object );
+	    	var newProp = {};
+	    	newProp[targetData.property] = props[key];
+	    	//process relativeness (?). If a tween is marked as relative, the movement on x & y will be computed from the gameobject's current position
+			if( tween.relative == true ){
+				newProp[targetData.property] += targetData.object[targetData.property];
+			}
+			if( tween.repeat < 0)
+				tween.repeat = Number.MAX_VALUE;
+	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat - 1, tween.yoyo);
+	    	createdTween.start();
+	    }
+    }
+
+    $scope.stopTween = function(_index){
+    	var tween = $scope.currentEntity.ed_tweens[_index];
+    	tween.stop();
+    }
 	//================================================================
 	//						BODY
 	//================================================================

@@ -1,7 +1,7 @@
 "use strict";
 
 //>>LREditor.Behaviour.name: LR.Behaviour.Trigger
-//>>LREditor.Behaviour.params : {"callbackName":"", "messageObject" : {}, "interactives":[], "activeCountLimit": 0}
+//>>LREditor.Behaviour.params : {"callbackName":"", "messageObject" : {}, "otherNotified":null, "activeCountLimit": 0}
 
 /**
 * Class Trigger
@@ -35,7 +35,7 @@ LR.Behaviour.Trigger = function(_gameobject){
 	* @type {string}
 	* @default onTrigger
 	*/
-	this.callbackName = "die";
+	this.callbackName = null;
 
 	/**
 	* The message data we want to attach when we notify the gameobject it has hit the trigger.
@@ -95,6 +95,8 @@ LR.Behaviour.Trigger.prototype.create = function(_data){
 	if( _data.activeCountLimit ){
 		this.activeCountLimit = _data.activeCountLimit;
 	}
+
+	if( _data.otherNotified ) this.otherNotified = _data.otherNotified;
 }
 
 
@@ -107,6 +109,7 @@ LR.Behaviour.Trigger.prototype.onBeginContact = function(_otherBody, _myShape, _
 	}
 	//if no interactives is assigned, the default behaviour acts on all layers
 	if( this.interactives.length == 0){
+		this.activeCount ++;
 		this.sendData(_otherBody, _myShape, _otherShape, _equation);
 	}else{
 		//check if the colliding body is an interactive one 
@@ -129,6 +132,9 @@ LR.Behaviour.Trigger.prototype.sendData = function(_otherBody, _myShape, _otherS
 
 	if( this.callbackName != null )
 		_otherBody.go.sendMessage(this.callbackName,this.messageObject);
+
+	if( this.otherNotified != null )
+		this.otherNotified.sendMessage(this.callbackName, this.messageObject);
 
 	//call internal function
 	this.onTriggered(_otherBody.go);

@@ -14,13 +14,17 @@ LR.Game = function(_containerId) {
 		this.game.load.json("layersData", "assets/physics/layers.json", true);
 		// load inputs from json file
 		this.game.load.json("inputsData", "assets/inputs/inputs.json", true);
+		//load save
+		this.game.load.json("saveData","assets/save/playersave.json",true);
 	};
 
 	var create = function() {
-
+		this.game.plugins.add(Phaser.Plugin.PlayerSave);
 		this.game.plugins.add(Phaser.Plugin.InputManager);
 		this.game.plugins.add(Phaser.Plugin.CutsceneManager);
 		this.game.plugins.add(Phaser.Plugin.DialogManager);
+
+		this.game.playerSave.loadSave(this.game.cache.getJSON("saveData"));
 
 		var stateBoot = new LR.State.StateBoot(this);
 		var stateLoader = new LR.State.StateLoader(this);

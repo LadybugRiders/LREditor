@@ -26,3 +26,9 @@ LR.Behaviour.Button.prototype.constructor = LR.Behaviour.Button;
 */
 LR.Behaviour.Button.prototype.onClick = function() {
 };
+
+LR.Behaviour.Button.prototype.onInputUp = function() {
+};
+
+LR.Behaviour.Button.prototype.onInputDown = function() {
+};
