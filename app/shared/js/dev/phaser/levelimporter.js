@@ -255,7 +255,17 @@ LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
 	} else if( _objectData.body.motion === "KINEMATIC"){
 		motionState = Phaser.Physics.P2.Body.KINEMATIC;
 	}
+
+	//P2 crash when adding a body onto a sprite with scales < 0
+	//so we need a workaround. we'll temporarily change its scale beforce adding the body
+	var scale = { x : _entity.scale.x, y : _entity.scale.y};
+	if( scale.x < 0 ) _entity.scale.x *= -1;
+	if( scale.y < 0 ) _entity.scale.y *= -1;
+
 	_entity.go.enablePhysics(motionState);
+
+	//Rescale after sprite workaround
+	_entity.scale.x = scale.x; _entity.scale.y = scale.y;
 
 	//adding a body has prevented us from setting the position directly to the sprite
 	_entity.body.x = _objectData.x;
