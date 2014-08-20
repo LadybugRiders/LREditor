@@ -26,8 +26,10 @@ Phaser.Plugin.PlayerSave.prototype = Object.create(Phaser.Plugin);
 Phaser.Plugin.PlayerSave.prototype.constructor = Phaser.Plugin.PlayerSave;
 
 Phaser.Plugin.PlayerSave.prototype.loadSave = function(_save){
+	console.log(_save);
 	this.saveData = _save;
-	this.tempData = jQuery.extend({},true,this.saveData);
+	if( _save != null)
+		this.tempData = jQuery.extend({},true,this.saveData);
 }
 
 /**
