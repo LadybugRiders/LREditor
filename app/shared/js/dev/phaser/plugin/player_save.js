@@ -26,10 +26,9 @@ Phaser.Plugin.PlayerSave.prototype = Object.create(Phaser.Plugin);
 Phaser.Plugin.PlayerSave.prototype.constructor = Phaser.Plugin.PlayerSave;
 
 Phaser.Plugin.PlayerSave.prototype.loadSave = function(_save){
-	console.log(_save);
 	this.saveData = _save;
 	if( _save != null)
-		this.tempData = jQuery.extend({},true,this.saveData);
+		this.tempData = JSON.parse(JSON.stringify(_save));
 }
 
 /**
@@ -39,8 +38,8 @@ Phaser.Plugin.PlayerSave.prototype.loadSave = function(_save){
 */
 Phaser.Plugin.PlayerSave.prototype.writeSave = function(){
 	//write Save
-	this.saveData = jQuery.extend({},true,this.tempSave);
-	this.tempData = jQuery.extend({},true,this.saveData);
+	this.saveData = JSON.parse(JSON.stringify(this.tempSave));
+	this.tempData = JSON.parse(JSON.stringify(this.saveData));
 }
 
 /**
@@ -70,5 +69,5 @@ Phaser.Plugin.PlayerSave.prototype.getLevelSave = function(){
 */
 Phaser.Plugin.PlayerSave.prototype.reverLevelSave = function(){
 	var levelName =  this.game.state.getCurrentState().levelName;
-	this.tempData[levelName] = jQuery.extend({},true,this.saveData[levelName]);
+	this.tempData[levelName] = JSON.parse(JSON.stringify(this.saveData[levelName]));
 }
