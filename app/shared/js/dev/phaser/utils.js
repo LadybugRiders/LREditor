@@ -136,3 +136,30 @@ LR.Utils.getPropertyByString = function( _object, _string){
 	
 	return returnObject;
 }
+
+/**
+* Returns an object containing the sides of the shapes 
+* properties of the object : left, right, top, bottom
+*
+* @method getRectShapeSides
+* @param {GameObject} go
+* @parma {P2.Shape} shape
+*/
+LR.Utils.getRectShapeSides = function(_go,_shape){
+	var data = _go.getShapeData(_shape.lr_name);
+
+	//Rotate shape offset with the body, as offset isnt changed with rotations
+	var realOffset = new Phaser.Point(data.x,data.y); 
+	realOffset = LR.Utils.rotatePoint(realOffset, _go.entity.body.angle);
+	data.x = realOffset.x;
+	data.y = realOffset.y;
+
+	//Compute bounds of the shape
+	var bounds = new Object();
+	bounds.left = _go.x + data.x - _go.entity.anchor.x * data.width;
+	bounds.right = _go.x + data.x + (1-_go.entity.anchor.x) * data.width;
+	bounds.top = _go.y + data.y - _go.entity.anchor.y * data.height;
+	bounds.bottom = _go.y + data.y + (1-_go.entity.anchor.y) * data.height;
+
+	return bounds;
+}
