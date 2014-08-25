@@ -54,10 +54,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.project.assets = new Object();
 
 		$scope.project.assets.levels = new Array();
-		$scope.project.assets.prefabs = new Array();
 		$scope.project.assets.images = new Array();
-		$scope.project.assets.behaviours = new Array();
+		$scope.project.assets.audios = new Object();
 		$scope.project.assets.layers = new Object();
+		$scope.project.assets.behaviours = new Array();
+		$scope.project.assets.prefabs = new Array();
 		$scope.project.assets.inputs = new Object();
 
 		//modal data for cutscenes edition
@@ -136,6 +137,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 			$scope.loadCurrentProjectPrefabs();
 			$scope.loadCurrentProjectImages();
+			$scope.loadCurrentProjectAudios();
 			$scope.loadCurrentProjectBehaviours();
 			$scope.loadCurrentProjectLayers();
 			$scope.loadCurrentProjectInputs();
@@ -155,45 +157,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		modalInstance.result.then(function (_data) {
 			$scope.project = _data;
-		}, function () {
-			console.info('Modal dismissed at: ' + new Date());
-		});
-	};
-
-	/************
-	** PREFABS **
-	************/
-
-	$scope.loadCurrentProjectPrefabs = function() {
-		var url = "/editorserverapi/v0/prefab";
-		url += "?path=" + $scope.project.path + "/assets/prefabs";
-		$http.get(url).success(function(_data) {
-			$scope.project.assets.prefabs = _data.prefabs;
-			//clean .old
-			for( var i=0; i < $scope.project.assets.prefabs.length; i++ ){
-				var prefab = $scope.project.assets.prefabs[i];
-				if( prefab.name.indexOf(".old") >= 0){
-					$scope.project.assets.prefabs.splice(i,1);
-				}
-			}
-		}).error(function(_error) {
-			$scope.project.assets.prefabs = new Array();
-			console.error(_error);
-		});
-
-	};
-
-	$scope.managePrefabs = function() {
-		var modalInstance = $modal.open({
-			scope: $scope,
-			templateUrl: 'partials/modals/prefabs.html',
-			controller: PrefabsCtrlModal,
-			resolve: {
-			}
-		});
-
-		modalInstance.result.then(function (_data) {
-			// do nothing
 		}, function () {
 			console.info('Modal dismissed at: ' + new Date());
 		});
@@ -232,25 +195,37 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
-	/***************
-	** BEHAVIOURS **
-	***************/
+	/***********
+	** AUDIOS **
+	***********/
 
-	$scope.loadCurrentProjectBehaviours = function() {
-		var url = "/editorserverapi/v0/behaviour";
-		url += "?path=" + $scope.project.path + "/assets/behaviours";
+	$scope.loadCurrentProjectAudios = function() {
+		var url = "/editorserverapi/v0/audio";
+		url += "?path=" + $scope.project.path + "/assets/audios";
 		$http.get(url).success(function(_data) {
-			$scope.project.assets.behaviours = _data.behaviours;
+			$scope.project.assets.audios = _data.audios;
 
-			$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
+			$scope.$emit("sendAudiosEmit", {audios: $scope.project.assets.audios});
 		}).error(function(_error) {
-			$scope.behaviours = new Object();
+			$scope.audios = new Object();
 			console.error(_error);
 		});
-	}
+	};
 
-	$scope.manageBehaviours = function() {
-		// nothing to do
+	$scope.manageAudios = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/audios.html',
+			controller: AudiosCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// do nothing
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
 	};
 
 	/***********
@@ -296,6 +271,66 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	          console.log("Layers saved!!");
 	        }
       	});
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	/***************
+	** BEHAVIOURS **
+	***************/
+
+	$scope.loadCurrentProjectBehaviours = function() {
+		var url = "/editorserverapi/v0/behaviour";
+		url += "?path=" + $scope.project.path + "/assets/behaviours";
+		$http.get(url).success(function(_data) {
+			$scope.project.assets.behaviours = _data.behaviours;
+
+			$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
+		}).error(function(_error) {
+			$scope.behaviours = new Object();
+			console.error(_error);
+		});
+	}
+
+	$scope.manageBehaviours = function() {
+		// nothing to do
+	};
+
+	/************
+	** PREFABS **
+	************/
+
+	$scope.loadCurrentProjectPrefabs = function() {
+		var url = "/editorserverapi/v0/prefab";
+		url += "?path=" + $scope.project.path + "/assets/prefabs";
+		$http.get(url).success(function(_data) {
+			$scope.project.assets.prefabs = _data.prefabs;
+			//clean .old
+			for( var i=0; i < $scope.project.assets.prefabs.length; i++ ){
+				var prefab = $scope.project.assets.prefabs[i];
+				if( prefab.name.indexOf(".old") >= 0){
+					$scope.project.assets.prefabs.splice(i,1);
+				}
+			}
+		}).error(function(_error) {
+			$scope.project.assets.prefabs = new Array();
+			console.error(_error);
+		});
+
+	};
+
+	$scope.managePrefabs = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/prefabs.html',
+			controller: PrefabsCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// do nothing
 		}, function () {
 			console.info('Modal dismissed at: ' + new Date());
 		});

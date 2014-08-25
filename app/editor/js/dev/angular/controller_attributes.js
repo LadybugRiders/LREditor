@@ -37,6 +37,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 		});
 
+		$scope.$on("sendAudiosBroadcast", function(_event, _args) {
+			if (_args.audios) {
+				$scope.data.audios = _args.audios;
+			}
+		});
+
 		$scope.$on("sendBehavioursBroadcast", function(_event, _args) {
 			if (_args.behaviours) {
 				$scope.data.behaviours = _args.behaviours;
