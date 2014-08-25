@@ -45,6 +45,7 @@ LR.LevelExporter.prototype.exportAssets = function(_game, _project) {
 	var assets = new Object();
 
 	assets.images = this.exportImages(_game, _project);
+	assets.sounds = this.exportSounds(_game,_project);
 	assets.behaviours = this.exportBehaviours(_game, _project);
 
 	return assets;
@@ -170,6 +171,61 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 
 	return image;
 };
+
+/***********
+** SOUNDS **
+***********/
+
+LR.LevelExporter.prototype.exportSounds = function(_game, _project) {
+	var sounds = new Array();
+
+	var entitiesToCheck = [_game.world];
+	var entity = null;
+	//check every entity in the world to add the used audios
+	while(entitiesToCheck.length > 0){
+		entity = entitiesToCheck[0];
+		//Add every child to the list
+		if( entity.children != null ){
+			for(var c=0; c < entity.children.length; c++)
+				entitiesToCheck.push(entity.children[c]);
+		}
+		//add audio
+		if(entity.ed_sounds != null){
+			var sound = null;
+			for(var s=0; s < entity.ed_sounds.length; s ++){
+				sound = entity.ed_sounds[s];
+				var soundData = this.getExportableSoundData(sound.key,_project,sounds);
+				if( soundData )
+					sounds.push(soundData);
+			}
+		}
+		//remove first
+		entitiesToCheck.splice(0,1);
+	}
+	return sounds;
+}
+
+// Search for the data of the sound defined by _soundKey
+// returns null if the data is already added to _selectedSounds or not found
+LR.LevelExporter.prototype.getExportableSoundData = function(_soundKey,_project,_selectedSounds){
+	var index = 0;
+	var soundData = null;
+	while( index < _project.assets.audios.length && soundData == null){
+		if( _project.assets.audios[index].name == _soundKey)
+			soundData = _project.assets.audios[index];
+		else
+			index++;
+	}
+	if( soundData == null ) return null;
+
+	index = 0;
+	while(index < _selectedSounds.length){
+		if( _selectedSounds[index] == soundData)
+			return null;
+		index ++;
+	}
+	return soundData;
+}
 
 /***************
 ** BEHAVIOURS **

@@ -91,6 +91,10 @@
 						<label class="col-md-4"> AutoPlay </label>
 						<input type ="checkbox" class="col-md-1" ng-model="soundData.autoPlay" />
 					</div>
+					<div class="row" ng-show="soundData.autoPlay">
+						<label class="col-md-4"> Loop </label>
+						<input type ="checkbox" class="col-md-1" ng-model="soundData.loop" />
+					</div>
 					<div class="row">
 						<button ng-click="removeSound($index)" type="button" class="btn btn-danger">
 							Delete

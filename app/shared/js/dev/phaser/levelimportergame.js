@@ -34,7 +34,8 @@ LR.LevelImporterGame.prototype.import = function(_level, _game, _promise) {
 LR.LevelImporterGame.prototype.importAssets = function(_assets, _loader) {
 	LR.LevelImporter.prototype.importAssets.call(this, _assets, _loader);
 
-	this.importBehaviours(_assets.behaviours, _loader)
+	this.importSounds(_assets.sounds, _loader);
+	this.importBehaviours(_assets.behaviours, _loader);
 };
 
 /**
@@ -56,6 +57,12 @@ LR.LevelImporterGame.prototype.importImages = function(_images, _loader) {
 		);
 	};
 };
+
+LR.LevelImporterGame.prototype.importSounds = function(_sounds, _loader) {
+	for(var i=0; i < _sounds.length; i ++){
+		_loader.audio( _sounds[i].name,"assets/audios" + _sounds[i].path);
+	}
+}
 
 /**
 * Import all the behaviours
@@ -184,6 +191,20 @@ LR.LevelImporterGame.prototype.setTweens = function(_objectData, _entity) {
 		}
 	}
 };
+
+LR.LevelImporterGame.prototype.setSounds = function(_objectData, _entity) {
+	if( _objectData.sounds != null ){
+		for(var i=0; i < _objectData.sounds.length; i++){
+			var data = _objectData.sounds[i];
+			var sound = _entity.game.add.audio(data.key);
+			if( sound ){
+				_entity.go.addSound(data.name,sound);
+				if( data.autoPlay == true)
+					_entity.go.playSound(data.name,1,data.loop);
+			}
+		}
+	}
+}
 
 LR.LevelImporterGame.prototype.callBehavioursCreate = function(_game) {
 	// call behaviours create for every gameobjects
