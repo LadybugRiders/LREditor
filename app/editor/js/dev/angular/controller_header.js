@@ -203,7 +203,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		var url = "/editorserverapi/v0/audio";
 		url += "?path=" + $scope.project.path + "/assets/audios";
 		$http.get(url).success(function(_data) {
-			console.log(_data.audios);
 			$scope.project.assets.audios = _data.audios;
 
 			$scope.$emit("sendAudiosEmit", {audios: $scope.project.assets.audios});

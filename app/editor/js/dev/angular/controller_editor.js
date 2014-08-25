@@ -99,6 +99,11 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("sendCameraBroadcast", _args);
 		});	
 
+		//================== AUDIOS ======================
+		$scope.$on("sendAudiosEmit", function(_event, _args) {
+			$scope.$broadcast("sendAudiosBroadcast", _args);
+		});
+
 		//================== BEHAVIOURS ======================
 		$scope.$on("sendBehavioursEmit", function(_event, _args) {
 			$scope.$broadcast("sendBehavioursBroadcast", _args);
