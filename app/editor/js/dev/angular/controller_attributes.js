@@ -453,6 +453,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	//================================================================
 
 	$scope.addSound = function(_name){
+		console.log($scope.data.audios);
 		if( $scope.currentEntity.ed_sounds == null )
 			$scope.currentEntity.ed_sounds = new Array();
 		if( _name == null || _name == "" ) 
@@ -460,6 +461,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.currentEntity.ed_sounds.push({name:_name, key:"",autoPlay:false});
 	}
 
+	$scope.removeSound = function(_index){
+    	$scope.currentEntity.ed_sounds.splice(_index,1);
+    }
 	//================================================================
 	//						BODY
 	//================================================================

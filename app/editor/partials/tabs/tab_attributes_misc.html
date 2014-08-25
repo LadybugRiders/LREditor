@@ -76,16 +76,25 @@
 			<accordion>
 				<accordion-group ng-repeat="soundData in currentEntity.ed_sounds" heading="{{soundData.name}}">
 					<div class="row">
-						<label>Name</label>
-						<input type ="text" ng-model="soundData.name" text/>
+						<label class="col-md-3">Name</label>
+						<input class="col-md-9" type ="text" ng-model="soundData.name" text/>
 					</div>
 					<div class="row">
-						<label>Key Name</label>
-						<input type ="text" ng-model="soundData.key" text/>
+						<label class="col-md-3">Key</label>
+						<select 
+							class="col-md-9"
+							ng-model="soundData.key" 
+                            ng-options="t.name as t.name for t in data.audios">
+                    	</select>
 					</div>
 					<div class="row">
 						<label class="col-md-4"> AutoPlay </label>
 						<input type ="checkbox" class="col-md-1" ng-model="soundData.autoPlay" />
+					</div>
+					<div class="row">
+						<button ng-click="removeSound($index)" type="button" class="btn btn-danger">
+							Delete
+						</button>
 					</div>
 				</accordion-group>
 			</accordion>
