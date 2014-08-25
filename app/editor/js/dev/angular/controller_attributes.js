@@ -441,6 +441,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	var tween = $scope.currentEntity.ed_tweens[_index];
     	tween.stop();
     }
+
+	//================================================================
+	//						SOUNDS
+	//================================================================
+
+	$scope.addSound = function(_name){
+		if( $scope.currentEntity.ed_sounds == null )
+			$scope.currentEntity.ed_sounds = new Array();
+		if( _name == null || _name == "" ) 
+			_name = "sound"+ $scope.currentEntity.ed_sounds.length;
+		$scope.currentEntity.ed_sounds.push({name:_name, key:"",autoPlay:false});
+	}
+
 	//================================================================
 	//						BODY
 	//================================================================

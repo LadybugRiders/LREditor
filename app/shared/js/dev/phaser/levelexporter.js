@@ -339,6 +339,8 @@ LR.LevelExporter.prototype.exportEntity = function(_entity) {
 
 	eObj = this.setTweens(_entity, eObj);
 
+	eObj = this.setSounds(_entity, eObj);
+
 	return eObj;
 };
 
@@ -491,5 +493,12 @@ LR.LevelExporter.prototype.setTweens = function(_entity, _object) {
 	if( _entity.ed_tweens != null && _entity.ed_tweens.length > 0)
 		_object.tweens = jQuery.extend(true, [],_entity.ed_tweens);
 
+	return _object;
+};
+
+LR.LevelExporter.prototype.setSounds = function(_entity, _object) {
+	if( _entity.ed_sounds != null && _entity.ed_sounds.length > 0 ){
+		_object.sounds = _entity.ed_sounds;
+	}
 	return _object;
 };

@@ -160,6 +160,8 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 		this.setBehaviours(_object, entity);
 
 		this.setTweens(_object, entity);
+
+		this.setSounds(_object, entity);
 	}
 
 	//ANCHOR
@@ -291,3 +293,5 @@ LR.LevelImporter.prototype.setBehaviours = function(_objectData, _entity) {
 };
 
 LR.LevelImporter.prototype.setTweens = function(_objectData, _entity) {};
+
+LR.LevelImporter.prototype.setSounds = function(_objectData, _entity) {};

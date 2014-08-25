@@ -42,6 +42,15 @@ LR.GameObject = function(_entity) {
 	this.behaviours = new Array();
 
 	/**
+	* Sounds that can be played by the GameObject. Contains Phaser.Sound objects.
+	*
+	* @property sounds
+	* @type Object
+	* @default {}
+	*/
+	this.sounds = new Object();
+
+	/**
 	* A reference to the current CollisionManager. Set when the GameObject is added to the CollisionManager
 	* @property collisionManager
 	* @type {CollisionManager}
@@ -610,6 +619,37 @@ LR.GameObject.prototype.replaceShapeByRectangle = function(_shapeIndex, _data){
 	return newShape;
 }
 
+//============================================================
+//						SOUNDS
+//============================================================
+LR.GameObject.prototype.addSound = function(_name,_sound){
+	this.sounds[_name] = _sound;
+}
+
+/**
+* Returns the specified sound
+*
+* @method getSound
+* @param {String} name
+* @return {Phaser.Sound}
+*/
+LR.GameObject.prototype.getSound = function(_name){
+	return this.sounds[_name];
+}
+
+/**
+* Plays the specified sound
+*
+* @method playSound
+* @param {String} name
+* @param {Number} volume 0 <= volume <= 1
+* @param {boolean} loop
+*/
+LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
+	var sound = this.sounds[_name];
+	if(sound)
+		sound.play('',0,_volume,_loop);
+}
 //============================================================
 //						SETTERS
 //============================================================
