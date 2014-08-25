@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Audios</h3>
+        </div>
+        <div class="col-md-5">
+            <input type="text" ng-model="searchWord" class="form-control"/>
+        </div>
+        <span class="glyphicon glyphicon-search"></span>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md- scrollable">
+            <table class="table table-striped">
+                <thead>
+                    <th>Name</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="audio in project.assets.audios" ng-show="containsSearchWord(audio.name,searchWord)">
+                        <td>
+                            <span>{{audio.name}}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="unloadAudio(audio)" ng-show="audio.loaded">Unload</button>
+                            <button class="btn btn-primary" ng-click="loadAudio(audio)" ng-show="!audio.loaded">Load</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>
