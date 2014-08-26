@@ -163,7 +163,7 @@ LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
 
 LR.LevelImporterGame.prototype.setTweens = function(_objectData, _entity) {
 	if( _objectData.tweens != null ){
-		var tweens = jQuery.extend(true, [], _objectData.tweens);
+		var tweens = JSON.parse( JSON.stringify(_objectData.tweens)) ;
 		for(var i=0; i < tweens.length; i ++){
 			//Get tween and convert its properties
 	    	var tween = tweens[i];

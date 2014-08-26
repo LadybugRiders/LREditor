@@ -101,7 +101,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			var isNew = ($scope.currentEntity !== _entity);
 
 			if ($scope.currentEntity) {
-				$scope.currentEntity.drawBounds = false;
+				$scope.stopTweens();
 			}
 
 			$scope.currentEntity = _entity;
@@ -425,7 +425,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	}catch(e){
     		console.error("Invalid JSON properties");
     	}
-    	console.log("bite");
+    	$scope.currentEntity.ed_launchedTweens = new Array();
     	//Go throught all properties and launch tweens 
     	for(var key in props){
 	    	var targetData = LR.Utils.getPropertyByString($scope.currentEntity,key);
@@ -436,16 +436,46 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( tween.relative == true ){
 				newProp[targetData.property] += targetData.object[targetData.property];
 			}
+			//Repeating
 			if( tween.repeat < 0)
 				tween.repeat = Number.MAX_VALUE;
+			else
+				createdTween.onComplete.add(this.onTweenComplete,this);
 	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat - 1, tween.yoyo);
+	    	//keep trace of tween and base properties
+	    	createdTween.baseProp = {"object":targetData.object,"property":targetData.property,
+	    							"baseValue":targetData.object[targetData.property]};
+	    	$scope.currentEntity.ed_launchedTweens.push(createdTween);
+	    	//Start tween
 	    	createdTween.start();
 	    }
     }
+    //Stop all tweens of the current entity
+    $scope.stopTweens = function(){
+    	if( $scope.currentEntity.ed_launchedTweens == null)
+    		return;
+    	var tween = null;
+    	for(var i=0; i < $scope.currentEntity.ed_launchedTweens.length; i ++){
+    		tween = $scope.currentEntity.ed_launchedTweens[i];
+    		if( tween == null )
+    			continue;
+    		tween.baseProp.object[tween.baseProp.property] = tween.baseProp.baseValue;
+    		tween.stop();
+    	}
+    	tween = $scope.currentEntity.ed_launchedTweens = new Array();
+    }
 
-    $scope.stopTween = function(_index){
-    	var tween = $scope.currentEntity.ed_tweens[_index];
-    	tween.stop();
+    $scope.onTweenComplete = function(_entity){
+    	var tween = null;
+    	for(var i=0; i < _entity.ed_launchedTweens.length; i ++){
+    		tween = _entity.ed_launchedTweens[i];
+    		if( tween == null || tween.isRunning )
+    			continue;
+    		tween.baseProp.object[tween.baseProp.property] = tween.baseProp.baseValue;
+    		tween.stop();
+    		_entity.ed_launchedTweens.splice(i,1);
+    		break;
+    	}
     }
 
 	//================================================================
