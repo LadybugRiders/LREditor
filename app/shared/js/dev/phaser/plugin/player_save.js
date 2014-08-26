@@ -38,7 +38,7 @@ Phaser.Plugin.PlayerSave.prototype.loadSave = function(_save){
 */
 Phaser.Plugin.PlayerSave.prototype.writeSave = function(){
 	//write Save
-	this.saveData = JSON.parse(JSON.stringify(this.tempSave));
+	this.saveData = JSON.parse(JSON.stringify(this.tempData));
 	this.tempData = JSON.parse(JSON.stringify(this.saveData));
 }
 
@@ -65,9 +65,9 @@ Phaser.Plugin.PlayerSave.prototype.getLevelSave = function(){
 /**
 * Revert the save for the current level
 *
-* @method reverLevelSave
+* @method revertLevelSave
 */
-Phaser.Plugin.PlayerSave.prototype.reverLevelSave = function(){
+Phaser.Plugin.PlayerSave.prototype.revertLevelSave = function(){
 	var levelName =  this.game.state.getCurrentState().levelName;
 	this.tempData[levelName] = JSON.parse(JSON.stringify(this.saveData[levelName]));
 }

@@ -540,14 +540,17 @@ LR.LevelExporter.prototype.setPhysics = function(_entity, _object) {
 };
 
 LR.LevelExporter.prototype.setBehaviours = function(_entity, _object) {
-	_object.behaviours = jQuery.extend(true, [],_entity.behaviours);
+	_object.behaviours = [];
+	if( _entity.behaviours){
+		_object.behaviours = JSON.parse( JSON.stringify(_entity.behaviours) );
+	}
 
 	return _object;
 };
 
 LR.LevelExporter.prototype.setTweens = function(_entity, _object) {
 	if( _entity.ed_tweens != null && _entity.ed_tweens.length > 0)
-		_object.tweens = jQuery.extend(true, [],_entity.ed_tweens);
+		_object.tweens = JSON.parse( JSON.stringify(_entity.ed_tweens));
 
 	return _object;
 };

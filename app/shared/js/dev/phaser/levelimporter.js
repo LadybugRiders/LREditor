@@ -216,6 +216,10 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 		_entity.loadTexture(_objectData.key, _objectData.frame);
 		_entity.width = w;
 		_entity.height = h;
+		if( _objectData.type == "LR.Entity.TileSprite" && _entity.game.renderType == Phaser.CANVAS){
+			_entity.tilePosition.y = h * 0.5;
+			_entity.tilePosition.x = w * 0.5;
+		}
 	}
 
 	if(_objectData.type == "LR.Entity.Button"){
@@ -289,7 +293,7 @@ LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
 };
 
 LR.LevelImporter.prototype.setBehaviours = function(_objectData, _entity) {
-	_entity.behaviours = jQuery.extend(true, [], _objectData.behaviours);
+	_entity.behaviours = JSON.parse( JSON.stringify(_objectData.behaviours) );
 };
 
 LR.LevelImporter.prototype.setTweens = function(_objectData, _entity) {};
