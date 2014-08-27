@@ -30,6 +30,11 @@ LR.Game = function(_containerId) {
 		var stateLoader = new LR.State.StateLoader(this);
 		var stateLevel = new LR.State.StateLevel(this);
 
+		//COCOON JS needs JSON parser		
+		if( this.game.device.cocoonJS == true){
+			 window.DOMParser = DOMishParser;
+		}
+
 		this.state.start("Boot");
 	};
 

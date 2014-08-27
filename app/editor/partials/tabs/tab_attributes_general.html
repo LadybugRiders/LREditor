@@ -126,6 +126,13 @@
             ng-show ="data.type == 'text'"
             class="form-control">
     </select>
+    <select 
+		ng-model="currentEntity.font" 
+		ng-change="currentEntity.setStyle()"
+        ng-options="t.name as t.name for t in bitmapFonts"
+        ng-show ="data.type == 'bitmaptext'"
+        class="form-control">
+	</select>
 
 	<label> Font Size </label>
 	<input type="number" ng-model="currentEntity.fontSize"

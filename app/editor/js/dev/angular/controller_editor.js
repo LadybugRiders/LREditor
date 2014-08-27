@@ -117,6 +117,11 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("sendBehavioursBroadcast", _args);
 		});
 
+		//================== FONTS ======================
+		$scope.$on("sendBitmapFontsEmit", function(_event, _args) {
+			$scope.$broadcast("sendBitmapFontsBroadcast", _args);
+		});
+
 		//================== WORLD & SETTINGS======================
 
 		$scope.$on("sendWorldEmit", function(_event, _args) {

@@ -347,6 +347,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?path=" + $scope.project.path + "/assets/fonts";
 		$http.get(url).success(function(_data) {
 			$scope.project.assets.bitmapFonts = _data.fonts;
+			$scope.$emit("sendBitmapFontsEmit",{bitmapFonts : $scope.project.assets.bitmapFonts});
 		}).error(function(_error) {
 			$scope.project.assets.bitmapFonts = new Array();
 			console.error(_error);

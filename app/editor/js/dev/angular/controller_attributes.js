@@ -49,16 +49,21 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 		});
 
+		$scope.$on("sendBitmapFontsBroadcast", function(_event, _args) {
+			$scope.bitmapFonts = _args.bitmapFonts;
+		});
+
+		$scope.$on("sendLayersBroadcast", function(_event, _args) {
+			$scope.layers = _args.layers;
+		});
+
+
 		$scope.$on("refreshCurrentEntityBroadcast", function(_event, _args) {
 			if( _args.phaser == true ){
 				$scope.refreshCurrentEntityFromPhaser(_args.entity,_args.forceBodyRefresh);
 			}else{
 				$scope.refreshCurrentEntity(_args.entity,_args.forceBodyRefresh);
 			}
-		});
-
-		$scope.$on("sendLayersBroadcast", function(_event, _args) {
-			$scope.layers = _args.layers;
 		});
 	};
 
@@ -607,19 +612,15 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	}
 
-	$scope.changeFont = function( _fontName ){
+	$scope.changeFont = function( ){
 		var font = $scope.currentEntity.fontWeight + " "
 				+ $scope.currentEntity.fontSize + "px "
 				+ $scope.currentEntity.fontName;
 		var style = $scope.currentEntity.style;
 		style.font = font;
 		$scope.currentEntity.setStyle(style);
-		//$scope.currentEntity.updateTransform();
 	}
 
-	$scope.changeBitmapFont = function( _fontName ){
-
-	}
 	//=========================================================
 	//					MODALS
 	//=========================================================

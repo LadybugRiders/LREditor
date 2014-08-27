@@ -435,7 +435,9 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 			};
 		//BITMAP TEXT
 		}else{
-			_object.textData = {text : _entity.text, fontSize:_entity.fontSize};
+			_object.textData = {text : _entity.text,
+								fontSize:_entity.fontSize,
+								font : _entity.font};
 		}
 
 		//stroke thickness
