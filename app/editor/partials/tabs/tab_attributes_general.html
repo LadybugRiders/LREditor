@@ -47,7 +47,7 @@
 </div>
 
 <!-- ANCHOR -->
-<div class="form-group">
+<div class="form-group" ng-show="data.type != 'bitmaptext'">
 	<label>Anchor</label>
 	<div class="row">
 		<div class="col-md-6">
@@ -76,7 +76,7 @@
 	</div>
 </div>
 
-<div ng-if="data.type != 'group' && data.type != 'text' " class="form-group">
+<div ng-if="data.type != 'group' && data.type != 'text' && data.type != 'bitmaptext' " class="form-group">
 	<!-- SIZE -->
 	<div class="form-group">
 		<label>Size</label>
@@ -105,7 +105,7 @@
 </div>
 
 <!-- Text Editing -->
-<div ng-if="data.type == 'text' " class="form-group">
+<div ng-if="data.type == 'text' || data.type == 'bitmaptext'" class="form-group">
 	<label> Text </label>
 	<div class="row">
 		<div class = "col-md-8">
@@ -120,21 +120,31 @@
 	</div>
 
 	<label> Font {{currentEntity._font}} </label>
-	<select ng-model="currentEntity.fontName" ng-change="changeFont()"
-                            ng-options="t as t for t in fonts" 
-                            class="form-control">
-                    </select>
+	<select ng-model="currentEntity.fontName" 
+			ng-change="changeFont()"
+            ng-options="t as t for t in fonts" 
+            ng-show ="data.type == 'text'"
+            class="form-control">
+    </select>
 
 	<label> Font Size </label>
 	<input type="number" ng-model="currentEntity.fontSize"
 			class="form-control" integer/>
 
 	<label> Color </label>
-	<input type = "color" ng-model="currentEntity.fill"
+	<!-- for text -->
+	<input type = "color" 
+			ng-model="currentEntity.fill"
+            ng-show ="data.type == 'text'"
 		class="form-control" />
 
-	<label> Stroke </label>
-	<div class="row">
+	<!-- for BITMAP text -->
+	<input type = "color" ng-model="currentEntity.ed_tintColor"
+            ng-show ="data.type == 'bitmaptext'"
+			ng-change = "changeTint()" class="form-control" />
+			
+	<label ng-show ="data.type == 'text'"> Stroke </label>
+	<div class="row" ng-show ="data.type == 'text'">
 		<div class = "col-md-4">
 			<input type = "number" ng-model="currentEntity.strokeThickness"
 				class="form-control" min="0" integer/>
@@ -145,7 +155,7 @@
 		</div>
 	</div>
 
-	<label> Wrap 
+	<label ng-show ="data.type == 'text'" > Wrap 
 		<input type="checkbox" ng-model="currentEntity.wordWrap"/>
 	</label>
 	<div class="row" ng-if="currentEntity.wordWrap">

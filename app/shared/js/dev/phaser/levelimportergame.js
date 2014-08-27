@@ -36,6 +36,7 @@ LR.LevelImporterGame.prototype.importAssets = function(_assets, _loader) {
 
 	this.importSounds(_assets.sounds, _loader);
 	this.importBehaviours(_assets.behaviours, _loader);
+	this.importBitmapFonts(_assets.bitmapFonts,_loader);
 };
 
 /**
@@ -61,6 +62,16 @@ LR.LevelImporterGame.prototype.importImages = function(_images, _loader) {
 LR.LevelImporterGame.prototype.importSounds = function(_sounds, _loader) {
 	for(var i=0; i < _sounds.length; i ++){
 		_loader.audio( _sounds[i].name,"assets/audios" + _sounds[i].path);
+	}
+}
+
+
+LR.LevelImporterGame.prototype.importBitmapFonts = function(_bitmapFonts, _loader) {
+	if( _bitmapFonts == null)
+		return;
+	for(var i=0; i < _bitmapFonts.length; i ++){
+		_loader.bitmapFont( _bitmapFonts[i].name,"assets/fonts" + _bitmapFonts[i].path, 
+							"assets/fonts" + _bitmapFonts[i].pathData);
 	}
 }
 

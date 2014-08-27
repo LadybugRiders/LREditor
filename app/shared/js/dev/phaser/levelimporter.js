@@ -197,9 +197,11 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 		_entity.width = _objectData.width;
 		_entity.height = _objectData.height;
 	}  
-	if(_objectData.type == "LR.Entity.Text"){
+	if(_objectData.type == "LR.Entity.Text" || _objectData.type == "LR.Entity.BitmapText"){
 		if (_objectData.textData) {
 			_entity.text = _objectData.textData.text;
+			if(_objectData.textData.fontSize)
+				_entity.fontSize = _objectData.textData.fontSize;
 			//Reset width after font settings are filled
 			_entity.updateTransform();
 		}

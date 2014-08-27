@@ -60,6 +60,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.project.assets.behaviours = new Array();
 		$scope.project.assets.prefabs = new Array();
 		$scope.project.assets.inputs = new Object();
+		$scope.project.assets.bitmapFonts = new Array();
 
 		//modal data for cutscenes edition
 		$scope.modalCSData = {
@@ -141,6 +142,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.loadCurrentProjectBehaviours();
 			$scope.loadCurrentProjectLayers();
 			$scope.loadCurrentProjectInputs();
+			$scope.loadCurrentProjectFonts();
 		}).error(function(_error) {
 			console.error(_error);
 		});
@@ -337,6 +339,22 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	};
 
 	/***********
+	** FONTS **
+	***********/
+
+	$scope.loadCurrentProjectFonts = function() {
+		var url = "/editorserverapi/v0/bitmapfont";
+		url += "?path=" + $scope.project.path + "/assets/fonts";
+		$http.get(url).success(function(_data) {
+			$scope.project.assets.bitmapFonts = _data.fonts;
+		}).error(function(_error) {
+			$scope.project.assets.bitmapFonts = new Array();
+			console.error(_error);
+		});
+
+	};
+
+	/***********
 	** INPUTS **
 	***********/
 
@@ -403,6 +421,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.addText = function() {
 		$scope.$emit("addTextEmit");
+	};
+
+	$scope.addBitmapText = function() {
+		$scope.$emit("addBitmapTextEmit");
 	};
 
 	/*******************

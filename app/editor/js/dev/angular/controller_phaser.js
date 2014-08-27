@@ -28,6 +28,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.project = _args.project;
 		});
 
+		//unused
+		$scope.$on("loadBitmapFontsBroadcast", function(_event, _args) {
+			$scope.loadBitmapFonts(_args.bitmapFonts);
+		});
+
 		//============ ADDING ENTITIES ===================
 
 		$scope.$on("addGroupBroadcast", function(_event) {
@@ -48,6 +53,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.$on("addTextBroadcast", function(_event) {
 			$scope.addText();
+		});
+
+		$scope.$on("addBitmapTextBroadcast", function(_event) {
+			$scope.addBitmapText();
 		});
 
 		//================== DELETE / CLONE / MISC ======================
@@ -154,6 +163,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.preload = function() {
+		$scope.loadBitmapFonts($scope.project.assets.bitmapFonts);
 		$scope.game.load.image("none", "assets/images/none.png");
 		$scope.game.load.image("__background", "assets/images/background.png");
 		$scope.game.load.image("__select", "assets/images/select.png");
@@ -355,6 +365,24 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.game.add.existing(text);
 	};
 
+	$scope.addBitmapText = function() {
+		if($scope.project.assets.bitmapFonts.length <= 0)
+			return;
+		var text = new LR.Entity.BitmapText($scope.game, 
+										$scope.game.camera.view.centerX, /* x */
+										$scope.game.camera.view.centerY, /* y */
+										$scope.project.assets.bitmapFonts[0].name,
+										"New Text", 64);
+		text.name = "BitmapText";
+		text.go.id = $scope.getID();
+		//add Input Handler, for dragging and other events
+		text.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(text.go, $scope));
+		text.ed_locked = false;
+		text.ed_fixedToCamera = false;
+		//Add to editor game
+		$scope.game.add.existing(text);
+	};
+
 	$scope.getID = function(){
 		$scope.ID_count ++;
 		return $scope.ID_count;
@@ -530,6 +558,15 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		}
 
 		return editorImage;
+	};
+
+	$scope.loadBitmapFonts = function(_bitmapFonts){
+		var fontsPath = $scope.project.path + "/assets/fonts";
+		for(var i=0; i < _bitmapFonts.length; i++){
+			$scope.game.load.bitmapFont( _bitmapFonts[i].name,
+									fontsPath + _bitmapFonts[i].path, 
+									fontsPath + _bitmapFonts[i].pathData);
+		}
 	};
 
 	//===================================================================

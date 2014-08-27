@@ -12,6 +12,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("sendProjectBroadcast", _args);
 		});
 
+		$scope.$on("loadBitmapFontsEmit", function(_event, _args) {
+			$scope.$broadcast("loadBitmapFontsBroadcast", _args);
+		});
+
 		//================== REFRESH ======================
 
 		$scope.$on("refreshListEmit", function(_event, _args) {
@@ -42,6 +46,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 
 		$scope.$on("addTextEmit", function(_event) {
 			$scope.$broadcast("addTextBroadcast");
+		});
+
+		$scope.$on("addBitmapTextEmit", function(_event) {
+			$scope.$broadcast("addBitmapTextBroadcast");
 		});
 
 		//================== CLONE & STUFF ======================

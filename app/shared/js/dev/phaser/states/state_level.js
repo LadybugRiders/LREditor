@@ -78,6 +78,8 @@ LR.State.StateLevel.prototype.create = function() {
 	} else {
 		console.error("No level");
 	}
+
+
 };
 
 LR.State.StateLevel.prototype.startGameOjects = function() {

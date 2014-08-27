@@ -21,6 +21,7 @@ LR.LevelUtilities.TYPE_SPRITE = "LR.Entity.Sprite";
 LR.LevelUtilities.TYPE_TILESPRITE = "LR.Entity.TileSprite";
 LR.LevelUtilities.TYPE_BUTTON = "LR.Entity.Button";
 LR.LevelUtilities.TYPE_TEXT = "LR.Entity.Text";
+LR.LevelUtilities.TYPE_BITMAPTEXT = "LR.Entity.BitmapText";
 LR.LevelUtilities.TYPE_GROUP = "LR.Entity.Group";
 LR.LevelUtilities.TYPE_PHASER_GROUP = "Phaser.Group";
 LR.LevelUtilities.TYPE_PHASER_WORLD = "Phaser.World";
@@ -47,7 +48,11 @@ LR.LevelUtilities.CreateEntityByType = function(_object, _game) {
 		}
 		entity = new LR.Entity.Text(_game, 0, 0, "", style);
 		_game.add.existing(entity);
-	} else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
+	} else if (_object.type === LR.LevelUtilities.TYPE_BITMAPTEXT) {
+		entity = new LR.Entity.BitmapText(_game, 0, 0,"brady_bunch",
+										"New Text", 64);
+		_game.add.existing(entity);
+	}else if (_object.type === LR.LevelUtilities.TYPE_PHASER_WORLD) {
 		//entity = new Phaser.World(_game);
 	}
 
@@ -69,6 +74,8 @@ LR.LevelUtilities.GetType = function(_object) {
 		type = LR.LevelUtilities.TYPE_GROUP;
 	} else if(_object.type == Phaser.TEXT){
 		type = LR.LevelUtilities.TYPE_TEXT;
+	} else if(_object.type == Phaser.BITMAPTEXT){
+		type = LR.LevelUtilities.TYPE_BITMAPTEXT;
 	} else if (_object instanceof Phaser.World) {
 		type = "Phaser.World";
 	}

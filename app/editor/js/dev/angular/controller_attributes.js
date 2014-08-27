@@ -111,6 +111,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				$scope.data.type = "group";
 			} else if ( _entity.type == Phaser.TEXT) {
 				$scope.data.type = "text";
+			} else if ( _entity.type == Phaser.BITMAPTEXT) {
+				$scope.data.type = "bitmaptext";
 			} else if ( _entity.type == Phaser.TILESPRITE) {
 				$scope.data.type = "tilesprite";
 			} else if ( _entity.type == Phaser.BUTTON) {
@@ -615,6 +617,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		//$scope.currentEntity.updateTransform();
 	}
 
+	$scope.changeBitmapFont = function( _fontName ){
+
+	}
 	//=========================================================
 	//					MODALS
 	//=========================================================

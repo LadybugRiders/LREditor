@@ -47,6 +47,7 @@ LR.LevelExporter.prototype.exportAssets = function(_game, _project) {
 	assets.images = this.exportImages(_game, _project);
 	assets.sounds = this.exportSounds(_game,_project);
 	assets.behaviours = this.exportBehaviours(_game, _project);
+	assets.bitmapFonts = _project.assets.bitmapFonts;
 
 	return assets;
 };
@@ -419,17 +420,23 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 		_object.locked = true;
 	}	
 
-	if (_object.type !== LR.LevelUtilities.TYPE_TEXT) {
+	if (_object.type !== LR.LevelUtilities.TYPE_TEXT && _object.type !== LR.LevelUtilities.TYPE_BITMAPTEXT) {
 		_object.width = _entity.width;
 		_object.height = _entity.height;
 	} else {
-		_object.textData = {
-			text : _entity.text,
-			style : {
-				font : _entity.style.font,
-				fill : _entity.style.fill
-			}
-		};
+		//TEXT
+		if(_object.type == LR.LevelUtilities.TYPE_TEXT){
+			_object.textData = {
+				text : _entity.text,
+				style : {
+					font : _entity.style.font,
+					fill : _entity.style.fill
+				}
+			};
+		//BITMAP TEXT
+		}else{
+			_object.textData = {text : _entity.text, fontSize:_entity.fontSize};
+		}
 
 		//stroke thickness
 		if(_entity.strokeThickness > 0){
@@ -487,7 +494,7 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 
 	// Tint Color
 	if( _object.type == "LR.Entity.TileSprite" || _object.type == "LR.Entity.Sprite"
-		|| _object.type == "LR.Entity.Button"
+		|| _object.type == "LR.Entity.Button" || _object.type == "LR.Entity.BitmapText"
 	 ) {
 		_object.tint = _entity.tint;
 	}

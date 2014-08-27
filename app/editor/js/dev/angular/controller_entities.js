@@ -68,6 +68,8 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 		var cpt = 0;
 		for (var i = _entity.children.length - 1; i >= 0; i--) {
 			var child = _entity.children[i];
+			if( child.name == null )
+				continue;
 			if ((child.name[0] == "_" && child.name[1] == "_") == false) {
 				cpt++;
 			}
