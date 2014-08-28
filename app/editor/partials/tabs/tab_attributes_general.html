@@ -172,6 +172,13 @@
 				class="form-control" min="0" integer/>
 		</div>
 	</div>
+
+	<label ng-show ="data.type == 'bitmaptext'" > Max Char By Line 
+		<input type = "number"
+				ng-model="currentEntity._maxCharPerLine"
+				ng-change="currentEntity.text = currentEntity.text"
+				class="form-control" min="0" integer/>
+	</label>
 </div>
 
 <!-- DEBUG -->

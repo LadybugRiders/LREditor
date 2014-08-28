@@ -52,13 +52,16 @@ Phaser.Plugin.PlayerSave.prototype.getSave = function(){
 }
 
 /**
-* Returns the save for the current level
+* Returns the save for the specified level
+* If none provided, returns the save for the current one
 *
 * @method getLevelSave
 * @return {Object}
 */
-Phaser.Plugin.PlayerSave.prototype.getLevelSave = function(){
-	var levelData = this.tempData[ this.game.state.getCurrentState().levelName ];
+Phaser.Plugin.PlayerSave.prototype.getLevelSave = function(_levelName){
+	if(_levelName == null)
+		_levelName = this.game.state.getCurrentState().levelName
+	var levelData = this.tempData[ _levelName ];
 	return levelData;
 }
 

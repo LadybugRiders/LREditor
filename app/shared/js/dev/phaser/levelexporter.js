@@ -438,6 +438,8 @@ LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
 			_object.textData = {text : _entity.text,
 								fontSize:_entity.fontSize,
 								font : _entity.font};
+			if(_entity.maxCharPerLine > 0)
+				_object.textData.maxChar = _entity.maxCharPerLine;
 		}
 
 		//stroke thickness

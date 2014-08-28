@@ -65,7 +65,7 @@ LR.Entity.BitmapText = function(_game, _x, _y, _key, _text, _size, _name) {
 	this.boundVariable = null;
 
 	/**
-	* FDfines the fixed count of digit you want if the text holds a number
+	* Defines the fixed count of digit you want if the text holds a number
 	* ie : with numberPadding == 3 , 6 will be displayed as "006"
 	*
 	* a value of 0 deactivates the padding
@@ -74,10 +74,36 @@ LR.Entity.BitmapText = function(_game, _x, _y, _key, _text, _size, _name) {
 	* @default 0
 	*/
 	this.numberPadding = 0;
+
+	/**
+	* Maximum number of characters on a line
+	* a value of 0 deactivates the wrapping
+	*
+	* @property maxCharPerLine
+	* @type number
+	* @default 0
+	*/
+	this._maxCharPerLine = 0;
+
+	this.lines = 0;
 };
 
 LR.Entity.BitmapText.prototype = Object.create(Phaser.BitmapText.prototype);
 LR.Entity.BitmapText.prototype.constructor = LR.Entity.BitmapText;
+
+Object.defineProperty(LR.Entity.BitmapText.prototype, "maxCharPerLine", 
+{
+	get : function(){
+		return this._maxCharPerLine;
+	},
+
+	set : function (_value) {
+		if( typeof _value == "number"){
+			this._maxCharPerLine = _value;
+			this.text = this.text;
+		}
+	}
+});
 
 /**
 * The defineProperty is overrided to enable auto number padding, prefix and suffix.
@@ -96,6 +122,9 @@ Object.defineProperty(LR.Entity.BitmapText.prototype, "text",
 			if( typeof value == "number" && this.numberPadding > 0){
 				_stringValue = this.pad( value, this.numberPadding );
 			}
+
+			if( this.maxCharPerLine > 0)
+				_stringValue = this.wrapText(_stringValue);
 
 	        if (_stringValue !== this._text)
 	        {
@@ -174,4 +203,36 @@ LR.Entity.BitmapText.prototype.pad = function(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;
     return s;
+}
+
+LR.Entity.BitmapText.prototype.wrapText = function(_string){	
+	if( _string.length < this.maxCharPerLine)
+		return _string;
+	
+	var s = "";
+	var array = _string.split(" ");
+	var i=0;
+	var count = 0;
+	this.lines = 0;
+	while( i< array.length ){
+		var word = array[i];
+		i++;
+		var newLineIndex = word.indexOf("\n");
+		if(newLineIndex >= 0){
+			count = word.length - newLineIndex + 1;
+		}else{
+			count += word.length + 1;
+		}
+
+		if( count >= this.maxCharPerLine && i < array.length){
+			count = 0;
+			s += "\n";
+			this.lines ++;
+		}
+
+		if(i < array.length) word += " ";
+
+		s+=word;
+	}
+	return s;
 }

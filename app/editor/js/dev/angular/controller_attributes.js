@@ -621,6 +621,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.currentEntity.setStyle(style);
 	}
 
+	$scope.changeMaxCharPerLine = function(){
+		
+	}
+
 	//=========================================================
 	//					MODALS
 	//=========================================================

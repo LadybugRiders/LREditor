@@ -211,7 +211,10 @@ LR.LevelImporter.prototype.setGeneral = function(_objectData, _entity) {
 			if(_objectData.textData.fontSize)
 				_entity.fontSize = _objectData.textData.fontSize;
 			if(_objectData.textData.font)
-				_entity.font = _objectData.textData.font;	
+				_entity.font = _objectData.textData.font;
+			if(_objectData.textData.maxChar)
+				_entity.maxCharPerLine = _objectData.textData.maxChar;
+			_entity.text = _objectData.textData.text;	
 			_entity.setStyle();	
 		}
 	}
