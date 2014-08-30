@@ -1,6 +1,6 @@
 "use strict";
 
-LR.Game = function(_containerId) {
+LR.Game = function(_containerId,_scaleMode) {
 	/*
 	* The Input Manager of LadybugRiders Engine
 	* 
@@ -26,6 +26,13 @@ LR.Game = function(_containerId) {
 
 		this.game.playerSave.loadSave(this.game.cache.getJSON("saveData"));
 
+		//Scale
+		if(this.scaleMode != null){
+			this.game.scale.scaleMode = this.scaleMode;
+			this.game.scale.setMaximum();
+			this.game.scale.refresh();
+		}
+
 		var stateBoot = new LR.State.StateBoot(this);
 		var stateLoader = new LR.State.StateLoader(this);
 		var stateLevel = new LR.State.StateLevel(this);
@@ -49,10 +56,18 @@ LR.Game = function(_containerId) {
 		preload: preload,
 		create: create,
 		update: update,
-		render: render
+		render: render,
+		scaleMode : _scaleMode
 	};
 
-	Phaser.Game.call(this, 640, 360, Phaser.AUTO, _containerId, functions);
+	var renderType = Phaser.AUTO;
+
+	var appVersion = window.navigator.appVersion;
+	if( appVersion.indexOf("android") >= 0 || appVersion.indexOf("iOS") >= 0)
+		renderType = Phaser.CANVAS;
+
+	Phaser.Game.call(this, 640, 360,
+					 renderType, _containerId, functions);
 }
 
 LR.Game.prototype = Object.create(Phaser.Game.prototype);
@@ -84,3 +99,4 @@ LR.Game.GetUrlParamValue = function(_param) {
 
 	return value;
 }
+
