@@ -225,14 +225,16 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	};
 
 	$scope.addBehaviour = function(_behaviour) {
+
 		if ($scope.currentEntity) {
 			if (_behaviour != null) {
+
 				if($scope.currentEntity.behaviours == null) {
 					$scope.currentEntity.behaviours = new Array();
 				}
-
+				// _behaviour is a string
 				try {
-					var clone = JSON.parse(JSON.stringify(_behaviour));
+					var clone = JSON.parse(_behaviour);
 					$scope.currentEntity.behaviours.push(clone);
 				} catch (e) {
 					console.error(e);

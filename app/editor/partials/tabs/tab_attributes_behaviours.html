@@ -27,7 +27,17 @@
 		<li class="list-group-item">
 			<div class="row">
 				<div class="col-md-8">
-					<select ng-model="selectedBehaviour" ng-options="behaviour.name for behaviour in data.behaviours" class="form-control">
+					<!--<select ng-model="selectedBehaviour" 
+							ng-options="behaviour.name for behaviour in data.behaviours 
+							class="form-control">
+					</select> -->
+					<select ng-model="selectedBehaviour">
+						<option value="{{behaviour}}" 
+								ng-show="bhSearchWord == null|| bhSearchWord =='' || 
+								behaviour.name.toUpperCase().indexOf(bhSearchWord.toUpperCase())>=0"
+								ng-repeat="behaviour in data.behaviours">
+							{{behaviour.name}}
+						</option>
 					</select>
 				</div>
 				<div class="col-md-4">
@@ -35,6 +45,13 @@
 				</div>
 			</div>
 		</li>
+
+		<div class="row">
+        	<div class="col-md-5">
+            	<input type="text" ng-model="bhSearchWord" class="form-control"/>
+        	</div>
+        	<span class="glyphicon glyphicon-search"></span>
+    	</div>
 		
 		<li class="list-group-item">
 			<div class="row">
