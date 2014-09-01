@@ -434,6 +434,30 @@ LR.GameObject.prototype.getBehaviour = function( _script ){
 }
 
 /**
+* Returns the requested behaviour attached to the GameObject or its children.
+* If more than one is attached, the first one is return. Use getBehaviours if you need them all
+* This could be expensive. Do not do this at every frame. 
+* @method getBehaviourInChildren
+* @param {Behaviour} behaviour The behaviour class
+* @returns {Behaviour} the behaviour, or null if not found
+*/
+LR.GameObject.prototype.getBehaviourInChildren = function( _script ){
+	for(var i = 0 ; i < this.behaviours.length; i++){
+		if(this.behaviours[i] instanceof _script)
+			return this.behaviours[i];
+	}
+
+	if( this.entity.children ){
+		for( var i=0; i < this.entity.children.length; i++){
+			var script = this.entity.children[i].go.getBehaviourInChildren(_script);
+			if( script )
+				return script;
+		}
+	}
+	return null;
+}
+
+/**
 * Returns all the requested behaviours attached to the object. 
 * This could be expensive. Do not do this at every frame. 
 * @method getBehaviour
