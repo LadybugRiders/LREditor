@@ -496,8 +496,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.computeGravityPoint = function(){
 	var point = new Phaser.Point();
 	for(var i=0; i < this.targets.length; i++){
 		var target = this.targets[i];
-		point.x = target.entity.x;
-		point.y = target.entity.y;
+		point.x = target.entity.world.x;
+		point.y = target.entity.world.y;
 	}
 	point.x /= this.targets.length;
 	point.y /= this.targets.length;
@@ -509,8 +509,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.computeGravityPoint = function(){
 	//Recompute new Offsets
 	for(var i=0; i < this.targets.length; i++){
 		var target = this.targets[i];
-		target.offset.x = target.entity.x - this.axisX.x;
-		target.offset.y = target.entity.y - this.axisX.y;
+		target.offset.x = target.entity.world.x - this.axisX.x;
+		target.offset.y = target.entity.world.y - this.axisX.y;
 	}
 
 }

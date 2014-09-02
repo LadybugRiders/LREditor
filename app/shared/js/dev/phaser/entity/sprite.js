@@ -23,6 +23,10 @@ LR.Entity.Sprite = function(_game, _x, _y, _texture, _name) {
 	}else{
 		this.go.name = _texture;
 	}
+	this.localPosition = new Phaser.Point();
+
+	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
+
 };
 
 LR.Entity.Sprite.prototype = Object.create(Phaser.Sprite.prototype);
@@ -45,7 +49,9 @@ LR.Entity.Sprite.prototype.update = function() {
 };
 
 LR.Entity.Sprite.prototype.postUpdate = function() {
+
 	Phaser.Sprite.prototype.postUpdate.call(this);
+
 	if (this.go) {
 		if (this.exists) {
 			this.go.postUpdate();
@@ -65,4 +71,15 @@ LR.Entity.Sprite.prototype.destroy = function() {
 		this.go.destroy();
 	}
 	Phaser.Sprite.prototype.destroy.call(this);
+};
+
+LR.Entity.Sprite.prototype.updateTransform = function() {
+	Phaser.Sprite.prototype.updateTransform.call(this);
+};
+
+// Called when the scene is launching. All objects are created then.
+LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {
+	if(this.body){
+		this.body.onSpriteAddedToGroup(_sprite,_group);
+	}
 };

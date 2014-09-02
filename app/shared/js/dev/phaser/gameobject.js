@@ -124,7 +124,6 @@ LR.GameObject.prototype.postUpdate = function() {
 			for( var i = 0; i < this.behaviours.length; i++){
 				if( this.behaviours[i] === bh){
 					this.behaviours.splice(i,1);
-					console.log("splice " + i )
 				}
 			}
 		}
@@ -176,9 +175,14 @@ LR.GameObject.prototype.destroy = function() {
 */
 LR.GameObject.prototype.enablePhysics = function(_motionState,_layer,_width,_height){
 	if( this.body == null){
-		this.game.physics.p2.enable(this.entity);
+		if (this.entity.hasOwnProperty('body') && this.entity.body === null)
+        {
+            this.entity.body = new LR.Body(this.game, this.entity, this.entity.x, this.entity.y, 1);
+            this.entity.anchor.set(0.5);
+        }
 		this.body.data.shapes[0].lr_name = "mainShape";
 	}
+
 	this.body.go = this;
 	this.body.debug = this.debugBounds;
 	// Set Motion State
@@ -192,6 +196,8 @@ LR.GameObject.prototype.enablePhysics = function(_motionState,_layer,_width,_hei
 	}
 	return this.entity.body;
 }
+
+
 
 /**
 * Removes the body from the world 

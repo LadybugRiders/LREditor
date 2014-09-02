@@ -33,7 +33,7 @@
 
 <!-- POSITION -->
 <div class="form-group">
-	<label>Position</label>
+	<label>Position [ {{ currentEntity.world.x}}, {{currentEntity.world.y}} ]</label>
 	<div class="row">
 		<div class="col-md-6">
 			<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)"
