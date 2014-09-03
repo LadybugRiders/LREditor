@@ -465,6 +465,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.placeTargets = function(){
 }
 
 // This will place the targetted object at its right place, according to the handle position
+//@param {LR.Entity} _target
 LR.Editor.Behaviour.EntityHandle.prototype.placeTarget = function(_target,_selectSprite,_offset){
 	if( _offset == null )
 		_offset = new Phaser.Point();
@@ -477,9 +478,15 @@ LR.Editor.Behaviour.EntityHandle.prototype.placeTarget = function(_target,_selec
         _target.cameraOffset.x = this.axisX.x - rectObject.graphicsData[0].points[0];
         _target.cameraOffset.y = this.axisX.y - rectObject.graphicsData[0].points[1];
 	}else{		
+		var localX = this.axisX.world.x;
+		var localY = this.axisX.world.y;
+		if( _target.parent.world){
+			localX -= _target.parent.world.x;
+			localY -= _target.parent.world.y;
+		}
 		//place Target with its offset
-		_target.go.setPosition(this.axisX.x + _offset.x ,
-								this.axisX.y + _offset.y );
+		_target.go.setPosition(localX + _offset.x ,
+								localY + _offset.y );
 	}
 
 }

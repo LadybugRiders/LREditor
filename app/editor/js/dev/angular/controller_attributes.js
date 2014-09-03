@@ -72,6 +72,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	//================================================================
 
 	$scope.setX = function(_x){
+		if( typeof _x != "number")
+			return;
 		if( $scope.currentEntity && $scope.currentEntity.go){
 			if( $scope.currentEntity.ed_fixedToCamera){
 				$scope.currentEntity.cameraOffset.x = _x;
@@ -82,10 +84,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	};
 
 	$scope.setY = function(_y){
+		if( typeof _y != "number")
+			return;
 		if( $scope.currentEntity && $scope.currentEntity.go ){
 			if( $scope.currentEntity.ed_fixedToCamera){
 				$scope.currentEntity.cameraOffset.y = _y;
-			}else{				
+			}else{		
 				$scope.currentEntity.go.y = _y;
 			}
 		}

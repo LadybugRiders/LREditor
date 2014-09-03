@@ -6,6 +6,8 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 	Phaser.Physics.P2.Body.call(this,_game,_sprite,_x,_y,_mass);
 
 	this.worldPosition = new Phaser.Point();
+
+	this.bindRotation = true;
 }
 
 LR.Body.prototype = Object.create(Phaser.Physics.P2.Body.prototype);
@@ -13,8 +15,8 @@ LR.Body.prototype.constructor = LR.Body;
 
 LR.Body.prototype.postUpdate = function () {
 
-	this.localPosition.x += (this.x - this.lastPosition.x) ;
-	this.localPosition.y += (this.y - this.lastPosition.y);
+	this.localPosition.x += (this.worldX - this.lastPosition.x) ;
+	this.localPosition.y += (this.worldY - this.lastPosition.y);
 
 	//try getting world Postion of the parent
 	var worldPos = new Phaser.Point();
@@ -54,10 +56,53 @@ LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {
 };
 
 /**
-* @name Phaser.Physics.P2.Body#x
-* @property {number} x - The x coordinate of this Body.
+* The local x coordinate of the body
+*
+* @property x
+* @type {Number}
 */
 Object.defineProperty(LR.Body.prototype, "x", {
+
+    get: function () {
+
+        return this.localPosition.x;
+
+    },
+
+    set: function (value) {
+
+    	this.localPosition.x = value;
+    }
+
+});
+
+/**
+* The local y coordinate of the body
+*
+* @property y
+* @type {Number}
+*/
+Object.defineProperty(LR.Body.prototype, "y", {
+
+    get: function () {
+
+        return this.localPosition.y;
+
+    },
+
+    set: function (value) {
+    	this.localPosition.y = value;
+    }
+
+});
+
+/**
+* The world x coordinate of the body
+*
+* @property worldX
+* @type {Number}
+*/
+Object.defineProperty(LR.Body.prototype, "worldX", {
 
     get: function () {
 
@@ -66,12 +111,20 @@ Object.defineProperty(LR.Body.prototype, "x", {
     },
 
     set: function (value) {
+    	if( _sprite.parent.world)
+    		value -= _sprite.parent.world.x;
     	this.localPosition.x = value;
     }
 
 });
 
-Object.defineProperty(LR.Body.prototype, "y", {
+/**
+* The world y coordinate of the body
+*
+* @property worldY
+* @type {Number}
+*/
+Object.defineProperty(LR.Body.prototype, "worldY", {
 
     get: function () {
 
@@ -80,6 +133,8 @@ Object.defineProperty(LR.Body.prototype, "y", {
     },
 
     set: function (value) {
+    	if( _sprite.parent.world)
+    		value -= _sprite.parent.world.y;
     	this.localPosition.y = value;
     }
 
