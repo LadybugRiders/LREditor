@@ -1,20 +1,39 @@
 "use strict";
 
+/**
+* The extended version of Phaser.Physics.P2.Body
+* Used for physics instead of Phaser.Physics.P2.Body
+*
+* @class LR.Body
+* @constructor
+* @param {_game} param_description
+*/
 LR.Body = function (_game, _sprite, _x, _y, _mass){
+	/**
+	* The local position of the body in its parent reference
+	*
+	* @property localPosition
+	* @type {Phaser.Point}
+	*/
 	this.localPosition = new Phaser.Point(_x,_y);
 	this.lastPosition = new Phaser.Point(_x,_y);
 	Phaser.Physics.P2.Body.call(this,_game,_sprite,_x,_y,_mass);
 
 	this.worldPosition = new Phaser.Point();
 
-	this.bindRotation = true;
+	//Tells if the sprite can rotate indepently from its body
+	this._bindRotation = false;
+
+	//offset to add to the sprite angle if bound
+	this._offsetRotation = 30;
 }
 
 LR.Body.prototype = Object.create(Phaser.Physics.P2.Body.prototype);
 LR.Body.prototype.constructor = LR.Body;
 
 LR.Body.prototype.postUpdate = function () {
-
+	//Add delta between the last body world position and the new one
+	//to the localPosition
 	this.localPosition.x += (this.worldX - this.lastPosition.x) ;
 	this.localPosition.y += (this.worldY - this.lastPosition.y);
 
@@ -25,7 +44,7 @@ LR.Body.prototype.postUpdate = function () {
 		worldPos.y = this.sprite.parent.world.y;
 	}
 
-	//compute world position from parentWorldPos + local Body position
+	//compute new world position from parentWorldPos + local Body position
 	this.worldPosition.x = worldPos.x + this.localPosition.x;
 	this.worldPosition.y = worldPos.y + this.localPosition.y;
 
@@ -41,9 +60,9 @@ LR.Body.prototype.postUpdate = function () {
 	this.lastPosition.x = this.worldPosition.x;
 	this.lastPosition.y = this.worldPosition.y;
 
-    if (!this.fixedRotation)
+    if (!this.fixedRotation && this.bindRotation)
     {
-        this.sprite.rotation = this.data.angle;
+        this.sprite.rotation = this.data.angle + this._offsetRotation;
     }
 
 }
@@ -136,6 +155,27 @@ Object.defineProperty(LR.Body.prototype, "worldY", {
     	if( _sprite.parent.world)
     		value -= _sprite.parent.world.y;
     	this.localPosition.y = value;
+    }
+
+});
+/**
+* Tells if the sprite can rotate indepently from its body
+*
+* @property bindRotation
+* @type boolean
+* @default false
+*/
+Object.defineProperty(LR.Body.prototype, "bindRotation", {
+
+    get: function () {
+        return this._bindRotation;
+    },
+
+    set: function (value) {
+    	
+    	this._bindRotation = value;
+    	if(value == true && this._bindRotation == false)
+    		this._offsetRotation = this.sprite.angle;
     }
 
 });

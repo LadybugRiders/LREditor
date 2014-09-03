@@ -166,6 +166,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 						};
 					$scope.data.body.shapes.push(edDataShape);
 				}
+				$scope.data.body.bindRotation = _entity.body.bindRotation;
 			}
 			//text
 			if( $scope.data.type == 'text' ){
@@ -610,6 +611,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	}
 
+	$scope.bindRotation = function(){
+		$scope.currentEntity.body.bindRotation = $scope.data.body.bindRotation;
+	}
 	//=========================================================
 	//					TEXT
 	//=========================================================

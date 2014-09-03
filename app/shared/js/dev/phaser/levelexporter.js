@@ -530,6 +530,9 @@ LR.LevelExporter.prototype.setPhysics = function(_entity, _object) {
 	_object.body.angle = _entity.body.angle;
 	_object.body.gravity = _entity.body.data.gravityScale;
 	_object.body.mass = _entity.body.data.mass;
+	_object.body.bindRotation = _entity.body.bindRotation;
+	if( _entity.body.bindRotation )
+		_object.body.offsetRotation = _entity.body._offsetRotation;
 	_object.body.debug = _entity.body.ed_debugEditor;
 
 	//export shapes

@@ -43,6 +43,14 @@
 					<input type="checkbox" ng-model="currentEntity.body.ed_fixedRotation"/>
 				</div>
 
+				<div>
+					<label>Bind Rotation </label>
+					<input type="checkbox" 
+							ng-model="data.body.bindRotation"
+							ng-change="bindRotation()"
+					/>
+				</div>
+
 				<div class="row">
 					<label class="col-md-3">Angle</label>
 					<input type="number" ng-model="currentEntity.body.angle" 

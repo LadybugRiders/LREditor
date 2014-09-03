@@ -296,6 +296,10 @@ LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
 	_entity.body.data.gravityScale = _objectData.body.gravity;
 	_entity.body.data.mass = _objectData.body.mass;
 
+	_entity.body.bindRotation = _objectData.body.bindRotation || false;
+	if( _entity.body.bindRotation ){
+		_entity.body._offsetRotation = _objectData.body.offsetRotation;
+	}
 	// go through the shapes data and create real shapes
 	for( var i=0; i < _objectData.body.shapes.length ; i++){
 		var shapeData = _objectData.body.shapes[i];

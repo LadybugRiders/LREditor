@@ -99,8 +99,15 @@
 		integer/>
 	</div>
 	<div ng-if="currentEntity.body != null">
-		<input type="number" ng-model="currentEntity.body.angle" class="form-control"
-		integer/>
+		<div ng-if="currentEntity.body._bindRotation == true">
+			<input type="number" ng-model="currentEntity.body.angle" class="form-control"
+			integer/>
+		</div>
+
+		<div ng-if="currentEntity.body._bindRotation == false">
+			<input type="number" ng-model="currentEntity.angle" class="form-control"
+			integer/>
+		</div>
 	</div>
 </div>
 
