@@ -19,6 +19,9 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 	this.lastPosition = new Phaser.Point(_x,_y);
 	Phaser.Physics.P2.Body.call(this,_game,_sprite,_x,_y,_mass);
 
+    this.localRotation = 0;
+    this.localRotationOffset = new Phaser.Point();
+
 	this.worldPosition = new Phaser.Point();
 
 	//Tells if the sprite can rotate indepently from its body
@@ -42,11 +45,14 @@ LR.Body.prototype.postUpdate = function () {
 	if(this.sprite.parent != this.sprite.game.world){
 		worldPos.x = this.sprite.parent.world.x;
 		worldPos.y = this.sprite.parent.world.y;
-	}
+        //rotate
+        var posR = LR.Utils.rotatePoint(this.localPosition,this.sprite.parent.worldAngle);
+        this.localRotationOffset = Phaser.Point.subtract( posR , this.localPosition );
+   	}
 
 	//compute new world position from parentWorldPos + local Body position
-	this.worldPosition.x = worldPos.x + this.localPosition.x;
-	this.worldPosition.y = worldPos.y + this.localPosition.y;
+	this.worldPosition.x = worldPos.x + this.localPosition.x + this.localRotationOffset.x;
+	this.worldPosition.y = worldPos.y + this.localPosition.y + this.localRotationOffset.y;
 
 	//affect P2 body world position
 	this.data.position[0] = this.game.physics.p2.pxmi(this.worldPosition.x);			
@@ -60,8 +66,10 @@ LR.Body.prototype.postUpdate = function () {
 	this.lastPosition.x = this.worldPosition.x;
 	this.lastPosition.y = this.worldPosition.y;
 
-    if (!this.fixedRotation && this.bindRotation)
-    {
+    //ROTATION
+    this.data.angle = this.sprite.parent.worldAngle * Math.PI / 180;
+
+    if (!this.fixedRotation && this.bindRotation){
         this.sprite.rotation = this.data.angle + this._offsetRotation;
     }
 

@@ -178,6 +178,7 @@ LR.GameObject.prototype.enablePhysics = function(_motionState,_layer,_width,_hei
 		if (this.entity.hasOwnProperty('body') && this.entity.body === null)
         {
             this.entity.body = new LR.Body(this.game, this.entity, this.entity.x, this.entity.y, 1);
+            //this.entity.game.physics.p2.enable(this.entity,false);
             this.entity.anchor.set(0.5);
         }
 		this.body.data.shapes[0].lr_name = "mainShape";
@@ -791,7 +792,7 @@ Object.defineProperty( LR.GameObject.prototype, "velocityX",
 		get : function(){
 			if( this.entity.body == null)
 				return 0;
-			return this.entity.game.physics.p2.mpxi(this.entity.body.velocity.x);
+			return this.entity.body.velocity.x;
 		}
 	}
 );
@@ -807,7 +808,7 @@ Object.defineProperty( LR.GameObject.prototype, "velocityY",
 		get : function(){
 			if( this.entity.body == null)
 				return 0;
-			return this.entity.game.physics.p2.mpxi(this.entity.body.velocity.y);
+			return this.entity.body.velocity.y;
 		}
 	}
 );
