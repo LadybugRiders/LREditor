@@ -851,6 +851,7 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 
 /**
 * Launch the specified tween if previously added.
+* If there are many target in the properties, many tweens will be launched
 * 
 * @method launchTween
 * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
@@ -878,6 +879,10 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 		//Create,add, and launch the tween
     	var targetData = LR.Utils.getPropertyByString(this.entity,key);
     	var createdTween = this.entity.game.add.tween( targetData.object );
+    	//Callback handling
+    	createdTween.onComplete.add(this.onTweenComplete,this);
+    	targetData.object.lr_tweenName = _tweenName;
+    	//
     	var newProp = {};
     	newProp[targetData.property] = props[key];
     	//process relativeness . If a tween is marked as relative, the movement on x & y will be computed from the gameobject's current position
@@ -891,6 +896,19 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
     	//keep reference
     	tweensObject[key] = createdTween;
     }
+}
+
+LR.GameObject.prototype.onTweenComplete = function(_target){
+	if(_target.lr_tweenName){
+		var tweens = this.tweensData[_target.lr_tweenName].tweensObject;
+		for(var key in tweens){
+			if(! tweens[key].isRunning){
+				this.entity.game.tweens.remove(tweens[key]);
+				tweens[key] == null;
+				delete tweens[key];
+			}
+		}
+	}
 }
 
 //============================================================
