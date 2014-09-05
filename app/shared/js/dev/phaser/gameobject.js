@@ -87,6 +87,8 @@ LR.GameObject = function(_entity) {
 
 	//behaviours to remove
 	this._behavioursToRemove = new Array();
+
+	this.tweensData = new Object();
 };
 
 LR.GameObject.prototype.constructor = LR.GameObject;
@@ -823,6 +825,72 @@ LR.GameObject.prototype.changeParent = function(_newParent){
 	var oldParent = this.entity.parent;
 	oldParent.remove(this.entity);
 	_newParent.add(this.entity);
+}
+
+
+//============================================================
+//						TWEEN
+//============================================================
+
+/**
+* Adds a tween with the data specified
+* example of input data : { "properties":{"body.x":100},"duration": 1000 ...etc..}
+*
+* @method addTween
+* @param {Object} tweenData Object containing the tween properties
+*/
+LR.GameObject.prototype.addTween = function( _tweenData ){
+	this.tweensData[_tweenData.name] = new Object();
+	this.tweensData[_tweenData.name].data = JSON.parse( JSON.stringify( _tweenData) );
+	this.tweensData[_tweenData.name].tweensObject = new Object();
+
+	if(_tweenData.autoStart == true){
+		this.launchTween(_tweenData.name);
+	}
+}
+
+/**
+* Launch the specified tween if previously added.
+* 
+* @method launchTween
+* @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
+*/
+LR.GameObject.prototype.launchTween = function(_tweenName){
+	//Get tween  
+	var tweenData = this.tweensData[_tweenName].data;
+	var tweensObject = this.tweensData[_tweenName].tweensObject;
+	//convert its properties
+	var props = null;
+	try{
+		props = JSON.parse(tweenData.properties);
+	}catch(e){
+		console.error("Invalid JSON properties");
+		return;
+	}
+	//Go throught all properties and launch tweens in editor
+	//In the properties we may have several target, so we have to launch a tween
+	//for each different target
+	for(var key in props){
+		//Remove a possible running tween
+		if(tweensObject.hasOwnProperty(key) && tweensObject[key].isRunning ){
+			this.entity.game.tween.remove(tweensObject[key]);
+		}
+		//Create,add, and launch the tween
+    	var targetData = LR.Utils.getPropertyByString(this.entity,key);
+    	var createdTween = this.entity.game.add.tween( targetData.object );
+    	var newProp = {};
+    	newProp[targetData.property] = props[key];
+    	//process relativeness . If a tween is marked as relative, the movement on x & y will be computed from the gameobject's current position
+		if( tweenData.relative == true ){
+			newProp[targetData.property] += targetData.object[targetData.property];
+		}
+		//console.log(tweenData);
+		if( tweenData.repeat < 0)
+			tweenData.repeat = Number.MAX_VALUE;
+    	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, tweenData.repeat - 1, tweenData.yoyo);
+    	//keep reference
+    	tweensObject[key] = createdTween;
+    }
 }
 
 //============================================================

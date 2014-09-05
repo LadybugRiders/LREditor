@@ -418,11 +418,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	tween.name = _tweenName;
     	tween.properties = "{}";
     	tween.duration = 1000;
-    	tween.easing = null;
-    	tween.delay = 0;
-    	tween.repeat = 0;
-    	tween.yoyo = false;
-    	tween.relative = true;
+    	tween.easing = null; tween.delay = 0;
+    	tween.repeat = 0; tween.yoyo = false;
+    	tween.relative = true; tween.autoStart = true;
     	$scope.currentEntity.ed_tweens.push(tween);
     }
 
