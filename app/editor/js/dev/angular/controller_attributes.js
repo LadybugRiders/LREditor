@@ -410,27 +410,26 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     //================= TWEENS ======================================
 
     $scope.addTween = function(_tweenName){
-    	if( $scope.currentEntity.ed_tweens == null )
-    		$scope.currentEntity.ed_tweens = new Array();
     	if( _tweenName == null)
-    		_tweenName = "tween" + $scope.currentEntity.ed_tweens.length + 1;
+    		_tweenName = "tween" + (Object.keys($scope.currentEntity.go.tweensData).length + 1);
     	var tween = new Object();
     	tween.name = _tweenName;
     	tween.properties = "{}";
     	tween.duration = 1000;
     	tween.easing = null; tween.delay = 0;
     	tween.repeat = 0; tween.yoyo = false;
-    	tween.relative = true; tween.autoStart = true;
-    	$scope.currentEntity.ed_tweens.push(tween);
+    	tween.relative = true; tween.autoStart = false;
+    	$scope.currentEntity.go.addTween(tween);
     }
 
-    $scope.removeTween = function(_index){
-    	$scope.currentEntity.ed_tweens.splice(_index,1);
+    $scope.removeTween = function(_name){
+    	if( $scope.currentEntity.go.tweensData.hasOwnProperty(_name))
+    		delete $scope.currentEntity.go.tweensData[_name];
     }
 
-    $scope.playTween = function(_index){
+    $scope.playTween = function(_name){
     	//Get tween and convert its properties
-    	var tween = $scope.currentEntity.ed_tweens[_index];
+    	var tween = $scope.currentEntity.go.tweensData[_name].data;
     	var props = null;
     	try{
     		props = JSON.parse(tween.properties);

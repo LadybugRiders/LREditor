@@ -3,48 +3,58 @@
 	<ul class="list-group">
 		<li class="list-group-item">
 			<accordion>
-				<accordion-group ng-repeat="tween in currentEntity.ed_tweens" heading="{{tween.name}}">
+				<accordion-group ng-repeat="(key, tween) in currentEntity.go.tweensData" heading="{{key}}">
 					<label>Properties</label>
 					<div class="row">
 						<div class="form-group col-md-10">
-							<input json-text type="text" ng-model="tween.properties" class="form-control" ng-disabled="true"/>
+							<input json-text type="text" ng-model="tween.data.properties" class="form-control" ng-disabled="true"/>
 						</div>
 						<div class="form-group col-md-2">
-							<button ng-click="openEditModal(tween,'properties')" type="button" class="btn btn-default">
+							<button ng-click="openEditModal(tween.data,'properties')" type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-pencil"></span>
 							</button>
 						</div>
 					</div>
 					<div class="row">
 						<label class="col-md-4"> Duration </label>
-						<input type ="number" class="col-md-4" ng-model="tween.duration" integer/>
+						<input type ="number" class="col-md-4" ng-model="tween.data.duration" integer/>
 						<label class="col-md-2"> ms </label>
 					</div>
 					<div class="row">
 						<label class="col-md-4"> Delay </label>
-						<input type ="number" class="col-md-4" ng-model="tween.delay" integer/>
+						<input type ="number" class="col-md-4" ng-model="tween.data.delay" integer/>
 						<label class="col-md-4"> ms </label>
 					</div>
 					<div class="row">
 						<label class="col-md-4"> Times </label>
-						<input type ="number" class="col-md-4" ng-model="tween.repeat" integer/>
+						<input type ="number" class="col-md-4" ng-model="tween.data.repeat" integer/>
 						<small class="col-md-4"> (-1 == inf) </small>
 					</div>
 					<div class="row">
 						<label class="col-md-4"> Yoyo </label>
-						<input type ="checkbox" class="col-md-1" ng-model="tween.yoyo" />
+						<input type ="checkbox" class="col-md-1" ng-model="tween.data.yoyo" />
 					</div>
 					<div class="row">
 						<label class="col-md-4"> Relative </label>
-						<input type ="checkbox" class="col-md-1" ng-model="tween.relative" />
+						<input type ="checkbox" class="col-md-1" ng-model="tween.data.relative" />
 					</div>
 					<div class="row">
 						<label class="col-md-4"> AutoStart </label>
-						<input type ="checkbox" class="col-md-1" ng-model="tween.autoStart" />
+						<input type ="checkbox" class="col-md-1" ng-model="tween.data.autoStart" />
+					</div>
+					<div class="row">
+						<label class="col-md-4"> Chain </label>
+						<input type ="checkbox" class="col-md-1" ng-model="tween.chained" />
+						<select 
+							class="col-md-9"
+							ng-model="tween.data.chain" 
+                            ng-options="key as key for (key,value) in currentEntity.go.tweensData"
+                            ng-show="tween.chained==true">
+                    	</select>
 					</div>
 					<!-- Play / Stop-->
 					<div class="row">
-						<button ng-click="playTween($index)"> 
+						<button ng-click="playTween(key)"> 
 							<span class="glyphicon glyphicon-play"></span>
 						</button>
 						<button ng-click="stopTweens()"> 
@@ -52,7 +62,7 @@
 						</button>
 					</div>
 					<div class="row">
-						<button ng-click="removeTween($index)" type="button" class="btn btn-danger">
+						<button ng-click="removeTween(key)" type="button" class="btn btn-danger">
 							Delete
 						</button>
 					</div>

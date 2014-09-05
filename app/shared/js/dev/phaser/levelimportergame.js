@@ -183,9 +183,9 @@ LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
 LR.LevelImporterGame.prototype.setTweens = function(_objectData, _entity) {
 	if( _objectData.tweens != null ){
 		var tweens = JSON.parse( JSON.stringify(_objectData.tweens)) ;
-		for(var i=0; i < tweens.length; i ++){
+		for(var key in tweens){
 			//Get tween and convert its properties
-    		_entity.go.addTween( tweens[i] );
+    		_entity.go.addTween( tweens[key] );
     	}
 	}
 };

@@ -857,6 +857,11 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
 */
 LR.GameObject.prototype.launchTween = function(_tweenName){
+	var launchedTweens = new Array();
+	if(! this.tweensData.hasOwnProperty(_tweenName)){
+		console.error( "Tween " + _tweenName + " not found on " + this.name + "[" + this.id + "]");
+		return launchedTweens;
+	}
 	//Get tween  
 	var tweenData = this.tweensData[_tweenName].data;
 	var tweensObject = this.tweensData[_tweenName].tweensObject;
@@ -866,7 +871,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 		props = JSON.parse(tweenData.properties);
 	}catch(e){
 		console.error("Invalid JSON properties");
-		return;
+		return launchedTweens;
 	}
 	//Go throught all properties and launch tweens in editor
 	//In the properties we may have several target, so we have to launch a tween
@@ -895,18 +900,35 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
     	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, tweenData.repeat - 1, tweenData.yoyo);
     	//keep reference
     	tweensObject[key] = createdTween;
+    	launchedTweens.push(createdTween);
     }
+	return launchedTweens;
 }
 
 LR.GameObject.prototype.onTweenComplete = function(_target){
 	if(_target.lr_tweenName){
 		var tweens = this.tweensData[_target.lr_tweenName].tweensObject;
+		var tweenData = this.tweensData[_target.lr_tweenName].data;
 		for(var key in tweens){
-			if(! tweens[key].isRunning){
+			if( tweens[key]!=null && ! tweens[key].isRunning){
 				this.entity.game.tweens.remove(tweens[key]);
 				tweens[key] == null;
 				delete tweens[key];
 			}
+		}
+		if( tweenData.chain != null && tweenData.chain != ""){
+			this.launchTween(tweenData.chain);
+		}
+	}
+}
+
+LR.GameObject.prototype.stopTween = function(_tweenName){
+	var tweens = this.tweensData[_tweenName].tweensObject;
+	for(var key in tweens){
+		if( tweens.hasOwnProperty(key) ){
+			this.entity.game.tweens.remove(tweens[key]);
+			tweens[key] == null;
+			delete tweens[key];
 		}
 	}
 }

@@ -200,8 +200,12 @@ LR.Editor.LevelImporterEditor.prototype.setBehaviours = function(_objectData, _e
 };
 
 LR.Editor.LevelImporterEditor.prototype.setTweens = function(_objectData, _entity) {
-	if( _objectData.tweens != null )
-		_entity.ed_tweens = jQuery.extend(true, [], _objectData.tweens);
+	if( _objectData.tweens != null ){
+		var tweens = JSON.parse( JSON.stringify(_objectData.tweens)) ;
+		for(var key in tweens){
+			_entity.go.tweensData[key] = {data:tweens[key]};
+		}
+	}
 };
 
 LR.Editor.LevelImporterEditor.prototype.setSounds = function(_objectData, _entity) {

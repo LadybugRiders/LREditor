@@ -563,9 +563,19 @@ LR.LevelExporter.prototype.setBehaviours = function(_entity, _object) {
 };
 
 LR.LevelExporter.prototype.setTweens = function(_entity, _object) {
-	if( _entity.ed_tweens != null && _entity.ed_tweens.length > 0)
-		_object.tweens = JSON.parse( JSON.stringify(_entity.ed_tweens));
+	
+	if(_entity.go != null && _entity.go.tweensData != null 
+		&& Object.keys(_entity.go.tweensData).length > 0){
+		_object.tweens = new Object();
+		for(var key in _entity.go.tweensData){
+			_object.tweens[key] = JSON.parse( 
+										JSON.stringify(
+											_entity.go.tweensData[key].data
+										)
+									);
 
+		}
+	}
 	return _object;
 };
 
