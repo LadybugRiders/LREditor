@@ -510,8 +510,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.addBodyToCurrentEntity = function(){
 		if( $scope.currentEntity && $scope.currentEntity.go ){
-			//console.log("AddBody");
+			
+			//P2 crash when adding a body onto a sprite with scales < 0
+			//so we need a workaround. we'll temporarily change its scale beforce adding the body
+			var scale = { x : $scope.currentEntity.scale.x, y : $scope.currentEntity.scale.y};
+			if( scale.x < 0 ) $scope.currentEntity.scale.x *= -1;
+			if( scale.y < 0 ) $scope.currentEntity.scale.y *= -1;
+
 			$scope.currentEntity.go.enablePhysics(Phaser.Physics.P2.Body.DYNAMIC);
+
+			//Rescale after sprite workaround
+			$scope.currentEntity.scale.x = scale.x; $scope.currentEntity.scale.y = scale.y;
+	
+			$scope.currentEntity.go.enablePhysics();
 			$scope.currentEntity.go.enableSensor();
 			$scope.currentEntity.body.debug = true;
 

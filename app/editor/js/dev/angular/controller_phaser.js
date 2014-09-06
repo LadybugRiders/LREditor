@@ -389,7 +389,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.reassignID = function(_entity){
-		_entity.go.id = $scope.getID();
+		if(_entity.go)
+			_entity.go.id = $scope.getID();
 		if( _entity.children != null ){
 			for( var i=0; i < _entity.children.length; i ++){
 				$scope.reassignID( _entity.children[i] );
@@ -655,6 +656,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.storeBehavioursParamsReferences = function(_entity,_linkedObjects,_prefabRoot){
+		if(_entity.behaviours == null)
+			return;
 		//For each behaviour
 		for(var i=0; i < _entity.behaviours.length; i++){
 			var bh = _entity.behaviours[i];
@@ -676,6 +679,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	} 
 
 	$scope.reassignBehavioursParamsReferences = function(_entity,_linkedObjects){
+		if(_entity.behaviours == null)
+			return;
 		//For each behaviour
 		for(var i=0; i < _entity.behaviours.length; i++){
 			var bh = _entity.behaviours[i];

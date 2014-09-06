@@ -29,12 +29,14 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 
 	//offset to add to the sprite angle if bound
 	this._offsetRotation = 30;
+
 }
 
 LR.Body.prototype = Object.create(Phaser.Physics.P2.Body.prototype);
 LR.Body.prototype.constructor = LR.Body;
 
-LR.Body.prototype.postUpdate = function () {
+LR.Body.prototype.postUpdate = function () {    
+
 	//Add delta between the last body world position and the new one
 	//to the localPosition
 	this.localPosition.x += (this.worldX - this.lastPosition.x) ;
@@ -47,8 +49,8 @@ LR.Body.prototype.postUpdate = function () {
 		worldPos.y = this.sprite.parent.world.y;
         //rotate
         var posR = LR.Utils.rotatePoint(this.localPosition,this.sprite.parent.worldAngle);
-        this.localRotationOffset = Phaser.Point.subtract( posR , this.localPosition );
-   	}
+        this.localRotationOffset = Phaser.Point.subtract( posR , this.localPosition );    
+    }
 
 	//compute new world position from parentWorldPos + local Body position
 	this.worldPosition.x = worldPos.x + this.localPosition.x + this.localRotationOffset.x;
@@ -57,7 +59,7 @@ LR.Body.prototype.postUpdate = function () {
 	//affect P2 body world position
 	this.data.position[0] = this.game.physics.p2.pxmi(this.worldPosition.x);			
 	this.data.position[1] = this.game.physics.p2.pxmi(this.worldPosition.y);
-		
+	
 	//Reposition Sprite
     this.sprite.x = this.localPosition.x
     this.sprite.y = this.localPosition.y;
@@ -67,7 +69,7 @@ LR.Body.prototype.postUpdate = function () {
 	this.lastPosition.y = this.worldPosition.y;
 
     //ROTATION
-    this.data.angle = this.sprite.parent.worldAngle * Math.PI / 180;
+    this.data.angle = ( this.localRotation + (this.sprite.parent.worldAngle || 0) ) * Math.PI / 180;
 
     if (!this.fixedRotation && this.bindRotation){
         this.sprite.rotation = this.data.angle + this._offsetRotation;
@@ -154,7 +156,6 @@ Object.defineProperty(LR.Body.prototype, "worldX", {
 Object.defineProperty(LR.Body.prototype, "worldY", {
 
     get: function () {
-
         return this.world.mpxi(this.data.position[1]);
 
     },
@@ -184,6 +185,18 @@ Object.defineProperty(LR.Body.prototype, "bindRotation", {
     	this._bindRotation = value;
     	if(value == true && this._bindRotation == false)
     		this._offsetRotation = this.sprite.angle;
+    }
+
+});
+
+Object.defineProperty(LR.Body.prototype, "angle", {
+
+    get: function () {
+        return this.localRotation;
+    },
+
+    set: function (value) {
+        this.localRotation = value;
     }
 
 });
