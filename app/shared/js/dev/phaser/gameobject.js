@@ -840,9 +840,11 @@ LR.GameObject.prototype.changeParent = function(_newParent){
 * @param {Object} tweenData Object containing the tween properties
 */
 LR.GameObject.prototype.addTween = function( _tweenData ){
-	this.tweensData[_tweenData.name] = new Object();
-	this.tweensData[_tweenData.name].data = JSON.parse( JSON.stringify( _tweenData) );
-	this.tweensData[_tweenData.name].tweensObject = new Object();
+	var newTween = new Object();
+	newTween.data = JSON.parse( JSON.stringify( _tweenData) );
+	newTween.tweensObject = new Object();
+	newTween.count = 0;
+	this.tweensData[_tweenData.name] = newTween;
 
 	if(_tweenData.autoStart == true){
 		this.launchTween(_tweenData.name);
@@ -865,6 +867,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 	//Get tween  
 	var tweenData = this.tweensData[_tweenName].data;
 	var tweensObject = this.tweensData[_tweenName].tweensObject;
+	this.tweensData[_tweenName].count = 0;
 	//convert its properties
 	var props = null;
 	try{
@@ -879,7 +882,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 	for(var key in props){
 		//Remove a possible running tween
 		if(tweensObject.hasOwnProperty(key) && tweensObject[key].isRunning ){
-			this.entity.game.tween.remove(tweensObject[key]);
+			this.entity.game.tweens.remove(tweensObject[key]);
 		}
 		//Create,add, and launch the tween
     	var targetData = LR.Utils.getPropertyByString(this.entity,key);
@@ -897,7 +900,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 		//console.log(tweenData);
 		if( tweenData.repeat < 0)
 			tweenData.repeat = Number.MAX_VALUE;
-    	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, tweenData.repeat - 1, tweenData.yoyo);
+    	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, tweenData.repeat+1, tweenData.yoyo);
     	//keep reference
     	tweensObject[key] = createdTween;
     	launchedTweens.push(createdTween);
@@ -907,10 +910,19 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 
 LR.GameObject.prototype.onTweenComplete = function(_target){
 	if(_target.lr_tweenName){
-		var tweens = this.tweensData[_target.lr_tweenName].tweensObject;
-		var tweenData = this.tweensData[_target.lr_tweenName].data;
+		var currentTween = this.tweensData[_target.lr_tweenName];
+		currentTween.count ++;
+		var tweens = currentTween.tweensObject;
+		var tweenData = currentTween.data;
+		//Counting ( onComplete is called mutliple times for a repeating tween)
+		if(tweenData.repeat > 0 && currentTween.count < Object.keys(tweens).length)
+			return;
+		currentTween.count = 0;
+		
+		//if a tween has finished, the other ones are two ( they take the same ammount of time)
 		for(var key in tweens){
-			if( tweens[key]!=null && ! tweens[key].isRunning){
+			if( tweens[key]!=null){
+				tweens[key].stop();
 				this.entity.game.tweens.remove(tweens[key]);
 				tweens[key] == null;
 				delete tweens[key];
@@ -925,11 +937,10 @@ LR.GameObject.prototype.onTweenComplete = function(_target){
 LR.GameObject.prototype.stopTween = function(_tweenName){
 	var tweens = this.tweensData[_tweenName].tweensObject;
 	for(var key in tweens){
-		if( tweens.hasOwnProperty(key) ){
-			this.entity.game.tweens.remove(tweens[key]);
-			tweens[key] == null;
-			delete tweens[key];
-		}
+		tweens[key].stop();
+		this.entity.game.tweens.remove(tweens[key]);
+		tweens[key] == null;
+		delete tweens[key];
 	}
 }
 

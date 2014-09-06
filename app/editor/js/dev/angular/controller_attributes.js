@@ -452,7 +452,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				tween.repeat = Number.MAX_VALUE;
 			else
 				createdTween.onComplete.add(this.onTweenComplete,this);
-	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat - 1, tween.yoyo);
+	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat + 1, tween.yoyo);
 	    	//keep trace of tween and base properties
 	    	createdTween.baseProp = {"object":targetData.object,"property":targetData.property,
 	    							"baseValue":targetData.object[targetData.property]};
