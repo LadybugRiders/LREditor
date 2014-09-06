@@ -131,6 +131,24 @@ LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
 		if ( _objectData.scrollY != null)
 			_entity._scroll.y = _objectData.scrollY;
 	}
+
+	//animation timers
+	if( _objectData.anims){
+		for( var key in _objectData.anims){
+			if( _objectData.anims[key].timer ){
+				var anim = _entity.animations.getAnimation(key);
+				anim.onComplete.add(
+					function(_entity){
+						_entity.game.time.events.add(
+					      Phaser.Timer.SECOND * _objectData.anims[key].timer, 
+					      anim.play,
+					      anim);
+					}
+				);
+			}
+		}
+	}
+
 	//animation autoplay
 	if (_objectData.autoPlayAnim != null) {
 		_entity.animations.play(_objectData.autoPlayAnim);

@@ -259,6 +259,8 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 				_objectData.anims[key].speed,
 				_objectData.anims[key].loop
 			);
+			if( _objectData.anims[key].timer != null )
+				newAnim.timer = _objectData.anims[key].timer ;
 		}
 	}
 };

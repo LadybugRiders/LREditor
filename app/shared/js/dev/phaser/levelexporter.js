@@ -512,6 +512,9 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 			_object.anims[key].frames = entityAnims[key]._frames;
 			_object.anims[key].loop = entityAnims[key].loop;
 			_object.anims[key].speed = entityAnims[key].speed;
+			if(entityAnims[key].timer){
+				_object.anims[key].timer = entityAnims[key].timer;
+			}
 		}
 		if( _entity.autoPlayActive == true )
 			_object.autoPlayAnim = _entity.autoPlayAnim;
