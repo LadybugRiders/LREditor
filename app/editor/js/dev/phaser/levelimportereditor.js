@@ -203,7 +203,8 @@ LR.Editor.LevelImporterEditor.prototype.setTweens = function(_objectData, _entit
 	if( _objectData.tweens != null ){
 		var tweens = JSON.parse( JSON.stringify(_objectData.tweens)) ;
 		for(var key in tweens){
-			_entity.go.tweensData[key] = {data:tweens[key]};
+			_entity.go.tweensData[key] = {data:tweens[key],
+										chained : tweens[key].chain != null};
 		}
 	}
 };

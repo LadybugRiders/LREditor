@@ -65,6 +65,9 @@
 						<button ng-click="removeTween(key)" type="button" class="btn btn-danger">
 							Delete
 						</button>
+						<button ng-click="copyTween(tween)" type="button" class="btn btn-primary">
+							Copy
+						</button>
 					</div>
 				</accordion-group>
 			</accordion>
@@ -76,8 +79,11 @@
 				<input ng-model="newTweenName" type="text">
 				</input>
 			</div>
-			<div class="col-md-4">
-				<button ng-click="addTween(newTweenName)" type="button" class="btn btn-primary">Add Tween</button>
+			<div class="col-md-2">
+				<button ng-click="addTween(newTweenName)" type="button" class="btn btn-primary">Add</button>
+			</div>
+			<div class="col-md-2">
+				<button ng-click="pasteTween(newTweenName)" type="button" class="btn btn-primary">Paste</button>
 			</div>
 		</div>
 	</li>

@@ -422,6 +422,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	$scope.currentEntity.go.addTween(tween);
     }
 
+    $scope.copyTween = function(_tween){
+    	$scope.__copiedTween =JSON.parse( JSON.stringify(_tween.data));
+    }
+
+    $scope.pasteTween = function(_tweenName){
+    	if($scope.__copiedTween == null )
+    		return;
+    	var newTween = JSON.parse( JSON.stringify($scope.__copiedTween));
+    	if( _tweenName == null)
+    		_tweenName = $scope.__copiedTween.name;
+    	$scope.currentEntity.go.addTween(newTween);
+    }
+
     $scope.removeTween = function(_name){
     	if( $scope.currentEntity.go.tweensData.hasOwnProperty(_name))
     		delete $scope.currentEntity.go.tweensData[_name];
@@ -452,7 +465,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				tween.repeat = Number.MAX_VALUE;
 			else
 				createdTween.onComplete.add(this.onTweenComplete,this);
-	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat + 1, tween.yoyo);
+	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat + +(tweenData.yoyo?1:0), tween.yoyo);
 	    	//keep trace of tween and base properties
 	    	createdTween.baseProp = {"object":targetData.object,"property":targetData.property,
 	    							"baseValue":targetData.object[targetData.property]};

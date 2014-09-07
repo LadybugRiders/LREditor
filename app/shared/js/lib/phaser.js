@@ -7,7 +7,7 @@
 *
 * Phaser - http://phaser.io
 *
-* v2.1.0 "Cairhien" - Built: Thu Sep 04 2014 16:56:12
+* v2.1.0 "Cairhien" - Built: Sat Sep 06 2014 21:10:04
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -11382,7 +11382,7 @@ PIXI.RenderTexture.tempMatrix = new PIXI.Matrix();
 *
 * Phaser - http://phaser.io
 *
-* v2.1.0 "Cairhien" - Built: Thu Sep 04 2014 16:56:12
+* v2.1.0 "Cairhien" - Built: Sat Sep 06 2014 21:10:04
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -11528,7 +11528,7 @@ Phaser.Utils = {
             l = parts.length,
             i = 1,
             current = parts[0];
-            
+
         while (i < l && (obj = obj[current]))
         {
             current = parts[i];
@@ -11561,7 +11561,7 @@ Phaser.Utils = {
             l = parts.length,
             i = 1,
             current = parts[0];
-            
+
         while (i < l && (obj = obj[current]))
         {
             current = parts[i];
@@ -11865,7 +11865,7 @@ Phaser.Utils = {
     /**
     * Mixes the source object into the destination object, returning the newly modified destination object.
     * Based on original code by @mudcube
-    * 
+    *
     * @method Phaser.Utils.mixin
     * @param {object} from - The object to copy (the source object).
     * @param {object} to - The object to copy to (the destination object).
@@ -13563,6 +13563,23 @@ Phaser.Rectangle.prototype = {
     },
 
     /**
+    * Centers this Rectangle so that the center coordinates match the given x and y values.
+    * 
+    * @method Phaser.Rectangle#centerOn
+    * @param {number} x - The x coordinate to place the center of the Rectangle at.
+    * @param {number} y - The y coordinate to place the center of the Rectangle at.
+    * @return {Phaser.Rectangle} This Rectangle object
+    */
+    centerOn: function (x, y) {
+
+        this.centerX = x;
+        this.centerY = y;
+
+        return this;
+
+    },
+
+    /**
     * Runs Math.floor() on both the x and y values of this Rectangle.
     * @method Phaser.Rectangle#floor
     */
@@ -13999,6 +14016,24 @@ Object.defineProperty(Phaser.Rectangle.prototype, "topLeft", {
 
     set: function (value) {
         this.x = value.x;
+        this.y = value.y;
+    }
+
+});
+
+/**
+* The location of the Rectangles top right corner as a Point object.
+* @name Phaser.Rectangle#topRight
+* @property {Phaser.Point} topRight - The location of the Rectangles top left corner as a Point object.
+*/
+Object.defineProperty(Phaser.Rectangle.prototype, "topRight", {
+
+    get: function () {
+        return new Phaser.Point(this.x + this.width, this.y);
+    },
+
+    set: function (value) {
+        this.right = value.x;
         this.y = value.y;
     }
 
@@ -15431,10 +15466,10 @@ Phaser.Camera.prototype = {
             this.checkBounds();
         }
 
+        this.view.floor();
+
         this.displayObject.position.x = -this.view.x;
         this.displayObject.position.y = -this.view.y;
-
-        this.view.floor();
 
     },
 
@@ -15844,6 +15879,14 @@ Phaser.State.prototype = {
     },
 
     /**
+    * If your game is set to Scalemode RESIZE then each time the browser resizes it will call this function, passing in the new width and height.
+    *
+    * @method Phaser.State#resize
+    */
+    resize: function () {
+    },
+
+    /**
     * This method will be called if the core game loop is paused.
     *
     * @method Phaser.State#paused
@@ -15963,6 +16006,11 @@ Phaser.StateManager = function (game, pendingState) {
     * @property {function} onRenderCallback - This is called post-render. It doesn't happen during preload (see onLoadRenderCallback).
     */
     this.onRenderCallback = null;
+
+    /**
+    * @property {function} onResizeCallback - This is called if ScaleManager.scalemode is RESIZE and a resize event occurs. It's passed the new width and height.
+    */
+    this.onResizeCallback = null;
 
     /**
     * @property {function} onPreRenderCallback - This is called before the state is rendered and before the stage is cleared.
@@ -16097,6 +16145,7 @@ Phaser.StateManager.prototype = {
             this.onCreateCallback = null;
             this.onUpdateCallback = null;
             this.onRenderCallback = null;
+            this.onResizeCallback = null;
             this.onPausedCallback = null;
             this.onResumedCallback = null;
             this.onPauseUpdateCallback = null;
@@ -16237,6 +16286,8 @@ Phaser.StateManager.prototype = {
 
             this.game.time.removeAll();
 
+            this.game.scale.reset(this._clearWorld);
+
             if (this._clearWorld)
             {
                 this.game.world.shutdown();
@@ -16337,6 +16388,7 @@ Phaser.StateManager.prototype = {
         this.onUpdateCallback = this.states[key]['update'] || null;
         this.onPreRenderCallback = this.states[key]['preRender'] || null;
         this.onRenderCallback = this.states[key]['render'] || null;
+        this.onResizeCallback = this.states[key]['resize'] || null;
         this.onPausedCallback = this.states[key]['paused'] || null;
         this.onResumedCallback = this.states[key]['resumed'] || null;
         this.onPauseUpdateCallback = this.states[key]['pauseUpdate'] || null;
@@ -16457,6 +16509,19 @@ Phaser.StateManager.prototype = {
         if (this.onPreRenderCallback)
         {
             this.onPreRenderCallback.call(this.callbackContext, this.game);
+        }
+
+    },
+
+    /**
+    * @method Phaser.StateManager#resize
+    * @protected
+    */
+    resize: function (width, height) {
+
+        if (this.onResizeCallback)
+        {
+            this.onResizeCallback.call(this.callbackContext, width, height);
         }
 
     },
@@ -17175,7 +17240,10 @@ Phaser.Signal.prototype = {
             }
         }
 
-        this._bindings.length = 0;
+        if (!context)
+        {
+            this._bindings.length = 0;
+        }
 
     },
 
@@ -18603,7 +18671,7 @@ Phaser.Group.SORT_DESCENDING = 1;
 * @see Phaser.Group#create
 * @see Phaser.Group#addAt
 * @method Phaser.Group#add
-* @param {*} child - An instance of Phaser.Sprite, Phaser.Button or any other display object..
+* @param {*} child - An instance of Phaser.Sprite, Phaser.Button or any other display object.
 * @param {boolean} [silent=false] - If the silent parameter is `true` the child will not dispatch the onAddedToGroup event.
 * @return {*} The child that was added to the Group.
 */
@@ -18634,6 +18702,30 @@ Phaser.Group.prototype.add = function (child, silent) {
     }
 
     return child;
+
+};
+
+/**
+* Adds an array existing objects to this Group. The objects can be instances of Phaser.Sprite, Phaser.Button or any other display object.
+* The children are automatically added to the top of the Group, so render on-top of everything else within the Group.
+* TODO: Add ability to pass the children as parameters rather than having to be an array.
+*
+* @method Phaser.Group#addMultiple
+* @param {array} children - An array containing instances of Phaser.Sprite, Phaser.Button or any other display object.
+* @param {boolean} [silent=false] - If the silent parameter is `true` the children will not dispatch the onAddedToGroup event.
+* @return {*} The array of children that were added to the Group.
+*/
+Phaser.Group.prototype.addMultiple = function (children, silent) {
+
+    if (Array.isArray(children))
+    {
+        for (var i = 0; i < children.length; i++)
+        {
+            this.add(children[i], silent);
+        }
+    }
+
+    return children;
 
 };
 
@@ -20574,6 +20666,283 @@ Object.defineProperty(Phaser.World.prototype, "randomY", {
 */
 
 /**
+* A responsive grid manager.
+*
+* @class Phaser.FlexGrid
+* @constructor
+* @param {Phaser.ScaleManager} manager - The ScaleManager.
+*/
+Phaser.FlexGrid = function (manager, width, height) {
+
+    /**
+    * @property {Phaser.Game} game - A reference to the currently running Game.
+    */
+    this.game = manager.game;
+
+    /**
+    * @property {Phaser.ScaleManager} scale - A reference to the ScaleManager.
+    */
+    this.manager = manager;
+
+    //  The perfect dimensions on which everything else is based
+    this.width = width;
+    this.height = height;
+
+    this.boundsFluid = new Phaser.Rectangle(0, 0, width, height);
+    this.boundsFull = new Phaser.Rectangle(0, 0, width, height);
+    this.boundsNone = new Phaser.Rectangle(0, 0, width, height);
+
+    /**
+    * @property {Phaser.Point} position - 
+    * @readonly
+    */
+    this.positionFluid = new Phaser.Point(0, 0);
+    this.positionFull = new Phaser.Point(0, 0);
+    this.positionNone = new Phaser.Point(0, 0);
+
+    /**
+    * @property {Phaser.Point} scaleFactor - The scale factor based on the game dimensions vs. the scaled dimensions.
+    * @readonly
+    */
+    this.scaleFluid = new Phaser.Point(1, 1);
+    this.scaleFluidInversed = new Phaser.Point(1, 1);
+    this.scaleFull = new Phaser.Point(1, 1);
+    this.scaleNone = new Phaser.Point(1, 1);
+
+    this.ratioH = width / height;
+    this.ratioV = height / width;
+
+    this.multiplier = 0;
+
+    this.layers = [];
+
+};
+
+Phaser.FlexGrid.prototype = {
+
+    setSize: function (width, height) {
+
+        //  These are locked and don't change until setSize is called again
+        this.width = width;
+        this.height = height;
+
+        this.ratioH = width / height;
+        this.ratioV = height / width;
+
+        this.scaleNone = new Phaser.Point(1, 1);
+
+        this.boundsNone.width = this.width;
+        this.boundsNone.height = this.height;
+
+        this.refresh();
+
+    },
+
+    //  Need ability to create your own layers with custom scaling, etc.
+
+    /**
+     * A fluid layer is centered on the game and maintains its aspect ratio as it scales up and down.
+     *
+     * @method createFluidLayer
+     * @return {Phaser.FlexLayer} The Layer object.
+     */
+    createFluidLayer: function (children) {
+
+        var layer = new Phaser.FlexLayer(this, this.positionFluid, this.boundsFluid, this.scaleFluid);
+
+        this.game.world.add(layer);
+
+        this.layers.push(layer);
+
+        if (typeof children !== 'undefined')
+        {
+            layer.addMultiple(children);
+        }
+
+        return layer;
+
+    },
+
+    /**
+     * A full layer is placed at 0,0 and extends to the full size of the game. Children are scaled according to the fluid ratios.
+     *
+     * @method createFullLayer
+     * @return {Phaser.FlexLayer} The Layer object.
+     */
+    createFullLayer: function (children) {
+
+        var layer = new Phaser.FlexLayer(this, this.positionFull, this.boundsFull, this.scaleFluid);
+
+        this.game.world.add(layer);
+
+        this.layers.push(layer);
+
+        if (typeof children !== 'undefined')
+        {
+            layer.addMultiple(children);
+        }
+
+        return layer;
+
+    },
+
+    /**
+     * A fixed layer is centered on the game and is the size of the required dimensions and is never scaled.
+     *
+     * @method createFixedLayer
+     * @return {Phaser.FlexLayer} The Layer object.
+     */
+    createFixedLayer: function (children) {
+
+        var layer = new Phaser.FlexLayer(this, this.positionNone, this.boundsNone, this.scaleNone);
+
+        this.game.world.add(layer);
+
+        this.layers.push(layer);
+
+        if (typeof children !== 'undefined')
+        {
+            layer.addMultiple(children);
+        }
+
+        return layer;
+
+    },
+
+    reset: function () {
+
+        for (var i = 0; i < this.layers.length; i++)
+        {
+            //  Remove references to this class
+            this.layers[i].position = null;
+            this.layers[i].scale = null;
+        }
+
+        this.layers.length = 0;
+
+    },
+
+    onResize: function (width, height) {
+
+        this.refresh(width, height);
+
+    },
+
+    refresh: function () {
+
+        this.multiplier = Math.min((this.manager.height / this.height), (this.manager.width / this.width));
+
+        this.boundsFluid.width = Math.round(this.width * this.multiplier);
+        this.boundsFluid.height = Math.round(this.height * this.multiplier);
+
+        this.scaleFluid.set(this.boundsFluid.width / this.width, this.boundsFluid.height / this.height);
+        this.scaleFluidInversed.set(this.width / this.boundsFluid.width, this.height / this.boundsFluid.height);
+
+        this.scaleFull.set(this.boundsFull.width / this.width, this.boundsFull.height / this.height);
+
+        this.boundsFull.width = this.manager.width * this.scaleFluidInversed.x;
+        this.boundsFull.height = this.manager.height * this.scaleFluidInversed.y;
+
+        this.boundsFluid.centerOn(this.manager.bounds.centerX, this.manager.bounds.centerY);
+        this.boundsNone.centerOn(this.manager.bounds.centerX, this.manager.bounds.centerY);
+
+        this.positionFluid.set(this.boundsFluid.x, this.boundsFluid.y);
+        this.positionNone.set(this.boundsNone.x, this.boundsNone.y);
+
+    },
+
+    debug: function () {
+
+        // for (var i = 0; i < this.layers.length; i++)
+        // {
+        //     this.layers[i].debug();
+        // }
+
+        this.game.debug.text(this.boundsFull.width + ' x ' + this.boundsFull.height, this.boundsFull.x + 4, this.boundsFull.y + 16);
+        this.game.debug.geom(this.boundsFull, 'rgba(0,0,255,0.9', false);
+
+        this.game.debug.text(this.boundsFluid.width + ' x ' + this.boundsFluid.height, this.boundsFluid.x + 4, this.boundsFluid.y + 16);
+        this.game.debug.geom(this.boundsFluid, 'rgba(255,0,0,0.9', false);
+
+        this.game.debug.text(this.boundsNone.width + ' x ' + this.boundsNone.height, this.boundsNone.x + 4, this.boundsNone.y + 16);
+        this.game.debug.geom(this.boundsNone, 'rgba(0,255,0,0.9', false);
+
+    }
+
+};
+
+Phaser.FlexGrid.prototype.constructor = Phaser.FlexGrid;
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2014 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+/**
+* A responsive grid layer.
+*
+* @class Phaser.FlexLayer
+* @extends Phaser.Group
+* @constructor
+* @param {Phaser.ScaleManager} manager - The ScaleManager.
+*/
+Phaser.FlexLayer = function (manager, position, bounds, scale) {
+
+    Phaser.Group.call(this, manager.game, null, '__flexLayer' + manager.game.rnd.uuid(), false);
+
+    /**
+    * @property {Phaser.ScaleManager} scale - A reference to the ScaleManager.
+    */
+    this.manager = manager;
+
+    /**
+    * @property {Phaser.FlexGrid} grid - A reference to the FlexGrid that owns this layer.
+    */
+    this.grid = manager.grid;
+
+    //  Bound to the grid
+    this.position = position;
+    this.bounds = bounds;
+    this.scale = scale;
+
+    this.topLeft = bounds.topLeft;
+    this.topMiddle = new Phaser.Point(bounds.halfWidth, 0);
+    this.topRight = bounds.topRight;
+
+    this.bottomLeft = bounds.bottomLeft;
+    this.bottomMiddle = new Phaser.Point(bounds.halfWidth, bounds.bottom);
+    this.bottomRight = bounds.bottomRight;
+
+};
+
+Phaser.FlexLayer.prototype = Object.create(Phaser.Group.prototype);
+Phaser.FlexLayer.prototype.constructor = Phaser.FlexLayer;
+
+Phaser.FlexLayer.prototype.resize = function () {
+
+};
+
+Phaser.FlexLayer.prototype.debug = function () {
+
+    this.game.debug.text(this.bounds.width + ' x ' + this.bounds.height, this.bounds.x + 4, this.bounds.y + 16);
+    this.game.debug.geom(this.bounds, 'rgba(0,0,255,0.9', false);
+
+    this.game.debug.geom(this.topLeft, 'rgba(255,255,255,0.9');
+    this.game.debug.geom(this.topMiddle, 'rgba(255,255,255,0.9');
+    this.game.debug.geom(this.topRight, 'rgba(255,255,255,0.9');
+
+
+};
+
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2014 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+/**
 * The ScaleManager object is responsible for helping you manage the scaling, resizing and alignment of your game within the browser.
 *
 * @class Phaser.ScaleManager
@@ -20588,6 +20957,11 @@ Phaser.ScaleManager = function (game, width, height) {
     * @property {Phaser.Game} game - A reference to the currently running game.
     */
     this.game = game;
+
+    /**
+    * @property {Phaser.FlexGrid} grid - A responsive grid on which you can align game objects.
+    */
+    this.grid = null;
 
     /**
     * @property {number} width - Width of the game after calculation.
@@ -20690,7 +21064,7 @@ Phaser.ScaleManager = function (game, width, height) {
     * Note that if you use a scale property of EXACT_FIT then fullScreenTarget will have its width and height style set to 100%.
     * @property {any} fullScreenTarget
     */
-    this.fullScreenTarget = this.game.canvas;
+    this.fullScreenTarget = null;
 
     /**
     * @property {Phaser.Signal} enterFullScreen - The event that is dispatched when the browser enters full screen mode (if it supports the FullScreen API).
@@ -20971,6 +21345,8 @@ Phaser.ScaleManager.prototype = {
             newHeight = rect.height * this.parentScaleFactor.y;
         }
 
+        this.grid = new Phaser.FlexGrid(this, newWidth, newHeight);
+
         this.updateDimensions(newWidth, newHeight, false);
 
     },
@@ -20981,6 +21357,9 @@ Phaser.ScaleManager.prototype = {
     * @method Phaser.ScaleManager#boot
     */
     boot: function () {
+
+        //  Now the canvas has been created we can target it
+        this.fullScreenTarget = this.game.canvas;
 
         var _this = this;
 
@@ -21072,7 +21451,6 @@ Phaser.ScaleManager.prototype = {
         if (!this.parentIsWindow)
         {
             Phaser.Canvas.getOffset(this.game.canvas, this.offset);
-
            
             if (this._scaleMode === Phaser.ScaleManager.RESIZE)
             {
@@ -21122,10 +21500,14 @@ Phaser.ScaleManager.prototype = {
             this.game.world.resize(this.width, this.height);
         }
 
+        this.grid.onResize(width, height);
+
         if (this.onResize)
         {
             this.onResize.call(this.onResizeContext, this.width, this.height);
         }
+
+        this.game.state.resize(width, height);
 
     },
 
@@ -21454,6 +21836,15 @@ Phaser.ScaleManager.prototype = {
         this.scaleFactorInversed.y = this.height / this.game.height;
 
         this.checkOrientationState();
+
+    },
+
+    reset: function (clearWorld) {
+
+        if (clearWorld)
+        {
+            this.grid.reset();
+        }
 
     },
 
@@ -22846,11 +23237,6 @@ Phaser.Input = function (game) {
     this.gamepad = null;
 
     /**
-    * @property {Phaser.Gestures} gestures - The Gestures manager.
-    */
-    // this.gestures = null;
-
-    /**
     * @property {boolean} resetLocked - If the Input Manager has been reset locked then all calls made to InputManager.reset, such as from a State change, are ignored.
     * @default
     */
@@ -22957,8 +23343,6 @@ Phaser.Input.prototype = {
         this.mspointer = new Phaser.MSPointer(this.game);
         this.gamepad = new Phaser.Gamepad(this.game);
 
-        // this.gestures = new Phaser.Gestures(this.game);
-
         this.onDown = new Phaser.Signal();
         this.onUp = new Phaser.Signal();
         this.onTap = new Phaser.Signal();
@@ -22998,7 +23382,6 @@ Phaser.Input.prototype = {
         this.touch.stop();
         this.mspointer.stop();
         this.gamepad.stop();
-        // this.gestures.stop();
 
         this.moveCallbacks = [];
 
@@ -23104,8 +23487,6 @@ Phaser.Input.prototype = {
         if (this.pointer10) { this.pointer10.update(); }
 
         this._pollCounter = 0;
-
-        // if (this.gestures.active) { this.gestures.update(); }
 
     },
 
@@ -24500,7 +24881,9 @@ Phaser.Keyboard.NUM_LOCK = 144;
 */
 
 /**
-* Phaser.Mouse is responsible for handling all aspects of mouse interaction with the browser. It captures and processes mouse events.
+* Phaser.Mouse is responsible for handling all aspects of mouse interaction with the browser.
+* It captures and processes mouse events that happen on the game canvas object. It also adds a single `mouseup` listener to `window` which
+* is used to capture the mouse being released when not over the game.
 *
 * @class Phaser.Mouse
 * @constructor
@@ -24702,6 +25085,10 @@ Phaser.Mouse.prototype = {
             return _this.onMouseUp(event);
         };
 
+        this._onMouseUpGlobal = function (event) {
+            return _this.onMouseUpGlobal(event);
+        };
+
         this._onMouseOut = function (event) {
             return _this.onMouseOut(event);
         };
@@ -24720,6 +25107,7 @@ Phaser.Mouse.prototype = {
 
         if (!this.game.device.cocoonJS)
         {
+            window.addEventListener('mouseup', this._onMouseUpGlobal, true);
             this.game.canvas.addEventListener('mouseover', this._onMouseOver, true);
             this.game.canvas.addEventListener('mouseout', this._onMouseOut, true);
             this.game.canvas.addEventListener('mousewheel', this._onMouseWheel, true);
@@ -24823,6 +25211,30 @@ Phaser.Mouse.prototype = {
     },
 
     /**
+    * The internal method that handles the mouse up event from the window.
+    * 
+    * @method Phaser.Mouse#onMouseUpGlobal
+    * @param {MouseEvent} event - The native event from the browser. This gets stored in Mouse.event.
+    */
+    onMouseUpGlobal: function (event) {
+
+        if (!this.game.input.mousePointer.withinGame)
+        {
+            this.button = Phaser.Mouse.NO_BUTTON;
+
+            if (this.mouseUpCallback)
+            {
+                this.mouseUpCallback.call(this.callbackContext, event);
+            }
+
+            event['identifier'] = 0;
+
+            this.game.input.mousePointer.stop(event);
+        }
+
+    },
+
+    /**
     * The internal method that handles the mouse out event from the browser.
     *
     * @method Phaser.Mouse#onMouseOut
@@ -24837,6 +25249,8 @@ Phaser.Mouse.prototype = {
             event.preventDefault();
         }
 
+        this.game.input.mousePointer.withinGame = false;
+
         if (this.mouseOutCallback)
         {
             this.mouseOutCallback.call(this.callbackContext, event);
@@ -24846,8 +25260,6 @@ Phaser.Mouse.prototype = {
         {
             return;
         }
-
-        this.game.input.mousePointer.withinGame = false;
 
         if (this.stopOnGameOut)
         {
@@ -24898,6 +25310,8 @@ Phaser.Mouse.prototype = {
             event.preventDefault();
         }
 
+        this.game.input.mousePointer.withinGame = true;
+
         if (this.mouseOverCallback)
         {
             this.mouseOverCallback.call(this.callbackContext, event);
@@ -24907,8 +25321,6 @@ Phaser.Mouse.prototype = {
         {
             return;
         }
-
-        this.game.input.mousePointer.withinGame = true;
 
     },
 
@@ -24994,6 +25406,8 @@ Phaser.Mouse.prototype = {
         this.game.canvas.removeEventListener('mouseout', this._onMouseOut, true);
         this.game.canvas.removeEventListener('mousewheel', this._onMouseWheel, true);
         this.game.canvas.removeEventListener('DOMMouseScroll', this._onMouseWheel, true);
+
+        window.removeEventListener('mouseup', this._onMouseUpGlobal, true);
 
         document.removeEventListener('pointerlockchange', this._pointerLockChange, true);
         document.removeEventListener('mozpointerlockchange', this._pointerLockChange, true);
@@ -40918,24 +41332,63 @@ Phaser.Math = {
     },
 
     /**
-    * Returns an Array containing the numbers from min to max (inclusive).
-    *
-    * @method Phaser.Math#numberArray
-    * @param {number} min - The minimum value the array starts with.
-    * @param {number} max - The maximum value the array contains.
-    * @return {array} The array of number values.
-    */
-    numberArray: function (min, max) {
+     * Creates an array of numbers (positive and/or negative) progressing from
+     * `start` up to but not including `end`. If `start` is less than `stop` a
+     * zero-length range is created unless a negative `step` is specified.
+     *
+     * @static
+     * @method Phaser.Math.numberArray
+     * @param {number} [start=0] The start of the range.
+     * @param {number} end The end of the range.
+     * @param {number} [step=1] The value to increment or decrement by.
+     * @returns {Array} Returns the new array of numbers.
+     * @example
+     *
+     * Phaser.Math.numberArray(4);
+     * // => [0, 1, 2, 3]
+     *
+     * Phaser.Math.numberArray(1, 5);
+     * // => [1, 2, 3, 4]
+     *
+     * Phaser.Math.numberArray(0, 20, 5);
+     * // => [0, 5, 10, 15]
+     *
+     * Phaser.Math.numberArray(0, -4, -1);
+     * // => [0, -1, -2, -3]
+     *
+     * Phaser.Math.numberArray(1, 4, 0);
+     * // => [1, 1, 1]
+     *
+     * Phaser.Math.numberArray(0);
+     * // => []
+     */
+    numberArray: function(start, end, step) {
+        start = +start || 0;
 
-        var result = [];
-
-        for (var i = min; i <= max; i++)
-        {
-            result.push(i);
+        // enables use as a callback for functions like `_.map`
+        var type = typeof end;
+        if ((type == 'number' || type == 'string') && step && step[end] === start) {
+            end = step = null;
         }
+        step = step == null ? 1 : (+step || 0);
 
+        if (end == null) {
+            end = start;
+            start = 0;
+        } else {
+            end = +end || 0;
+        }
+        // use `Array(length)` so engines like Chakra and V8 avoid slower modes
+        // http://youtu.be/XAqIpGU8ZZk#t=17m25s
+        var index = -1,
+            length = Phaser.Math.max(Phaser.Math.ceil((end - start) / (step || 1)), 0),
+            result = new Array(length);
+
+        while (++index < length) {
+            result[index] = start;
+            start += step;
+        }
         return result;
-
     },
 
     /**
@@ -41375,14 +41828,14 @@ Phaser.Math = {
         {
             return 1;
         }
-                        
+
         var res = value;
-                        
+
         while( --value )
         {
             res *= value;
         }
-        
+
         return res;
     },
 
@@ -41815,6 +42268,7 @@ Phaser.Math = {
     }())
 
 };
+
 /* jshint noempty: false */
 
 /**
@@ -62524,7 +62978,7 @@ function _browserSupport () {
  *
  * Only used in Firefox, since Firefox does not allow augmenting "native"
  * objects (like Uint8Array instances) with new properties for some unknown
- * (probably silly) reason. So we'll use an ES6 Proxy (supported since
+ * (probably silly) reason. So we'll use an ES6 Proxy (supported since
  * Firefox 18) to wrap the Uint8Array instance without actually adding any
  * properties to it.
  *
@@ -76066,10 +76520,12 @@ Phaser.Physics.P2.prototype = {
     * @param {Phaser.Sprite|Phaser.Physics.P2.Body|p2.Body} bodyA - First connected body.
     * @param {Phaser.Sprite|Phaser.Physics.P2.Body|p2.Body} bodyB - Second connected body.
     * @param {number} distance - The distance to keep between the bodies.
+    * @param {Array} [localAnchorA] - The anchor point for bodyA, defined locally in bodyA frame. Defaults to [0,0].
+    * @param {Array} [localAnchorB] - The anchor point for bodyB, defined locally in bodyB frame. Defaults to [0,0].
     * @param {number} [maxForce] - The maximum force that should be applied to constrain the bodies.
     * @return {Phaser.Physics.P2.DistanceConstraint} The constraint
     */
-    createDistanceConstraint: function (bodyA, bodyB, distance, maxForce) {
+    createDistanceConstraint: function (bodyA, bodyB, distance, localAnchorA, localAnchorB, maxForce) {
 
         bodyA = this.getBody(bodyA);
         bodyB = this.getBody(bodyB);
@@ -76080,7 +76536,7 @@ Phaser.Physics.P2.prototype = {
         }
         else
         {
-            return this.addConstraint(new Phaser.Physics.P2.DistanceConstraint(this, bodyA, bodyB, distance, maxForce));
+            return this.addConstraint(new Phaser.Physics.P2.DistanceConstraint(this, bodyA, bodyB, distance, localAnchorA, localAnchorB, maxForce));
         }
 
     },
