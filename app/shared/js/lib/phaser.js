@@ -7,7 +7,7 @@
 *
 * Phaser - http://phaser.io
 *
-* v2.1.0 "Cairhien" - Built: Sat Sep 06 2014 21:10:04
+* v2.1.0 "Cairhien" - Built: Tue Sep 09 2014 09:50:07
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -11382,7 +11382,7 @@ PIXI.RenderTexture.tempMatrix = new PIXI.Matrix();
 *
 * Phaser - http://phaser.io
 *
-* v2.1.0 "Cairhien" - Built: Sat Sep 06 2014 21:10:04
+* v2.1.0 "Cairhien" - Built: Tue Sep 09 2014 09:50:07
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -20858,14 +20858,15 @@ Phaser.FlexGrid.prototype = {
         //     this.layers[i].debug();
         // }
 
-        this.game.debug.text(this.boundsFull.width + ' x ' + this.boundsFull.height, this.boundsFull.x + 4, this.boundsFull.y + 16);
-        this.game.debug.geom(this.boundsFull, 'rgba(0,0,255,0.9', false);
+        // this.game.debug.text(this.boundsFull.width + ' x ' + this.boundsFull.height, this.boundsFull.x + 4, this.boundsFull.y + 16);
+        // this.game.debug.geom(this.boundsFull, 'rgba(0,0,255,0.9', false);
 
         this.game.debug.text(this.boundsFluid.width + ' x ' + this.boundsFluid.height, this.boundsFluid.x + 4, this.boundsFluid.y + 16);
         this.game.debug.geom(this.boundsFluid, 'rgba(255,0,0,0.9', false);
 
-        this.game.debug.text(this.boundsNone.width + ' x ' + this.boundsNone.height, this.boundsNone.x + 4, this.boundsNone.y + 16);
-        this.game.debug.geom(this.boundsNone, 'rgba(0,255,0,0.9', false);
+        // this.game.debug.text(this.boundsNone.width + ' x ' + this.boundsNone.height, this.boundsNone.x + 4, this.boundsNone.y + 16);
+        // this.game.debug.geom(this.boundsNone, 'rgba(0,255,0,0.9', false);
+        // this.game.debug.text(this.scaleFluid.x + ' x ' + this.scaleFluid.y, this.boundsFluid.x + 4, this.boundsFluid.y + 16);
 
     }
 
@@ -22686,9 +22687,15 @@ Phaser.Game.prototype = {
 
         if (this.device.cocoonJS)
         {
-            // Some issue related to scaling arise with Cocoon using screencanvas and webgl renderer.
-            // Disabling by default
-            this.canvas.screencanvas = false;
+            if (this.renderType === Phaser.CANVAS)
+            {
+                this.canvas.screencanvas = true;
+            }
+            else
+            {
+                // Some issue related to scaling arise with Cocoon using screencanvas and webgl renderer.
+                this.canvas.screencanvas = false;
+            }
         }
 
         if (this.renderType === Phaser.HEADLESS || this.renderType === Phaser.CANVAS || (this.renderType === Phaser.AUTO && this.device.webGL === false))
@@ -22719,7 +22726,7 @@ Phaser.Game.prototype = {
         if (this.renderType !== Phaser.HEADLESS)
         {
             this.stage.smoothed = this.antialias;
-
+            
             Phaser.Canvas.addToDOM(this.canvas, this.parent, false);
             Phaser.Canvas.setTouchAction(this.canvas);
         }
@@ -30348,11 +30355,12 @@ Phaser.GameObjectCreator.prototype = {
     * A Group is a container for display objects that allows for fast pooling, recycling and collision checks.
     *
     * @method Phaser.GameObjectCreator#group
+    * @param {any} parent - The parent Group or DisplayObjectContainer that will hold this group, if any.
     * @param {string} [name='group'] - A name for this Group. Not used internally but useful for debugging.
     * @param {boolean} [addToStage=false] - If set to true this Group will be added directly to the Game.Stage instead of Game.World.
     * @param {boolean} [enableBody=false] - If true all Sprites created with `Group.create` or `Group.createMulitple` will have a physics body created on them. Change the body type with physicsBodyType.
     * @param {number} [physicsBodyType=0] - If enableBody is true this is the type of physics body that is created on new Sprites. Phaser.Physics.ARCADE, Phaser.Physics.P2, Phaser.Physics.NINJA, etc.
-    * @return {Phaser.Group} The newly created group.
+    * @return {Phaser.Group} The newly created Group.
     */
     group: function (parent, name, addToStage, enableBody, physicsBodyType) {
 
@@ -41182,6 +41190,22 @@ Phaser.Math = {
     },
 
     /**
+    * Find the angle of a segment from (x1, y1) -> (x2, y2).
+    * Note that the difference between this method and Math.angleBetween is that this assumes the y coordinate travels
+    * down the screen.
+    * 
+    * @method Phaser.Math#angleBetweenY
+    * @param {number} x1
+    * @param {number} y1
+    * @param {number} x2
+    * @param {number} y2
+    * @return {number}
+    */
+    angleBetweenY: function (x1, y1, x2, y2) {
+        return Math.atan2(x2 - x1, y2 - y1);
+    },
+
+    /**
     * Find the angle of a segment from (point1.x, point1.y) -> (point2.x, point2.y).
     * @method Phaser.Math#angleBetweenPoints
     * @param {Phaser.Point} point1
@@ -41190,6 +41214,17 @@ Phaser.Math = {
     */
     angleBetweenPoints: function (point1, point2) {
         return Math.atan2(point2.y - point1.y, point2.x - point1.x);
+    },
+
+    /**
+    * Find the angle of a segment from (point1.x, point1.y) -> (point2.x, point2.y).
+    * @method Phaser.Math#angleBetweenPointsY
+    * @param {Phaser.Point} point1
+    * @param {Phaser.Point} point2
+    * @return {number}
+    */
+    angleBetweenPointsY: function (point1, point2) {
+        return Math.atan2(point2.x - point1.x, point2.y - point1.y);
     },
 
     /**
@@ -78944,7 +78979,7 @@ Phaser.Physics.P2.Body.prototype = {
     *
     * @method Phaser.Physics.P2.Body#addCapsule
     * @param {number} length - The distance between the end points in pixels.
-    * @param {number} radius - Radius of the capsule in radians.
+    * @param {number} radius - Radius of the capsule in pixels.
     * @param {number} [offsetX=0] - Local horizontal offset of the shape relative to the body center of mass.
     * @param {number} [offsetY=0] - Local vertical offset of the shape relative to the body center of mass.
     * @param {number} [rotation=0] - Local rotation of the shape relative to the body center of mass, specified in radians.
@@ -78952,7 +78987,7 @@ Phaser.Physics.P2.Body.prototype = {
     */
     addCapsule: function (length, radius, offsetX, offsetY, rotation) {
 
-        var shape = new p2.Capsule(this.world.pxm(length), radius);
+        var shape = new p2.Capsule(this.world.pxm(length), this.world.pxm(radius));
 
         return this.addShape(shape, offsetX, offsetY, rotation);
 

@@ -51,15 +51,15 @@ LR.Entity.FindByName = function(_root, _name) {
 LR.Entity.FindByID = function(_root, _id) {
 	var entity = null;
 	if (_root && _root.go && _root.go.id === _id) {
-		entity = _root.go;
+		entity = _root;
 	} else {
 		if (_root.children) {
 			var i = 0;
 			while (i < _root.children.length && entity == null) {
 				var child = _root.children[i];
-				var go = LR.Entity.FindByID(child, _id);
-				if (go) {
-					entity = go;
+				var e = LR.Entity.FindByID(child, _id);
+				if (e) {
+					entity = e;
 				}
 
 				i++;

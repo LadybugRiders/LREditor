@@ -4,21 +4,15 @@
 <div class="modal-body">
   <div class="form-group">
     <div class="row">
-        <!-- PATH -->
-        <div class="col-md-2">
-            <label>Path</label>
-        </div>
-        <div class="col-md-10">
-            <input type="text" ng-model="tmp.levels.path" class="form-control"/>
-        </div>
-    </div>
-    <div class="row">
         <!-- NAME -->
         <div class="col-md-2">
-            <label>Name</label>
+            <label>Select Level</label>
         </div>  
         <div class="col-md-10">
-            <input type="text" ng-model="tmp.levels.name" class="form-control"/>
+            <select 
+                ng-model="tmp.levels.selectedPath" 
+                ng-options="t.path as t.path for t in project.assets.levels">
+            </select>
         </div>
     </div>
 </div> 

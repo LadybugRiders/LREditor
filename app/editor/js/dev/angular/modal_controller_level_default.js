@@ -19,7 +19,7 @@ var LevelDefaultCtrlModal = function ($scope, $modalInstance, $timeout) {
   $scope.setDefault = function (_reload) {
     if (localStorage) {
       // set level default
-      localStorage.setItem("project.levelDefault", $scope.tmp.levels.name);
+      localStorage.setItem("project.levelImport", $scope.tmp.levels.name);
     } else {
       console.warn("no localStorage");
     }

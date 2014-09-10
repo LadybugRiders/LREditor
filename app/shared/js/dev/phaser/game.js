@@ -64,7 +64,7 @@ LR.Game = function(_containerId,_scaleMode) {
 
 	var appVersion = window.navigator.appVersion.toLowerCase();
 	if( appVersion.indexOf("android") >= 0 || appVersion.indexOf("ios") >= 0)
-		renderType = Phaser.AUTO;
+		renderType = Phaser.CANVAS;
 
 	Phaser.Game.call(this, 640, 360,
 					 renderType, _containerId, functions);

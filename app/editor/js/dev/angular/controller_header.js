@@ -143,6 +143,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.loadCurrentProjectLayers();
 			$scope.loadCurrentProjectInputs();
 			$scope.loadCurrentProjectFonts();
+			$scope.loadCurrentProjectLevels();
 		}).error(function(_error) {
 			console.error(_error);
 		});
@@ -350,6 +351,29 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.$emit("sendBitmapFontsEmit",{bitmapFonts : $scope.project.assets.bitmapFonts});
 		}).error(function(_error) {
 			$scope.project.assets.bitmapFonts = new Array();
+			console.error(_error);
+		});
+
+	};
+
+	/***********
+	** LEVELS **
+	***********/
+
+	$scope.loadCurrentProjectLevels = function() {
+		var url = "/editorserverapi/v0/prefab";
+		url += "?path=" + $scope.project.path + "/assets/levels";
+		$http.get(url).success(function(_data) {
+			$scope.project.assets.levels = JSON.parse(JSON.stringify(_data.prefabs));
+			for( var i=0; i < $scope.project.assets.levels.length; i++ ){
+				var prefab = $scope.project.assets.levels[i];
+				if( prefab.name.indexOf(".old") >= 0){
+					$scope.project.assets.levels.splice(i,1);
+				}
+			}
+			//$scope.$emit("sendBitmapFontsEmit",{bitmapFonts : $scope.project.assets.bitmapFonts});
+		}).error(function(_error) {
+			$scope.project.assets.allLevels = new Array();
 			console.error(_error);
 		});
 
