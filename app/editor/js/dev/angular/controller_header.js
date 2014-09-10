@@ -165,6 +165,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		});
 	};
 
+	$scope.newLevel = function(){
+		localStorage.setItem("project.newLevel", true);
+       	var win = window.open(".", "_self");
+	}
+
 	/***********
 	** IMAGES **
 	***********/

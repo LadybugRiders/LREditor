@@ -199,9 +199,13 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$timeout(function() {
 			if (localStorage) {
+				var newLevel = localStorage.getItem("project.newLevel");
+				if(newLevel == "true"){
+      				localStorage.setItem("project.newLevel", false);
+					return;
+				}
 				//if we are importing a level
 				var levelImport = localStorage.getItem("project.levelImport");
-
       			if( levelImport != "null"){
       				localStorage.setItem("project.levelImport", null);
       			}else{
