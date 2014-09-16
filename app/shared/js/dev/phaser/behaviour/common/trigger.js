@@ -2,6 +2,7 @@
 
 //>>LREditor.Behaviour.name: LR.Behaviour.Trigger
 //>>LREditor.Behaviour.params : {"callbackName":"", "messageObject" : {}, "otherNotified":null, "activeCountLimit": 0}
+//>>LREditor.Behaviour.desc : Sends a message to any colliding object
 
 /**
 * Class Trigger

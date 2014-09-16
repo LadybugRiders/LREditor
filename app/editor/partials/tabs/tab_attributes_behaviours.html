@@ -35,7 +35,8 @@
 						<option value="{{behaviour}}" 
 								ng-show="bhSearchWord == null|| bhSearchWord =='' || 
 								behaviour.name.toUpperCase().indexOf(bhSearchWord.toUpperCase())>=0"
-								ng-repeat="behaviour in data.behaviours">
+								ng-repeat="behaviour in data.behaviours"
+								title="{{behaviour.desc}}">
 							{{behaviour.name}}
 						</option>
 					</select>

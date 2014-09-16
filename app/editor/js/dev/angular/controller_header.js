@@ -293,7 +293,20 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?path=" + $scope.project.path + "/assets/behaviours";
 		$http.get(url).success(function(_data) {
 			$scope.project.assets.behaviours = _data.behaviours;
+			$scope.loadCommonLRBehaviours();
+			//$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
+		}).error(function(_error) {
+			$scope.behaviours = new Object();
+			console.error(_error);
+		});
+	}
 
+	//loads LR built in behaviours
+	$scope.loadCommonLRBehaviours = function(){
+		var url = "/editorserverapi/v0/behaviour";
+		url += "?path=" + $scope.project.path + "/../shared/js/dev/phaser/behaviour/common";
+		$http.get(url).success(function(_data) {
+			$scope.project.assets.behaviours= $scope.project.assets.behaviours.concat( _data.behaviours );
 			$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
 		}).error(function(_error) {
 			$scope.behaviours = new Object();
@@ -386,7 +399,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 				}
 				prefab.shortPath = shortPath;
 			}
-			
+
 			//$scope.$emit("sendBitmapFontsEmit",{bitmapFonts : $scope.project.assets.bitmapFonts});
 		}).error(function(_error) {
 			$scope.project.assets.levels = new Array();

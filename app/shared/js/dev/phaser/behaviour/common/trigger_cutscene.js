@@ -1,6 +1,7 @@
 "use strict";
 //>>LREditor.Behaviour.name: LR.Behaviour.TriggerCutScene
 //>>LREditor.Behaviour.params : {"cutscene":"", "messageObject" : {}, "interactives":[], "activeCountLimit": 0}
+//>>LREditor.Behaviour.desc : Triggers a cutscene on contact
 
 /**
 * Class TriggerCutscene.

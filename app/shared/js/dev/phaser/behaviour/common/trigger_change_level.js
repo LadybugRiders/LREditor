@@ -1,6 +1,7 @@
 "use strict";
 //>>LREditor.Behaviour.name: LR.Behaviour.TriggerChangeLevel
 //>>LREditor.Behaviour.params : {"levelName":"", "interactives":[]}
+//>>LREditor.Behaviour.desc : Change level on contact
 
 /**
 * Class TriggerChangeLevel.
