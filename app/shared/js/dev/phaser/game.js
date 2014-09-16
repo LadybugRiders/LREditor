@@ -1,6 +1,6 @@
 "use strict";
 
-LR.Game = function(_containerId,_scaleMode) {
+LR.Game = function(_containerId,_scaleMode,_debug) {
 	/*
 	* The Input Manager of LadybugRiders Engine
 	* 
@@ -19,6 +19,8 @@ LR.Game = function(_containerId,_scaleMode) {
 	};
 
 	var create = function() {
+		if(_debug)
+			this.game.add.plugin(Phaser.Plugin.Debug);
 		this.game.plugins.add(Phaser.Plugin.PlayerSave);
 		this.game.plugins.add(Phaser.Plugin.InputManager);
 		this.game.plugins.add(Phaser.Plugin.CutsceneManager);

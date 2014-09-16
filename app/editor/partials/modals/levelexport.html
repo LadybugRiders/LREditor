@@ -21,6 +21,19 @@
             <input type="text" ng-model="tmp.levels.name" class="form-control"/>
         </div>
     </div>
+    <div class="row">
+        <!-- OVERWRITE -->
+        <div class="col-md-2">
+            <label>Overwrite</label>
+        </div>  
+        <div class="col-md-10">
+            <select 
+                ng-model="tmp.levels.selectedLevel" 
+                ng-options="t as t.shortPath for t in project.assets.levels"
+                ng-change="onSelectLevel()">
+            </select>
+        </div>
+    </div>
 </div> 
 </div>
 <div class="modal-footer">

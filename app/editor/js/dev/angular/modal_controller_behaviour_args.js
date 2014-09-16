@@ -63,7 +63,6 @@ var BehaviourArgsCtrlModal = function ($scope, $modalInstance, $timeout) {
   }
 
   $scope.onGameObjectPicked = function(_entity){
-    console.log(_entity);
     if( _entity && $scope.currentArg ){
       $scope.modalParamsData.tmp.behaviour.params[$scope.currentArg] = "#GO_"+_entity.go.id;
     }

@@ -1,5 +1,5 @@
 <accordion accordion-draggable>
-	<accordion-group heading="Entities" is-open="'true'">
+	<accordion-group heading="Entities [ {{project.level.substring(1)}} ]" is-open="'true'">
 		<div class="row">
 			<ul class="list-entities">
 				<li ng-repeat='data in entities | noeditorentities' ng-include="'partials/directives/entity_directive.html'">

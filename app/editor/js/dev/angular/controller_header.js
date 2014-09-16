@@ -370,15 +370,26 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		url += "?path=" + $scope.project.path + "/assets/levels";
 		$http.get(url).success(function(_data) {
 			$scope.project.assets.levels = JSON.parse(JSON.stringify(_data.prefabs));
+			
 			for( var i=0; i < $scope.project.assets.levels.length; i++ ){
 				var prefab = $scope.project.assets.levels[i];
 				if( prefab.name.indexOf(".old") >= 0){
 					$scope.project.assets.levels.splice(i,1);
 				}
 			}
+			for( var i=0; i < $scope.project.assets.levels.length; i++ ){
+				var prefab = $scope.project.assets.levels[i];
+				var shortPath = prefab.path.substring(1);
+				var extIndex = shortPath.indexOf(".json");
+				if( extIndex >= 0){
+					shortPath = shortPath.substring(0,extIndex);
+				}
+				prefab.shortPath = shortPath;
+			}
+			
 			//$scope.$emit("sendBitmapFontsEmit",{bitmapFonts : $scope.project.assets.bitmapFonts});
 		}).error(function(_error) {
-			$scope.project.assets.allLevels = new Array();
+			$scope.project.assets.levels = new Array();
 			console.error(_error);
 		});
 

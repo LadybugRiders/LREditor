@@ -15,11 +15,6 @@ var LevelImportCtrlModal = function ($scope, $modalInstance, $timeout) {
   };
 
   $scope.import = function () {
-    /*var data = {
-      levelName: $scope.tmp.levels.name,
-      levelPath: $scope.tmp.levels.path,
-      levelStorage: "file"
-    };*/
     if (localStorage) {
       var jsonIndex = $scope.tmp.levels.selectedPath.indexOf(".json");
       if( jsonIndex >= 0)

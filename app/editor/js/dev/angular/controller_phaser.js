@@ -208,11 +208,13 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				var levelImport = localStorage.getItem("project.levelImport");
       			if( levelImport != "null"){
       				localStorage.setItem("project.levelImport", null);
+      				localStorage.setItem("project.levelDefault", levelImport);
       			}else{
 					//if we are just launching the editor, check default;
 					levelImport = localStorage.getItem("project.levelDefault");      				
       			}
 				if (levelImport) {
+					$scope.project.level = levelImport;
 					var levelPath = $scope.project.path + "/assets/levels";
 					$scope.import(levelPath, levelImport, "file", function(err) {
 						if (err == null) {

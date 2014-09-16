@@ -9,7 +9,7 @@ var LevelExportCtrlModal = function ($scope, $modalInstance, $timeout) {
     if ($scope.tmp.levels.name == null) {
       if (localStorage) {
         // get last exported level
-        $scope.tmp.levels.name = localStorage.getItem("project.levelDefault");
+        $scope.tmp.levels.name = localStorage.getItem("project.levelDefault").substring(1);
         
         if ($scope.tmp.levels.name == null) {
           $scope.tmp.levels.name = "example";
@@ -30,6 +30,10 @@ var LevelExportCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.close = function () {
     $modalInstance.dismiss();
+  };
+
+  $scope.onSelectLevel = function () {    
+    $scope.tmp.levels.name = $scope.tmp.levels.selectedLevel.shortPath;
   };
 
   main();

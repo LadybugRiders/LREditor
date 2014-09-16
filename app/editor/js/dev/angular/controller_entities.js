@@ -7,6 +7,10 @@ var LREditorCtrlMod = angular.module('LREditor.controllers');
 LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeout", 
 	function($scope, $http, $modal, $timeout) {
 	function main() {
+		$scope.$on("sendProjectBroadcast", function(_event, _args) {
+			$scope.project = _args.project;
+		});
+		
 		$scope.$on("refreshListBroadcast", function(_event, _args) {
 			$scope.refreshList(_args.world);
 		});
