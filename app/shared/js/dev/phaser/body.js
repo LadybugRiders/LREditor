@@ -28,7 +28,7 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 	this._bindRotation = false;
 
 	//offset to add to the sprite angle if bound
-	this._offsetRotation = 30;
+	this._offsetRotation = 0;
 
 }
 
@@ -183,8 +183,9 @@ Object.defineProperty(LR.Body.prototype, "bindRotation", {
     set: function (value) {
     	
     	this._bindRotation = value;
-    	if(value == true && this._bindRotation == false)
+    	if(value == true && this._bindRotation == false) {
     		this._offsetRotation = this.sprite.angle;
+        }
     }
 
 });
