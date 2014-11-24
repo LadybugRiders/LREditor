@@ -632,7 +632,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	}
 
-	$scope.bindRotation = function(){
+	$scope.bindRotation = function() {
 		$scope.currentEntity.body.bindRotation = $scope.data.body.bindRotation;
 	}
 	//=========================================================
