@@ -13,8 +13,8 @@ LR.Editor.Behaviour.EntityCameraFixer.prototype.constructor = LR.Editor.Behaviou
 LR.Editor.Behaviour.EntityCameraFixer.prototype.update = function(){
     if( this.$scope.game.camera.ed_debugObject != null ){
     	var rectObject = this.$scope.game.camera.ed_debugObject;
-        this.entity.go.x = rectObject.graphicsData[0].points[0] + this.entity.cameraOffset.x;
-        this.entity.go.y = rectObject.graphicsData[0].points[1] + this.entity.cameraOffset.y;
+        this.entity.go.x = rectObject.graphicsData[0].shape.x + this.entity.cameraOffset.x;
+        this.entity.go.y = rectObject.graphicsData[0].shape.y + this.entity.cameraOffset.y;
         
     }
 }

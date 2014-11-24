@@ -35,8 +35,8 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 LR.Body.prototype = Object.create(Phaser.Physics.P2.Body.prototype);
 LR.Body.prototype.constructor = LR.Body;
 
-LR.Body.prototype.postUpdate = function () {    
-
+LR.Body.prototype.postUpdate = function () {   
+    
 	//Add delta between the last body world position and the new one
 	//to the localPosition
 	this.localPosition.x += (this.worldX - this.lastPosition.x) ;
@@ -93,13 +93,11 @@ LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {
 Object.defineProperty(LR.Body.prototype, "x", {
 
     get: function () {
-
         return this.localPosition.x;
 
     },
 
     set: function (value) {
-
     	this.localPosition.x = value;
     }
 

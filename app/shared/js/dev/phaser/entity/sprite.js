@@ -79,7 +79,7 @@ LR.Entity.Sprite.prototype.updateTransform = function() {
 
 // Called when the scene is launching. All objects are created then.
 LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {
-	if(this.body){
+	if(this.body && this.body.onSpriteAddedToGroup){
 		this.body.onSpriteAddedToGroup(_sprite,_group);
 	}
 };
