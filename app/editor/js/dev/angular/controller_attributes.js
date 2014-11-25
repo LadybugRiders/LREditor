@@ -146,11 +146,18 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 			
 			//image
-			if( $scope.data.type == "sprite"){
+			if( $scope.data.type == "sprite" || $scope.data.type == "tilesprite"){
+				//Atlas
+				if( $scope.currentEntity.isAtlas == true ){
+					$scope.data.atlas = $scope.currentEntity.atlas;
+					$scope.data.frameName = $scope.currentEntity.frameName;
+				}
+
 				var key = $scope.currentEntity.key;
 				if (key === "" || key === "__missing" || key == null) {
 					$scope.data.image = $scope.noneImage;
-				} if (key !== "none") {
+				} 
+				if (key !== "none") {
 					var image = $scope.currentEntity.game.cache.getImage(key);
 					$scope.data.image = image;
 				}
@@ -358,9 +365,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	}
 
 	//============ ATLAS ==============================
-	$scope.setAtlas = function() {
-		$scope.currentEntity.loadTexture("stone-atlas_stone_1");
-		//$scope.changeTexture("acolyte");//seacreatures");
+	$scope.changeAtlas = function(_atlas,_frameName) {
+		$scope.currentEntity.loadTexture(_atlas);
+		$scope.currentEntity.frameName = _frameName;
+		$scope.currentEntity.isAtlas = true;
+		$scope.currentEntity.atlas = _atlas;
 	}
 
 	//============ ANIMATION =============================

@@ -173,6 +173,10 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 	return image;
 };
 
+/************
+** ATLASES **
+*************/
+
 /***********
 ** SOUNDS **
 ***********/

@@ -594,28 +594,28 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.loadAtlas = function(_atlas) {
-		console.log(_atlas);
+		
     	$scope.game.load.atlas(_atlas.name, 
     						$scope.project.path +"/assets/atlases"+_atlas.path+".png",
     						$scope.project.path +"/assets/atlases"+_atlas.path+".json");
-		
+		$scope.game.load.json(_atlas.name, $scope.project.path +"/assets/atlases"+_atlas.path+".json");
 		var successCallback = function() {
 			$scope.$apply(function() {
 				_atlas.loaded = true;
+				_atlas.frames = $scope.game.cache.getJSON(_atlas.name).frames;
 			});
 
-			$scope.game.load.onFileComplete.remove(successCallback);
+			$scope.game.load.onLoadComplete.remove(successCallback);
 			$scope.game.load.onFileComplete.remove(errorCallback);
 		};
-		var errorCallback = function(_caca,_caca2,_caca3) {
-			console.log(_caca2);
+		var errorCallback = function() {
 			alert("Sorry but the editor can't load your atlas '" + _atlas.name );
 			
-			$scope.game.load.onFileComplete.remove(successCallback);
+			$scope.game.load.onLoadComplete.remove(successCallback);
 			$scope.game.load.onFileComplete.remove(errorCallback);
 		};
 		
-		$scope.game.load.onFileComplete.add(successCallback);
+		$scope.game.load.onLoadComplete.add(successCallback);
 		$scope.game.load.onFileError.add(errorCallback);
 
 		$scope.game.load.start();
