@@ -37,6 +37,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 		});
 
+		$scope.$on("sendAtlasesBroadcast", function(_event, _args) {
+			if (_args.atlases) {
+				$scope.data.atlases = _args.atlases
+			}
+		});
+
 		$scope.$on("sendAudiosBroadcast", function(_event, _args) {
 			if (_args.audios) {
 				$scope.data.audios = _args.audios;
@@ -349,6 +355,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				bh.enabled = false;
 			}
 		}
+	}
+
+	//============ ATLAS ==============================
+	$scope.setAtlas = function() {
+		$scope.currentEntity.loadTexture("stone-atlas_stone_1");
+		//$scope.changeTexture("acolyte");//seacreatures");
 	}
 
 	//============ ANIMATION =============================

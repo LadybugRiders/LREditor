@@ -107,6 +107,18 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("sendCameraBroadcast", _args);
 		});	
 
+		$scope.$on("sendAtlasesEmit", function(_event, _args) {
+			$scope.$broadcast("sendAtlasesBroadcast", _args);
+		});
+
+		$scope.$on("loadAtlasEmit", function(_event, _args) {
+			$scope.$broadcast("loadAtlasBroadcast", _args);
+		});
+
+		$scope.$on("unloadAtlasEmit", function(_event, _args) {
+			$scope.$broadcast("unloadAtlasBroadcast", _args);
+		});
+
 		//================== AUDIOS ======================
 		$scope.$on("sendAudiosEmit", function(_event, _args) {
 			$scope.$broadcast("sendAudiosBroadcast", _args);
