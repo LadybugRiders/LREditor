@@ -63,6 +63,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.layers = _args.layers;
 		});
 
+		$scope.$on("setHideOutOfViewBroadcast", function(_event, _args) {
+			$scope.toggleOutOfViewHide(_args.entity,_args.value);
+		});
+
 
 		$scope.$on("refreshCurrentEntityBroadcast", function(_event, _args) {
 			if( _args.phaser == true ){
@@ -206,6 +210,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			var oldParent = $scope.currentEntity.parent;
 			oldParent.remove($scope.currentEntity);
 			_parent.add($scope.currentEntity);
+			if( _parent.ed_outOfViewHide == true)
+				$scope.toggleOutOfViewHide($scope.currentEntity,true);
 		}
 	};
 
@@ -364,12 +370,30 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	}
 
+	$scope.toggleOutOfViewHide = function(_entity,_value){
+		//you can change an entity ed_outOfViewHide property inside a group
+		//which has an ed_outOfViewHide property set to true
+		if(_entity.parent.ed_outOfViewHide == true){
+			_entity.ed_outOfViewHide = true;
+			if( _value == null)
+				return;
+			else
+				_value = true;
+		}
+		if( _value != null)
+			_entity.ed_outOfViewHide = _value;
+		if( _entity.children && _entity.ed_outOfViewHide == true){
+			for(var i=0; i < _entity.children.length; i++){
+				$scope.toggleOutOfViewHide(_entity.children[i],_entity.ed_outOfViewHide);
+			}
+		}
+	}
+
 	//============ ATLAS ==============================
 	$scope.changeAtlas = function(_atlas,_frameName) {
 		$scope.currentEntity.loadTexture(_atlas);
 		$scope.currentEntity.frameName = _frameName;
 		$scope.currentEntity.isAtlas = true;
-		$scope.currentEntity.atlas = _atlas;
 	}
 
 	//============ ANIMATION =============================

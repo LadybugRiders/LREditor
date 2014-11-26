@@ -27,6 +27,10 @@ LR.Entity.Sprite = function(_game, _x, _y, _texture, _name) {
 
 	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
 
+	this.hidden = false;
+	this.outOfViewHide = false;
+	this.alphaBeforeHide = 1;
+
 };
 
 LR.Entity.Sprite.prototype = Object.create(Phaser.Sprite.prototype);
@@ -44,6 +48,23 @@ LR.Entity.Sprite.prototype.update = function() {
 	if (this.go) {
 		if (this.exists) {
 			this.go.update();
+		}
+	}
+
+	if( this.outOfViewHide ){
+		
+		var inCam = LR.Utils.isSpriteInCameraView(this,this.game.camera);
+		
+		//show if enters camera view
+		if( inCam && this.hidden ){
+			this.hidden = false;
+			this.alpha = this.alphaBeforeHide;
+		}
+		//hide if quits camera view
+		if( !inCam && !this.hidden ){
+			this.hidden = true;
+			this.alphaBeforeHide = this.alpha;
+			this.alpha = 0;
 		}
 	}
 };

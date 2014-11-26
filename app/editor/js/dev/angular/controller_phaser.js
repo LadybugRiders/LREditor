@@ -439,6 +439,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		}
 		$scope.reassignID(iObj);
 		iObj.go.changeParent(_entity.parent);
+		if(iObj.parent.ed_outOfViewHide == true)
+			iObj.ed_outOfViewHide = true;
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 		//Select clone
 		$scope.$emit("selectEntityEmit", {entity : iObj});

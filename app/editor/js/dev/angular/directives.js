@@ -169,6 +169,11 @@ moduleDirectives.directive('entityDrag', function() {
 						var oldParent = draggedEntity.parent;
 						oldParent.remove(draggedEntity);
 						_scope.entity.add(draggedEntity);
+						
+						if( _scope.entity.ed_outOfViewHide == true){
+							_scope.$emit("setHideOutOfViewEmit",{entity : draggedEntity, value:true});
+						}
+						
 
 						_scope.$apply();
 					} else {
