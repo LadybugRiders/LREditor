@@ -244,8 +244,8 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 		_entity.width = w;
 		_entity.height = h;
 		if( _objectData.type == "LR.Entity.TileSprite" && _entity.game.renderType == Phaser.CANVAS){
-			_entity.tilePosition.y = h * 0.5;
-			_entity.tilePosition.x = w * 0.5;
+			_entity.tilePosition.y = h ;//* 0.5;
+			_entity.tilePosition.x = w ;//* 0.5;
 		}
 	}
 
