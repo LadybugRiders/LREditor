@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Phaser.Plugin.InputManager - LREditor API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="LREditor API"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Behaviour.Button.html">Behaviour.Button</a></li>
+                                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+                                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+                                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+                                <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
+                                <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
+                                <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
+                                <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
+                                <li><a href="../classes/Entity.Sprite.html">Entity.Sprite</a></li>
+                                <li><a href="../classes/Entity.Text.html">Entity.Text</a></li>
+                                <li><a href="../classes/Entity.TileSprite.html">Entity.TileSprite</a></li>
+                                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+                                <li><a href="../classes/LR.Body.html">LR.Body</a></li>
+                                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+                                <li><a href="../classes/LR.Game.html">LR.Game</a></li>
+                                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+                                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+                                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+                                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+                                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+                                <li><a href="../classes/LR.LR.html">LR.LR</a></li>
+                                <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
+                                <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
+                                <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.DialogManager.html">Phaser.Plugin.DialogManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.InputManager.html">Phaser.Plugin.InputManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.PlayerSave.html">Phaser.Plugin.PlayerSave</a></li>
+                                <li><a href="../classes/UI.DialogBox.html">UI.DialogBox</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>Phaser.Plugin.InputManager Class</h1>
+                        <div class="box meta">
+                        
+                        
+                                <div class="foundat">
+                                    Defined in: <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l2"><code>app\shared\js\dev\phaser\plugin\input_manager.js:2</code></a>
+                                </div>
+                        
+                        
+                        </div>
+                        
+                        
+                        <div class="box intro">
+                            <p>InputManager refers to input keys as actions, and not as number.
+                        By this way, you can bind callbacks to an action, then change the key triggering this action or freeze it for every
+                        callback bound to this action</p>
+                        <p>How to use it:
+                        game.plugins.add(Phaser.Plugin.InputManager);</p>
+                        <p>Common usage :</p>
+                        <ol>
+                        <li>Create Keys Data :
+                          var keysData = {&quot;valid&quot; : { key : Phaser.Keyboard.SPACEBAR }, &quot;cancel&quot; : { key : Phaser.Keyboard.C } };</li>
+                        <li>Init 
+                          game.inputManager.init(keysData);</li>
+                        <li>Bind a Key to an Action 
+                          game.inputManager.bindKeyPress(&quot;valid&quot;,callback,context,priority);</li>
+                        </ol>
+                        <p>NB : You can associate a priority to the callbacks you register. If a callback returns true,
+                        the other callbacks of lower priority for this same event won&#39;t be triggered.</p>
+                        <ol>
+                        <li>When the SPACEBAR is pressed, every callback bound to &quot;valid&quot; action will be triggered</li>
+                        </ol>
+                        <p>Warning: this class is a singleton.</p>
+                        
+                        </div>
+                        
+                            <div class="constructor">
+                                <h2>Constructor</h2>
+                                <div id="method_Phaser.Plugin.InputManager" class="method item">
+                                    <h3 class="name"><code>Phaser.Plugin.InputManager</code></h3>
+                                
+                                        <span class="paren">()</span>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                    <div class="meta">
+                                                <p>
+                                                Defined in
+                                        <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l2"><code>app\shared\js\dev\phaser\plugin\input_manager.js:2</code></a>
+                                        </p>
+                                
+                                
+                                
+                                    </div>
+                                
+                                    <div class="description">
+                                        
+                                    </div>
+                                
+                                
+                                
+                                </div>
+                            </div>
+                        
+                        <div id="classdocs" class="tabview">
+                            <ul class="api-class-tabs">
+                                <li class="api-class-tab index"><a href="#index">Index</a></li>
+                        
+                                    <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+                            </ul>
+                        
+                            <div>
+                                <div id="index" class="api-class-tabpanel index">
+                                    <h2 class="off-left">Item Index</h2>
+                        
+                                        <div class="index-section methods">
+                                            <h3>Methods</h3>
+                        
+                                            <ul class="index-list methods">
+                                                    <li class="index-item method">
+                                                        <a href="#method_bindKeyPress">bindKeyPress</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_bindKeyUp">bindKeyUp</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_bindMousePress">bindMousePress</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_bindMousePress">bindMousePress</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_bindMouseWheel">bindMouseWheel</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_createActionKey">createActionKey</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_freezeInputAll">freezeInputAll</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_freezeInputKeys">freezeInputKeys</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_freezeInputMouse">freezeInputMouse</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_init">init</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_isRegisteredButtonDown">isRegisteredButtonDown</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_isRegisteredButtonOvered">isRegisteredButtonOvered</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_registerButton">registerButton</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_unfreezeInputAll">unfreezeInputAll</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_unfreezeInputKeys">unfreezeInputKeys</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_unfreezeInputMouse">unfreezeInputMouse</a>
+                        
+                                                    </li>
+                                            </ul>
+                                        </div>
+                        
+                        
+                        
+                                </div>
+                        
+                                    <div id="methods" class="api-class-tabpanel">
+                                        <h2 class="off-left">Methods</h2>
+                        
+                                            <div id="method_bindKeyPress" class="method item">
+                                                <h3 class="name"><code>bindKeyPress</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>actionInputName</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>functionBinded</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>callbackContext</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>priority</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l247"><code>app\shared\js\dev\phaser\plugin\input_manager.js:247</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Binds a key to the manager. The _functionBinded will be triggered on the _callbackContext when the key bound to the _actionInputName is pressed
+                                            Note that the function binded can expect a Phaser.Key parameter</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">actionInputName</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The action we want to bind to</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">functionBinded</code>
+                                                                    <span class="type">Function</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The function that will be called when the action is performed</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">callbackContext</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The context of the function</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">priority</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Priority of the callback. See enablePriority for more details</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_bindKeyUp" class="method item">
+                                                <h3 class="name"><code>bindKeyUp</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>actionInputName</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>functionBinded</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>callbackContext</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>priority</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l273"><code>app\shared\js\dev\phaser\plugin\input_manager.js:273</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Binds a key to the manager. The _functionBinded will be triggered on the _callbackContext when the key bound to the _actionInputName is pressed
+                                            Note that the function binded can expect a Phaser.Key parameter</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">actionInputName</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The action we want to bind to</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">functionBinded</code>
+                                                                    <span class="type">Function</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The function that will be called when the action is performed</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">callbackContext</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The context of the function</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">priority</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Priority of the callback. See enablePriority for more details</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_bindMousePress" class="method item">
+                                                <h3 class="name"><code>bindMousePress</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>callback</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>context</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>button</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>priority</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l196"><code>app\shared\js\dev\phaser\plugin\input_manager.js:196</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Binds a callback to the mouse left release event</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">callback</code>
+                                                                    <span class="type">Function</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">context</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">button</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Phaser.Mouse.[LEFT_BUTTON,RIGHT_BUTTON,MIDDLE_BUTTON]</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">priority</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The priority of the callback</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_bindMousePress" class="method item">
+                                                <h3 class="name"><code>bindMousePress</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>callback</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>context</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>button</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>priority</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l169"><code>app\shared\js\dev\phaser\plugin\input_manager.js:169</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Binds a callback to the mouse left press event</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">callback</code>
+                                                                    <span class="type">Function</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">context</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">button</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Phaser.Mouse.[LEFT_BUTTON,RIGHT_BUTTON,MIDDLE_BUTTON]</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">priority</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The priority of the callback</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_bindMouseWheel" class="method item">
+                                                <h3 class="name"><code>bindMouseWheel</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>callback</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>context</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>priority</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l222"><code>app\shared\js\dev\phaser\plugin\input_manager.js:222</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Binds a callback to the mouse wheel event. 
+                                            The callback should have an object in its parameter. It contains a delta property corresponding to the direction of the mousewheel</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">callback</code>
+                                                                    <span class="type">Function</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">context</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">priority</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The priority of the callback</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_createActionKey" class="method item">
+                                                <h3 class="name"><code>createActionKey</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>actionName</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>key</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>capture</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l79"><code>app\shared\js\dev\phaser\plugin\input_manager.js:79</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Creates an action key data and add it to the input manager
+                                            ie : createActionKey(&quot;valid&quot;, Phaser.Keyboard.SPACEBAR,false);</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">actionName</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The name of the action key</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">key</code>
+                                                                    <span class="type">Number</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">capture</code>
+                                                                    <span class="type">Boolean</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Should this key still be listen by the browser. null is true.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_freezeInputAll" class="method item">
+                                                <h3 class="name"><code>freezeInputAll</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l377"><code>app\shared\js\dev\phaser\plugin\input_manager.js:377</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Freezes all the inputs</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                            
+                                            </div>
+                                            <div id="method_freezeInputKeys" class="method item">
+                                                <h3 class="name"><code>freezeInputKeys</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>actionNames</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l402"><code>app\shared\js\dev\phaser\plugin\input_manager.js:402</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Freezes the input keys for the specified action</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">actionNames</code>
+                                                                    <span class="type">_actionNames</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>ie [&quot;valid&quot;,&quot;cancel&quot;]</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_freezeInputMouse" class="method item">
+                                                <h3 class="name"><code>freezeInputMouse</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>buttons</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l432"><code>app\shared\js\dev\phaser\plugin\input_manager.js:432</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Freezes the mouse input for the specified buttons</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">buttons</code>
+                                                                    <span class="type">_buttons</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>ie : [ Phaser.MOUSE.LEFT_BUTTON ]</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_init" class="method item">
+                                                <h3 class="name"><code>init</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>keysData</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l53"><code>app\shared\js\dev\phaser\plugin\input_manager.js:53</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Init all the keys binding and mouse events</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">keysData</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>See common usage in the class description</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_isRegisteredButtonDown" class="method item">
+                                                <h3 class="name"><code>isRegisteredButtonDown</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l482"><code>app\shared\js\dev\phaser\plugin\input_manager.js:482</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Returns true is a registered button is down</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                <p>wheter a button is down or not</p>
+                                            
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_isRegisteredButtonOvered" class="method item">
+                                                <h3 class="name"><code>isRegisteredButtonOvered</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l499"><code>app\shared\js\dev\phaser\plugin\input_manager.js:499</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Returns true is a registered button is overed by an input</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                <p>wheter a button is down or not</p>
+                                            
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_registerButton" class="method item">
+                                                <h3 class="name"><code>registerButton</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>button</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l469"><code>app\shared\js\dev\phaser\plugin\input_manager.js:469</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Resiter a button so that it will block any mouse input if the action is donw on this
+                                            same button.
+                                            For example, if your button is clicked, it will override any other callback bound in 
+                                            the InputManager via boundMousePress and bindMouseRelease</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">button</code>
+                                                                    <span class="type">LR.Entity.Button</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_unfreezeInputAll" class="method item">
+                                                <h3 class="name"><code>unfreezeInputAll</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l390"><code>app\shared\js\dev\phaser\plugin\input_manager.js:390</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Unfreezes all the inputs</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                            
+                                            </div>
+                                            <div id="method_unfreezeInputKeys" class="method item">
+                                                <h3 class="name"><code>unfreezeInputKeys</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>actionNames</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l417"><code>app\shared\js\dev\phaser\plugin\input_manager.js:417</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Unfreezes the input keys for the specified action</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">actionNames</code>
+                                                                    <span class="type">_actionNames</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>ie [&quot;valid&quot;,&quot;cancel&quot;]</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_unfreezeInputMouse" class="method item">
+                                                <h3 class="name"><code>unfreezeInputMouse</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>buttons</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_input_manager.js.html#l446"><code>app\shared\js\dev\phaser\plugin\input_manager.js:446</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Unfreezes the mouse input for the specified buttons</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">buttons</code>
+                                                                    <span class="type">_buttons</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>ie : [ Phaser.MOUSE.LEFT_BUTTON ]</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                    </div>
+                        
+                        
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

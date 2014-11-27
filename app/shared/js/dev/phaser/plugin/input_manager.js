@@ -22,6 +22,7 @@
 *
 * Warning: this class is a singleton.
 * @class InputManager
+* @namespace Phaser.Plugin
 * @constructor
 */
 Phaser.Plugin.InputManager = function(_game, _parent) {

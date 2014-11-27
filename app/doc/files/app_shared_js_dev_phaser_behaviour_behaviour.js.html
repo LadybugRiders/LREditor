@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app\shared\js\dev\phaser\behaviour\behaviour.js - LREditor API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="LREditor API"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Behaviour.Button.html">Behaviour.Button</a></li>
+                                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+                                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+                                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+                                <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
+                                <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
+                                <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
+                                <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
+                                <li><a href="../classes/Entity.Sprite.html">Entity.Sprite</a></li>
+                                <li><a href="../classes/Entity.Text.html">Entity.Text</a></li>
+                                <li><a href="../classes/Entity.TileSprite.html">Entity.TileSprite</a></li>
+                                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+                                <li><a href="../classes/LR.Body.html">LR.Body</a></li>
+                                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+                                <li><a href="../classes/LR.Game.html">LR.Game</a></li>
+                                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+                                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+                                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+                                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+                                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+                                <li><a href="../classes/LR.LR.html">LR.LR</a></li>
+                                <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
+                                <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
+                                <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.DialogManager.html">Phaser.Plugin.DialogManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.InputManager.html">Phaser.Plugin.InputManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.PlayerSave.html">Phaser.Plugin.PlayerSave</a></li>
+                                <li><a href="../classes/UI.DialogBox.html">UI.DialogBox</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: app\shared\js\dev\phaser\behaviour\behaviour.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        &quot;use strict&quot;;
+                        
+                        /**
+                        * Script attached to a GameObject. Its update method is called every frame if the object exists.
+                        * 
+                        * @namespace LR
+                        * @class Behaviour
+                        * @constructor
+                        * @param {GameObject} gameobject The GameObject this behaviour is attached to
+                        */
+                        LR.Behaviour = function(_gameobject, _args) {
+                        	/**
+                        	* Enables the behaviour. A disabled behaviour will not have its start(),update(), render() and contacts function called by its GameObject
+                        	*
+                        	* @property enabled
+                        	* @type {boolean}
+                        	* @default true
+                        	*/
+                        	this.enabled = true;
+                        	
+                        	/**
+                        	* The GameObject this Behaviour is attached to
+                        	*
+                        	* @property gameobject
+                        	* @type {GameObject}
+                        	*/
+                        	this.go = _gameobject;
+                        
+                        	/**
+                        	* The Entity of the GameObject
+                        	*
+                        	* @property entity
+                        	* @type {LR.Entity}
+                        	*/
+                        	this.entity = _gameobject.entity;
+                        
+                        	/**
+                        	* Arguments to the behaviour. Must be used in Behaviour.create
+                        	*
+                        	* @property args
+                        	* @type object
+                        	* @default null
+                        	*/
+                        	this.args = _args;
+                        
+                        	/**
+                        	* If this property is set to false, the behaviours won&#x27;t be noticed of contact events anymore
+                        	* ie : onBeginContact and onEndContact will not be triggered
+                        	*
+                        	* @property enableEvents
+                        	* @type boolean
+                        	* @default true
+                        	*/
+                        	this.enableEvents = true;
+                        };
+                        
+                        LR.Behaviour.prototype.constructor = LR.Behaviour;
+                        
+                        /**
+                        * Called when all gameobjects are created
+                        *
+                        * @method create
+                        */
+                        LR.Behaviour.prototype.create = function() {
+                        };
+                        
+                        /**
+                        * Called each frame if the behaviour is enabled
+                        *
+                        * @method update
+                        */
+                        LR.Behaviour.prototype.update = function() {
+                        
+                        };
+                        
+                        /**
+                        * Called each frame after updaet() if the behaviour is enabled
+                        *
+                        * @method postUpdate
+                        */
+                        LR.Behaviour.prototype.postUpdate = function() {
+                        
+                        };
+                        
+                        LR.Behaviour.prototype.render = function() {
+                        
+                        };
+                        
+                        /**
+                        * Called when the scene is launching. All objects are created then.
+                        *
+                        * @method start
+                        */
+                        LR.Behaviour.prototype.start = function() {
+                        };
+                        
+                        /**
+                        * Called when the GameObject is destroyed
+                        *
+                        * @method destroy
+                        */
+                        LR.Behaviour.prototype.destroy = function(){
+                        
+                        }
+                        
+                        /**
+                        * Called when a body collision just begins
+                        *
+                        * @method onBeginContact
+                        * @param {_otherBody} _otherBody
+                        * @param {_myShape} _myShape
+                        * @param {_otherShape} _otherShape
+                        * @param {_equation} _equation
+                        */
+                        LR.Behaviour.prototype.onBeginContact = function(_otherBody, _myShape, _otherShape, _equation){
+                        
+                        }
+                        
+                        LR.Behaviour.prototype.onContact = function(_otherBody){
+                        
+                        }
+                        
+                        /**
+                        * Called when a body collision just ends
+                        *
+                        * @method onEndContact
+                        * @param {_otherBody} _otherBody
+                        * @param {_myShape} _myShape
+                        * @param {_otherShape} _otherShape
+                        * @param {_equation} _equation
+                        */
+                        LR.Behaviour.prototype.onEndContact = function(_otherBody, _myShape, _otherShape, _equation){
+                        	
+                        }
+                        
+                        //============================================================
+                        //						CUTSCENE
+                        //============================================================
+                        /**
+                        * Called when a cutscene begins
+                        *
+                        * @method onBeginCutscene
+                        */
+                        LR.Behaviour.prototype.onBeginCutscene = function(){
+                        
+                        }
+                        
+                        /**
+                        * Called when a cutscene ends
+                        *
+                        * @method onEndCutscene
+                        */
+                        LR.Behaviour.prototype.onBeginCutscene = function(){
+                        
+                        }
+                        LR.Behaviour.prototype.onEndCutscene = function(){
+                        	
+                        }
+                        
+                        /**
+                        * Find an instance of a specific Behaviour held by a gameobject 
+                        *
+                        * @method FindBehaviour
+                        * @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
+                        * @param {Class} Behaviour&#x27;s class
+                        * @return {GameObject} Found gameobject
+                        */
+                        LR.Behaviour.Find = function(_root, _behaviour) {
+                        	var behaviour = null;
+                        
+                        	behaviour = _root.go.getBehaviour(_behaviour);
+                        
+                        	if (!behaviour &amp;&amp; _root.children) {
+                        		var i = 0;
+                        		while (i &lt; _root.children.length &amp;&amp; behaviour == null) {
+                        			var child = _root.children[i];
+                        			behaviour = LR.GameObject.FindBehaviour(child, _behaviour)
+                        			i++;
+                        		}
+                        	}
+                        
+                        	return behaviour;
+                        };
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

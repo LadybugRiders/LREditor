@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app\shared\js\dev\phaser\plugin\cutscene_manager.js - LREditor API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="LREditor API"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Behaviour.Button.html">Behaviour.Button</a></li>
+                                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+                                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+                                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+                                <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
+                                <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
+                                <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
+                                <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
+                                <li><a href="../classes/Entity.Sprite.html">Entity.Sprite</a></li>
+                                <li><a href="../classes/Entity.Text.html">Entity.Text</a></li>
+                                <li><a href="../classes/Entity.TileSprite.html">Entity.TileSprite</a></li>
+                                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+                                <li><a href="../classes/LR.Body.html">LR.Body</a></li>
+                                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+                                <li><a href="../classes/LR.Game.html">LR.Game</a></li>
+                                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+                                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+                                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+                                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+                                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+                                <li><a href="../classes/LR.LR.html">LR.LR</a></li>
+                                <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
+                                <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
+                                <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.DialogManager.html">Phaser.Plugin.DialogManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.InputManager.html">Phaser.Plugin.InputManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.PlayerSave.html">Phaser.Plugin.PlayerSave</a></li>
+                                <li><a href="../classes/UI.DialogBox.html">UI.DialogBox</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: app\shared\js\dev\phaser\plugin\cutscene_manager.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        &quot;use strict&quot;;
+                        
+                        /**
+                        * Start Manage cutscenes.
+                        *
+                        * @class CutsceneManager
+                        * @namespace Phaser.Plugin
+                        * @constructor
+                        * @param {Phaser.Game} game
+                        */
+                        Phaser.Plugin.CutsceneManager = function( _game, _parent ){
+                        	this.game = _game;
+                        
+                        	this.state = &quot;IDLE&quot;;
+                        
+                        	this.cutscene = null;
+                        	this.currentIndex = 0;
+                        
+                        	this.actionsFinished = 0;
+                        	this.actionsForEvent = 0;
+                        
+                        	if (Phaser.Plugin.CutsceneManager.INSTANCE == null) {
+                        		Phaser.Plugin.call(this, _game, _parent);
+                        
+                        		Phaser.Plugin.CutsceneManager.INSTANCE = this;
+                        		_game.cutsceneManager = Phaser.Plugin.CutsceneManager.INSTANCE;
+                        	}
+                        
+                        	return Phaser.Plugin.CutsceneManager.INSTANCE;
+                        }
+                        
+                        
+                        Phaser.Plugin.CutsceneManager.prototype = Object.create(Phaser.Plugin);
+                        Phaser.Plugin.CutsceneManager.prototype.constructor = Phaser.Plugin.CutsceneManager;
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.update = function(){
+                        	switch( this.state ){
+                        		case &quot;IDLE&quot; : 
+                        			break;
+                        		case &quot;STARTED&quot; : this.cutsceneUpdate();
+                        			break;
+                         	}
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.cutsceneUpdate = function(){
+                        	
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.loadCutscenes = function(_cutscenes){
+                        	this.cutscenes = _cutscenes;
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.start = function(_cutscene){
+                        	this.cutscene = null;
+                        	//CUTSCENE LOADING
+                        	for(var i=0; i &lt; this.cutscenes.length ; i++){	
+                        		if( this.cutscenes[i].name == _cutscene)	{
+                        			this.cutscene = this.cutscenes[i];
+                        			break;
+                        		}
+                        	}
+                        	if( this.cutscene == null ){
+                        		this.state = &quot;IDLE&quot;;
+                        		return;
+                        	}
+                        
+                        	this.cameraData = { lastX : this.game.camera.x, lastY : this.game.camera.y,
+                        						lastTarget : this.game.camera.target};
+                        
+                        	this.state = &quot;ACTIVE&quot;;
+                        
+                        	this.game.state.getCurrentState().onBeginCutscene();
+                        
+                        	this.currentIndex = -1;
+                        	this.advance();
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.end = function(){
+                        	console.log(&quot;END&quot;);
+                        	this.state = &quot;IDLE&quot;;
+                        	this.game.state.getCurrentState().onEndCutscene();
+                        }
+                        
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.advance = function(){
+                        	//console.log(&quot;advance&quot;);
+                        	this.currentIndex ++;
+                        	if( this.currentIndex &gt;= this.cutscene.events.length ){
+                        		this.end();
+                        		return;
+                        	}
+                        
+                        	var curEvent = this.cutscene.events[ this.currentIndex ];
+                        	//reset count
+                        	this.actionsFinished = 0;
+                        	this.actionsForEvent = curEvent.actions.length;
+                        	//launch actions
+                        	for(var i=0; i &lt; curEvent.actions.length; i++){
+                        		var curAction = curEvent.actions[i];
+                        		//wait 
+                        		if( curAction.type == &quot;wait&quot;){
+                        			this.state = &quot;WAITING&quot;;
+                        			//default
+                        			if( curAction.data.time == null )
+                        				curAction.data.time = 1;
+                        			this.game.time.events.add(Phaser.Timer.SECOND * curAction.data.time, this.onActionFinished, this);
+                        		//&quot;other&quot; calls an internal CutsceneManager function
+                        		}else if( curAction.type == &quot;other&quot;){
+                        			var callActionFinish = this[curAction.target](curAction.data);
+                        			if( callActionFinish )
+                        				this.onActionFinished();
+                        		}else if( curAction.type == &quot;dialog&quot; ){
+                        			this.game.dialogManager.activate(curAction.data.text,this.onActionFinished,this);
+                        		}else{
+                        			this.state = &quot;ACTIVE&quot;;
+                        			//find gameobject target
+                        			var go = this.game.state.getCurrentState().findGameObjectByName(curAction.target);
+                        			if( go ){
+                        				switch(curAction.type){
+                        					case &quot;tween&quot; : this.processTween(curAction,go.entity);
+                        						break;
+                        					case &quot;function&quot; : this.callFunction(curAction, go);
+                        						break;
+                        					case &quot;set&quot; : this.setValues(curAction, go);
+                        						break;
+                        				}
+                        			}else{
+                        				//if no target is set, then finish the action
+                        				this.onActionFinished();
+                        			}			
+                        		}
+                        	}
+                        }
+                        
+                        /**
+                        * Called when an action of the current event has finished
+                        */
+                        Phaser.Plugin.CutsceneManager.prototype.onActionFinished = function(){
+                        	this.actionsFinished ++;
+                        	if( this.actionsFinished &gt;= this.actionsForEvent){
+                        		this.advance();
+                        	}
+                        }
+                        
+                        //===========================================================
+                        //				SET PROCESS
+                        //===========================================================
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.setValues = function(_currentAction,_target){
+                        	var actionData = _currentAction.data;
+                        
+                        	//we are prepared to act on several properties, so we may need to add action internaly
+                        	//we have to substract one action so that we don&#x27;t end up with to many afterwards
+                        	this.actionsForEvent --;
+                        
+                        	for(var key in actionData.properties){
+                        		this.actionsForEvent ++;
+                        		//parse the key and find the property on which the tween will act
+                        		var parsedProp = getPropertyTargetByString(_target.entity,key);
+                        
+                        		//process relativeness (?). If a tween is marked as relative, the movement on x &amp; y will be computed from the gameobject&#x27;s current position
+                        		if( actionData.relative != null &amp;&amp; actionData.relative == true ){
+                        			if( parsedProp.property == &quot;x&quot;) actionData.properties[key] += parsedProp.targetObject[parsedProp.property];
+                        			if( parsedProp.property == &quot;y&quot;) actionData.properties[key] += parsedProp.targetObject[parsedProp.property];
+                        		}
+                        		//console.log( parsedProp.property );
+                        		//if there is a delay before calling the function 
+                        		if( actionData.delay != null &amp;&amp; actionData.delay &gt; 0){
+                        
+                        			// function to call at the end of the delay
+                        			// with setTimeout, we can pass a function with parameters for the signal
+                        			// see the concept of Closures for more details
+                        			setTimeout(
+                        				function(_this,_parsedProp,_value) {  
+                        					_parsedProp.targetObject[_parsedProp.property] = _value;
+                        					_this.onActionFinished();
+                        				},
+                        				1000 * actionData.delay,
+                        				//parameters
+                        				this, parsedProp, actionData.properties[key]
+                        			);
+                        
+                        		//else just call the function right now
+                        		}else{		
+                        			parsedProp.targetObject[parsedProp.property] = actionData.properties[key];
+                        			this.onActionFinished();
+                        		}
+                        	}
+                        }
+                        
+                        //===========================================================
+                        //				TWEENING PROCESS
+                        //===========================================================
+                        
+                        /**
+                        * Tween properties can be composite. By example, if we have a property like &quot;body.x&quot;, the tween
+                        * actually acts on the body itself as a target, not the entity.
+                        * So we have to manually parse the properties and create the tween on the right objects.
+                        */
+                        Phaser.Plugin.CutsceneManager.prototype.processTween = function(_currentAction,_target){
+                        
+                        	var actionData = _currentAction.data;
+                        
+                        
+                        	//we are prepared to act on several properties, so we may need to add action internaly
+                        	//we have to substract one action so that we don&#x27;t end up with to many afterwards
+                        	this.actionsForEvent --;
+                        
+                        	for(var key in actionData.properties){
+                        		this.actionsForEvent ++;
+                        		//parse the key and find the property on which the tween will act
+                        		var parsedProp = getPropertyTargetByString(_target,key);
+                        		//console.log(parsedProp);
+                        		//create a new properties object
+                        		var newProperties = {};
+                        		newProperties[parsedProp.property] = actionData.properties[key];
+                        
+                        		//process relativeness (?). If a tween is marked as relative, the movement on x &amp; y will be computed from the gameobject&#x27;s current position
+                        		if( actionData.relative != null &amp;&amp; actionData.relative == true ){
+                        			/*if( newProperties.x != null) newProperties.x += _target.x;
+                        			if( newProperties.y != null) newProperties.y += _target.y;*/
+                        			newProperties[targetData.property] += _target[targetData.property];
+                        		}
+                        
+                        		//repeat process. -1 is taken as infinite time of repeart (it&#x27;s a loop then)
+                        		if( actionData.repeat &amp;&amp; actionData.repeat &lt; 0)
+                        			actionData.repeat = Number.MAX_VALUE;
+                        
+                        		//We can finally create the tween
+                        		this.createTween(newProperties,parsedProp.targetObject,
+                        						actionData.delay,actionData.duration,
+                        						actionData.repeat, actionData.yoyo);
+                        	}
+                        
+                        }
+                        
+                        /**
+                        * Creates a tween for the targeted object and start it
+                        */
+                        Phaser.Plugin.CutsceneManager.prototype.createTween = function(_properties,_target,_delay,_duration,_repeat,_yoyo){
+                        	//Create a new tween
+                        	var tween = this.game.add.tween(_target);
+                        	//set propeties to tweeen
+                        	tween.to(_properties,Phaser.Timer.SECOND * _duration);
+                        	//set optional values
+                        	if( _delay != null ) tween.delay( Phaser.Timer.SECOND * _delay ); 
+                        	if( _repeat != null ) tween.repeat(_repeat);
+                        	if( _yoyo != null ) tween.yoyo(_yoyo);
+                        	//tells the tween to call onActionFinished when it&#x27;s over. If looping, call it now
+                        	if( _repeat != Number.MAX_VALUE)
+                        		tween.onComplete.add( this.onActionFinished, this );
+                        	else
+                        		this.onActionFinished();
+                        	//start the tween
+                        	tween.start();
+                        	return tween;
+                        }
+                        
+                        /**
+                        * Calls a function on the _target GameObject
+                        */
+                        Phaser.Plugin.CutsceneManager.prototype.callFunction = function(_currentAction,_target){
+                        	//console.log(&quot;callFunction&quot;);
+                        	//if there is a delay before calling the function 
+                        	if( _currentAction.data.delay != null &amp;&amp; _currentAction.data.delay &gt; 0){
+                        		//set a timer
+                        		this.game.time.events.add(
+                        			Phaser.Timer.SECOND * _currentAction.data.delay, 
+                        			function(){
+                        				_target.sendMessage(_currentAction.data.functionName, _currentAction.data.args);
+                        				this.onActionFinished();
+                        			},
+                        			this);
+                        
+                        	//else just call the function right now
+                        	}else{		
+                        		_target.sendMessage(_currentAction.data.functionName, _currentAction.data.args);
+                        		this.onActionFinished();
+                        	}
+                        }
+                        
+                        /**
+                        * This function returns the target object of the tween property defined by the string
+                        * ie : if string = &quot;body.x&quot;
+                        * the return value will be the body property of the object
+                        * If a property is not found, the object is returned as itself
+                        * example of returned object :
+                        * { targetObject : P2.Body... , property : &quot;x&quot;}
+                        */
+                        function getPropertyTargetByString( _object, _string){
+                        	var returnObject = { targetObject : _object, property : _string};
+                        	var arrayProp = _string.split(&#x27;.&#x27;);
+                        	if(arrayProp.length &lt; 2)
+                        		return returnObject;
+                        
+                        	var currentProp = _object;
+                        	for(var i=0; i &lt; arrayProp.length -1; i++){
+                        		if( _object.hasOwnProperty(arrayProp[i])){
+                        			currentProp = currentProp[arrayProp[i]];
+                        		}else{
+                        			return returnObject;
+                        		}
+                        	}
+                        
+                        	returnObject.targetObject = currentProp; // the target is the property we found
+                        	returnObject.property = arrayProp[arrayProp.length-1]; // the tweened property is the last in the array
+                        	
+                        	return returnObject;
+                        }
+                        
+                        //================================================================
+                        //					OTHER FUNCTIONS
+                        //================================================================
+                        
+                        /**
+                        * This is an array that can be used to know which functions can be called as &quot;other&quot;
+                        * This will mostly be used by the editor
+                        */
+                        Phaser.Plugin.CutsceneManager.otherFunctions = [
+                        	&quot;moveCamera&quot;, &quot;resetCamera&quot;, &quot;cameraFollow&quot;,
+                        	&quot;freezeInputAll&quot;, &quot;unfreezeInputAll&quot;, &quot;freezeInput&quot;, &quot;unfreezeInput&quot;,
+                        	&quot;changeLevel&quot;
+                        ];
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.moveCamera = function(_args){
+                        	//process relativeness (?). If a tween is marked as relative, the movement on x &amp; y will be computed from the gameobject&#x27;s current position
+                        	if( _args.relative != null &amp;&amp; _args.relative == true ){
+                        		if( _args.properties.x != null) _args.properties.x += this.game.camera.x;
+                        		if( _args.properties.y != null) _args.properties.y += this.game.camera.y;
+                        	}
+                        	//if a gameobject is targeted
+                        	if( _args.target != null){
+                        		var go = this.game.state.getCurrentState().findGameObjectByName(_args.target);
+                        		if( go ){
+                        			//compute direction from the center of the camera to the entity
+                        			var point = new Phaser.Point();
+                        			_args.properties.x = go.entity.x - this.game.camera.width * 0.5;
+                        			_args.properties.y = go.entity.y - this.game.camera.height * 0.5;
+                        		}else{
+                        			return true;
+                        		}
+                        	}
+                        	//we need to disable following for the tween to work
+                        	this.game.camera.target = null;
+                        	var tweenCam = this.createTween(_args.properties,this.game.camera,_args.delay,_args.duration,_args.repeat,_args.yoyo);
+                        	return false;
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.cameraFollow = function(_args){
+                        	var go = this.game.state.getCurrentState().findGameObjectByName(_args.target);
+                        	if( go )
+                        		this.game.camera.follow(go.entity);
+                        	return true;
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.resetCamera = function(_args){
+                        	if( this.cameraData.lastTarget){
+                        		this.game.camera.target = this.cameraData.lastTarget;
+                        	}else{
+                        		this.game.camera.x = this.cameraData.lastX;
+                        		this.game.camera.y = this.cameraData.lastY;
+                        	}
+                        	return true;
+                        }
+                        
+                        //================= INPUT ====================================
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.freezeInputAll = function(_args){
+                        	if( this.game.inputManager ){
+                        		this.game.inputManager.freezeInputAll();
+                        	}
+                        	return true;
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.unfreezeInputAll = function(_args){
+                        	if( this.game.inputManager ){
+                        		this.game.inputManager.unfreezeInputAll();
+                        	}
+                        	return true;
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.freezeInput = function(_args){
+                        	if( this.game.inputManager ){
+                        		if( this.game.inputManager ){
+                        			if( _args.keys != null){
+                        				this.game.inputManager.freezeInputKeys(_args.keys);
+                        			}
+                        			if( _args.mouse ){
+                        				this.game.inputManager.freezeInputMouse(_args.mouse);
+                        			}
+                        		}
+                        	}
+                        	return true;
+                        }
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.unfreezeInput = function(_args){
+                        	if( this.game.inputManager ){
+                        		if( _args.keys != null){
+                        			this.game.inputManager.unfreezeInputKeys(_args.keys);
+                        		}
+                        		if( _args.mouse ){
+                        			this.game.inputManager.unfreezeInputMouse(_args.mouse);
+                        		}
+                        	}
+                        	return true;
+                        }
+                        
+                        //================= CHANGE LEVEL ====================================
+                        
+                        Phaser.Plugin.CutsceneManager.prototype.changeLevel = function(_args){
+                        	this.game.state.start(&quot;Level&quot;, true, false, {levelName: _args.levelName});
+                        }
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

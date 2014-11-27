@@ -3,7 +3,7 @@
 * Class for State
 *
 * @namespace LR
-* @class class_name
+* @class State
 * @constructor
 * @param {param_type} param_description
 */

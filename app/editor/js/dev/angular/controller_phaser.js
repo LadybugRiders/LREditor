@@ -321,7 +321,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		group.name = "group" + $scope.game.world.children.length;
 		group.go.id = $scope.getID() ;
 		$scope.game.add.existing(group);
-		this.checkAddingEntity(sprite);
+		this.checkAddingEntity(group);
 	};
 
 	$scope.addSprite = function() {
@@ -354,7 +354,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		tilesprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(tilesprite);
-		this.checkAddingEntity(sprite);
+		this.checkAddingEntity(tilesprite);
 	};
 
 	$scope.addButton = function() {
@@ -374,7 +374,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		button.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(button);
-		this.checkAddingEntity(sprite);
+		this.checkAddingEntity(button);
 	};
 
 	$scope.addText = function() {
@@ -390,7 +390,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		text.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(text);
-		this.checkAddingEntity(sprite);
+		this.checkAddingEntity(text);
 	};
 
 	$scope.addBitmapText = function() {
@@ -409,7 +409,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		text.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(text);
-		this.checkAddingEntity(sprite);
+		this.checkAddingEntity(text);
 	};
 
 	$scope.getID = function(){

@@ -7,6 +7,7 @@
 * 1) Call init method. The data asked is of this form :
 *
 *
+* @namespace LR
 * @class CollisionManager
 * @param {Phaser.Game} game
 * @param {Object} 

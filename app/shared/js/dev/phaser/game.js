@@ -1,13 +1,34 @@
 "use strict";
-
+/**
+* Game class
+*
+* @class Game
+* @namespace LR
+*/
 LR.Game = function(_containerId,_scaleMode,_debug) {
-	/*
+	/**
 	* The Input Manager of LadybugRiders Engine
 	* 
 	* @property inputManager
 	* @type {Phaser.Plugin.InputManager}
 	*/
 	this.inputManager = null;
+
+	/**
+	* The PlayerSave of LadybugRiders Engine
+	* 
+	* @property playerSave
+	* @type {Phaser.Plugin.PlayerSave}
+	*/
+	this.playerSave = null;
+
+	/**
+	* The CollisionManager of LadybugRiders Engine
+	* 
+	* @property collisionManager
+	* @type {CollisionManager}
+	*/
+	this.collisionManager = null;
 
 	var preload = function() {
 		// load layers from json file
@@ -25,8 +46,6 @@ LR.Game = function(_containerId,_scaleMode,_debug) {
 		this.game.plugins.add(Phaser.Plugin.InputManager);
 		this.game.plugins.add(Phaser.Plugin.CutsceneManager);
 		this.game.plugins.add(Phaser.Plugin.DialogManager);
-
-		this.game.playerSave.loadSave(this.game.cache.getJSON("saveData"));
 
 		//Scale
 		if(this.scaleMode != null){

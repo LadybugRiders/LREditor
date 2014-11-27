@@ -4,7 +4,8 @@
 * The extended version of Phaser.Physics.P2.Body
 * Used for physics instead of Phaser.Physics.P2.Body
 *
-* @class LR.Body
+* @class Body
+* @namespace LR
 * @constructor
 * @param {_game} param_description
 */
