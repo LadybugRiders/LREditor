@@ -766,7 +766,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				if(typeof val == "string" && val.indexOf("#GO_")>=0 ){
 					var linkedObj = _linkedObjects[val];
 					if( linkedObj != null)
-						bh.params[key] = "#GO_"+linkedObj.id;
+						bh.params[key] = "#GO_"+linkedObj.go.id;
 				}
 			}
 		}
