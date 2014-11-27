@@ -299,6 +299,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	$scope.activateEntityHandle = function(_entity){
 		if( _entity.ed_locked )
 			return;
+		$scope.currentEntity = _entity;
 		if( _entity.parent != $scope.editorGroup && _entity != $scope.game.world ){
 			if($scope.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT)){
 				$scope.entityHandleScript.addTarget(_entity);
@@ -320,6 +321,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		group.name = "group" + $scope.game.world.children.length;
 		group.go.id = $scope.getID() ;
 		$scope.game.add.existing(group);
+		this.checkAddingEntity(sprite);
 	};
 
 	$scope.addSprite = function() {
@@ -334,6 +336,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		sprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(sprite);
+		this.checkAddingEntity(sprite);
 	};
 
 	$scope.addTileSprite = function() {
@@ -351,6 +354,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		tilesprite.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(tilesprite);
+		this.checkAddingEntity(sprite);
 	};
 
 	$scope.addButton = function() {
@@ -370,6 +374,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		button.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(button);
+		this.checkAddingEntity(sprite);
 	};
 
 	$scope.addText = function() {
@@ -385,6 +390,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		text.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(text);
+		this.checkAddingEntity(sprite);
 	};
 
 	$scope.addBitmapText = function() {
@@ -403,6 +409,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		text.ed_fixedToCamera = false;
 		//Add to editor game
 		$scope.game.add.existing(text);
+		this.checkAddingEntity(sprite);
 	};
 
 	$scope.getID = function(){
@@ -416,6 +423,19 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if( _entity.children != null ){
 			for( var i=0; i < _entity.children.length; i ++){
 				$scope.reassignID( _entity.children[i] );
+			}
+		}
+	}
+
+	$scope.checkAddingEntity = function(_entity){
+		if( $scope.currentEntity != null ){
+			var parent = $scope.currentEntity;
+			if( parent.type != Phaser.GROUP){
+				parent = parent.parent;
+			}
+			_entity.go.changeParent(parent);
+			if( parent.go.name != "__world" ){
+				_entity.x = 0; _entity.y = 0;
 			}
 		}
 	}

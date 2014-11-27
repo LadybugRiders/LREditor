@@ -179,8 +179,8 @@ LR.GameObject.prototype.enablePhysics = function(_motionState,_layer,_width,_hei
 	if( this.body == null){
 		if (this.entity.hasOwnProperty('body') && this.entity.body === null)
         {
-            //this.entity.body = new LR.Body(this.game, this.entity, this.entity.x, this.entity.y, 1);
-            this.entity.game.physics.p2.enable(this.entity,false);
+            this.entity.body = new LR.Body(this.game, this.entity, this.entity.x, this.entity.y, 1);
+            //this.entity.game.physics.p2.enable(this.entity,false);
             this.entity.anchor.set(0.5);
         }
 		this.body.data.shapes[0].lr_name = "mainShape";

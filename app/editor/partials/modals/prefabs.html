@@ -4,25 +4,6 @@
 <div class="modal-body">
   <div class="form-group">
     <div class="row">
-        <!-- TABLE -->
-        <div class="col-md-12">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="prefab in project.assets.prefabs">
-                        <td>{{prefab.name}}</td>
-                        <td><button class="btn btn-warning" ng-click="update(prefab)" ng-disabled="'true'">Update</button><button class="btn btn-primary" ng-click="import(prefab)">Import</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
         <!-- ADD -->
         <div class="col-md-12">
             <table class="table table-hover">
@@ -43,6 +24,25 @@
             </table>
         </div>
     </div>
+    <div class="row">
+        <!-- TABLE -->
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="prefab in project.assets.prefabs">
+                        <td>{{prefab.name}}</td>
+                        <td><button class="btn btn-warning" ng-click="update(prefab)" ng-disabled="'true'">Update</button><button class="btn btn-primary" ng-click="import(prefab)">Import</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
 </div> 
 </div>
 <div class="modal-footer">
