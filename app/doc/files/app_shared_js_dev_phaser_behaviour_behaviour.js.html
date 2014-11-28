@@ -268,6 +268,34 @@
                         }
                         
                         /**
+                        * Accessor to the GameObject&#x27;s x property
+                        *
+                        * @property x
+                        * @type Number
+                        */
+                        Object.defineProperty( LR.Behaviour.prototype, &quot;x&quot;,
+                        	{
+                        		get : function(){
+                        			return this.go.x;
+                        		}
+                        	}
+                        );
+                        
+                        /**
+                        * Accessor to the GameObject&#x27;s y property
+                        *
+                        * @property x
+                        * @type Number
+                        */
+                        Object.defineProperty( LR.Behaviour.prototype, &quot;y&quot;,
+                        	{
+                        		get : function(){
+                        			return this.go.y;
+                        		}
+                        	}
+                        );
+                        
+                        /**
                         * Find an instance of a specific Behaviour held by a gameobject 
                         *
                         * @method FindBehaviour

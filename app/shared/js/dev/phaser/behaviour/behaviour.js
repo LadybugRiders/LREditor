@@ -158,6 +158,34 @@ LR.Behaviour.prototype.onEndCutscene = function(){
 }
 
 /**
+* Accessor to the GameObject's x property
+*
+* @property x
+* @type Number
+*/
+Object.defineProperty( LR.Behaviour.prototype, "x",
+	{
+		get : function(){
+			return this.go.x;
+		}
+	}
+);
+
+/**
+* Accessor to the GameObject's y property
+*
+* @property x
+* @type Number
+*/
+Object.defineProperty( LR.Behaviour.prototype, "y",
+	{
+		get : function(){
+			return this.go.y;
+		}
+	}
+);
+
+/**
 * Find an instance of a specific Behaviour held by a gameobject 
 *
 * @method FindBehaviour

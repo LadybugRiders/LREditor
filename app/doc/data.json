@@ -1511,6 +1511,26 @@
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
             "line": 160,
+            "description": "Accessor to the GameObject's x property",
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 174,
+            "description": "Accessor to the GameObject's y property",
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 188,
             "description": "Find an instance of a specific Behaviour held by a gameobject",
             "itemtype": "method",
             "name": "FindBehaviour",

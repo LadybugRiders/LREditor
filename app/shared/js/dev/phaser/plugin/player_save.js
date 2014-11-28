@@ -60,7 +60,7 @@ Phaser.Plugin.PlayerSave.prototype.getValue = function(_key){
 Phaser.Plugin.PlayerSave.prototype.writeValue = function(_key){	
   	if( this.tempData[_key] ){
   		this.saveData[_key] = this.tempData[_key];
-  		this.storedSave[_key] = this.saveData[_key];
+  		localStorage.setItem("game_save",JSON.stringify(this.saveData));
   	}
 }
 
