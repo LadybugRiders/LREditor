@@ -167,6 +167,10 @@ Object.defineProperty( LR.Behaviour.prototype, "x",
 	{
 		get : function(){
 			return this.go.x;
+		},
+
+		set:  function(_value){
+			this.go.x = _value;
 		}
 	}
 );
@@ -181,12 +185,16 @@ Object.defineProperty( LR.Behaviour.prototype, "y",
 	{
 		get : function(){
 			return this.go.y;
+		},
+
+		set:  function(_value){
+			this.go.y = _value;
 		}
 	}
 );
 
 /**
-* Accessor to the current game
+* Accessor to the current game (readonly)
 *
 * @property game
 * @type Number
