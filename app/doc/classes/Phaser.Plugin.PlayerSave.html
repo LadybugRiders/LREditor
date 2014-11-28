@@ -205,11 +205,27 @@
                         
                                             <ul class="index-list methods">
                                                     <li class="index-item method">
-                                                        <a href="#method_commitSave">commitSave</a>
+                                                        <a href="#method_activateLevelSave">activateLevelSave</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_createLevelSave">createLevelSave</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_deleteSave">deleteSave</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_getActiveLevelSave">getActiveLevelSave</a>
                         
                                                     </li>
                                                     <li class="index-item method">
                                                         <a href="#method_getLevelSave">getLevelSave</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_getPermanentSave">getPermanentSave</a>
                         
                                                     </li>
                                                     <li class="index-item method">
@@ -225,7 +241,15 @@
                         
                                                     </li>
                                                     <li class="index-item method">
+                                                        <a href="#method_setValue">setValue</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
                                                         <a href="#method_writeSave">writeSave</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_writeValue">writeValue</a>
                         
                                                     </li>
                                             </ul>
@@ -238,16 +262,117 @@
                                     <div id="methods" class="api-class-tabpanel">
                                         <h2 class="off-left">Methods</h2>
                         
-                                            <div id="method_commitSave" class="method item">
-                                                <h3 class="name"><code>commitSave</code></h3>
+                                            <div id="method_activateLevelSave" class="method item">
+                                                <h3 class="name"><code>activateLevelSave</code></h3>
                                             
                                                     <div class="args">
                                                         <span class="paren">(</span><ul class="args-list inline commas">
                                                             <li class="arg">
-                                                                    <code>key</code>
+                                                                    <code>levelName</code>
                                                             </li>
                                                         </ul><span class="paren">)</span>
                                                     </div>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type">Object</span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l134"><code>app\shared\js\dev\phaser\plugin\player_save.js:134</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Activate a level save. By doing this, you may get the current active level save using getActiveLevelSave.
+                                            This doesn&#39;t affect the save whatsoever, it&#39;s just a tools for a quick access 
+                                            ( if you have a level with many sublevels for example, you can gather all the data in only one level save)</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">levelName</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Name of the level in the save</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type">Object</span>:
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_createLevelSave" class="method item">
+                                                <h3 class="name"><code>createLevelSave</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type">Object</span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l98"><code>app\shared\js\dev\phaser\plugin\player_save.js:98</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Creates a new save for the given level</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type">Object</span>:
+                                                                <p>the level save</p>
+                                            
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_deleteSave" class="method item">
+                                                <h3 class="name"><code>deleteSave</code></h3>
+                                            
+                                                    <span class="paren">()</span>
                                             
                                             
                                             
@@ -259,7 +384,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l42"><code>app\shared\js\dev\phaser\plugin\player_save.js:42</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l157"><code>app\shared\js\dev\phaser\plugin\player_save.js:157</code></a>
                                                     </p>
                                             
                                             
@@ -267,28 +392,51 @@
                                                 </div>
                                             
                                                 <div class="description">
-                                                    <p>Gets the value in the save</p>
+                                                    <p>Delete save. This deletes even the stored save of the game.</p>
                                             
                                                 </div>
                                             
-                                                    <div class="params">
-                                                        <h4>Parameters:</h4>
-                                            
-                                                        <ul class="params-list">
-                                                            <li class="param">
-                                                                    <code class="param-name">key</code>
-                                                                    <span class="type">Object</span>
                                             
                                             
-                                                                <div class="param-description">
-                                                                    <p>Name of the variable</p>
+                                            </div>
+                                            <div id="method_getActiveLevelSave" class="method item">
+                                                <h3 class="name"><code>getActiveLevelSave</code></h3>
                                             
-                                                                </div>
+                                                    <span class="paren">()</span>
                                             
-                                                            </li>
-                                                        </ul>
+                                                    <span class="returns-inline">
+                                                        <span class="type">Object</span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l124"><code>app\shared\js\dev\phaser\plugin\player_save.js:124</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Returns the save previously activated for the specified level</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type">Object</span>:
+                                                        </div>
                                                     </div>
-                                            
                                             
                                             </div>
                                             <div id="method_getLevelSave" class="method item">
@@ -315,7 +463,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l74"><code>app\shared\js\dev\phaser\plugin\player_save.js:74</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l109"><code>app\shared\js\dev\phaser\plugin\player_save.js:109</code></a>
                                                     </p>
                                             
                                             
@@ -355,6 +503,36 @@
                                                     </div>
                                             
                                             </div>
+                                            <div id="method_getPermanentSave" class="method item">
+                                                <h3 class="name"><code>getPermanentSave</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l90"><code>app\shared\js\dev\phaser\plugin\player_save.js:90</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Returns the current persistent save. This data is unchanged until you apply (write) the temporary save</p>
+                                            
+                                                </div>
+                                            
+                                            
+                                            
+                                            </div>
                                             <div id="method_getSave" class="method item">
                                                 <h3 class="name"><code>getSave</code></h3>
                                             
@@ -370,7 +548,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l64"><code>app\shared\js\dev\phaser\plugin\player_save.js:64</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l80"><code>app\shared\js\dev\phaser\plugin\player_save.js:80</code></a>
                                                     </p>
                                             
                                             
@@ -379,7 +557,8 @@
                                             
                                                 <div class="description">
                                                     <p>Returns the current save for the actual game.
-                                            This actually returns the temporary save. Use writeSave to apply changes to the overall game save</p>
+                                            This actually returns the temporary save. Use writeSave to apply changes to the overall game save
+                                            Use getPersistentSave to access persistent data</p>
                                             
                                                 </div>
                                             
@@ -401,7 +580,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l89"><code>app\shared\js\dev\phaser\plugin\player_save.js:89</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l147"><code>app\shared\js\dev\phaser\plugin\player_save.js:147</code></a>
                                                     </p>
                                             
                                             
@@ -413,6 +592,59 @@
                                             
                                                 </div>
                                             
+                                            
+                                            
+                                            </div>
+                                            <div id="method_setValue" class="method item">
+                                                <h3 class="name"><code>setValue</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>key</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l44"><code>app\shared\js\dev\phaser\plugin\player_save.js:44</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Gets the value in the save</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">key</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Name of the variable</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                             
                                             
                                             </div>
@@ -440,7 +672,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l31"><code>app\shared\js\dev\phaser\plugin\player_save.js:31</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l33"><code>app\shared\js\dev\phaser\plugin\player_save.js:33</code></a>
                                                     </p>
                                             
                                             
@@ -498,7 +730,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l52"><code>app\shared\js\dev\phaser\plugin\player_save.js:52</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l67"><code>app\shared\js\dev\phaser\plugin\player_save.js:67</code></a>
                                                     </p>
                                             
                                             
@@ -510,6 +742,60 @@
                                             
                                                 </div>
                                             
+                                            
+                                            
+                                            </div>
+                                            <div id="method_writeValue" class="method item">
+                                                <h3 class="name"><code>writeValue</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>key</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_plugin_player_save.js.html#l54"><code>app\shared\js\dev\phaser\plugin\player_save.js:54</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Write the single data into localStorage. The value written will be the temporary one.
+                                            Be aware that arrays and objects are not supported by local storage. You need to stringify them</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">key</code>
+                                                                    <span class="type">Object</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Name of the variable</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                             
                                             
                                             </div>

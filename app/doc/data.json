@@ -2130,7 +2130,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
-            "line": 31,
+            "line": 33,
             "description": "Sets the value in the save",
             "params": [
                 {
@@ -2149,7 +2149,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
-            "line": 42,
+            "line": 44,
             "description": "Gets the value in the save",
             "params": [
                 {
@@ -2158,13 +2158,28 @@
                 }
             ],
             "itemtype": "method",
-            "name": "commitSave",
+            "name": "setValue",
             "class": "Phaser.Plugin.PlayerSave",
             "namespace": "Phaser.Plugin"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
-            "line": 52,
+            "line": 54,
+            "description": "Write the single data into localStorage. The value written will be the temporary one.\nBe aware that arrays and objects are not supported by local storage. You need to stringify them",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Name of the variable"
+                }
+            ],
+            "itemtype": "method",
+            "name": "writeValue",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 67,
             "description": "Write the save.",
             "itemtype": "method",
             "name": "writeSave",
@@ -2173,8 +2188,8 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
-            "line": 64,
-            "description": "Returns the current save for the actual game.\nThis actually returns the temporary save. Use writeSave to apply changes to the overall game save",
+            "line": 80,
+            "description": "Returns the current save for the actual game.\nThis actually returns the temporary save. Use writeSave to apply changes to the overall game save\nUse getPersistentSave to access persistent data",
             "itemtype": "method",
             "name": "getSave",
             "class": "Phaser.Plugin.PlayerSave",
@@ -2182,7 +2197,29 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
-            "line": 74,
+            "line": 90,
+            "description": "Returns the current persistent save. This data is unchanged until you apply (write) the temporary save",
+            "itemtype": "method",
+            "name": "getPermanentSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 98,
+            "description": "Creates a new save for the given level",
+            "itemtype": "method",
+            "name": "createLevelSave",
+            "return": {
+                "description": "the level save",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 109,
             "description": "Returns the save for the specified level\nIf none provided, returns the save for the current one",
             "itemtype": "method",
             "name": "getLevelSave",
@@ -2201,10 +2238,51 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
-            "line": 89,
+            "line": 124,
+            "description": "Returns the save previously activated for the specified level",
+            "itemtype": "method",
+            "name": "getActiveLevelSave",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 134,
+            "description": "Activate a level save. By doing this, you may get the current active level save using getActiveLevelSave.\nThis doesn't affect the save whatsoever, it's just a tools for a quick access \n( if you have a level with many sublevels for example, you can gather all the data in only one level save)",
+            "itemtype": "method",
+            "name": "activateLevelSave",
+            "params": [
+                {
+                    "name": "levelName",
+                    "description": "Name of the level in the save"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 147,
             "description": "Revert the save for the current level",
             "itemtype": "method",
             "name": "revertLevelSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 157,
+            "description": "Delete save. This deletes even the stored save of the game.",
+            "itemtype": "method",
+            "name": "deleteSave",
             "class": "Phaser.Plugin.PlayerSave",
             "namespace": "Phaser.Plugin"
         },
@@ -2943,7 +3021,7 @@
                 {
                     "name": "behaviour",
                     "description": "The behaviour class",
-                    "type": "Behaviour"
+                    "type": "Class"
                 }
             ],
             "return": {
@@ -2963,7 +3041,7 @@
                 {
                     "name": "behaviour",
                     "description": "The behaviour class",
-                    "type": "Behaviour"
+                    "type": "Class"
                 }
             ],
             "return": {
@@ -2978,12 +3056,12 @@
             "line": 469,
             "description": "Returns all the requested behaviours attached to the object. \nThis could be expensive. Do not do this at every frame.",
             "itemtype": "method",
-            "name": "getBehaviour",
+            "name": "getBehaviours",
             "params": [
                 {
                     "name": "behaviour",
                     "description": "The behaviour class",
-                    "type": "Behaviour"
+                    "type": "Class"
                 }
             ],
             "return": {
@@ -2996,6 +3074,26 @@
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
             "line": 485,
+            "description": "Returns all instances of the requested behaviour class attached to the GameObject and its children.\nThis may be expensive. Do not do this at every frame.",
+            "itemtype": "method",
+            "name": "getBehavioursInChildren",
+            "params": [
+                {
+                    "name": "behaviour",
+                    "description": "The behaviour class",
+                    "type": "Class"
+                }
+            ],
+            "return": {
+                "description": "the behaviours in an array (might be empty)",
+                "type": "Array"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 509,
             "description": "Try to call the function on every behaviour attached to this GameObject",
             "itemtype": "method",
             "name": "sendMessage",
@@ -3016,7 +3114,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 511,
+            "line": 535,
             "description": "Returns the wanted shape",
             "itemtype": "method",
             "name": "getShape",
@@ -3032,7 +3130,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 528,
+            "line": 552,
             "description": "Returns the shape by its name (property lr_name)\nIf many shapes share the same name, this method will return the first encountered in the shapes array",
             "itemtype": "method",
             "name": "getShapeByName",
@@ -3048,7 +3146,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 544,
+            "line": 568,
             "description": "Returns the shapes by their names (property lr_name)",
             "itemtype": "method",
             "name": "getShapesByNames",
@@ -3068,7 +3166,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 563,
+            "line": 587,
             "description": "Returns the index of the shape found by its name (property lr_name)",
             "itemtype": "method",
             "name": "getShapeIndexByName",
@@ -3088,7 +3186,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 579,
+            "line": 603,
             "description": "Returns the size of the wanted shape. You can either pass its index or its name",
             "itemtype": "method",
             "name": "getShapeData",
@@ -3108,7 +3206,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 607,
+            "line": 631,
             "description": "Replaces the shape at the given index with a new Rectangle, creating a new shape from the data provided\nThis sahpe will be pushed to the end of shapes array if _shapeIndex is incorrect",
             "itemtype": "method",
             "name": "replaceShapeByRectangle",
@@ -3129,7 +3227,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 662,
+            "line": 686,
             "description": "Returns the specified sound",
             "itemtype": "method",
             "name": "getSound",
@@ -3149,7 +3247,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 673,
+            "line": 697,
             "description": "Plays the specified sound",
             "itemtype": "method",
             "name": "playSound",
@@ -3175,7 +3273,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 689,
+            "line": 713,
             "description": "Sets the position of the GameObject. Takes the body in account",
             "itemtype": "method",
             "name": "setPosition",
@@ -3196,7 +3294,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 706,
+            "line": 730,
             "description": "Accessor to the entity's body. Read only.",
             "itemtype": "property",
             "name": "body",
@@ -3206,7 +3304,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 720,
+            "line": 744,
             "description": "Accessor to the entity's x.",
             "itemtype": "property",
             "name": "x",
@@ -3216,7 +3314,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 742,
+            "line": 766,
             "description": "Accessor to the entity's y.",
             "itemtype": "property",
             "name": "y",
@@ -3226,7 +3324,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 764,
+            "line": 788,
             "description": "Accessor to the body's gravity. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "gravity",
@@ -3236,7 +3334,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 786,
+            "line": 810,
             "description": "Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3246,7 +3344,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 802,
+            "line": 826,
             "description": "Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3256,7 +3354,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 818,
+            "line": 842,
             "description": "Changes the parent of the entity",
             "itemtype": "method",
             "name": "changeParent",
@@ -3272,7 +3370,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 835,
+            "line": 859,
             "description": "Adds a tween with the data specified\nexample of input data : { \"properties\":{\"body.x\":100},\"duration\": 1000 ...etc..}",
             "itemtype": "method",
             "name": "addTween",
@@ -3288,7 +3386,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 854,
+            "line": 878,
             "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched",
             "itemtype": "method",
             "name": "launchTween",
@@ -3304,7 +3402,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 951,
+            "line": 975,
             "description": "Called when a cutscene begins",
             "itemtype": "method",
             "name": "onBeginCutscene",
@@ -3313,7 +3411,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 963,
+            "line": 987,
             "description": "Called when a cutscene ends",
             "itemtype": "method",
             "name": "onEndCutscene",
@@ -3322,10 +3420,10 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 979,
+            "line": 1003,
             "description": "Find a gameobject by its name",
             "itemtype": "method",
-            "name": "FindByName",
+            "name": "<static> FindByName",
             "params": [
                 {
                     "name": "root",
@@ -3347,10 +3445,10 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1008,
+            "line": 1032,
             "description": "Find a gameobject by its ID",
             "itemtype": "method",
-            "name": "FindByID",
+            "name": "<static> FindByID",
             "params": [
                 {
                     "name": "root",
@@ -4132,6 +4230,10 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " app\\shared\\js\\dev\\phaser\\gameobject.js:469"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\shared\\js\\dev\\phaser\\gameobject.js:485"
         },
         {
             "message": "replacing incorrect tag: parma with param",
