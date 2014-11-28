@@ -186,6 +186,20 @@ Object.defineProperty( LR.Behaviour.prototype, "y",
 );
 
 /**
+* Accessor to the current game
+*
+* @property game
+* @type Number
+*/
+Object.defineProperty( LR.Behaviour.prototype, "game",
+	{
+		get : function(){
+			return this.entity.game;
+		}
+	}
+);
+
+/**
 * Find an instance of a specific Behaviour held by a gameobject 
 *
 * @method FindBehaviour
