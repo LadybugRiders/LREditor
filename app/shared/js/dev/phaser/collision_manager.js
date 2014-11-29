@@ -2,6 +2,7 @@
 /**
 * Holds the collision data between gameobjects in the game
 * Creates collision groups according to layers
+* Access instance via game.collisionManager
 * 
 * How to use it :
 * 1) Call init method. The data asked is of this form :
@@ -23,7 +24,7 @@ var CollisionManager = function(_game, _parent){
 
 	this.nbLayers = 0;
 
-	//_game.physics.p2.setPostBroadphaseCallback(this.onPostBroadphase, this);
+	_game.physics.p2.setPostBroadphaseCallback(this.onPostBroadphase, this);
 }
 
 /**

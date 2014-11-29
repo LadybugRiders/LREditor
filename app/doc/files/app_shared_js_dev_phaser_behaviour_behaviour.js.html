@@ -277,6 +277,10 @@
                         	{
                         		get : function(){
                         			return this.go.x;
+                        		},
+                        
+                        		set:  function(_value){
+                        			this.go.x = _value;
                         		}
                         	}
                         );
@@ -291,12 +295,31 @@
                         	{
                         		get : function(){
                         			return this.go.y;
+                        		},
+                        
+                        		set:  function(_value){
+                        			this.go.y = _value;
                         		}
                         	}
                         );
                         
                         /**
-                        * Accessor to the current game
+                        * Accessor to the entity&#x27;s world coordinates property (readonly)
+                        *
+                        * @property world
+                        * @type {Phaser.Point}
+                        */
+                        Object.defineProperty( LR.Behaviour.prototype, &quot;world&quot;,
+                        	{
+                        		get : function(){
+                        			return this.entity.world;
+                        		}
+                        	}
+                        );
+                        
+                        
+                        /**
+                        * Accessor to the current game (readonly)
                         *
                         * @property game
                         * @type Number

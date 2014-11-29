@@ -343,7 +343,10 @@ LR.GameObject.prototype.changeLayer = function(_layer){
 //======================================================================
 
 /**
-* Sets the callback for the postbroadphase 
+* Sets the callback for the postbroadphase
+* Postbroadphase is called BEFORE "enabling" any collision. You can then prevent a collision from happening
+* The callback should return true to validate a collision ( make it effective in game) 
+* The callback will have the colliding body passed in parameter
 *
 * @method setPostBroadPhaseCallback
 * @param {method} callback

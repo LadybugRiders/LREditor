@@ -453,7 +453,10 @@
                         //======================================================================
                         
                         /**
-                        * Sets the callback for the postbroadphase 
+                        * Sets the callback for the postbroadphase
+                        * Postbroadphase is called BEFORE &quot;enabling&quot; any collision. You can then prevent a collision from happening
+                        * The callback should return true to validate a collision ( make it effective in game) 
+                        * The callback will have the colliding body passed in parameter
                         *
                         * @method setPostBroadPhaseCallback
                         * @param {method} callback
@@ -891,6 +894,20 @@
                         			}else{
                         				this.entity.y = _y;
                         			}
+                        		}
+                        	}
+                        );
+                        
+                        /**
+                        * Accessor to the entity&#x27;s world coordinates property (readonly)
+                        *
+                        * @property world
+                        * @type {Phaser.Point}
+                        */
+                        Object.defineProperty( LR.GameObject.prototype, &quot;world&quot;,
+                        	{
+                        		get : function(){
+                        			return this.entity.world;
                         		}
                         	}
                         );
