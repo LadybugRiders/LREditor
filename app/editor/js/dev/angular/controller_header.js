@@ -188,6 +188,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$http.get(url).success(function(_data) {
 			//parse names to find frames sizes
 			for(var i=0; i < _data.images.length; i++){
+				if( _data.images[i].frameWidth != null )
+					continue;
 				var imageName = _data.images[i].path;
 				var regex = /[0-9]+x[0-9]+/.exec(imageName);
 				if( regex ){

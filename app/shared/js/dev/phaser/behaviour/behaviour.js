@@ -194,6 +194,21 @@ Object.defineProperty( LR.Behaviour.prototype, "y",
 );
 
 /**
+* Accessor to the entity's world coordinates property (readonly)
+*
+* @property world
+* @type {Phaser.Point}
+*/
+Object.defineProperty( LR.Behaviour.prototype, "world",
+	{
+		get : function(){
+			return this.entity.world;
+		}
+	}
+);
+
+
+/**
 * Accessor to the current game (readonly)
 *
 * @property game

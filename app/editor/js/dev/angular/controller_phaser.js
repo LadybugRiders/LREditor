@@ -434,7 +434,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				parent = parent.parent;
 			}
 			_entity.go.changeParent(parent);
-			if( parent.go.name != "__world" ){
+			if( parent.go && parent.go.name != "__world" ){
 				_entity.x = 0; _entity.y = 0;
 			}
 		}

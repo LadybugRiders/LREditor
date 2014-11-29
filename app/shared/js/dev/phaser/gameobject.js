@@ -786,6 +786,20 @@ Object.defineProperty( LR.GameObject.prototype, "y",
 );
 
 /**
+* Accessor to the entity's world coordinates property (readonly)
+*
+* @property world
+* @type {Phaser.Point}
+*/
+Object.defineProperty( LR.GameObject.prototype, "world",
+	{
+		get : function(){
+			return this.entity.world;
+		}
+	}
+);
+
+/**
 * Accessor to the body's gravity. Returns 0 if no body affected.
 *
 * @property gravity
