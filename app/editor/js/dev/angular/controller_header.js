@@ -186,7 +186,18 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		var url = "/editorserverapi/v0/image";
 		url += "?path=" + $scope.project.path + "/assets/images";
 		$http.get(url).success(function(_data) {
+			//parse names to find frames sizes
+			for(var i=0; i < _data.images.length; i++){
+				var imageName = _data.images[i].path;
+				var regex = /[0-9]+x[0-9]+/.exec(imageName);
+				if( regex ){
+					var aFrame = regex[0].split("x");
+					_data.images[i].frameWidth = parseInt(aFrame[0]);
+					_data.images[i].frameHeight = parseInt(aFrame[1]);
+				}
+			}
 			$scope.project.assets.images = _data.images;
+
 
 			$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
 		}).error(function(_error) {
