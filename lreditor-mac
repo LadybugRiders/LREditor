@@ -1,3 +1,8 @@
 #!/bin/bash
 
+# go to the execution folder
+relative_path=$(dirname $0)
+cd $relative_path
+
+# launch the script
 node bin/launcher
