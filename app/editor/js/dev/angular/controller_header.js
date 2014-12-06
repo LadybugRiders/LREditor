@@ -13,6 +13,12 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			}
 		});
 
+		$scope.$on("sendAtlasesBroadcast", function(_event, _args) {
+			if (_args.atlases) {
+				$scope.atlases = _args.atlases;
+			}
+		});
+
 		$scope.$on("importCutsceneBroadcast", function(_event, _args) {
 			$scope.importCutscene();
 		});
@@ -61,6 +67,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.project.assets.prefabs = new Array();
 		$scope.project.assets.inputs = new Object();
 		$scope.project.assets.bitmapFonts = new Array();
+		$scope.project.assets.atlases = new Array();
 
 		//modal data for cutscenes edition
 		$scope.modalCSData = {
@@ -138,6 +145,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 			$scope.loadCurrentProjectPrefabs();
 			$scope.loadCurrentProjectImages();
+			$scope.loadCurrentProjectAtlases();
 			$scope.loadCurrentProjectAudios();
 			$scope.loadCurrentProjectBehaviours();
 			$scope.loadCurrentProjectLayers();
@@ -178,7 +186,20 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		var url = "/editorserverapi/v0/image";
 		url += "?path=" + $scope.project.path + "/assets/images";
 		$http.get(url).success(function(_data) {
+			//parse names to find frames sizes
+			for(var i=0; i < _data.images.length; i++){
+				if( _data.images[i].frameWidth != null )
+					continue;
+				var imageName = _data.images[i].path;
+				var regex = /[0-9]+x[0-9]+/.exec(imageName);
+				if( regex ){
+					var aFrame = regex[0].split("x");
+					_data.images[i].frameWidth = parseInt(aFrame[0]);
+					_data.images[i].frameHeight = parseInt(aFrame[1]);
+				}
+			}
 			$scope.project.assets.images = _data.images;
+
 
 			$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
 		}).error(function(_error) {
@@ -192,6 +213,47 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			scope: $scope,
 			templateUrl: 'partials/modals/images.html',
 			controller: ImagesCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+			// do nothing
+		}, function () {
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	$scope.loadCurrentProjectAtlases = function() {
+		var url = "/editorserverapi/v0/image";
+		url += "?path=" + $scope.project.path + "/assets/atlases";
+		$http.get(url).success(function(_data) {
+			var textures = new Array();
+			//clear invalid data
+			for(var i=0; i < _data.images.length; i++){
+				if( _data.images[i].path.indexOf(".json") < 0 ){
+					var index = _data.images[i].path.lastIndexOf(".");
+					if( index > 0 ){
+						_data.images[i].path = _data.images[i].path.substring(0, index );
+					}
+					textures.push(_data.images[i]);
+				}
+			}
+
+			$scope.project.assets.atlases = JSON.parse( JSON.stringify(textures));
+
+			$scope.$emit("sendAtlasesEmit", {atlases: $scope.project.assets.atlases});
+		}).error(function(_error) {
+			$scope.atlases = new Object();
+			console.error(_error);
+		});
+	};
+
+	$scope.manageAtlases = function() {
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/atlases.html',
+			controller: AtlasesCtrlModal,
 			resolve: {
 			}
 		});

@@ -4,6 +4,7 @@
 * Load and Manage a DialogManager.
 *
 * @class DialogManager
+* @namespace Phaser.Plugin
 * @constructor
 * @param {Phaser.Game} game
 */

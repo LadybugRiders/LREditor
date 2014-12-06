@@ -31,6 +31,7 @@ LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promis
 * @param {Phaser.Loader} loader The loader used to import images
 */
 LR.Editor.LevelImporterEditor.prototype.importImages = function(_images, _loader) {
+	
 	for (var i = 0; i < _images.length; i++) {
 		var imgData = _images[i];
 
@@ -72,6 +73,65 @@ LR.Editor.LevelImporterEditor.prototype.getProjectImageByName = function(_name) 
 	return projectImage;
 };
 
+//===================== ATLASES ========================
+
+LR.Editor.LevelImporterEditor.prototype.importAtlases = function(_atlases, _loader) {
+	if(_atlases == null)
+		return;
+	for (var i = 0; i < _atlases.length; i++) {
+		var atData = _atlases[i];
+		var atPath = this.$scope.project.path + "/assets/atlases" + atData.path;
+
+		_loader.atlas(
+			atData.name, atPath+".png", atPath+".json"
+		);
+		_loader.json(atData.name, atPath+".json");
+
+		var projectImage = this.getProjectAtlasByName(atData.name);
+		if (projectImage) {
+			projectImage.loaded = true;
+		} else {
+			console.warn("image '" + atData.name + "' loaded but not linked with the editor.");
+		}
+	}
+	//Create a function that will fill the frames data of each atlas
+	//at the end of the loading
+	_loader.onLoadComplete.add(this.getAtlasesFrames,this);
+};
+
+LR.Editor.LevelImporterEditor.prototype.getProjectAtlasByName = function(_name) {
+	var projectAtlas = null;
+
+	var projectAtlases = this.$scope.project.assets.atlases;
+
+	var i = 0;
+	var found = false;
+	while (i<projectAtlases.length && found == false) {
+		var img = projectAtlases[i];
+		if (img.name == _name) {
+			projectAtlas = img;
+			found = true;
+		}
+
+		i++;
+	}
+
+	return projectAtlas;
+};
+
+LR.Editor.LevelImporterEditor.prototype.getAtlasesFrames = function() {
+	var atlases = this.$scope.project.assets.atlases;
+	for(var i=0; i < atlases.length; i++){
+		if( atlases[i].loaded){
+			atlases[i].frames = this.$scope.game.cache.getJSON(atlases[i].name).frames;
+		}
+	}
+
+	this.$scope.game.load.onLoadComplete.remove(this.getAtlasesFrames);
+};
+
+//======================================================
+
 LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) {
 	var entity = LR.LevelImporter.prototype.importEntity.call(this, _object, _game);
 	//we want to know which is the higher ID. this is the perfect place
@@ -91,7 +151,11 @@ LR.Editor.LevelImporterEditor.prototype.importEntity = function(_object, _game) 
 
 LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _entity){
 	LR.LevelImporter.prototype.setDisplay.call(this, _objectData, _entity);
-
+	//Out Of View Hide
+	_entity.outOfViewHide = false; //Deactivate this to prevent sprite from disapearing in the editor
+	if( _objectData.outOfViewHide == true ){
+		_entity.ed_outOfViewHide = true;
+	}
 	//set key to none if null
 	if(_objectData.key == null && 
 		( _objectData.type == LR.LevelUtilities.TYPE_SPRITE ||_objectData.type == LR.LevelUtilities.TYPE_TILESPRITE)

@@ -48,6 +48,7 @@ LR.LevelImporter.prototype.import = function(_level, _game, _promise) {
 */
 LR.LevelImporter.prototype.importAssets = function(_assets, _loader) {
 	this.importImages(_assets.images, _loader);
+	this.importAtlases(_assets.atlases,_loader);
 };
 
 /***********
@@ -66,6 +67,18 @@ LR.LevelImporter.prototype.importImages = function(_images, _loader) {
 		var img = _images[i];
 		_loader.spritesheet(
 			img.name, img.path, img.frameWidth, img.frameHeight);
+	};
+};
+
+LR.LevelImporter.prototype.importAtlases = function(_atlases, _loader) {
+	if(_atlases == null)
+		return;
+	var atlasesPath = this.$scope.project.path+"/assets/atlases";
+	for (var i = 0; i < _atlases.length; i++) {
+		var atlas = _atlases[i];
+		_loader.atlas(
+			atlas.name, atlasesPath+atlas.path + ".png", 
+			atlasesPath+atlas.path+".json");
 	};
 };
 
@@ -231,9 +244,14 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 		_entity.width = w;
 		_entity.height = h;
 		if( _objectData.type == "LR.Entity.TileSprite" && _entity.game.renderType == Phaser.CANVAS){
-			_entity.tilePosition.y = h * 0.5;
-			_entity.tilePosition.x = w * 0.5;
+			_entity.tilePosition.y = h ;//* 0.5;
+			_entity.tilePosition.x = w ;//* 0.5;
 		}
+	}
+
+	if( _objectData.frameName ){
+		_entity.isAtlas = true;
+		_entity.frameName = _objectData.frameName;
 	}
 
 	if(_objectData.type == "LR.Entity.Button"){

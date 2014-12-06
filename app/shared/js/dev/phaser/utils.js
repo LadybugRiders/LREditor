@@ -163,3 +163,16 @@ LR.Utils.getRectShapeSides = function(_go,_shape){
 
 	return bounds;
 }
+
+LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
+	var rect = new Phaser.Rectangle(
+							_sprite.world.x - Math.abs(_sprite.width) * 0.5 ,
+							_sprite.world.y - Math.abs(_sprite.height) * 0.5, 
+							Math.abs(_sprite.width),
+							Math.abs(_sprite.height)
+				);
+
+	var inCam = _camera.view.intersects(rect);
+	
+	return inCam;
+}

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app\shared\js\dev\phaser\plugin\player_save.js - LREditor API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="LREditor API"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Behaviour.Button.html">Behaviour.Button</a></li>
+                                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+                                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+                                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+                                <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
+                                <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
+                                <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
+                                <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
+                                <li><a href="../classes/Entity.Sprite.html">Entity.Sprite</a></li>
+                                <li><a href="../classes/Entity.Text.html">Entity.Text</a></li>
+                                <li><a href="../classes/Entity.TileSprite.html">Entity.TileSprite</a></li>
+                                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+                                <li><a href="../classes/LR.Body.html">LR.Body</a></li>
+                                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+                                <li><a href="../classes/LR.Game.html">LR.Game</a></li>
+                                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+                                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+                                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+                                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+                                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+                                <li><a href="../classes/LR.LR.html">LR.LR</a></li>
+                                <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
+                                <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
+                                <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.DialogManager.html">Phaser.Plugin.DialogManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.InputManager.html">Phaser.Plugin.InputManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.PlayerSave.html">Phaser.Plugin.PlayerSave</a></li>
+                                <li><a href="../classes/UI.DialogBox.html">UI.DialogBox</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: app\shared\js\dev\phaser\plugin\player_save.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        &quot;use strict&quot;;
+                        
+                        /**
+                        * Class PlayerSave. Load and Manages the save data for the player.
+                        *
+                        * @class PlayerSave
+                        * @namespace Phaser.Plugin
+                        * @constructor
+                        * @param {Phaser.Game} game
+                        * @param {Phaser.Group} parent
+                        */
+                        Phaser.Plugin.PlayerSave = function( _game, _parent ){
+                        	this.saveData = {levels:{}};
+                        	this.activeLevelName = null;
+                        	this.game = _game;
+                        	this.storageSave = null;
+                        
+                        	createSave(this);
+                        
+                        	if (Phaser.Plugin.PlayerSave.INSTANCE == null) {
+                        		Phaser.Plugin.call(this, _game, _parent);
+                        
+                        		Phaser.Plugin.PlayerSave.INSTANCE = this;
+                        		_game.playerSave = Phaser.Plugin.PlayerSave.INSTANCE;
+                        	}
+                        
+                        	return Phaser.Plugin.PlayerSave.INSTANCE;
+                        }
+                        
+                        Phaser.Plugin.PlayerSave.prototype = Object.create(Phaser.Plugin);
+                        Phaser.Plugin.PlayerSave.prototype.constructor = Phaser.Plugin.PlayerSave;
+                        
+                        /**
+                        * Sets the value in the save
+                        *
+                        * @param key Name of the variable
+                        * @param value The value to store
+                        * @method setValue
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.setValue = function(_key,_value){	
+                          	this.tempData[_key] = _value;
+                        }
+                        
+                        /**
+                        * Gets the value in the save
+                        *
+                        * @param key Name of the variable
+                        * @method setValue
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.getValue = function(_key){	
+                          	return this.tempData[_key];
+                        }
+                        
+                        /**
+                        * Write the single data into localStorage. The value written will be the temporary one.
+                        * Be aware that arrays and objects are not supported by local storage. You need to stringify them
+                        * @param key Name of the variable
+                        * @method writeValue
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.writeValue = function(_key){	
+                          	if( this.tempData[_key] ){
+                          		this.saveData[_key] = this.tempData[_key];
+                          		localStorage.setItem(&quot;game_save&quot;,JSON.stringify(this.saveData));
+                          	}
+                        }
+                        
+                        /**
+                        * Write the save.
+                        *
+                        * @method writeSave
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.writeSave = function(){
+                        	//write Save
+                        	this.saveData = JSON.parse(JSON.stringify(this.tempData));
+                        	this.tempData = JSON.parse(JSON.stringify(this.saveData));
+                        
+                          	localStorage.setItem(&quot;game_save&quot;,JSON.stringify(this.saveData));
+                        }
+                        
+                        /**
+                        * Returns the current save for the actual game.
+                        * This actually returns the temporary save. Use writeSave to apply changes to the overall game save
+                        * Use getPersistentSave to access persistent data 
+                        * @method getSave
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.getSave = function(){
+                        	return this.tempData;
+                        }
+                        
+                        /**
+                        * Returns the current persistent save. This data is unchanged until you apply (write) the temporary save
+                        * @method getPermanentSave
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.getPermanentSave = function(){
+                        	return this.saveData;
+                        }
+                        
+                        /**
+                        * Creates a new save for the given level
+                        *
+                        * @method createLevelSave
+                        * @return {Object} the level save
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.createLevelSave = function(_levelName){
+                        	this.tempData.levels[ _levelName ] = {};
+                        	return this.tempData.levels[ _levelName ];
+                        }
+                        
+                        /**
+                        * Returns the save for the specified level
+                        * If none provided, returns the save for the current one
+                        *
+                        * @method getLevelSave
+                        * @param levelName Name of the level save 
+                        * @return {Object}
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.getLevelSave = function(_levelName){
+                        	if(_levelName == null)
+                        		_levelName = this.game.state.getCurrentState().levelName
+                        	var levelData = this.tempData.levels[ _levelName ];
+                        	return levelData;
+                        }
+                        
+                        /**
+                        * Returns the save previously activated for the specified level
+                        *
+                        * @method getActiveLevelSave
+                        * @return {Object}
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.getActiveLevelSave = function(){
+                        	return this.getLevelSave(this.activeLevelName);
+                        }
+                        
+                        /**
+                        * Activate a level save. By doing this, you may get the current active level save using getActiveLevelSave.
+                        * This doesn&#x27;t affect the save whatsoever, it&#x27;s just a tools for a quick access 
+                        *( if you have a level with many sublevels for example, you can gather all the data in only one level save)
+                        *
+                        * @method activateLevelSave
+                        * @param levelName Name of the level in the save 
+                        * @return {Object}
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.activateLevelSave = function(_levelName){
+                        	this.activeLevelName = _levelName;
+                        }
+                        
+                        /**
+                        * Revert the save for the current level
+                        *
+                        * @method revertLevelSave
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.revertLevelSave = function(){
+                        	var levelName =  this.game.state.getCurrentState().levelName;
+                        	this.tempData[levelName] = JSON.parse(JSON.stringify(this.saveData[levelName]));
+                        }
+                        
+                        /**
+                        * Delete save. This deletes even the stored save of the game.
+                        *
+                        * @method deleteSave
+                        */
+                        Phaser.Plugin.PlayerSave.prototype.deleteSave = function(){
+                        	this.saveData = {levels:{}};
+                        	this.tempData = {levels:{}};
+                        	localStorage.setItem(&quot;game_save&quot;,JSON.stringify(this.saveData));
+                        }
+                        
+                        function createSave(_this){	
+                          	var storedSave = localStorage.getItem(&quot;game_save&quot;);
+                        
+                          	if( storedSave == null){
+                          		localStorage.setItem(&quot;game_save&quot;,JSON.stringify(_this.saveData));
+                          	}
+                          	//storageSave contains save data as a string
+                          	_this.storageSave = storedSave;
+                          	_this.saveData = JSON.parse(storedSave);
+                          	_this.tempData = JSON.parse(storedSave);;
+                        }
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>app/shared/js/dev/phaser/levelexporter.js - Loopy&#x27;s API</title>
+    <title>app\shared\js\dev\phaser\levelexporter.js - LREditor API</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -14,9 +14,7 @@
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-            
-                <h1><img src="../assets/css/logo.png" title="Loopy&#x27;s API"></h1>
-            
+                <h1><img src="../assets/css/logo.png" title="LREditor API"></h1>
         </div>
         <div class="yui3-u-1-4 version">
             <em>API Docs for: 0.0.1</em>
@@ -27,260 +25,734 @@
         <div class="yui3-u-1-4">
             <div id="docs-sidebar" class="sidebar apidocs">
                 <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-            <li><a href="#api-modules">Modules</a></li>
-        </ul>
-
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
-
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/Behaviour.Coin.html">Behaviour.Coin</a></li>
-            
-                <li><a href="../classes/Behaviour.Collectable.html">Behaviour.Collectable</a></li>
-            
-                <li><a href="../classes/Behaviour.Enemy.html">Behaviour.Enemy</a></li>
-            
-                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
-            
-                <li><a href="../classes/Behaviour.PhysicsSettings.html">Behaviour.PhysicsSettings</a></li>
-            
-                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
-            
-                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
-            
-                <li><a href="../classes/Behaviour.TriggerMessageObject.html">Behaviour.TriggerMessageObject</a></li>
-            
-                <li><a href="../classes/Behaviour.UILevelCoinsCount.html">Behaviour.UILevelCoinsCount</a></li>
-            
-                <li><a href="../classes/Behaviour.Weapon.html">Behaviour.Weapon</a></li>
-            
-                <li><a href="../classes/LR.html">LR</a></li>
-            
-                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
-            
-                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
-            
-                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
-            
-                <li><a href="../classes/LR.InputManager.html">LR.InputManager</a></li>
-            
-                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
-            
-                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
-            
-                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
-            
-                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
-            
-                <li><a href="../classes/Phaser.Plugin.Pollinator.html">Phaser.Plugin.Pollinator</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
-            </ul>
-        </div>
-    </div>
-</div>
-
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Behaviour.Button.html">Behaviour.Button</a></li>
+                                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+                                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+                                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+                                <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
+                                <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
+                                <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
+                                <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
+                                <li><a href="../classes/Entity.Sprite.html">Entity.Sprite</a></li>
+                                <li><a href="../classes/Entity.Text.html">Entity.Text</a></li>
+                                <li><a href="../classes/Entity.TileSprite.html">Entity.TileSprite</a></li>
+                                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+                                <li><a href="../classes/LR.Body.html">LR.Body</a></li>
+                                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+                                <li><a href="../classes/LR.Game.html">LR.Game</a></li>
+                                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+                                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+                                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+                                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+                                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+                                <li><a href="../classes/LR.LR.html">LR.LR</a></li>
+                                <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
+                                <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
+                                <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.DialogManager.html">Phaser.Plugin.DialogManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.InputManager.html">Phaser.Plugin.InputManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.PlayerSave.html">Phaser.Plugin.PlayerSave</a></li>
+                                <li><a href="../classes/UI.DialogBox.html">UI.DialogBox</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="yui3-u-3-4">
                 <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </div>
-
-
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: app/shared/js/dev/phaser/levelexporter.js</h1>
-
-<div class="file">
-    <pre class="code prettyprint linenums">
-&quot;use strict&quot;;
-
-/**
-* Export a level.
-*
-* @namespace LR
-* @class LevelExporter
-* @constructor
-*/
-LR.LevelExporter = function() {
-
-};
-
-/**
-* Export all the level.
-*
-* @method export
-* @param {Phaser.Game} game The game of the level
-* @return {Object} exported level
-*/
-LR.LevelExporter.prototype.export = function(_game) {
-	var level = new Object();
-
-	level.assets = this.exportAssets(_game.cache);
-	level.objects = this.exportObjects(_game.world);
-
-	return level;
-};
-
-/***********
-** ASSETS **
-***********/
-
-/**
-* Export all the level&#x27;s assets.
-*
-* @method exportAssets
-* @param {Phaser.Cache} cache The game&#x27;s cache of the level
-* @return {Object} exportable level&#x27;s assets
-*/
-LR.LevelExporter.prototype.exportAssets = function(_cache) {
-	var assets = new Object();
-
-	assets.images = this.exportImages(_cache);
-
-	return assets;
-};
-
-/***********
-** IMAGES **
-***********/
-
-/**
-* Export all the level&#x27;s images.
-*
-* @method exportImages
-* @param {Phaser.Cache} cache The game&#x27;s cache of the level
-* @return {Object} exportable level&#x27;s images
-*/
-LR.LevelExporter.prototype.exportImages = function(_cache) {
-	var images = new Array();
-
-		var keys = _cache.getKeys(Phaser.Cache.IMAGE);
-		for (var i = 0; i &lt; keys.length; i++) {
-			var key = keys[i];
-			var cachedImage = _cache.getImage(key);
-			var frame = _cache.getFrameByIndex(key, 0);
-			var image = this.exportImage(cachedImage, frame);
-			images.push(image);
-		};
-
-		return images;
-};
-
-/**
-* Export a cached image into an exportable image.
-*
-* @method exportImage
-* @param {Image} cachedImage The cached image
-* @param {Phaser.Frame} frame The default frame of the image
-* @return {Object} exportable level&#x27;s images
-*/
-LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
-	var image = new Object();
-
-	image.name = _cachedImage.name;
-	image.src = _cachedImage.getAttribute(&quot;src&quot;);
-	image.width = _cachedImage.width;
-	image.height = _cachedImage.height;
-	if (_frame) {
-		image.frameWidth = _frame.width;
-		image.frameHeight = _frame.height;
-	}
-
-	return image;
-};
-
-/************
-** OBJECTS **
-************/
-
-/**
-* Export all the level&#x27;s objects.
-*
-* @method exportObjects
-* @param {Phaser.Group | GameObject} parent The parent object
-* @return {Phaser.Group | GameObject} the exported parent and its descendants
-*/
-LR.LevelExporter.prototype.exportObjects = function(_parent) {
-	var eObjects = null;
-
-	//don&#x27;t export editor&#x27;s objects
-	if (_parent.name !== &quot;__editor&quot;) {
-		// export parent
-		eObjects = this.exportObject(_parent);
-
-		// if parent has children
-		if (_parent.children.length &gt; 0) {
-			eObjects.children = new Array();
-			for (var i=0; i&lt;_parent.children.length; i++) {
-				var child = _parent.children[i];
-				// export child
-				var obj = this.exportObjects(child);
-				// add exported child
-				if (obj != null) {
-					eObjects.children.push(obj);
-				}
-			}
-		}
-	}
-	
-	return eObjects;
-};
-
-/**
-* Export all the level&#x27;s objects.
-*
-* @method exportObject
-* @param {Phaser.Group | GameObject} object The object to export
-* @return {Phaser.Group | GameObject} the exported object
-*/
-LR.LevelExporter.prototype.exportObject = function(_object) {
-	var eObj = new Object();
-
-	eObj.type = LR.LevelUtilities.GetType(_object);
-
-	for (var i = 0; i &lt; LR.LevelUtilities.OBJECT_ATTRIBUTES.length; i++) {
-		var attr = LR.LevelUtilities.OBJECT_ATTRIBUTES[i];
-		eObj[attr] = _object[attr];
-	};
-
-	return eObj;
-};
-
-    </pre>
-</div>
-
+                        <h1 class="file-heading">File: app\shared\js\dev\phaser\levelexporter.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        &quot;use strict&quot;;
+                        
+                        /**
+                        * Export a level.
+                        *
+                        * @namespace LR
+                        * @class LevelExporter
+                        * @constructor
+                        */
+                        LR.LevelExporter = function() {
+                        
+                        };
+                        
+                        /**
+                        * Export all the level.
+                        *
+                        * @method export
+                        * @param {Phaser.Game} game The game of the level
+                        * @return {Object} exported level
+                        */
+                        LR.LevelExporter.prototype.export = function(_game, _project, _dataSettings,_cutscenes) {
+                        	var level = new Object();
+                        
+                        	level.assets = this.exportAssets(_game, _project);
+                        	level.objects = this.exportEntities(_game.world);
+                        	if( _dataSettings )
+                        		level.settings = _dataSettings;
+                        	level.cutscenes = _cutscenes;
+                        
+                        	return level;
+                        };
+                        
+                        /***********
+                        ** ASSETS **
+                        ***********/
+                        
+                        /**
+                        * Export all the level&#x27;s assets.
+                        *
+                        * @method exportAssets
+                        * @param {Phaser.Cache} cache The game&#x27;s cache of the level
+                        * @return {Object} exportable level&#x27;s assets
+                        */
+                        LR.LevelExporter.prototype.exportAssets = function(_game, _project) {
+                        	var assets = new Object();
+                        
+                        	assets.images = this.exportImages(_game, _project);
+                        	assets.atlases = this.exportAtlases(_game,_project);
+                        	assets.sounds = this.exportSounds(_game,_project);
+                        	assets.behaviours = this.exportBehaviours(_game, _project);
+                        	assets.bitmapFonts = _project.assets.bitmapFonts;
+                        
+                        	return assets;
+                        };
+                        
+                        /***********
+                        ** IMAGES **
+                        ***********/
+                        
+                        /**
+                        * Export all the level&#x27;s images.
+                        *
+                        * @method exportImages
+                        * @param {Phaser.World} level&#x27;s world
+                        * @return {Array} level&#x27;s images
+                        */
+                        LR.LevelExporter.prototype.exportImages = function(_game, _project) {
+                        	var keys = new Array();
+                        
+                        	keys = this.getImageKeys(_game.world, keys);
+                        
+                        	//var images = this.getExportableImages(_game.cache, keys);
+                        	var images = this.getExportableImages(keys, _project.assets.images);
+                        
+                        	return images;
+                        };
+                        
+                        /**
+                        * Return the image keys of the entities and its children.
+                        *
+                        * @method getImages
+                        * @param {LR.Entity} entity
+                        * @param {Array} keys array stored
+                        * @return {Array} image keys
+                        */
+                        LR.LevelExporter.prototype.getImageKeys = function(_entity, _keys) {
+                        	if( _keys == null)
+                        		_keys = new Array();
+                        
+                        	if (_entity.key) {
+                        		if (_keys.indexOf(_entity.key) &lt; 0) {
+                        			_keys.push(_entity.key);
+                        		}
+                        	}
+                        	
+                        	if (_entity.children != null) {
+                        		for (var i = 0; i &lt; _entity.children.length; i++) {
+                        			var child = _entity.children[i];
+                        			_keys = this.getImageKeys(child, _keys);
+                        		};
+                        	}
+                        
+                        	return _keys;
+                        };
+                        
+                        /**
+                        * Export all the level&#x27;s images.
+                        *
+                        * @method exportImages
+                        * @param {Phaser.Cache} cache The game&#x27;s cache of the level
+                        * @return {Array} level&#x27;s image keys
+                        * @return {Array} exportable level&#x27;s images
+                        */
+                        /*LR.LevelExporter.prototype.getExportableImages = function(_cache, _keys) {
+                        	var images = new Array();
+                        
+                        	for (var i = 0; i &lt; _keys.length; i++) {
+                        		var key = _keys[i];
+                        		var cachedImage = _cache.getImage(key);
+                        		var frame = _cache.getFrameByIndex(key, 0);
+                        		var image = this.exportImage(cachedImage, frame);
+                        		if (LR.LevelUtilities.IsEditorImage(image) == false) {
+                        			images.push(image);
+                        		}
+                        	};
+                        
+                        	return images;
+                        };*/
+                        LR.LevelExporter.prototype.getExportableImages = function(_keys, _imagesData) {
+                        	var images = new Array();
+                        
+                        	for (var i = 0; i &lt; _keys.length; i++) {
+                        		var key = _keys[i];
+                        
+                        		var j = 0;
+                        		var found = false;
+                        		while (j&lt;_imagesData.length &amp;&amp; found == false) {
+                        			var imageData = _imagesData[j];
+                        			if (imageData.name == key) {
+                        				if (LR.LevelUtilities.IsEditorImage(imageData) == false) {
+                        					images.push(imageData);
+                        				}
+                        
+                        				found = true;
+                        			}
+                        
+                        			j++;
+                        		}
+                        	};
+                        
+                        	return images;
+                        };
+                        
+                        /**
+                        * Export a cached image into an exportable image.
+                        *
+                        * @method exportImage
+                        * @param {Image} cachedImage The cached image
+                        * @param {Phaser.Frame} frame The default frame of the image
+                        * @return {Object} exportable level&#x27;s images
+                        */
+                        LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
+                        	var image = new Object();
+                        
+                        	image.name = _cachedImage.name;
+                        	image.src = _cachedImage.getAttribute(&quot;src&quot;);
+                        	image.width = _cachedImage.width;
+                        	image.height = _cachedImage.height;
+                        	if (_frame) {
+                        		image.frameWidth = _frame.width;
+                        		image.frameHeight = _frame.height;
+                        	}
+                        
+                        	return image;
+                        };
+                        
+                        /************
+                        ** ATLASES **
+                        *************/
+                        
+                        LR.LevelExporter.prototype.exportAtlases = function(_game, _project) {
+                        	var atlases = new Array();
+                        
+                        	atlases = this.getAtlases(_game.world, atlases);
+                        
+                        	//search path Data for each atlas to export
+                        	var objectsAtlases = new Array();
+                        	for(var i=0; i &lt; atlases.length; i++){
+                        		var obj = { name : atlases[i]};
+                        		for(var j = 0; j &lt; _project.assets.atlases.length; j++){
+                        			if( _project.assets.atlases[j].name == obj.name ){
+                        				obj.path = _project.assets.atlases[j].path;
+                        				break;
+                        			}
+                        		}
+                        		objectsAtlases.push(obj);
+                        	}
+                        
+                        	return objectsAtlases;
+                        };
+                        
+                        LR.LevelExporter.prototype.getAtlases = function(_entity, _atlases) {
+                        	if( _atlases == null)
+                        		_atlases = new Array();
+                        
+                        	if (_entity.key &amp;&amp; _entity.isAtlas &amp;&amp; _entity.frameName) {
+                        		if (_atlases.indexOf(_entity.key) &lt; 0) {
+                        			_atlases.push(_entity.key);
+                        		}
+                        	}
+                        	
+                        	if (_entity.children != null) {
+                        		for (var i = 0; i &lt; _entity.children.length; i++) {
+                        			var child = _entity.children[i];
+                        			_atlases = this.getAtlases(child, _atlases);
+                        		};
+                        	}
+                        
+                        	return _atlases;
+                        };
+                        
+                        /***********
+                        ** SOUNDS **
+                        ***********/
+                        
+                        LR.LevelExporter.prototype.exportSounds = function(_game, _project) {
+                        	var sounds = new Array();
+                        
+                        	var entitiesToCheck = [_game.world];
+                        	var entity = null;
+                        	//check every entity in the world to add the used audios
+                        	while(entitiesToCheck.length &gt; 0){
+                        		entity = entitiesToCheck[0];
+                        		//Add every child to the list
+                        		if( entity.children != null ){
+                        			for(var c=0; c &lt; entity.children.length; c++)
+                        				entitiesToCheck.push(entity.children[c]);
+                        		}
+                        		//add audio
+                        		if(entity.ed_sounds != null){
+                        			var sound = null;
+                        			for(var s=0; s &lt; entity.ed_sounds.length; s ++){
+                        				sound = entity.ed_sounds[s];
+                        				var soundData = this.getExportableSoundData(sound.key,_project,sounds);
+                        				if( soundData )
+                        					sounds.push(soundData);
+                        			}
+                        		}
+                        		//remove first
+                        		entitiesToCheck.splice(0,1);
+                        	}
+                        	return sounds;
+                        }
+                        
+                        // Search for the data of the sound defined by _soundKey
+                        // returns null if the data is already added to _selectedSounds or not found
+                        LR.LevelExporter.prototype.getExportableSoundData = function(_soundKey,_project,_selectedSounds){
+                        	var index = 0;
+                        	var soundData = null;
+                        	while( index &lt; _project.assets.audios.length &amp;&amp; soundData == null){
+                        		if( _project.assets.audios[index].name == _soundKey)
+                        			soundData = _project.assets.audios[index];
+                        		else
+                        			index++;
+                        	}
+                        	if( soundData == null ) return null;
+                        
+                        	index = 0;
+                        	while(index &lt; _selectedSounds.length){
+                        		if( _selectedSounds[index] == soundData)
+                        			return null;
+                        		index ++;
+                        	}
+                        	return soundData;
+                        }
+                        
+                        /***************
+                        ** BEHAVIOURS **
+                        ***************/
+                        
+                        /**
+                        * Export all the level&#x27;s behaviours.
+                        *
+                        * @method exportBehaviours
+                        * @param {Phaser.Game} game
+                        * @param {Object} project data
+                        * @return {Array} level&#x27;s behaviours
+                        */
+                        LR.LevelExporter.prototype.exportBehaviours = function(_game, _project) {
+                        	var behaviours = new Array();
+                        
+                        	behaviours = this.getBehaviours(_game.world, behaviours);
+                        
+                        	behaviours = this.addPathToExportedBehaviours(behaviours, _project.assets.behaviours);
+                        
+                        	return behaviours;
+                        };
+                        
+                        /**
+                        * Return the behaviours of the entities and its children.
+                        *
+                        * @method getBehaviours
+                        * @param {LR.Entity} entity
+                        * @return {Array} behaviours
+                        */
+                        LR.LevelExporter.prototype.getBehaviours = function(_entity, _behaviours) {
+                        	if (_entity.behaviours) {
+                        		_behaviours = this.mergeBehaviours(_entity.behaviours, _behaviours);
+                        	}
+                        
+                        	if (_entity.children != null) {
+                        		for (var i = 0; i &lt; _entity.children.length; i++) {
+                        			var child = _entity.children[i];
+                        			_behaviours = this.getBehaviours(child, _behaviours);
+                        		};
+                        	}
+                        
+                        	return _behaviours;
+                        };
+                        
+                        /**
+                        * Return a merge array of behaviours (no doublons).
+                        *
+                        * @method mergeBehaviours
+                        * @param {LR.Entity} first group of behaviours
+                        * @param {LR.Entity} second group of behaviours
+                        * @return {Array} behaviours
+                        */
+                        LR.LevelExporter.prototype.mergeBehaviours = function(_behaviours1, _behaviours2) {
+                        	var behaviours = new Array();
+                        	behaviours = behaviours.concat(_behaviours2);
+                        
+                        	for (var i = 0; i &lt; _behaviours1.length; i++) {
+                        		var behaviour = _behaviours1[i];
+                        
+                        		var j = 0;
+                        		var found = false;
+                        		while (j &lt; _behaviours2.length &amp;&amp; found == false) {
+                        			if (behaviour.name == _behaviours2[j]) {
+                        				found = true;
+                        			}
+                        
+                        			j++;
+                        		}
+                        
+                        		if (found == false) {
+                        			behaviours.push(behaviour);
+                        		}
+                        	};
+                        
+                        	return behaviours;
+                        };
+                        
+                        /**
+                        * Add project path to exported behaviours.
+                        *
+                        * @method addPathToExportedBehaviours
+                        * @param {Array} exported behaviours
+                        * @return {Array} All behaviours with full data
+                        */
+                        LR.LevelExporter.prototype.addPathToExportedBehaviours = function(_exportedBehaviours, _behavioursData) {
+                        	for (var i = 0; i &lt; _exportedBehaviours.length; i++) {
+                        		var behaviour = _exportedBehaviours[i];
+                        
+                        		var j = 0;
+                        		var found = false;
+                        		while (j &lt; _behavioursData.length &amp;&amp; found == false) {
+                        			var data = _behavioursData[j];
+                        			if (data.name == behaviour.name) {
+                        				behaviour.path = data.path;
+                        
+                        				found = true;
+                        			}
+                        
+                        			j++;
+                        		}
+                        	};
+                        
+                        	return _exportedBehaviours;
+                        };
+                        
+                        /************
+                        ** OBJECTS **
+                        ************/
+                        
+                        /**
+                        * Export all the level&#x27;s entities.
+                        *
+                        * @method exportEntities
+                        * @param {Phaser.Group | GameObject} entity The entity object
+                        * @return {Phaser.Group | GameObject} the exported entity and its descendants
+                        */
+                        LR.LevelExporter.prototype.exportEntities = function(_entity) {
+                        	var eObjects = null;
+                        
+                        	//don&#x27;t export editor&#x27;s entities
+                        	if (_entity.name) {
+                        		if (_entity.name === &quot;__world&quot;
+                        			|| (_entity.name[0] == &quot;_&quot; &amp;&amp; _entity.name[1] == &quot;_&quot;) == false) {
+                        			// export parent
+                        			eObjects = this.exportEntity(_entity);
+                        
+                        			// if parent has children
+                        			if (_entity.children.length &gt; 0) {
+                        				eObjects.children = new Array();
+                        				for (var i=0; i&lt;_entity.children.length; i++) {
+                        					var child = _entity.children[i];
+                        					// export child
+                        					var obj = this.exportEntities(child);
+                        					// add exported child
+                        					if (obj != null) {
+                        						eObjects.children.push(obj);
+                        					}
+                        				}
+                        			}
+                        		}
+                        	}
+                        	
+                        	return eObjects;
+                        };
+                        
+                        /**
+                        * Export all the level&#x27;s entities.
+                        *
+                        * @method exportEntity
+                        * @param {LR.Entity} entity The object to export
+                        * @return {LR.Entity} the exported object
+                        */
+                        LR.LevelExporter.prototype.exportEntity = function(_entity) {
+                        	var eObj = new Object();
+                        
+                        	eObj = this.setGeneral(_entity, eObj);
+                        
+                        	eObj = this.setDisplay(_entity, eObj);
+                        	
+                        	//body
+                        	if (_entity.body) {
+                        		eObj = this.setPhysics(_entity, eObj);
+                        	}
+                        
+                        	eObj = this.setBehaviours(_entity, eObj);
+                        
+                        	eObj = this.setTweens(_entity, eObj);
+                        
+                        	eObj = this.setSounds(_entity, eObj);
+                        
+                        	return eObj;
+                        };
+                        
+                        LR.LevelExporter.prototype.setGeneral = function(_entity, _object) {
+                        	_object.type = LR.LevelUtilities.GetType(_entity);
+                        
+                        	_object.name = _entity.name;
+                        	if( _entity.go )
+                        		_object.id = _entity.go.id;
+                        	_object.x = _entity.x;
+                        	_object.y = _entity.y;
+                        	_object.scaleX = _entity.scale.x;
+                        	_object.scaleY = _entity.scale.y;
+                        	_object.angle = _entity.angle;
+                        	
+                        	if(_entity.anchor) 
+                        		_object.anchor = { &quot;x&quot; : _entity.anchor.x, &quot;y&quot; : _entity.anchor.y };
+                        
+                        	if(_entity.ed_locked == true) {
+                        		_object.locked = true;
+                        	}	
+                        
+                        	if (_object.type !== LR.LevelUtilities.TYPE_TEXT &amp;&amp; _object.type !== LR.LevelUtilities.TYPE_BITMAPTEXT) {
+                        		_object.width = _entity.width;
+                        		_object.height = _entity.height;
+                        	} else {
+                        		//TEXT
+                        		if(_object.type == LR.LevelUtilities.TYPE_TEXT){
+                        			_object.textData = {
+                        				text : _entity.text,
+                        				style : {
+                        					font : _entity.style.font,
+                        					fill : _entity.style.fill
+                        				}
+                        			};
+                        		//BITMAP TEXT
+                        		}else{
+                        			_object.textData = {text : _entity.text,
+                        								fontSize:_entity.fontSize,
+                        								font : _entity.font};
+                        			if(_entity.maxCharPerLine &gt; 0)
+                        				_object.textData.maxChar = _entity.maxCharPerLine;
+                        		}
+                        
+                        		//stroke thickness
+                        		if(_entity.strokeThickness &gt; 0){
+                        			_object.textData.style.strokeThickness = _entity.strokeThickness;
+                        			_object.textData.style.stroke = _entity.stroke;
+                        		}
+                        		//wrap
+                        		if( _entity.wordWrap ){
+                        			_object.textData.style.wordWrap = true;
+                        			_object.textData.style.wordWrapWidth = _entity.wordWrapWidth;
+                        		}
+                        	}
+                        
+                        	if( _entity.prefab ){
+                        		_object.prefab = _entity.prefab;
+                        	}
+                        
+                        	return _object
+                        };
+                        
+                        LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
+                        	_object.visible = _entity.visible;
+                        	_object.alpha = _entity.alpha;
+                        
+                        	if( _entity.ed_outOfViewHide == true )
+                        		_object.outOfViewHide = true;
+                        
+                        	//set key to null if none
+                        	if (_entity.key &amp;&amp; _entity.key != &quot;none&quot;) {
+                        		_object.key = _entity.key;
+                        		_object.frame = _entity.frame;
+                        	}
+                        
+                        	if( _entity.isAtlas ){
+                        		_object.frameName = _entity.frameName;
+                        	}
+                        
+                        	//fixedToCamera
+                        	if (_entity.ed_fixedToCamera == true) {
+                        		_object.fixedToCamera = true;
+                        		_object.x = _entity.cameraOffset.x;
+                        		_object.y = _entity.cameraOffset.y;
+                        	}
+                        
+                        	// TileSprite specifics
+                        	if( _object.type == &quot;LR.Entity.TileSprite&quot;) {
+                        		// autoscroll
+                        		if( _entity.scrollX != null ){
+                        			_object.scrollX = _entity.scrollX;
+                        			_object.scrollY = _entity.scrollY;
+                        		}
+                        	}
+                        
+                        	// Button specifics
+                        	if (_object.type == &quot;LR.Entity.Button&quot;) {
+                        		// frames
+                        		_object.onOverFrameID = _entity._onOverFrameID;
+                        		_object.onOutFrameID = _entity._onOutFrameID;
+                        		_object.onDownFrameID = _entity._onDownFrameID;
+                        		_object.onUpFrameID = _entity._onUpFrameID;
+                        	}
+                        
+                        	// Tint Color
+                        	if( _object.type == &quot;LR.Entity.TileSprite&quot; || _object.type == &quot;LR.Entity.Sprite&quot;
+                        		|| _object.type == &quot;LR.Entity.Button&quot; || _object.type == &quot;LR.Entity.BitmapText&quot;
+                        	 ) {
+                        		_object.tint = _entity.tint;
+                        	}
+                        
+                        	// Animations
+                        	if( _entity.animations &amp;&amp; _entity.animations._anims != {}){
+                        		var entityAnims = _entity.animations._anims;
+                        		_object.anims = {};
+                        		for( var key in entityAnims){
+                        			_object.anims[key] = {};
+                        			_object.anims[key].frames = entityAnims[key]._frames;
+                        			_object.anims[key].loop = entityAnims[key].loop;
+                        			_object.anims[key].speed = entityAnims[key].speed;
+                        			if(entityAnims[key].timer){
+                        				_object.anims[key].timer = entityAnims[key].timer;
+                        			}
+                        		}
+                        		if( _entity.autoPlayActive == true )
+                        			_object.autoPlayAnim = _entity.autoPlayAnim;
+                        	}
+                        
+                        	return _object;
+                        };
+                        
+                        LR.LevelExporter.prototype.setPhysics = function(_entity, _object) {
+                        	_object.layer = _entity.go.layer;
+                        
+                        	_object.body = new Object();
+                        	_object.body.motion = _entity.body.ed_motion;
+                        	_object.body.enabled = _entity.body.ed_enabled;
+                        	_object.body.fixedRotation = _entity.body.ed_fixedRotation;
+                        	_object.body.angle = _entity.body.angle;
+                        	_object.body.gravity = _entity.body.data.gravityScale;
+                        	_object.body.mass = _entity.body.data.mass;
+                        	_object.body.bindRotation = _entity.body.bindRotation;
+                        	if( _entity.body.bindRotation )
+                        		_object.body.offsetRotation = _entity.body._offsetRotation;
+                        	_object.body.debug = _entity.body.ed_debugEditor;
+                        
+                        	//export shapes
+                        	_object.body.shapes = new Array();
+                        	for(var i=0; i &lt; _entity.go.getShapesCount(); i++){
+                        		var data = _entity.go.getShapeData(i);
+                        		var shape = _entity.go.getShape(i);
+                        		_object.body.shapes.push( { 
+                        			&quot;x&quot; : data.x , &quot;y&quot; : data.y, 
+                        			&quot;width&quot; : data.width, &quot;height&quot; : data.height,
+                        			&quot;rotation&quot; : data.rotation,
+                        			&quot;name&quot;: shape.lr_name, &quot;id&quot;:i,
+                        			&quot;sensor&quot;: shape.ed_sensor
+                        			} 
+                        		);
+                        	}
+                        
+                        	return _object;
+                        };
+                        
+                        LR.LevelExporter.prototype.setBehaviours = function(_entity, _object) {
+                        	_object.behaviours = [];
+                        	if( _entity.behaviours){
+                        		_object.behaviours = JSON.parse( JSON.stringify(_entity.behaviours) );
+                        	}
+                        
+                        	return _object;
+                        };
+                        
+                        LR.LevelExporter.prototype.setTweens = function(_entity, _object) {
+                        	
+                        	if(_entity.go != null &amp;&amp; _entity.go.tweensData != null 
+                        		&amp;&amp; Object.keys(_entity.go.tweensData).length &gt; 0){
+                        		_object.tweens = new Object();
+                        		for(var key in _entity.go.tweensData){
+                        			_object.tweens[key] = JSON.parse( 
+                        										JSON.stringify(
+                        											_entity.go.tweensData[key].data
+                        										)
+                        									);
+                        
+                        		}
+                        	}
+                        	return _object;
+                        };
+                        
+                        LR.LevelExporter.prototype.setSounds = function(_entity, _object) {
+                        	if( _entity.ed_sounds != null &amp;&amp; _entity.ed_sounds.length &gt; 0 ){
+                        		_object.sounds = _entity.ed_sounds;
+                        	}
+                        	return _object;
+                        };
+                            </pre>
+                        </div>
                     </div>
                 </div>
             </div>

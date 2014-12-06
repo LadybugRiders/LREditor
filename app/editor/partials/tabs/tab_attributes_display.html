@@ -1,19 +1,44 @@
 <div ng-if="data.type != 'group' && data.type != 'text' && data.type != 'bitmaptext' " class="form-group">
-	<!-- IMAGE -->
+	<!-- ACTIVATE ATLASING -->
 	<div class="form-group">
-		<label>Image</label>
-		<select ng-model="data.image" ng-options="image.name for image in data.images | filter:{loaded:true}" class="form-control">
-		</select>
+		<label>
+			Atlas <input type="checkbox" ng-model="currentEntity.isAtlas"/>
+		</label>
 	</div>
-	<div ng-if="data.type != 'button' " class="form-group">
-		<!-- FRAME -->
+	<!-- IMAGE -->
+	<div ng-show="!currentEntity.isAtlas">
 		<div class="form-group">
-			<label>Frame</label>
-			<input type="number" ng-model="data.imageFrame" class="form-control"/>
+			<label>Image [ {{currentEntity.key}} {{currentEntity.frame}} ]</label>
+			<select ng-model="data.image" ng-options="image.name for image in data.images | filter:{loaded:true}" class="form-control">
+			</select>
 		</div>
+		<div ng-if="data.type != 'button' " class="form-group">
+			<!-- FRAME -->
+			<div class="form-group">
+				<label>Frame</label>
+				<input type="number" ng-model="data.imageFrame" class="form-control"/>
+			</div>
+			<!-- APPLY -->
+			<div class="form-group">
+				<button ng-click="changeTexture(data.image, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
+			</div>
+		</div>
+	</div>
+	<!-- ATLAS -->
+	<div ng-show="currentEntity.isAtlas">
+		<label>Atlas [ {{currentEntity.key}} ]</label>
+		<select ng-model="data.atlas" 
+				ng-options="atlas.name for atlas in data.atlases | filter:{loaded:true}" 
+				class="form-control">
+		</select>
+		<label>Frame Name [ {{currentEntity.frameName}} ]</label>
+		<select ng-model="data.frame" 
+				ng-options="frame.filename for frame in data.atlas.frames" 
+				class="form-control">
+		</select>
 		<!-- APPLY -->
 		<div class="form-group">
-			<button ng-click="changeTexture(data.image, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
+			<button ng-click="changeAtlas(data.atlas.name, data.frame.filename)" type="button" class="btn btn-default">Apply</button>
 		</div>
 	</div>
 
@@ -53,6 +78,14 @@
 <div class="form-group">
 	<label>
 		Visible <input type="checkbox" ng-model="currentEntity.visible"/>
+	</label>
+</div>
+<!-- HIDE OUT OF VIEW -->
+<div class="form-group">
+	<label>
+		Hide when out of view <input type="checkbox" 
+		ng-model="currentEntity.ed_outOfViewHide"
+		ng-change="toggleOutOfViewHide(currentEntity)"/>
 	</label>
 </div>
 <!-- FIXED TO CAMERA -->

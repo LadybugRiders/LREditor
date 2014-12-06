@@ -59,6 +59,18 @@ LR.LevelImporterGame.prototype.importImages = function(_images, _loader) {
 	};
 };
 
+LR.LevelImporterGame.prototype.importAtlases = function(_atlases, _loader) {
+	if(_atlases == null)
+		return;
+	var atlasesPath = "assets/atlases";
+	for (var i = 0; i < _atlases.length; i++) {
+		var atlas = _atlases[i];
+		_loader.atlas(
+			atlas.name, atlasesPath+atlas.path + ".png", 
+			atlasesPath+atlas.path+".json");
+	};
+};
+
 LR.LevelImporterGame.prototype.importSounds = function(_sounds, _loader) {
 	if(_sounds == null)
 		return;
@@ -123,6 +135,9 @@ LR.LevelImporterGame.prototype.setGeneral = function(_objectData, _entity) {
 
 LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
 	LR.LevelImporter.prototype.setDisplay.call(this, _objectData, _entity);
+	//outofView
+	if(_objectData.outOfViewHide == true)
+		_entity.outOfViewHide = true;
 	//auto scroll for tilesprites
 	if (_objectData.type == "LR.Entity.TileSprite") {
 		if ( _objectData.scrollX != null)

@@ -18,7 +18,8 @@
 * Warning: this class is a singleton.
 *
 * @namespace
-* @class Phaser.Plugin.Pollinator
+* @class Pollinator
+* @namespace Phaser.Plugin
 * @constructor
 */
 Phaser.Plugin.Pollinator = function(_game, _parent) {

@@ -45,6 +45,7 @@ LR.LevelExporter.prototype.exportAssets = function(_game, _project) {
 	var assets = new Object();
 
 	assets.images = this.exportImages(_game, _project);
+	assets.atlases = this.exportAtlases(_game,_project);
 	assets.sounds = this.exportSounds(_game,_project);
 	assets.behaviours = this.exportBehaviours(_game, _project);
 	assets.bitmapFonts = _project.assets.bitmapFonts;
@@ -171,6 +172,51 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 	}
 
 	return image;
+};
+
+/************
+** ATLASES **
+*************/
+
+LR.LevelExporter.prototype.exportAtlases = function(_game, _project) {
+	var atlases = new Array();
+
+	atlases = this.getAtlases(_game.world, atlases);
+
+	//search path Data for each atlas to export
+	var objectsAtlases = new Array();
+	for(var i=0; i < atlases.length; i++){
+		var obj = { name : atlases[i]};
+		for(var j = 0; j < _project.assets.atlases.length; j++){
+			if( _project.assets.atlases[j].name == obj.name ){
+				obj.path = _project.assets.atlases[j].path;
+				break;
+			}
+		}
+		objectsAtlases.push(obj);
+	}
+
+	return objectsAtlases;
+};
+
+LR.LevelExporter.prototype.getAtlases = function(_entity, _atlases) {
+	if( _atlases == null)
+		_atlases = new Array();
+
+	if (_entity.key && _entity.isAtlas && _entity.frameName) {
+		if (_atlases.indexOf(_entity.key) < 0) {
+			_atlases.push(_entity.key);
+		}
+	}
+	
+	if (_entity.children != null) {
+		for (var i = 0; i < _entity.children.length; i++) {
+			var child = _entity.children[i];
+			_atlases = this.getAtlases(child, _atlases);
+		};
+	}
+
+	return _atlases;
 };
 
 /***********
@@ -465,10 +511,17 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 	_object.visible = _entity.visible;
 	_object.alpha = _entity.alpha;
 
+	if( _entity.ed_outOfViewHide == true )
+		_object.outOfViewHide = true;
+
 	//set key to null if none
 	if (_entity.key && _entity.key != "none") {
 		_object.key = _entity.key;
 		_object.frame = _entity.frame;
+	}
+
+	if( _entity.isAtlas ){
+		_object.frameName = _entity.frameName;
 	}
 
 	//fixedToCamera

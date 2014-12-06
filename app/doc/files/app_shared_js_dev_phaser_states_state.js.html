@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app\shared\js\dev\phaser\states\state.js - LREditor API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="LREditor API"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Behaviour.Button.html">Behaviour.Button</a></li>
+                                <li><a href="../classes/Behaviour.LR.Editor.Behaviour.ScrollerVertical.html">Behaviour.LR.Editor.Behaviour.ScrollerVertical</a></li>
+                                <li><a href="../classes/Behaviour.ScrollerHorizontal.html">Behaviour.ScrollerHorizontal</a></li>
+                                <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
+                                <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
+                                <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
+                                <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
+                                <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
+                                <li><a href="../classes/Entity.Sprite.html">Entity.Sprite</a></li>
+                                <li><a href="../classes/Entity.Text.html">Entity.Text</a></li>
+                                <li><a href="../classes/Entity.TileSprite.html">Entity.TileSprite</a></li>
+                                <li><a href="../classes/LR.Behaviour.html">LR.Behaviour</a></li>
+                                <li><a href="../classes/LR.Body.html">LR.Body</a></li>
+                                <li><a href="../classes/LR.CollisionManager.html">LR.CollisionManager</a></li>
+                                <li><a href="../classes/LR.Game.html">LR.Game</a></li>
+                                <li><a href="../classes/LR.GameObject.html">LR.GameObject</a></li>
+                                <li><a href="../classes/LR.LevelExporter.html">LR.LevelExporter</a></li>
+                                <li><a href="../classes/LR.LevelImporter.html">LR.LevelImporter</a></li>
+                                <li><a href="../classes/LR.LevelImporterGame.html">LR.LevelImporterGame</a></li>
+                                <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
+                                <li><a href="../classes/LR.LR.html">LR.LR</a></li>
+                                <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
+                                <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
+                                <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.DialogManager.html">Phaser.Plugin.DialogManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.InputManager.html">Phaser.Plugin.InputManager</a></li>
+                                <li><a href="../classes/Phaser.Plugin.PlayerSave.html">Phaser.Plugin.PlayerSave</a></li>
+                                <li><a href="../classes/UI.DialogBox.html">UI.DialogBox</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: app\shared\js\dev\phaser\states\state.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        &quot;use strict&quot;;
+                        /**
+                        * Class for State
+                        *
+                        * @namespace LR
+                        * @class State
+                        * @constructor
+                        * @param {param_type} param_description
+                        */
+                        LR.State = function(_game) {
+                        	Phaser.State.call(this, _game);
+                        	/**
+                        	* Array of GameObjects added to this state
+                        	*
+                        	* @property gameobjects
+                        	* @type {Array}
+                        	* @default Array
+                        	*/
+                        	this.gameobjects = new Array();
+                        };
+                        
+                        LR.State.prototype = Object.create(Phaser.State.prototype);
+                        LR.State.prototype.constructor = LR.State;
+                        
+                        LR.State.prototype.createEntity =function(_key){
+                        	var entity = new LR.Entity.Sprite(this.game,0,0,_key);	
+                        	entity.anchor.setTo(0.5,0.5);
+                        	this.addGameObjectFull(entity.go);
+                        	return entity;
+                        }
+                        /**
+                        * Adds a GameObject to this state
+                        *
+                        * @method addGameObject
+                        * @param {LR.GameObject} gameobject The GameObject to add
+                        * @param {boolean} addToGame If this method should add the entity of the GameObject to the game
+                        * @param {boolean} enableEvents Enable events from CollisionManager
+                        */
+                        LR.State.prototype.addGameObject = function(_gameobject,_addToGame, _enableEvents){
+                        	//console.log(_gameobject.name);
+                        	this.gameobjects.push(_gameobject);
+                        	//Add to the current game
+                        	if( _addToGame == true ){
+                        		this.game.add.existing(_gameobject.entity);
+                        	}
+                        	//Add to the collisionManager
+                        	if( _gameobject.body != null &amp;&amp; this.collisionManager != null ){
+                        		//console.log(_gameobject.body);
+                        		this.collisionManager.addGameObject(_gameobject,_enableEvents);
+                        	}
+                        }
+                        
+                        /**
+                        * Adds a GameObject to this state, to the game and to the CollisionManager
+                        *
+                        * @method addGameObjectFull
+                        * @param {LR.GameObject} gameobject The GameObject to add
+                        */
+                        LR.State.prototype.addGameObjectFull = function(_gameobject){
+                        	this.addGameObject(_gameobject,true,true);
+                        }
+                        
+                        /**
+                        * Return the GameObject of the current state with the name specified 
+                        *
+                        * @method findGameObjectByName
+                        * @param {string} name Name of the wanted GameObject
+                        */
+                        LR.State.prototype.findGameObjectByName = function(_name){
+                        	var gameobject = null;
+                        	var i = 0;
+                        	while( i &lt; this.gameobjects.length &amp;&amp; gameobject == null){
+                        		if( this.gameobjects[i].name == _name )
+                        			gameobject = this.gameobjects[i];
+                        		i++;
+                        	}
+                        	return gameobject;
+                        }
+                        
+                        /**
+                        * Return the GameObject of the current state with the name specified 
+                        *
+                        * @method getGameObjectByName
+                        * @param {string} name Name of the wanted GameObject
+                        */
+                        LR.State.prototype.getGameObjectByName = function(_name) {
+                        	var gameobject = null;
+                        	var i = 0;
+                        	while( i &lt; this.gameobjects.length &amp;&amp; gameobject == null){
+                        		if( this.gameobjects[i].name == _name )
+                        			gameobject = this.gameobjects[i];
+                        		i++;
+                        	}
+                        	return gameobject;
+                        }
+                        
+                        /**
+                        * Return the GameObject of the current state with the id specified 
+                        *
+                        * @method findGameObjectByID
+                        * @param {string} name Name of the wanted GameObject
+                        */
+                        LR.State.prototype.findGameObjectByID = function(_id){
+                        	var gameobject = null;
+                        	var i = 0;
+                        	while( i &lt; this.gameobjects.length &amp;&amp; gameobject == null){
+                        		if( this.gameobjects[i].id == _id )
+                        			gameobject = this.gameobjects[i];
+                        		i++;
+                        	}
+                        	return gameobject;
+                        }
+                        
+                        LR.State.prototype.shutdown = function(){
+                        	if( this.collisionManager != null ){
+                        		this.collisionManager.clear();
+                        	}
+                        
+                        	for(var i=0; i &lt; this.gameobjects.length ; i++){
+                        		this.gameobjects[i].destroy();
+                        	}
+                        	this.gameobjects = new Array();
+                        
+                        	if(this.game.inputManager)
+                        		this.game.inputManager.clearAll();
+                        }
+                        
+                        //================================================
+                        //				CUTSCENE
+                        //================================================
+                        
+                        LR.State.prototype.onBeginCutscene = function(){
+                        	for(var i=0; i &lt; this.gameobjects.length ; i++){
+                        		this.gameobjects[i].onBeginCutscene();
+                        	}
+                        }
+                        
+                        LR.State.prototype.onEndCutscene = function(){
+                        	for(var i=0; i &lt; this.gameobjects.length ; i++){
+                        		this.gameobjects[i].onEndCutscene();
+                        	}
+                        }
+                        
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -343,7 +343,10 @@ LR.GameObject.prototype.changeLayer = function(_layer){
 //======================================================================
 
 /**
-* Sets the callback for the postbroadphase 
+* Sets the callback for the postbroadphase
+* Postbroadphase is called BEFORE "enabling" any collision. You can then prevent a collision from happening
+* The callback should return true to validate a collision ( make it effective in game) 
+* The callback will have the colliding body passed in parameter
 *
 * @method setPostBroadPhaseCallback
 * @param {method} callback
@@ -431,7 +434,7 @@ LR.GameObject.prototype.removeBehaviour = function(_behaviour){
 * Returns the requested behaviour. If more than one is attaced, the first one is return. Use getBehaviours if you need them all
 * This could be expensive. Do not do this at every frame. 
 * @method getBehaviour
-* @param {Behaviour} behaviour The behaviour class
+* @param {Class} behaviour The behaviour class
 * @returns {Behaviour} the behaviour, or null if not found
 */
 LR.GameObject.prototype.getBehaviour = function( _script ){
@@ -447,7 +450,7 @@ LR.GameObject.prototype.getBehaviour = function( _script ){
 * If more than one is attached, the first one is return. Use getBehaviours if you need them all
 * This could be expensive. Do not do this at every frame. 
 * @method getBehaviourInChildren
-* @param {Behaviour} behaviour The behaviour class
+* @param {Class} behaviour The behaviour class
 * @returns {Behaviour} the behaviour, or null if not found
 */
 LR.GameObject.prototype.getBehaviourInChildren = function( _script ){
@@ -469,8 +472,8 @@ LR.GameObject.prototype.getBehaviourInChildren = function( _script ){
 /**
 * Returns all the requested behaviours attached to the object. 
 * This could be expensive. Do not do this at every frame. 
-* @method getBehaviour
-* @param {Behaviour} behaviour The behaviour class
+* @method getBehaviours
+* @param {Class} behaviour The behaviour class
 * @returns {Array} the behaviours in an array (might be empty)
 */
 LR.GameObject.prototype.getBehaviours = function( _script ){
@@ -480,6 +483,30 @@ LR.GameObject.prototype.getBehaviours = function( _script ){
 			return array.push( this.behaviours[i] );
 	}
 	return array;
+}
+
+/**
+* Returns all instances of the requested behaviour class attached to the GameObject and its children.
+* This may be expensive. Do not do this at every frame. 
+* @method getBehavioursInChildren
+* @param {Class} behaviour The behaviour class
+* @returns {Array} the behaviours in an array (might be empty)
+*/
+LR.GameObject.prototype.getBehavioursInChildren = function( _script, _array ){
+	if( _array==null)
+		_array = new Array();
+
+	for(var i = 0 ; i < this.behaviours.length; i++){
+		if(this.behaviours[i] instanceof _script)
+			_array.push( this.behaviours[i] );
+	}
+
+	if( this.entity.children ){
+		for( var i=0; i < this.entity.children.length; i++){
+			_array.concat( this.entity.children[i].go.getBehavioursInChildren(_script,_array));	
+		}
+	}
+	return _array;
 }
 
 /**
@@ -762,6 +789,20 @@ Object.defineProperty( LR.GameObject.prototype, "y",
 );
 
 /**
+* Accessor to the entity's world coordinates property (readonly)
+*
+* @property world
+* @type {Phaser.Point}
+*/
+Object.defineProperty( LR.GameObject.prototype, "world",
+	{
+		get : function(){
+			return this.entity.world;
+		}
+	}
+);
+
+/**
 * Accessor to the body's gravity. Returns 0 if no body affected.
 *
 * @property gravity
@@ -979,7 +1020,7 @@ LR.GameObject.prototype.onEndCutscene = function(){
 /**
 * Find a gameobject by its name
 *
-* @method FindByName
+* @method <static> FindByName
 * @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
 * @param {string} name Gameobject's name
 * @return {Phaser.World | Phaser.Group | Phaser.Sprite} Found gameobject
@@ -1008,7 +1049,7 @@ LR.GameObject.FindByName = function(_root, _name) {
 /**
 * Find a gameobject by its ID
 *
-* @method FindByID
+* @method <static> FindByID
 * @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
 * @param {Number} name Gameobject's ID
 * @return {Phaser.World | Phaser.Group | Phaser.Sprite} Found gameobject

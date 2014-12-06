@@ -85,6 +85,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 		$scope.$on("revertPrefabEmit", function(_event, _args) {
 			$scope.$broadcast("revertPrefabBroadcast", _args);
 		});
+
+		$scope.$on("setHideOutOfViewEmit", function(_event, _args) {
+			$scope.$broadcast("setHideOutOfViewBroadcast", _args);
+		});
 		//================== IMAGES ======================
 
 		$scope.$on("getImagesEmit", function(_event, _args) {
@@ -106,6 +110,18 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 		$scope.$on("sendCameraEmit", function(_event, _args) {
 			$scope.$broadcast("sendCameraBroadcast", _args);
 		});	
+
+		$scope.$on("sendAtlasesEmit", function(_event, _args) {
+			$scope.$broadcast("sendAtlasesBroadcast", _args);
+		});
+
+		$scope.$on("loadAtlasEmit", function(_event, _args) {
+			$scope.$broadcast("loadAtlasBroadcast", _args);
+		});
+
+		$scope.$on("unloadAtlasEmit", function(_event, _args) {
+			$scope.$broadcast("unloadAtlasBroadcast", _args);
+		});
 
 		//================== AUDIOS ======================
 		$scope.$on("sendAudiosEmit", function(_event, _args) {

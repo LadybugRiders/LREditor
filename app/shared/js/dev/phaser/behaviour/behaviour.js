@@ -158,6 +158,71 @@ LR.Behaviour.prototype.onEndCutscene = function(){
 }
 
 /**
+* Accessor to the GameObject's x property
+*
+* @property x
+* @type Number
+*/
+Object.defineProperty( LR.Behaviour.prototype, "x",
+	{
+		get : function(){
+			return this.go.x;
+		},
+
+		set:  function(_value){
+			this.go.x = _value;
+		}
+	}
+);
+
+/**
+* Accessor to the GameObject's y property
+*
+* @property x
+* @type Number
+*/
+Object.defineProperty( LR.Behaviour.prototype, "y",
+	{
+		get : function(){
+			return this.go.y;
+		},
+
+		set:  function(_value){
+			this.go.y = _value;
+		}
+	}
+);
+
+/**
+* Accessor to the entity's world coordinates property (readonly)
+*
+* @property world
+* @type {Phaser.Point}
+*/
+Object.defineProperty( LR.Behaviour.prototype, "world",
+	{
+		get : function(){
+			return this.entity.world;
+		}
+	}
+);
+
+
+/**
+* Accessor to the current game (readonly)
+*
+* @property game
+* @type Number
+*/
+Object.defineProperty( LR.Behaviour.prototype, "game",
+	{
+		get : function(){
+			return this.entity.game;
+		}
+	}
+);
+
+/**
 * Find an instance of a specific Behaviour held by a gameobject 
 *
 * @method FindBehaviour

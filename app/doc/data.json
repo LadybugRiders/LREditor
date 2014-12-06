@@ -1,19 +1,30 @@
 {
     "project": {
-        "name": "Loopy's API",
-        "description": "Documentation for Editor, Game & Shared",
+        "name": "LREditor API",
+        "description": "Documentation for Editor & Shared",
         "version": "0.0.1"
     },
     "files": {
-        "app/editor/js/dev/angular/controller_header.js": {
-            "name": "app/editor/js/dev/angular/controller_header.js",
+        "app\\editor\\js\\dev\\angular\\controller_header.js": {
+            "name": "app\\editor\\js\\dev\\angular\\controller_header.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "app/editor/js/dev/phaser/scrollerhorizontal.js": {
-            "name": "app/editor/js/dev/phaser/scrollerhorizontal.js",
+        "app\\editor\\js\\dev\\phaser\\levelimportereditor.js": {
+            "name": "app\\editor\\js\\dev\\phaser\\levelimportereditor.js",
+            "modules": {},
+            "classes": {
+                "Editor.LevelImporterEditor": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Editor": 1
+            }
+        },
+        "app\\editor\\js\\dev\\phaser\\scrollerhorizontal.js": {
+            "name": "app\\editor\\js\\dev\\phaser\\scrollerhorizontal.js",
             "modules": {},
             "classes": {
                 "Behaviour.ScrollerHorizontal": 1
@@ -23,8 +34,8 @@
                 "Behaviour": 1
             }
         },
-        "app/editor/js/dev/phaser/scrollervertical.js": {
-            "name": "app/editor/js/dev/phaser/scrollervertical.js",
+        "app\\editor\\js\\dev\\phaser\\scrollervertical.js": {
+            "name": "app\\editor\\js\\dev\\phaser\\scrollervertical.js",
             "modules": {},
             "classes": {
                 "Behaviour.LR.Editor.Behaviour.ScrollerVertical": 1
@@ -34,94 +45,41 @@
                 "Behaviour": 1
             }
         },
-        "app/game/js/dev/phaser/controllers/camera_follow.js": {
-            "name": "app/game/js/dev/phaser/controllers/camera_follow.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/controllers/player_runner_controller.js": {
-            "name": "app/game/js/dev/phaser/controllers/player_runner_controller.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/enemies/enemy.js": {
-            "name": "app/game/js/dev/phaser/enemies/enemy.js",
-            "modules": {},
-            "classes": {
-                "Behaviour.Enemy": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/objects/collectables/coin.js": {
-            "name": "app/game/js/dev/phaser/objects/collectables/coin.js",
-            "modules": {},
-            "classes": {
-                "Behaviour.Coin": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/objects/collectables/collectable.js": {
-            "name": "app/game/js/dev/phaser/objects/collectables/collectable.js",
-            "modules": {},
-            "classes": {
-                "Behaviour.Collectable": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/objects/weapon.js": {
-            "name": "app/game/js/dev/phaser/objects/weapon.js",
-            "modules": {},
-            "classes": {
-                "Behaviour.Weapon": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/settings/physics_settings.js": {
-            "name": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "modules": {},
-            "classes": {
-                "Behaviour.PhysicsSettings": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/game/js/dev/phaser/triggers/trigger.js": {
-            "name": "app/game/js/dev/phaser/triggers/trigger.js",
+        "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
             "modules": {},
             "classes": {
                 "Behaviour.Trigger": 1
             },
             "fors": {},
-            "namespaces": {}
+            "namespaces": {
+                "Behaviour": 1
+            }
         },
-        "app/game/js/dev/phaser/triggers/trigger_message_object.js": {
-            "name": "app/game/js/dev/phaser/triggers/trigger_message_object.js",
+        "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_change_level.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_change_level.js",
             "modules": {},
             "classes": {
-                "Behaviour.TriggerMessageObject": 1
+                "Behaviour.TriggerChangeLevel": 1
             },
             "fors": {},
-            "namespaces": {}
+            "namespaces": {
+                "Behaviour": 1
+            }
         },
-        "app/game/js/dev/phaser/ui/ingame/ui_level_coins_count.js": {
-            "name": "app/game/js/dev/phaser/ui/ingame/ui_level_coins_count.js",
+        "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_cutscene.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_cutscene.js",
             "modules": {},
             "classes": {
-                "Behaviour.UILevelCoinsCount": 1
+                "Behaviour.TriggerCutscene": 1
             },
             "fors": {},
-            "namespaces": {}
+            "namespaces": {
+                "Behaviour": 1
+            }
         },
-        "app/shared/js/dev/phaser/behaviour.js": {
-            "name": "app/shared/js/dev/phaser/behaviour.js",
+        "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
             "modules": {},
             "classes": {
                 "LR.Behaviour": 1
@@ -131,17 +89,195 @@
                 "LR": 1
             }
         },
-        "app/shared/js/dev/phaser/collision_manager.js": {
-            "name": "app/shared/js/dev/phaser/collision_manager.js",
+        "app\\shared\\js\\dev\\phaser\\behaviour\\button.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\behaviour\\button.js",
+            "modules": {},
+            "classes": {
+                "Behaviour.Button": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Behaviour": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "modules": {},
+            "classes": {
+                "Entity.BitmapText": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Entity": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\entity\\button.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "modules": {},
+            "classes": {
+                "Entity.Button": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Entity": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\entity\\sprite.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\entity\\sprite.js",
+            "modules": {},
+            "classes": {
+                "Entity.Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Entity": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\entity\\text.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "modules": {},
+            "classes": {
+                "Entity.Text": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Entity": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\entity\\tilesprite.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\entity\\tilesprite.js",
+            "modules": {},
+            "classes": {
+                "Entity.TileSprite": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Entity": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "modules": {},
+            "classes": {
+                "Phaser.Plugin.CutsceneManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Phaser.Plugin": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\plugin\\dialog_manager.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\plugin\\dialog_manager.js",
+            "modules": {},
+            "classes": {
+                "Phaser.Plugin.DialogManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Phaser.Plugin": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "modules": {},
+            "classes": {
+                "Phaser.Plugin.InputManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Phaser.Plugin": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "modules": {},
+            "classes": {
+                "Phaser.Plugin.PlayerSave": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Phaser.Plugin": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "modules": {},
+            "classes": {
+                "Phaser.Plugin..Pollinator": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Phaser.Plugin": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\states\\state.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "modules": {},
+            "classes": {
+                "LR.State": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "LR": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
+            "modules": {},
+            "classes": {
+                "Misc.TriggerMessageObject": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Misc": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\ui\\dialog_box.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\ui\\dialog_box.js",
+            "modules": {},
+            "classes": {
+                "UI.DialogBox": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "UI": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\body.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\body.js",
+            "modules": {},
+            "classes": {
+                "LR.Body": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "LR": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\collision_manager.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
             "modules": {},
             "classes": {
                 "LR.CollisionManager": 1
             },
             "fors": {},
-            "namespaces": {}
+            "namespaces": {
+                "LR": 1
+            }
         },
-        "app/shared/js/dev/phaser/gameobject.js": {
-            "name": "app/shared/js/dev/phaser/gameobject.js",
+        "app\\shared\\js\\dev\\phaser\\game.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\game.js",
+            "modules": {},
+            "classes": {
+                "LR.Game": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "LR": 1
+            }
+        },
+        "app\\shared\\js\\dev\\phaser\\gameobject.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\gameobject.js",
             "modules": {},
             "classes": {
                 "LR.GameObject": 1
@@ -151,17 +287,8 @@
                 "LR": 1
             }
         },
-        "app/shared/js/dev/phaser/input_manager.js": {
-            "name": "app/shared/js/dev/phaser/input_manager.js",
-            "modules": {},
-            "classes": {
-                "LR.InputManager": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app/shared/js/dev/phaser/levelexporter.js": {
-            "name": "app/shared/js/dev/phaser/levelexporter.js",
+        "app\\shared\\js\\dev\\phaser\\levelexporter.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
             "modules": {},
             "classes": {
                 "LR.LevelExporter": 1
@@ -171,8 +298,8 @@
                 "LR": 1
             }
         },
-        "app/shared/js/dev/phaser/levelimporter.js": {
-            "name": "app/shared/js/dev/phaser/levelimporter.js",
+        "app\\shared\\js\\dev\\phaser\\levelimporter.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
             "modules": {},
             "classes": {
                 "LR.LevelImporter": 1
@@ -182,8 +309,8 @@
                 "LR": 1
             }
         },
-        "app/shared/js/dev/phaser/levelimportergame.js": {
-            "name": "app/shared/js/dev/phaser/levelimportergame.js",
+        "app\\shared\\js\\dev\\phaser\\levelimportergame.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\levelimportergame.js",
             "modules": {},
             "classes": {
                 "LR.LevelImporterGame": 1
@@ -193,8 +320,8 @@
                 "LR": 1
             }
         },
-        "app/shared/js/dev/phaser/levelutilities.js": {
-            "name": "app/shared/js/dev/phaser/levelutilities.js",
+        "app\\shared\\js\\dev\\phaser\\levelutilities.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\levelutilities.js",
             "modules": {},
             "classes": {
                 "LR.LevelUtilities": 1
@@ -204,20 +331,20 @@
                 "LR": 1
             }
         },
-        "app/shared/js/dev/phaser/pollinator.js": {
-            "name": "app/shared/js/dev/phaser/pollinator.js",
+        "app\\shared\\js\\dev\\phaser\\utils.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\utils.js",
             "modules": {},
-            "classes": {
-                "Phaser.Plugin.Pollinator": 1
-            },
+            "classes": {},
             "fors": {},
-            "namespaces": {}
+            "namespaces": {
+                "LR": 1
+            }
         },
-        "app/shared/js/dev/lr.js": {
-            "name": "app/shared/js/dev/lr.js",
+        "app\\shared\\js\\dev\\lr.js": {
+            "name": "app\\shared\\js\\dev\\lr.js",
             "modules": {},
             "classes": {
-                "LR": 1
+                "LR.LR": 1
             },
             "fors": {},
             "namespaces": {}
@@ -225,6 +352,20 @@
     },
     "modules": {},
     "classes": {
+        "Editor.LevelImporterEditor": {
+            "name": "Editor.LevelImporterEditor",
+            "shortname": "Editor.LevelImporterEditor",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Editor",
+            "file": "app\\editor\\js\\dev\\phaser\\levelimportereditor.js",
+            "line": 3,
+            "description": "Import a level in the editor",
+            "is_constructor": 1
+        },
         "Behaviour.ScrollerHorizontal": {
             "name": "Behaviour.ScrollerHorizontal",
             "shortname": "Behaviour.ScrollerHorizontal",
@@ -234,7 +375,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "Behaviour",
-            "file": "app/editor/js/dev/phaser/scrollerhorizontal.js",
+            "file": "app\\editor\\js\\dev\\phaser\\scrollerhorizontal.js",
             "line": 3,
             "description": "Behaviour for a horizontal scroller",
             "is_constructor": 1,
@@ -255,7 +396,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "Behaviour",
-            "file": "app/editor/js/dev/phaser/scrollervertical.js",
+            "file": "app\\editor\\js\\dev\\phaser\\scrollervertical.js",
             "line": 3,
             "description": "Behaviour for a vertical scroller",
             "is_constructor": 1,
@@ -267,92 +408,18 @@
                 }
             ]
         },
-        "Behaviour.Enemy": {
-            "name": "Behaviour.Enemy",
-            "shortname": "Enemy",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/enemies/enemy.js",
-            "line": 3,
-            "description": "Enemy Behaviour. Override the hit(_data) method to do your process when the gameobject is hit",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "gameobject",
-                    "description": "",
-                    "type": "GameObject"
-                }
-            ]
-        },
-        "Behaviour.Coin": {
-            "name": "Behaviour.Coin",
-            "shortname": "Coin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/objects/collectables/coin.js",
-            "line": 3,
-            "description": "[Behaviour]\nCoin. Attach a Collectable behaviour to make it collectable.\nCalls onAddLevelCoin onto Pollinator if collected",
-            "is_constructor": 1
-        },
-        "Behaviour.Collectable": {
-            "name": "Behaviour.Collectable",
-            "shortname": "Collectable",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/objects/collectables/collectable.js",
-            "line": 3,
-            "description": "[Behaviour]\n When colliding with the player, this behaviour will send the message \"collect\" to the GameObject it's attached to"
-        },
-        "Behaviour.Weapon": {
-            "name": "Behaviour.Weapon",
-            "shortname": "Weapon",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/objects/weapon.js",
-            "line": 3,
-            "description": "The weapon doesn't need to be visible. It's basically a bounding box that will be activated when the owner attacks."
-        },
-        "Behaviour.PhysicsSettings": {
-            "name": "Behaviour.PhysicsSettings",
-            "shortname": "PhysicsSettings",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "line": 2,
-            "description": "Holds properties about the current game physics, such as layers' data"
-        },
         "Behaviour.Trigger": {
             "name": "Behaviour.Trigger",
-            "shortname": "Trigger",
+            "shortname": "Behaviour.Trigger",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/triggers/trigger.js",
-            "line": 3,
-            "description": "Class Trigger.\nWhen colliding with a valid body, it calls the function callbackName on the gameobject, with messageObject as a parameter.",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 7,
+            "description": "Class Trigger\nWhen colliding with a valid body, it calls the function callbackName on the colliding gameobject, with messageObject as a parameter.",
             "is_constructor": 1,
             "params": [
                 {
@@ -362,33 +429,47 @@
                 }
             ]
         },
-        "Behaviour.TriggerMessageObject": {
-            "name": "Behaviour.TriggerMessageObject",
-            "shortname": "TriggerMessageObject",
+        "Behaviour.TriggerChangeLevel": {
+            "name": "Behaviour.TriggerChangeLevel",
+            "shortname": "Behaviour.TriggerChangeLevel",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/triggers/trigger_message_object.js",
-            "line": 2,
-            "description": "Object that is sent as parameter in a trigger callback function.\nThis is for showing the basic properties.",
-            "is_constructor": 1
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_change_level.js",
+            "line": 6,
+            "description": "Class TriggerChangeLevel.\nSpecial Trigger that changes level when entered",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "gameobject",
+                    "description": "",
+                    "type": "GameObject"
+                }
+            ]
         },
-        "Behaviour.UILevelCoinsCount": {
-            "name": "Behaviour.UILevelCoinsCount",
-            "shortname": "UILevelCoinsCount",
+        "Behaviour.TriggerCutscene": {
+            "name": "Behaviour.TriggerCutscene",
+            "shortname": "Behaviour.TriggerCutscene",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "namespace": "Behaviour",
-            "file": "app/game/js/dev/phaser/ui/ingame/ui_level_coins_count.js",
-            "line": 3,
-            "description": "[Behaviour]\nAttach this to the coin UI. This will create a text at its right.\nIt binds itself to the onAddLevelCoin of Pollinator.",
-            "is_constructor": 1
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_cutscene.js",
+            "line": 6,
+            "description": "Class TriggerCutscene.\nSpecial Trigger that executes a cutscene when colliding with the specified objects",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "gameobject",
+                    "description": "",
+                    "type": "GameObject"
+                }
+            ]
         },
         "LR.Behaviour": {
             "name": "LR.Behaviour",
@@ -399,7 +480,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/behaviour.js",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
             "line": 3,
             "description": "Script attached to a GameObject. Its update method is called every frame if the object exists.",
             "is_constructor": 1,
@@ -411,18 +492,40 @@
                 }
             ]
         },
-        "LR.CollisionManager": {
-            "name": "LR.CollisionManager",
-            "shortname": "CollisionManager",
+        "Behaviour.Button": {
+            "name": "Behaviour.Button",
+            "shortname": "Behaviour.Button",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
+            "namespace": "Behaviour",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\button.js",
+            "line": 6,
+            "description": "Class Button\nWhen colliding with a valid body, it calls the function callbackName on the colliding gameobject, with messageObject as a parameter.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "gameobject",
+                    "description": "",
+                    "type": "GameObject"
+                }
+            ]
+        },
+        "Entity.BitmapText": {
+            "name": "Entity.BitmapText",
+            "shortname": "Entity.BitmapText",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Entity",
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
             "line": 2,
-            "description": "Holds the collision data between gameobjects in the game\nCreates collision groups according to layers\n\nHow to use it :\n1) Call init method. The data asked is of this form :",
+            "description": "BitmapText class for webfonts",
+            "is_constructor": 1,
             "params": [
                 {
                     "name": "game",
@@ -430,24 +533,49 @@
                     "type": "Phaser.Game"
                 },
                 {
-                    "name": "UNKNOWN",
+                    "name": "x",
                     "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "_key",
+                    "description": "BitmapText to display",
+                    "type": "String"
+                },
+                {
+                    "name": "_text",
+                    "description": "Base text",
                     "type": "Object"
+                },
+                {
+                    "name": "_size",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "name",
+                    "description": "Name of the GameObject attached",
+                    "type": "Stirng"
                 }
             ]
         },
-        "LR.GameObject": {
-            "name": "LR.GameObject",
-            "shortname": "LR.GameObject",
+        "Entity.Button": {
+            "name": "Entity.Button",
+            "shortname": "Entity.Button",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 2,
-            "description": "Base object",
+            "namespace": "Entity",
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "line": 3,
+            "description": "Button class",
             "is_constructor": 1,
             "params": [
                 {
@@ -467,29 +595,405 @@
                 },
                 {
                     "name": "texture",
-                    "description": "Texture key",
+                    "description": "Key of the texture to be used",
+                    "type": "String"
+                },
+                {
+                    "name": "over",
+                    "description": "frame id",
+                    "type": "Number"
+                },
+                {
+                    "name": "out",
+                    "description": "frame id",
+                    "type": "Number"
+                },
+                {
+                    "name": "down",
+                    "description": "frame id",
+                    "type": "Number"
+                },
+                {
+                    "name": "up",
+                    "description": "frame id",
+                    "type": "Number"
+                },
+                {
+                    "name": "name",
+                    "description": "Name of the GameObject attached",
+                    "type": "Stirng"
+                }
+            ]
+        },
+        "Entity.Sprite": {
+            "name": "Entity.Sprite",
+            "shortname": "Entity.Sprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Entity",
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\sprite.js",
+            "line": 3,
+            "description": "Sprite class",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "texture",
+                    "description": "Key of the texture to be used",
                     "type": "String"
                 },
                 {
                     "name": "name",
-                    "description": "Name of the GameObject",
-                    "type": "String"
+                    "description": "Name of the GameObject attached",
+                    "type": "Stirng"
                 }
             ]
         },
-        "LR.InputManager": {
-            "name": "LR.InputManager",
-            "shortname": "InputManager",
+        "Entity.Text": {
+            "name": "Entity.Text",
+            "shortname": "Entity.Text",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Entity",
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 2,
+            "description": "Text class for webfonts",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "_baseText",
+                    "description": "Text to display",
+                    "type": "String"
+                },
+                {
+                    "name": "style",
+                    "description": "Style of the text. If null, a default one will be used",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "Name of the GameObject attached",
+                    "type": "Stirng"
+                }
+            ]
+        },
+        "Entity.TileSprite": {
+            "name": "Entity.TileSprite",
+            "shortname": "Entity.TileSprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Entity",
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\tilesprite.js",
+            "line": 3,
+            "description": "TileSprite class",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Width"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Height"
+                },
+                {
+                    "name": "texture",
+                    "description": "Key of the texture to be used",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "Name of the GameObject attached",
+                    "type": "Stirng"
+                }
+            ]
+        },
+        "Phaser.Plugin.CutsceneManager": {
+            "name": "Phaser.Plugin.CutsceneManager",
+            "shortname": "Phaser.Plugin.CutsceneManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Phaser.Plugin",
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 3,
+            "description": "Start Manage cutscenes.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                }
+            ]
+        },
+        "Phaser.Plugin.DialogManager": {
+            "name": "Phaser.Plugin.DialogManager",
+            "shortname": "Phaser.Plugin.DialogManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Phaser.Plugin",
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\dialog_manager.js",
+            "line": 3,
+            "description": "Load and Manage a DialogManager.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                }
+            ]
+        },
+        "Phaser.Plugin.InputManager": {
+            "name": "Phaser.Plugin.InputManager",
+            "shortname": "Phaser.Plugin.InputManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Phaser.Plugin",
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 2,
+            "description": "InputManager refers to input keys as actions, and not as number.\nBy this way, you can bind callbacks to an action, then change the key triggering this action or freeze it for every\ncallback bound to this action\n\nHow to use it:\ngame.plugins.add(Phaser.Plugin.InputManager);\n\nCommon usage :\n1. Create Keys Data :\n\t var keysData = {\"valid\" : { key : Phaser.Keyboard.SPACEBAR }, \"cancel\" : { key : Phaser.Keyboard.C } };\n2. Init \n\t game.inputManager.init(keysData);\n3. Bind a Key to an Action \n\t game.inputManager.bindKeyPress(\"valid\",callback,context,priority);\n\nNB : You can associate a priority to the callbacks you register. If a callback returns true,\nthe other callbacks of lower priority for this same event won't be triggered.\n\n4. When the SPACEBAR is pressed, every callback bound to \"valid\" action will be triggered\n\nWarning: this class is a singleton.",
+            "is_constructor": 1
+        },
+        "Phaser.Plugin.PlayerSave": {
+            "name": "Phaser.Plugin.PlayerSave",
+            "shortname": "Phaser.Plugin.PlayerSave",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Phaser.Plugin",
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 3,
+            "description": "Class PlayerSave. Load and Manages the save data for the player.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                },
+                {
+                    "name": "parent",
+                    "description": "",
+                    "type": "Phaser.Group"
+                }
+            ]
+        },
+        "Phaser.Plugin..Pollinator": {
+            "name": "Phaser.Plugin..Pollinator",
+            "shortname": "Phaser.Plugin..Pollinator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Phaser.Plugin",
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "line": 7,
+            "description": "Listen and dispatch events.\n\nHow to use it:\ngame.plugins.add(Phaser.Plugin.Pollinator);\ngame.pollinator.on(\"myEvent\", ...);\n...\n...\n...\ngame.pollinator.dispatch(\"myEvent\");\n\nWarning: this class is a singleton.",
+            "is_constructor": 1
+        },
+        "LR.State": {
+            "name": "LR.State",
+            "shortname": "LR.State",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/input_manager.js",
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
             "line": 2,
-            "description": "Plugin class that sends input messages to the binded object according to the state of the game\nIt's basically used to call different methods, bound to a key, according to the state of the game (in game, paused , menu, etc...)\nIt also allows you to change quickly an action key for all the game input\n\nHow to use it:\ngame.plugins.add(Phaser.Plugin.InputManager);\n\nCommon usage :\n1. Create Keys Data :\n\t var keysData = {\"valid\" : Phaser.Keyboard.SPACEBAR, \"cancel\" : Phaser.Keyboard.C };\n2. Init \n\t game.inputManager.init(keysData);\n3. Bind a Key to an Action \n\t game.inputManager.bindKeyPress(\"valid\",callback,context);\n\nWarning: this class is a singleton.",
+            "description": "Class for State",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "param_description",
+                    "description": "",
+                    "type": "Param_type"
+                }
+            ]
+        },
+        "Misc.TriggerMessageObject": {
+            "name": "Misc.TriggerMessageObject",
+            "shortname": "Misc.TriggerMessageObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Misc",
+            "file": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
+            "line": 2,
+            "description": "Object that is sent as parameter in a trigger callback function.\nThis is for showing the basic properties.",
             "is_constructor": 1
+        },
+        "UI.DialogBox": {
+            "name": "UI.DialogBox",
+            "shortname": "UI.DialogBox",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "UI",
+            "file": "app\\shared\\js\\dev\\phaser\\ui\\dialog_box.js",
+            "line": 3,
+            "description": "Dialog box used by the Phaser.Plugin.DialogManager to display text\nIt creates a LR.Entity.Text and a LR.Entity.Sprite\nAttach this behaviour on a LR.Entity.Group",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                }
+            ]
+        },
+        "LR.Body": {
+            "name": "LR.Body",
+            "shortname": "LR.Body",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "LR",
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 3,
+            "description": "The extended version of Phaser.Physics.P2.Body\nUsed for physics instead of Phaser.Physics.P2.Body",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "param_description",
+                    "description": "",
+                    "type": "_game"
+                }
+            ]
+        },
+        "LR.CollisionManager": {
+            "name": "LR.CollisionManager",
+            "shortname": "LR.CollisionManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "LR",
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 2,
+            "description": "Holds the collision data between gameobjects in the game\nCreates collision groups according to layers\nAccess instance via game.collisionManager\n\nHow to use it :\n1) Call init method. The data asked is of this form :",
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                },
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "Object"
+                }
+            ]
+        },
+        "LR.Game": {
+            "name": "LR.Game",
+            "shortname": "LR.Game",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "LR",
+            "file": "app\\shared\\js\\dev\\phaser\\game.js",
+            "line": 2,
+            "description": "Game class"
+        },
+        "LR.GameObject": {
+            "name": "LR.GameObject",
+            "shortname": "LR.GameObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "LR",
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 2,
+            "description": "Base object",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "LR",
+                    "description": "entity",
+                    "type": "LR.Sprite | LR.Group | LR.TileSprite"
+                }
+            ]
         },
         "LR.LevelExporter": {
             "name": "LR.LevelExporter",
@@ -500,7 +1004,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
             "line": 3,
             "description": "Export a level.",
             "is_constructor": 1
@@ -514,7 +1018,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
             "line": 3,
             "description": "Import a level.",
             "is_constructor": 1
@@ -528,7 +1032,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/levelimportergame.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimportergame.js",
             "line": 3,
             "description": "Import a level for a game.",
             "is_constructor": 1
@@ -542,59 +1046,144 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "LR",
-            "file": "app/shared/js/dev/phaser/levelutilities.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelutilities.js",
             "line": 3,
             "description": "Utilities for level import/export.",
             "is_constructor": 1
         },
-        "Phaser.Plugin.Pollinator": {
-            "name": "Phaser.Plugin.Pollinator",
-            "shortname": "Phaser.Plugin.Pollinator",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "namespace": "",
-            "file": "app/shared/js/dev/phaser/pollinator.js",
-            "line": 7,
-            "description": "Listen and dispatch events.\n\nHow to use it:\ngame.plugins.add(Phaser.Plugin.Pollinator);\ngame.pollinator.on(\"myEvent\", ...);\n...\n...\n...\ngame.pollinator.dispatch(\"myEvent\");\n\nWarning: this class is a singleton.",
-            "is_constructor": 1
-        },
-        "LR": {
-            "name": "LR",
+        "LR.LR": {
+            "name": "LR.LR",
             "shortname": "LR",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "",
-            "file": "app/shared/js/dev/lr.js",
+            "namespace": "LR",
+            "file": "app\\shared\\js\\dev\\lr.js",
             "line": 3
         }
     },
     "classitems": [
         {
-            "file": "app/editor/js/dev/angular/controller_header.js",
-            "line": 47,
-            "description": "* IMAGES LOADER **",
-            "class": "Behaviour.ScrollerHorizontal"
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 130,
+            "description": "* PROJECT **",
+            "class": "Editor.LevelImporterEditor"
         },
         {
-            "file": "app/editor/js/dev/angular/controller_header.js",
-            "line": 67,
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 181,
+            "description": "* IMAGES **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 268,
+            "description": "* AUDIOS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 301,
+            "description": "* LAYERS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 349,
+            "description": "* BEHAVIOURS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 383,
+            "description": "* PREFABS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 422,
+            "description": "* FONTS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 439,
+            "description": "* LEVELS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 473,
+            "description": "* INPUTS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 518,
+            "description": "* ADDING ENTITIES **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 546,
             "description": "* LEVEL IMPORTER **",
-            "class": "Behaviour.ScrollerHorizontal"
+            "class": "Editor.LevelImporterEditor"
         },
         {
-            "file": "app/editor/js/dev/angular/controller_header.js",
-            "line": 88,
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 567,
             "description": "* LEVEL EXPORTER **",
-            "class": "Behaviour.ScrollerHorizontal"
+            "class": "Editor.LevelImporterEditor"
         },
         {
-            "file": "app/editor/js/dev/phaser/scrollerhorizontal.js",
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 588,
+            "description": "* LEVEL DEFAULT **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 609,
+            "description": "* SETTINGS **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 628,
+            "description": "* CUTSCENE EDITOR **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 662,
+            "description": "******  HELP *******",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\phaser\\levelimportereditor.js",
+            "line": 26,
+            "description": "Import all the images",
+            "itemtype": "method",
+            "name": "importImages",
+            "params": [
+                {
+                    "name": "images",
+                    "description": "Images informations",
+                    "type": "Object"
+                },
+                {
+                    "name": "loader",
+                    "description": "The loader used to import images",
+                    "type": "Phaser.Loader"
+                }
+            ],
+            "class": "Editor.LevelImporterEditor",
+            "namespace": "Editor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\phaser\\scrollerhorizontal.js",
             "line": 25,
             "description": "Update the camera according to the gameobject x position",
             "itemtype": "method",
@@ -603,7 +1192,7 @@
             "namespace": "Behaviour"
         },
         {
-            "file": "app/editor/js/dev/phaser/scrollervertical.js",
+            "file": "app\\editor\\js\\dev\\phaser\\scrollervertical.js",
             "line": 25,
             "description": "Update the camera according to the gameobject y position",
             "itemtype": "method",
@@ -612,214 +1201,9 @@
             "namespace": "Behaviour"
         },
         {
-            "file": "app/game/js/dev/phaser/controllers/camera_follow.js",
-            "line": 6,
-            "description": "GameObject named \"loopy\"",
-            "itemtype": "property",
-            "name": "loopy",
-            "type": "GameObject",
-            "default": "null",
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/controllers/camera_follow.js",
-            "line": 22,
-            "description": "Get gameobject loopy and follow it",
-            "itemtype": "method",
-            "name": "create",
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/controllers/camera_follow.js",
-            "line": 49,
-            "description": "Update the camera",
-            "itemtype": "method",
-            "name": "update",
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/controllers/player_runner_controller.js",
-            "line": 180,
-            "description": "Gives the GameObject the velocity on X accordtin to current speed and direction",
-            "itemtype": "method",
-            "name": "applyRunSpeed",
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/enemies/enemy.js",
-            "line": 17,
-            "description": "Velocity that the enemy will take when hit",
-            "itemtype": "property",
-            "name": "hitForce",
-            "type": "{Phaser.Point}",
-            "default": "{400,-400}",
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/enemies/enemy.js",
-            "line": 25,
-            "description": "Rotation force applied when the enemy will take a hit",
-            "itemtype": "property",
-            "name": "hitRotation",
-            "type": "{number}",
-            "default": "10",
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/enemies/enemy.js",
-            "line": 53,
-            "description": "Hit method, called by the hitter. The data in parameter should contain info",
-            "itemtype": "method",
-            "name": "hit",
-            "params": [
-                {
-                    "name": "_dataSender",
-                    "description": "Object containing data from the sender",
-                    "type": "Object"
-                }
-            ],
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/enemies/enemy.js",
-            "line": 72,
-            "description": "Die method. This will trigger the death of the enemy",
-            "itemtype": "method",
-            "name": "die",
-            "params": [
-                {
-                    "name": "_dataSender",
-                    "description": "Object containing data from the sender",
-                    "type": "Object"
-                }
-            ],
-            "class": "Behaviour.Enemy",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/objects/weapon.js",
-            "line": 24,
-            "itemtype": "property",
-            "name": "attacking",
-            "type": "{boolean}",
-            "class": "Behaviour.Weapon",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/objects/weapon.js",
-            "line": 30,
-            "description": "Owner of the weapon ( different from gameobject to which to script's attached )",
-            "type": "{GameObject}",
-            "class": "Behaviour.Weapon",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/objects/weapon.js",
-            "line": 36,
-            "description": "How long the attack will last, in seconds",
-            "itemtype": "property",
-            "name": "seconds",
-            "type": "Number",
-            "class": "Behaviour.Weapon",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/objects/weapon.js",
-            "line": 52,
-            "description": "Sets the owner object of the weapong. You can say the wielder.",
-            "itemtype": "method",
-            "name": "setOwner",
-            "params": [
-                {
-                    "name": "owner",
-                    "description": "The owner of the weapon. When the weapon attacks, it follows its owner. A GameObject is recommended here, although it could work\nwith any object having x and y properties",
-                    "type": "GameObject"
-                }
-            ],
-            "class": "Behaviour.Weapon",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/objects/weapon.js",
-            "line": 63,
-            "description": "Attacks in the given direction",
-            "itemtype": "method",
-            "name": "attack",
-            "params": [
-                {
-                    "name": "direction",
-                    "description": ""
-                }
-            ],
-            "class": "Behaviour.Weapon",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "line": 10,
-            "description": "Value for static bodies",
-            "itemtype": "property",
-            "name": "STATIC",
-            "type": "{numer}",
-            "class": "Behaviour.PhysicsSettings",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "line": 16,
-            "description": "Value for dynamic bodies",
-            "itemtype": "property",
-            "name": "DYNAMIC",
-            "type": "{numer}",
-            "class": "Behaviour.PhysicsSettings",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "line": 22,
-            "description": "Value for kinematic bodies",
-            "itemtype": "property",
-            "name": "KINEMATIC",
-            "type": "{numer}",
-            "class": "Behaviour.PhysicsSettings",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "line": 39,
-            "description": "Global gravity of the game",
-            "itemtype": "property",
-            "name": "GLOBAL_GRAVITY",
-            "class": "Behaviour.PhysicsSettings",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/settings/physics_settings.js",
-            "line": 45,
-            "description": "Static method that returns the array of collidables layers for the specified layer",
-            "itemtype": "method",
-            "name": "GetCollisionsForLayer",
-            "params": [
-                {
-                    "name": "layerName",
-                    "description": "",
-                    "type": "String"
-                }
-            ],
-            "class": "Behaviour.PhysicsSettings",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/triggers/trigger.js",
-            "line": 16,
-            "description": "Interactive Layers that will trigger this behaviour to call the die() method onto.",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 21,
+            "description": "Interactive Layers that will trigger the callback. If empty, all layers can be interactives.\nNote that collision the trigger's layer and the interactives' one has to be active ( see CollisionManager)\nIn short, this is used to filter the layers that will trigger the message",
             "itemtype": "property",
             "name": "interactives",
             "type": "{Array}",
@@ -828,8 +1212,8 @@
             "namespace": "Behaviour"
         },
         {
-            "file": "app/game/js/dev/phaser/triggers/trigger.js",
-            "line": 25,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 32,
             "description": "Function that will be called onto the colliding object",
             "itemtype": "property",
             "name": "callbackName",
@@ -839,8 +1223,8 @@
             "namespace": "Behaviour"
         },
         {
-            "file": "app/game/js/dev/phaser/triggers/trigger.js",
-            "line": 34,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 41,
             "description": "The message data we want to attach when we notify the gameobject it has hit the trigger.",
             "itemtype": "property",
             "name": "messageObject",
@@ -850,60 +1234,104 @@
             "namespace": "Behaviour"
         },
         {
-            "file": "app/game/js/dev/phaser/triggers/trigger_message_object.js",
-            "line": 10,
-            "description": "The GameObject holding the Trigger behaviour. Basically the sender of the message.",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 50,
+            "description": "Tells how many times the trigger has been activated",
             "itemtype": "property",
-            "name": "sender",
-            "type": "{GameObject}",
-            "default": "null",
-            "class": "Behaviour.TriggerMessageObject",
+            "name": "activeCount",
+            "type": "Number",
+            "default": "0",
+            "class": "Behaviour.Trigger",
             "namespace": "Behaviour"
         },
         {
-            "file": "app/game/js/dev/phaser/triggers/trigger_message_object.js",
-            "line": 18,
-            "description": "The shape of the sender that is in contact with the target's body",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 59,
+            "description": "Defines how many times the trigger can be activated.\n0 is unlimited",
             "itemtype": "property",
-            "name": "senderShape",
-            "type": "{P2.Shape}",
-            "default": "null",
-            "class": "Behaviour.TriggerMessageObject",
+            "name": "activeCountLimit",
+            "type": "Number",
+            "default": "-1",
+            "class": "Behaviour.Trigger",
             "namespace": "Behaviour"
         },
         {
-            "file": "app/game/js/dev/phaser/triggers/trigger_message_object.js",
-            "line": 26,
-            "description": "The shape of the body's target that is colliding with the sender's body",
-            "itemtype": "property",
-            "name": "collShape",
-            "type": "{P2.Shape}",
-            "default": "null",
-            "class": "Behaviour.TriggerMessageObject",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/triggers/trigger_message_object.js",
-            "line": 34,
-            "description": "The contact equation of the collision",
-            "itemtype": "property",
-            "name": "equation",
-            "type": "{P2.ContactEquation}",
-            "default": "null",
-            "class": "Behaviour.TriggerMessageObject",
-            "namespace": "Behaviour"
-        },
-        {
-            "file": "app/game/js/dev/phaser/ui/ingame/ui_level_coins_count.js",
-            "line": 30,
-            "description": "Called when onAddLevelCoin is called onto Pollinator by an ingame coin",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 74,
+            "description": "Creation data properties :\nmessageObject - If you want the message sent to the colliding GameObject to have custom properties,\n                put here an object containing these properties ie : _data.messageObject = { \"customProp\":\"hello\"}\ncallbackName - See property\ninteractives - See porperty",
             "itemtype": "method",
-            "name": "onAddCoin",
-            "class": "Behaviour.UILevelCoinsCount",
+            "name": "create",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Behaviour.Trigger",
             "namespace": "Behaviour"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
+            "line": 144,
+            "description": "Called when the trigger is activated and messages are triggered",
+            "itemtype": "method",
+            "name": "onTriggered",
+            "params": [
+                {
+                    "name": "_gameobject",
+                    "description": "Message's target (also the GameObject that collided with this trigger)",
+                    "type": "LR.GameObject"
+                }
+            ],
+            "class": "Behaviour.Trigger",
+            "namespace": "Behaviour"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_change_level.js",
+            "line": 26,
+            "description": "Creation data properties \nlevelName - name of the next level to load (if any)",
+            "itemtype": "method",
+            "name": "create",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Object containing properties to be assigned at the creation of the game",
+                    "type": "Data"
+                }
+            ],
+            "class": "Behaviour.TriggerChangeLevel",
+            "namespace": "Behaviour"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_cutscene.js",
+            "line": 20,
+            "description": "Cuscene name",
+            "itemtype": "property",
+            "name": "cutscene",
+            "type": "string",
+            "default": "null",
+            "class": "Behaviour.TriggerCutscene",
+            "namespace": "Behaviour"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger_cutscene.js",
+            "line": 34,
+            "description": "Creation data properties \ncutscene - name of the cutscene that has to be triggered",
+            "itemtype": "method",
+            "name": "create",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Object containing properties to be assigned at the creation of the game",
+                    "type": "Data"
+                }
+            ],
+            "class": "Behaviour.TriggerCutscene",
+            "namespace": "Behaviour"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
             "line": 12,
             "description": "Enables the behaviour. A disabled behaviour will not have its start(),update(), render() and contacts function called by its GameObject",
             "itemtype": "property",
@@ -914,7 +1342,7 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
             "line": 21,
             "description": "The GameObject this Behaviour is attached to",
             "itemtype": "property",
@@ -924,8 +1352,18 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
             "line": 29,
+            "description": "The Entity of the GameObject",
+            "itemtype": "property",
+            "name": "entity",
+            "type": "{LR.Entity}",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 37,
             "description": "Arguments to the behaviour. Must be used in Behaviour.create",
             "itemtype": "property",
             "name": "args",
@@ -935,8 +1373,19 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
-            "line": 41,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 46,
+            "description": "If this property is set to false, the behaviours won't be noticed of contact events anymore\nie : onBeginContact and onEndContact will not be triggered",
+            "itemtype": "property",
+            "name": "enableEvents",
+            "type": "boolean",
+            "default": "true",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 59,
             "description": "Called when all gameobjects are created",
             "itemtype": "method",
             "name": "create",
@@ -944,8 +1393,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
-            "line": 50,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 67,
             "description": "Called each frame if the behaviour is enabled",
             "itemtype": "method",
             "name": "update",
@@ -953,8 +1402,17 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
-            "line": 63,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 76,
+            "description": "Called each frame after updaet() if the behaviour is enabled",
+            "itemtype": "method",
+            "name": "postUpdate",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 89,
             "description": "Called when the scene is launching. All objects are created then.",
             "itemtype": "method",
             "name": "start",
@@ -962,8 +1420,17 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
-            "line": 71,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 97,
+            "description": "Called when the GameObject is destroyed",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 106,
             "description": "Called when a body collision just begins",
             "itemtype": "method",
             "name": "onBeginContact",
@@ -993,8 +1460,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/behaviour.js",
-            "line": 88,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 123,
             "description": "Called when a body collision just ends",
             "itemtype": "method",
             "name": "onEndContact",
@@ -1024,8 +1491,1134 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
-            "line": 17,
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 139,
+            "description": "Called when a cutscene begins",
+            "itemtype": "method",
+            "name": "onBeginCutscene",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 148,
+            "description": "Called when a cutscene ends",
+            "itemtype": "method",
+            "name": "onEndCutscene",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 160,
+            "description": "Accessor to the GameObject's x property",
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 178,
+            "description": "Accessor to the GameObject's y property",
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 196,
+            "description": "Accessor to the entity's world coordinates property (readonly)",
+            "itemtype": "property",
+            "name": "world",
+            "type": "{Phaser.Point}",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 211,
+            "description": "Accessor to the current game (readonly)",
+            "itemtype": "property",
+            "name": "game",
+            "type": "Number",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 225,
+            "description": "Find an instance of a specific Behaviour held by a gameobject",
+            "itemtype": "method",
+            "name": "FindBehaviour",
+            "params": [
+                {
+                    "name": "root",
+                    "description": "Root of the search",
+                    "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+                },
+                {
+                    "name": "Behaviour's",
+                    "description": "class",
+                    "type": "Class"
+                }
+            ],
+            "return": {
+                "description": "Found gameobject",
+                "type": "GameObject"
+            },
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\button.js",
+            "line": 22,
+            "description": "Called when the button entity is clicked",
+            "itemtype": "method",
+            "name": "onClick",
+            "class": "Behaviour.Button",
+            "namespace": "Behaviour"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 29,
+            "description": "String to apply before the text",
+            "itemtype": "property",
+            "name": "prefix",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 37,
+            "description": "String to apply after the text",
+            "itemtype": "property",
+            "name": "suffix",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 46,
+            "description": "The context of the bounded variable ( if any )",
+            "itemtype": "property",
+            "name": "boundContext",
+            "type": "{Object}",
+            "default": "null",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 55,
+            "description": "The name of the variable bound to this entity. \nThe value of this variable will be displayed in this text, using prefix and suffix if they are set\n\nSet to null to stop listening to a variable",
+            "itemtype": "property",
+            "name": "boundVariable",
+            "type": "{string}",
+            "default": "null",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 67,
+            "description": "Defines the fixed count of digit you want if the text holds a number\nie : with numberPadding == 3 , 6 will be displayed as \"006\"\n\na value of 0 deactivates the padding",
+            "itemtype": "property",
+            "name": "numberPadding",
+            "type": "number",
+            "default": "0",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 78,
+            "description": "Maximum number of characters on a line\na value of 0 deactivates the wrapping",
+            "itemtype": "property",
+            "name": "maxCharPerLine",
+            "type": "number",
+            "default": "0",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 108,
+            "description": "The defineProperty is overrided to enable auto number padding, prefix and suffix.",
+            "name": "text - The text string to be displayed by this BitmapText object, taking into account the style settings.",
+            "itemtype": "property",
+            "type": "String",
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js",
+            "line": 183,
+            "description": "Tells this text entity to display the specified variable.\nThis will be effective even if the variable value changes.",
+            "itemtype": "method",
+            "name": "bindToVariable",
+            "params": [
+                {
+                    "name": "variableName",
+                    "description": "The name of the variable to bind",
+                    "type": "String"
+                },
+                {
+                    "name": "context",
+                    "description": "The context holding the variable",
+                    "type": "Object"
+                },
+                {
+                    "name": "prefix",
+                    "description": "String to apply before the variable value",
+                    "type": "String"
+                },
+                {
+                    "name": "suffix",
+                    "description": "String to apply after the variable value",
+                    "type": "String"
+                }
+            ],
+            "class": "Entity.BitmapText",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "line": 76,
+            "description": "call behaviours onClick function",
+            "itemtype": "method",
+            "name": "onClick",
+            "class": "Entity.Button",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "line": 93,
+            "description": "call behaviours onUp function",
+            "itemtype": "method",
+            "name": "onUp",
+            "class": "Entity.Button",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "line": 110,
+            "description": "call behaviours onDown function",
+            "itemtype": "method",
+            "name": "onDown",
+            "class": "Entity.Button",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 31,
+            "description": "String to apply before the text",
+            "itemtype": "property",
+            "name": "prefix",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 39,
+            "description": "String to apply after the text",
+            "itemtype": "property",
+            "name": "suffix",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 48,
+            "description": "The context of the bounded variable ( if any )",
+            "itemtype": "property",
+            "name": "boundContext",
+            "type": "{Object}",
+            "default": "null",
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 57,
+            "description": "The name of the variable bound to this entity. \nThe value of this variable will be displayed in this text, using prefix and suffix if they are set\n\nSet to null to stop listening to a variable",
+            "itemtype": "property",
+            "name": "boundVariable",
+            "type": "{string}",
+            "default": "null",
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 69,
+            "description": "FDfines the fixed count of digit you want if the text holds a number\nie : with numberPadding == 3 , 6 will be displayed as \"006\"\n\na value of 0 deactivates the padding",
+            "itemtype": "property",
+            "name": "numberPadding",
+            "type": "number",
+            "default": "0",
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 84,
+            "description": "The defineProperty is overrided to enable auto number padding, prefix and suffix.",
+            "name": "text - The text string to be displayed by this Text object, taking into account the style settings.",
+            "itemtype": "property",
+            "type": "String",
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
+            "line": 156,
+            "description": "Tells this text entity to display the specified variable.\nThis will be effective even if the variable value changes.",
+            "itemtype": "method",
+            "name": "bindToVariable",
+            "params": [
+                {
+                    "name": "variableName",
+                    "description": "The name of the variable to bind",
+                    "type": "String"
+                },
+                {
+                    "name": "context",
+                    "description": "The context holding the variable",
+                    "type": "Object"
+                },
+                {
+                    "name": "prefix",
+                    "description": "String to apply before the variable value",
+                    "type": "String"
+                },
+                {
+                    "name": "suffix",
+                    "description": "String to apply after the variable value",
+                    "type": "String"
+                }
+            ],
+            "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 135,
+            "description": "Called when an action of the current event has finished",
+            "class": "Phaser.Plugin.CutsceneManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 195,
+            "description": "Tween properties can be composite. By example, if we have a property like \"body.x\", the tween\nactually acts on the body itself as a target, not the entity.\nSo we have to manually parse the properties and create the tween on the right objects.",
+            "class": "Phaser.Plugin.CutsceneManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 237,
+            "description": "Creates a tween for the targeted object and start it",
+            "class": "Phaser.Plugin.CutsceneManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 259,
+            "description": "Calls a function on the _target GameObject",
+            "class": "Phaser.Plugin.CutsceneManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 282,
+            "description": "This function returns the target object of the tween property defined by the string\nie : if string = \"body.x\"\nthe return value will be the body property of the object\nIf a property is not found, the object is returned as itself\nexample of returned object :\n{ targetObject : P2.Body... , property : \"x\"}",
+            "class": "Phaser.Plugin.CutsceneManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js",
+            "line": 315,
+            "description": "This is an array that can be used to know which functions can be called as \"other\"\nThis will mostly be used by the editor",
+            "class": "Phaser.Plugin.CutsceneManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 53,
+            "description": "Init all the keys binding and mouse events",
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "keysData",
+                    "description": "See common usage in the class description",
+                    "type": "Object"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 79,
+            "description": "Creates an action key data and add it to the input manager\nie : createActionKey(\"valid\", Phaser.Keyboard.SPACEBAR,false);",
+            "itemtype": "method",
+            "name": "createActionKey",
+            "params": [
+                {
+                    "name": "actionName",
+                    "description": "The name of the action key",
+                    "type": "String"
+                },
+                {
+                    "name": "key",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "capture",
+                    "description": "Should this key still be listen by the browser. null is true.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 169,
+            "description": "Binds a callback to the mouse left press event",
+            "itemtype": "method",
+            "name": "bindMousePress",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "button",
+                    "description": "Phaser.Mouse.[LEFT_BUTTON,RIGHT_BUTTON,MIDDLE_BUTTON]",
+                    "type": "Number"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the callback",
+                    "type": "Number"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 196,
+            "description": "Binds a callback to the mouse left release event",
+            "itemtype": "method",
+            "name": "bindMousePress",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "button",
+                    "description": "Phaser.Mouse.[LEFT_BUTTON,RIGHT_BUTTON,MIDDLE_BUTTON]",
+                    "type": "Number"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the callback",
+                    "type": "Number"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 222,
+            "description": "Binds a callback to the mouse wheel event. \nThe callback should have an object in its parameter. It contains a delta property corresponding to the direction of the mousewheel",
+            "itemtype": "method",
+            "name": "bindMouseWheel",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the callback",
+                    "type": "Number"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 247,
+            "description": "Binds a key to the manager. The _functionBinded will be triggered on the _callbackContext when the key bound to the _actionInputName is pressed\nNote that the function binded can expect a Phaser.Key parameter",
+            "itemtype": "method",
+            "name": "bindKeyPress",
+            "params": [
+                {
+                    "name": "actionInputName",
+                    "description": "The action we want to bind to",
+                    "type": "String"
+                },
+                {
+                    "name": "functionBinded",
+                    "description": "The function that will be called when the action is performed",
+                    "type": "Function"
+                },
+                {
+                    "name": "callbackContext",
+                    "description": "The context of the function",
+                    "type": "Object"
+                },
+                {
+                    "name": "priority",
+                    "description": "Priority of the callback. See enablePriority for more details",
+                    "type": "Number"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 273,
+            "description": "Binds a key to the manager. The _functionBinded will be triggered on the _callbackContext when the key bound to the _actionInputName is pressed\nNote that the function binded can expect a Phaser.Key parameter",
+            "itemtype": "method",
+            "name": "bindKeyUp",
+            "params": [
+                {
+                    "name": "actionInputName",
+                    "description": "The action we want to bind to",
+                    "type": "String"
+                },
+                {
+                    "name": "functionBinded",
+                    "description": "The function that will be called when the action is performed",
+                    "type": "Function"
+                },
+                {
+                    "name": "callbackContext",
+                    "description": "The context of the function",
+                    "type": "Object"
+                },
+                {
+                    "name": "priority",
+                    "description": "Priority of the callback. See enablePriority for more details",
+                    "type": "Number"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 377,
+            "description": "Freezes all the inputs",
+            "itemtype": "method",
+            "name": "freezeInputAll",
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 390,
+            "description": "Unfreezes all the inputs",
+            "itemtype": "method",
+            "name": "unfreezeInputAll",
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 402,
+            "description": "Freezes the input keys for the specified action",
+            "itemtype": "method",
+            "name": "freezeInputKeys",
+            "params": [
+                {
+                    "name": "actionNames",
+                    "description": "ie [\"valid\",\"cancel\"]",
+                    "type": "_actionNames"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 417,
+            "description": "Unfreezes the input keys for the specified action",
+            "itemtype": "method",
+            "name": "unfreezeInputKeys",
+            "params": [
+                {
+                    "name": "actionNames",
+                    "description": "ie [\"valid\",\"cancel\"]",
+                    "type": "_actionNames"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 432,
+            "description": "Freezes the mouse input for the specified buttons",
+            "itemtype": "method",
+            "name": "freezeInputMouse",
+            "params": [
+                {
+                    "name": "buttons",
+                    "description": "ie : [ Phaser.MOUSE.LEFT_BUTTON ]",
+                    "type": "_buttons"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 446,
+            "description": "Unfreezes the mouse input for the specified buttons",
+            "itemtype": "method",
+            "name": "unfreezeInputMouse",
+            "params": [
+                {
+                    "name": "buttons",
+                    "description": "ie : [ Phaser.MOUSE.LEFT_BUTTON ]",
+                    "type": "_buttons"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 469,
+            "description": "Resiter a button so that it will block any mouse input if the action is donw on this\nsame button.\nFor example, if your button is clicked, it will override any other callback bound in \nthe InputManager via boundMousePress and bindMouseRelease",
+            "itemtype": "method",
+            "name": "registerButton",
+            "params": [
+                {
+                    "name": "button",
+                    "description": "",
+                    "type": "LR.Entity.Button"
+                }
+            ],
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 482,
+            "description": "Returns true is a registered button is down",
+            "itemtype": "method",
+            "name": "isRegisteredButtonDown",
+            "return": {
+                "description": "wheter a button is down or not"
+            },
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\input_manager.js",
+            "line": 499,
+            "description": "Returns true is a registered button is overed by an input",
+            "itemtype": "method",
+            "name": "isRegisteredButtonOvered",
+            "return": {
+                "description": "wheter a button is down or not"
+            },
+            "class": "Phaser.Plugin.InputManager",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 33,
+            "description": "Sets the value in the save",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Name of the variable"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to store"
+                }
+            ],
+            "itemtype": "method",
+            "name": "setValue",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 44,
+            "description": "Gets the value in the save",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Name of the variable"
+                }
+            ],
+            "itemtype": "method",
+            "name": "setValue",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 54,
+            "description": "Write the single data into localStorage. The value written will be the temporary one.\nBe aware that arrays and objects are not supported by local storage. You need to stringify them",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Name of the variable"
+                }
+            ],
+            "itemtype": "method",
+            "name": "writeValue",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 67,
+            "description": "Write the save.",
+            "itemtype": "method",
+            "name": "writeSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 80,
+            "description": "Returns the current save for the actual game.\nThis actually returns the temporary save. Use writeSave to apply changes to the overall game save\nUse getPersistentSave to access persistent data",
+            "itemtype": "method",
+            "name": "getSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 90,
+            "description": "Returns the current persistent save. This data is unchanged until you apply (write) the temporary save",
+            "itemtype": "method",
+            "name": "getPermanentSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 98,
+            "description": "Creates a new save for the given level",
+            "itemtype": "method",
+            "name": "createLevelSave",
+            "return": {
+                "description": "the level save",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 109,
+            "description": "Returns the save for the specified level\nIf none provided, returns the save for the current one",
+            "itemtype": "method",
+            "name": "getLevelSave",
+            "params": [
+                {
+                    "name": "levelName",
+                    "description": "Name of the level save"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 124,
+            "description": "Returns the save previously activated for the specified level",
+            "itemtype": "method",
+            "name": "getActiveLevelSave",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 134,
+            "description": "Activate a level save. By doing this, you may get the current active level save using getActiveLevelSave.\nThis doesn't affect the save whatsoever, it's just a tools for a quick access \n( if you have a level with many sublevels for example, you can gather all the data in only one level save)",
+            "itemtype": "method",
+            "name": "activateLevelSave",
+            "params": [
+                {
+                    "name": "levelName",
+                    "description": "Name of the level in the save"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 147,
+            "description": "Revert the save for the current level",
+            "itemtype": "method",
+            "name": "revertLevelSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\player_save.js",
+            "line": 157,
+            "description": "Delete save. This deletes even the stored save of the game.",
+            "itemtype": "method",
+            "name": "deleteSave",
+            "class": "Phaser.Plugin.PlayerSave",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "line": 3,
+            "author": "LadybugRiders",
+            "class": "Phaser.Plugin..Pollinator",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "line": 43,
+            "description": "Map a callback on an event",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Event's name",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "Function to be called when the event occurs",
+                    "type": "Function"
+                }
+            ],
+            "optional": "{object} callbackContext Callback's context",
+            "class": "Phaser.Plugin..Pollinator",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "line": 61,
+            "description": "Unmap a callback on an event",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Event's name",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "Function to be called when the event occurs",
+                    "type": "Function"
+                }
+            ],
+            "optional": "{object} callbackContext Callback's context",
+            "class": "Phaser.Plugin..Pollinator",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "line": 89,
+            "description": "Dispatch an event to all callback related to it",
+            "itemtype": "method",
+            "name": "dispatch",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Event's name",
+                    "type": "String"
+                }
+            ],
+            "optional": "{object} args Parameters to send to callbacks",
+            "class": "Phaser.Plugin..Pollinator",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js",
+            "line": 111,
+            "description": "Destroy the instance of Pollinator",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "Phaser.Plugin..Pollinator",
+            "namespace": "Phaser.Plugin"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "line": 12,
+            "description": "Array of GameObjects added to this state",
+            "itemtype": "property",
+            "name": "gameobjects",
+            "type": "{Array}",
+            "default": "Array",
+            "class": "LR.State",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "line": 31,
+            "description": "Adds a GameObject to this state",
+            "itemtype": "method",
+            "name": "addGameObject",
+            "params": [
+                {
+                    "name": "gameobject",
+                    "description": "The GameObject to add",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "addToGame",
+                    "description": "If this method should add the entity of the GameObject to the game",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "enableEvents",
+                    "description": "Enable events from CollisionManager",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "LR.State",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "line": 53,
+            "description": "Adds a GameObject to this state, to the game and to the CollisionManager",
+            "itemtype": "method",
+            "name": "addGameObjectFull",
+            "params": [
+                {
+                    "name": "gameobject",
+                    "description": "The GameObject to add",
+                    "type": "LR.GameObject"
+                }
+            ],
+            "class": "LR.State",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "line": 63,
+            "description": "Return the GameObject of the current state with the name specified",
+            "itemtype": "method",
+            "name": "findGameObjectByName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the wanted GameObject",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.State",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "line": 80,
+            "description": "Return the GameObject of the current state with the name specified",
+            "itemtype": "method",
+            "name": "getGameObjectByName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the wanted GameObject",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.State",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state.js",
+            "line": 97,
+            "description": "Return the GameObject of the current state with the id specified",
+            "itemtype": "method",
+            "name": "findGameObjectByID",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the wanted GameObject",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.State",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
+            "line": 11,
+            "description": "The GameObject holding the Trigger behaviour. Basically the sender of the message.",
+            "itemtype": "property",
+            "name": "sender",
+            "type": "{GameObject}",
+            "default": "null",
+            "class": "Misc.TriggerMessageObject",
+            "namespace": "Misc"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
+            "line": 19,
+            "description": "The shape of the sender that is in contact with the target's body",
+            "itemtype": "property",
+            "name": "senderShape",
+            "type": "{P2.Shape}",
+            "default": "null",
+            "class": "Misc.TriggerMessageObject",
+            "namespace": "Misc"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
+            "line": 27,
+            "description": "The shape of the body's target that is colliding with the sender's body",
+            "itemtype": "property",
+            "name": "collShape",
+            "type": "{P2.Shape}",
+            "default": "null",
+            "class": "Misc.TriggerMessageObject",
+            "namespace": "Misc"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
+            "line": 35,
+            "description": "The contact equation of the collision",
+            "itemtype": "property",
+            "name": "equation",
+            "type": "{P2.ContactEquation}",
+            "default": "null",
+            "class": "Misc.TriggerMessageObject",
+            "namespace": "Misc"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\ui\\dialog_box.js",
+            "line": 86,
+            "description": "This creates a default dialog box at the top of the screen, fixed to camera",
+            "class": "UI.DialogBox",
+            "namespace": "UI"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 13,
+            "description": "The local position of the body in its parent reference",
+            "itemtype": "property",
+            "name": "localPosition",
+            "type": "{Phaser.Point}",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 88,
+            "description": "The local x coordinate of the body",
+            "itemtype": "property",
+            "name": "x",
+            "type": "{Number}",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 107,
+            "description": "The local y coordinate of the body",
+            "itemtype": "property",
+            "name": "y",
+            "type": "{Number}",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 127,
+            "description": "The world x coordinate of the body",
+            "itemtype": "property",
+            "name": "worldX",
+            "type": "{Number}",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 149,
+            "description": "The world y coordinate of the body",
+            "itemtype": "property",
+            "name": "worldY",
+            "type": "{Number}",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 169,
+            "description": "Tells if the sprite can rotate indepently from its body",
+            "itemtype": "property",
+            "name": "bindRotation",
+            "type": "boolean",
+            "default": "false",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 19,
             "description": "Object containing data of layers ( as the CollisionGroup for example )",
             "itemtype": "property",
             "name": "layersData",
@@ -1033,8 +2626,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
-            "line": 26,
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 30,
             "description": "Creates CollisionGroups according to the layer data",
             "itemtype": "method",
             "name": "init",
@@ -1049,8 +2642,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
-            "line": 41,
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 45,
             "description": "Adds a layer, creating a collision group\nYou're advised to use the init function instead",
             "itemtype": "method",
             "name": "addLayer",
@@ -1069,11 +2662,11 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
-            "line": 63,
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 68,
             "description": "Adds an entity to the collision management of the game.\nFiltered according to its layer",
             "itemtype": "method",
-            "name": "addEntity",
+            "name": "addGameObject",
             "params": [
                 {
                     "name": "entity",
@@ -1090,11 +2683,11 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
-            "line": 81,
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 85,
             "description": "Changes the GameObject collisions groups accroding to the specified layer",
             "itemtype": "method",
-            "name": "addGameObject",
+            "name": "changeGameObjectLayer",
             "params": [
                 {
                     "name": "gameobject",
@@ -1111,11 +2704,32 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/collision_manager.js",
-            "line": 123,
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 128,
+            "description": "Called before allowing collision between two bodies. By returning true, you allow a collision to happen.\nThis is called for a pair\nie if onPostBroadphase( player , enemy1) is called, onPostBroadphase( enemy1, player) won't be called\n\nIf you want to be able to process this phase, use setPostBroadPhaseCallback(callback,context) on your GameObject",
+            "itemtype": "method",
+            "name": "onPostBroadphase",
+            "params": [
+                {
+                    "name": "body1",
+                    "description": "",
+                    "type": "Phaser.P2.Body"
+                },
+                {
+                    "name": "body2",
+                    "description": "",
+                    "type": "Phaser.P2.Body"
+                }
+            ],
+            "class": "LR.CollisionManager",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
+            "line": 162,
             "description": "Returns the collision data for the specified layer",
             "itemtype": "method",
-            "name": "getCollisionData",
+            "name": "getLayerData",
             "params": [
                 {
                     "name": "layer",
@@ -1127,19 +2741,60 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 22,
+            "file": "app\\shared\\js\\dev\\phaser\\game.js",
+            "line": 9,
+            "description": "The Input Manager of LadybugRiders Engine",
+            "itemtype": "property",
+            "name": "inputManager",
+            "type": "{Phaser.Plugin.InputManager}",
+            "class": "LR.Game",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\game.js",
+            "line": 17,
+            "description": "The PlayerSave of LadybugRiders Engine",
+            "itemtype": "property",
+            "name": "playerSave",
+            "type": "{Phaser.Plugin.PlayerSave}",
+            "class": "LR.Game",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\game.js",
+            "line": 25,
+            "description": "The CollisionManager of LadybugRiders Engine",
+            "itemtype": "property",
+            "name": "collisionManager",
+            "type": "{CollisionManager}",
+            "class": "LR.Game",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 11,
+            "description": "ID of the gameobject",
+            "itemtype": "property",
+            "name": "id",
+            "type": "Number",
+            "default": "-1",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 28,
             "description": "The collision layer index used to filter collisions",
             "itemtype": "property",
-            "name": "collLayer",
+            "name": "layer",
             "type": "{string}",
             "default": "\"default\"",
             "class": "LR.GameObject",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 30,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 36,
             "description": "The behaviours attached to the gameobject",
             "itemtype": "property",
             "name": "behaviours",
@@ -1149,8 +2804,19 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 38,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 44,
+            "description": "Sounds that can be played by the GameObject. Contains Phaser.Sound objects.",
+            "itemtype": "property",
+            "name": "sounds",
+            "type": "Object",
+            "default": "{}",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 53,
             "description": "A reference to the current CollisionManager. Set when the GameObject is added to the CollisionManager",
             "itemtype": "property",
             "name": "collisionManager",
@@ -1160,25 +2826,41 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 92,
-            "description": "Creates a body and enable physics for the gameobject\nAlso creates a variable gameobject in the {P2.Body} body",
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 72,
+            "description": "Reference to the game",
+            "itemtype": "property",
+            "name": "game",
+            "type": "Phaser.Game",
+            "default": "null",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 168,
+            "description": "Creates a body and enable physics for the gameobject\nAlso creates a variable go in the {P2.Body} body",
             "itemtype": "method",
             "name": "enablePhysics",
             "params": [
                 {
                     "name": "motionState",
-                    "description": ": pick PhysicsSettings.STATIC, PhysicsSettings.KINEMATIC or PhysicsSettings.DYNAMIC",
+                    "description": ": pick STATIC, KINEMATIC or DYNAMIC from Phaser.Physics.P2.Body. Default is DYNAMIC",
                     "type": "Number"
                 },
                 {
-                    "name": "width",
-                    "description": ": new width of the body rectangle",
+                    "name": "layer",
+                    "description": ": the layer of collision. null will let it to \"default\".",
+                    "type": "String"
+                },
+                {
+                    "name": "<optional>",
+                    "description": "width : new width of the body rectangle. Won't do anything without height.",
                     "type": "Number"
                 },
                 {
-                    "name": "height",
-                    "description": ": new height of the body rectangle",
+                    "name": "<optional>",
+                    "description": "height : new height of the body rectangle",
                     "type": "Number"
                 }
             ],
@@ -1186,8 +2868,17 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 113,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 205,
+            "description": "Removes the body from the world",
+            "itemtype": "method",
+            "name": "removePhysics",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 217,
             "description": "Enables the behaviours of the gameobject to receive the contact events\nWithout that, onBeginContact and onEndContact are never called",
             "itemtype": "method",
             "name": "enableEvents",
@@ -1195,8 +2886,17 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 126,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 230,
+            "description": "Disable the behaviours of the gameobject to receive the contact events\nThe onBeginContact and onEndContact will not be called anymore",
+            "itemtype": "method",
+            "name": "disableEvents",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 243,
             "description": "Enables the sensor behaviour of the shapes of the GameObject",
             "itemtype": "method",
             "name": "enableSensor",
@@ -1211,8 +2911,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 149,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 266,
             "description": "Disables the sensor behaviour of the shapes of the GameObject",
             "itemtype": "method",
             "name": "disableSensor",
@@ -1227,8 +2927,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 172,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 289,
             "description": "Enable Bounds to be displayed ( if no body is affected yet, this will be effective when one is added )",
             "itemtype": "method",
             "name": "enableDebugBounds",
@@ -1236,8 +2936,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 183,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 300,
             "description": "Disable Bounds display( if no body is affected yet, this will be effective when one is added )",
             "itemtype": "method",
             "name": "disableDebugBounds",
@@ -1245,8 +2945,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 194,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 311,
             "description": "Changes the motion state of the gameobject body",
             "itemtype": "method",
             "name": "setMotionState",
@@ -1261,8 +2961,8 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 211,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 328,
             "description": "Changes the current layer of the object, resetting collisions groups",
             "itemtype": "method",
             "name": "changeLayer",
@@ -1277,8 +2977,45 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 254,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 345,
+            "description": "Sets the callback for the postbroadphase\nPostbroadphase is called BEFORE \"enabling\" any collision. You can then prevent a collision from happening\nThe callback should return true to validate a collision ( make it effective in game) \nThe callback will have the colliding body passed in parameter",
+            "itemtype": "method",
+            "name": "setPostBroadPhaseCallback",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Method"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Behaviour"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 363,
+            "description": "Called by the CollisionManager when the body of the GameObject is concerned in the postBroadphase\nBasically, this method is called before a collision with another body will appear.\nYou can then decide if you want to let the collision happen \n\nFirst link your callback with setPostBroadPhaseCallback(callback,context)\nThe callback method must return true if you want this gameobject to collide with the otherbody, false instead.\n\nNB: This is called BEFORE onBeginContact",
+            "itemtype": "method",
+            "name": "onPostBroadPhase",
+            "params": [
+                {
+                    "name": "param_description",
+                    "description": "",
+                    "type": "Param_type"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 411,
             "description": "Adds a behaviour to the gameobject",
             "itemtype": "method",
             "name": "addBehaviour",
@@ -1296,8 +3033,27 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 265,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 422,
+            "description": "Removes a behaviour from the gameobject",
+            "itemtype": "method",
+            "name": "removeBehaviour",
+            "params": [
+                {
+                    "name": "behaviour",
+                    "description": "Behaviour instance",
+                    "type": "Behaviour"
+                }
+            ],
+            "return": {
+                "description": "the behaviour"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 433,
             "description": "Returns the requested behaviour. If more than one is attaced, the first one is return. Use getBehaviours if you need them all\nThis could be expensive. Do not do this at every frame.",
             "itemtype": "method",
             "name": "getBehaviour",
@@ -1305,7 +3061,7 @@
                 {
                     "name": "behaviour",
                     "description": "The behaviour class",
-                    "type": "Behaviour"
+                    "type": "Class"
                 }
             ],
             "return": {
@@ -1316,16 +3072,36 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 280,
-            "description": "Returns all the requested behaviours attached to the object. \nThis could be expensive. Do not do this at every frame.",
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 448,
+            "description": "Returns the requested behaviour attached to the GameObject or its children.\nIf more than one is attached, the first one is return. Use getBehaviours if you need them all\nThis could be expensive. Do not do this at every frame.",
             "itemtype": "method",
-            "name": "getBehaviour",
+            "name": "getBehaviourInChildren",
             "params": [
                 {
                     "name": "behaviour",
                     "description": "The behaviour class",
-                    "type": "Behaviour"
+                    "type": "Class"
+                }
+            ],
+            "return": {
+                "description": "the behaviour, or null if not found",
+                "type": "Behaviour"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 472,
+            "description": "Returns all the requested behaviours attached to the object. \nThis could be expensive. Do not do this at every frame.",
+            "itemtype": "method",
+            "name": "getBehaviours",
+            "params": [
+                {
+                    "name": "behaviour",
+                    "description": "The behaviour class",
+                    "type": "Class"
                 }
             ],
             "return": {
@@ -1336,8 +3112,28 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 296,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 488,
+            "description": "Returns all instances of the requested behaviour class attached to the GameObject and its children.\nThis may be expensive. Do not do this at every frame.",
+            "itemtype": "method",
+            "name": "getBehavioursInChildren",
+            "params": [
+                {
+                    "name": "behaviour",
+                    "description": "The behaviour class",
+                    "type": "Class"
+                }
+            ],
+            "return": {
+                "description": "the behaviours in an array (might be empty)",
+                "type": "Array"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 512,
             "description": "Try to call the function on every behaviour attached to this GameObject",
             "itemtype": "method",
             "name": "sendMessage",
@@ -1357,11 +3153,327 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/gameobject.js",
-            "line": 316,
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 538,
+            "description": "Returns the wanted shape",
+            "itemtype": "method",
+            "name": "getShape",
+            "params": [
+                {
+                    "name": "shapeIndex",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 555,
+            "description": "Returns the shape by its name (property lr_name)\nIf many shapes share the same name, this method will return the first encountered in the shapes array",
+            "itemtype": "method",
+            "name": "getShapeByName",
+            "params": [
+                {
+                    "name": "shapeName",
+                    "description": "The name of the researched shape",
+                    "type": "Number"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 571,
+            "description": "Returns the shapes by their names (property lr_name)",
+            "itemtype": "method",
+            "name": "getShapesByNames",
+            "params": [
+                {
+                    "name": "shapeName",
+                    "description": "The names of the researched shapes",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "shapes found",
+                "type": "Array"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 590,
+            "description": "Returns the index of the shape found by its name (property lr_name)",
+            "itemtype": "method",
+            "name": "getShapeIndexByName",
+            "params": [
+                {
+                    "name": "shapeName",
+                    "description": "The index of the researched shape",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "index",
+                "type": "Number"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 606,
+            "description": "Returns the size of the wanted shape. You can either pass its index or its name",
+            "itemtype": "method",
+            "name": "getShapeData",
+            "params": [
+                {
+                    "name": "shapeIndexOrName",
+                    "description": "",
+                    "type": "Number | string"
+                }
+            ],
+            "return": {
+                "description": "object containing the following properties : x, y, width, height (in pixels), rotation (in degrees), sensor (bool), name",
+                "type": "Object"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 634,
+            "description": "Replaces the shape at the given index with a new Rectangle, creating a new shape from the data provided\nThis sahpe will be pushed to the end of shapes array if _shapeIndex is incorrect",
+            "itemtype": "method",
+            "name": "replaceShapeByRectangle",
+            "params": [
+                {
+                    "name": "shapeIndex",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "data",
+                    "description": "Can contain x {Number}, y{Number}, width{Number}, height{Number}, rotation{Number}, sensor {Boolean} properties, name {String}",
+                    "type": "Object"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 689,
+            "description": "Returns the specified sound",
+            "itemtype": "method",
+            "name": "getSound",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Phaser.Sound"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 700,
+            "description": "Plays the specified sound",
+            "itemtype": "method",
+            "name": "playSound",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "volume",
+                    "description": "0 <= volume <= 1",
+                    "type": "Number"
+                },
+                {
+                    "name": "loop",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 716,
+            "description": "Sets the position of the GameObject. Takes the body in account",
+            "itemtype": "method",
+            "name": "setPosition",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 733,
+            "description": "Accessor to the entity's body. Read only.",
+            "itemtype": "property",
+            "name": "body",
+            "type": "Phaser.Physics.P2.Body",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 747,
+            "description": "Accessor to the entity's x.",
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 769,
+            "description": "Accessor to the entity's y.",
+            "itemtype": "property",
+            "name": "y",
+            "type": "Number",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 791,
+            "description": "Accessor to the entity's world coordinates property (readonly)",
+            "itemtype": "property",
+            "name": "world",
+            "type": "{Phaser.Point}",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 805,
+            "description": "Accessor to the body's gravity. Returns 0 if no body affected.",
+            "itemtype": "property",
+            "name": "gravity",
+            "type": "Number",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 827,
+            "description": "Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.",
+            "itemtype": "property",
+            "name": "velocityX",
+            "type": "Number",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 843,
+            "description": "Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.",
+            "itemtype": "property",
+            "name": "velocityX",
+            "type": "Number",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 859,
+            "description": "Changes the parent of the entity",
+            "itemtype": "method",
+            "name": "changeParent",
+            "params": [
+                {
+                    "name": "newParent",
+                    "description": "",
+                    "type": "LR.Entity"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 876,
+            "description": "Adds a tween with the data specified\nexample of input data : { \"properties\":{\"body.x\":100},\"duration\": 1000 ...etc..}",
+            "itemtype": "method",
+            "name": "addTween",
+            "params": [
+                {
+                    "name": "tweenData",
+                    "description": "Object containing the tween properties",
+                    "type": "Object"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 895,
+            "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched",
+            "itemtype": "method",
+            "name": "launchTween",
+            "params": [
+                {
+                    "name": "tweenName",
+                    "description": "The tween name. Use GameObject.addTween to add a tween",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 992,
+            "description": "Called when a cutscene begins",
+            "itemtype": "method",
+            "name": "onBeginCutscene",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1004,
+            "description": "Called when a cutscene ends",
+            "itemtype": "method",
+            "name": "onEndCutscene",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1020,
             "description": "Find a gameobject by its name",
             "itemtype": "method",
-            "name": "FindByName",
+            "name": "<static> FindByName",
             "params": [
                 {
                     "name": "root",
@@ -1372,18 +3484,42 @@
                     "name": "name",
                     "description": "Gameobject's name",
                     "type": "String"
-                },
-                {
-                    "name": "Found",
-                    "description": "gameobject",
-                    "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
                 }
             ],
+            "return": {
+                "description": "Found gameobject",
+                "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+            },
             "class": "LR.GameObject",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1049,
+            "description": "Find a gameobject by its ID",
+            "itemtype": "method",
+            "name": "<static> FindByID",
+            "params": [
+                {
+                    "name": "root",
+                    "description": "Root of the search",
+                    "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+                },
+                {
+                    "name": "name",
+                    "description": "Gameobject's ID",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Found gameobject",
+                "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
             "line": 14,
             "description": "Export all the level.",
             "itemtype": "method",
@@ -1403,15 +3539,15 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 30,
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 33,
             "description": "* ASSETS **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 34,
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 37,
             "description": "Export all the level's assets.",
             "itemtype": "method",
             "name": "exportAssets",
@@ -1430,15 +3566,60 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 49,
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 56,
             "description": "* IMAGES **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 53,
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 60,
+            "description": "Export all the level's images.",
+            "itemtype": "method",
+            "name": "exportImages",
+            "params": [
+                {
+                    "name": "level's",
+                    "description": "world",
+                    "type": "Phaser.World"
+                }
+            ],
+            "return": {
+                "description": "level's images",
+                "type": "Array"
+            },
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 78,
+            "description": "Return the image keys of the entities and its children.",
+            "itemtype": "method",
+            "name": "getImages",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "LR.Entity"
+                },
+                {
+                    "name": "keys",
+                    "description": "array stored",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "image keys",
+                "type": "Array"
+            },
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 106,
             "description": "Export all the level's images.",
             "itemtype": "method",
             "name": "exportImages",
@@ -1451,14 +3632,14 @@
             ],
             "return": {
                 "description": "exportable level's images",
-                "type": "Object"
+                "type": "Array"
             },
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 75,
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 154,
             "description": "Export a cached image into an exportable image.",
             "itemtype": "method",
             "name": "exportImage",
@@ -1482,54 +3663,165 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 98,
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 177,
+            "description": "* ATLASES **",
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 222,
+            "description": "* SOUNDS **",
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 277,
+            "description": "* BEHAVIOURS **",
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 281,
+            "description": "Export all the level's behaviours.",
+            "itemtype": "method",
+            "name": "exportBehaviours",
+            "params": [
+                {
+                    "name": "game",
+                    "description": "",
+                    "type": "Phaser.Game"
+                },
+                {
+                    "name": "project",
+                    "description": "data",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "level's behaviours",
+                "type": "Array"
+            },
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 299,
+            "description": "Return the behaviours of the entities and its children.",
+            "itemtype": "method",
+            "name": "getBehaviours",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "LR.Entity"
+                }
+            ],
+            "return": {
+                "description": "behaviours",
+                "type": "Array"
+            },
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 321,
+            "description": "Return a merge array of behaviours (no doublons).",
+            "itemtype": "method",
+            "name": "mergeBehaviours",
+            "params": [
+                {
+                    "name": "first",
+                    "description": "group of behaviours",
+                    "type": "LR.Entity"
+                },
+                {
+                    "name": "second",
+                    "description": "group of behaviours",
+                    "type": "LR.Entity"
+                }
+            ],
+            "return": {
+                "description": "behaviours",
+                "type": "Array"
+            },
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 354,
+            "description": "Add project path to exported behaviours.",
+            "itemtype": "method",
+            "name": "addPathToExportedBehaviours",
+            "params": [
+                {
+                    "name": "exported",
+                    "description": "behaviours",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "All behaviours with full data",
+                "type": "Array"
+            },
+            "class": "LR.LevelExporter",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 382,
             "description": "* OBJECTS **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 102,
-            "description": "Export all the level's objects.",
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 386,
+            "description": "Export all the level's entities.",
             "itemtype": "method",
-            "name": "exportObjects",
+            "name": "exportEntities",
             "params": [
                 {
-                    "name": "parent",
-                    "description": "The parent object",
+                    "name": "entity",
+                    "description": "The entity object",
                     "type": "Phaser.Group | GameObject"
                 }
             ],
             "return": {
-                "description": "the exported parent and its descendants",
+                "description": "the exported entity and its descendants",
                 "type": "Phaser.Group | GameObject"
             },
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelexporter.js",
-            "line": 135,
-            "description": "Export all the level's objects.",
+            "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
+            "line": 422,
+            "description": "Export all the level's entities.",
             "itemtype": "method",
-            "name": "exportObject",
+            "name": "exportEntity",
             "params": [
                 {
-                    "name": "object",
+                    "name": "entity",
                     "description": "The object to export",
-                    "type": "Phaser.Group | GameObject"
+                    "type": "LR.Entity"
                 }
             ],
             "return": {
                 "description": "the exported object",
-                "type": "Phaser.Group | GameObject"
+                "type": "LR.Entity"
             },
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
             "line": 14,
             "description": "Import all the level.",
             "itemtype": "method",
@@ -1555,14 +3847,14 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
             "line": 38,
             "description": "* ASSETS **",
             "class": "LR.LevelImporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
             "line": 42,
             "description": "Import all the assets (images, sounds, etc...)",
             "itemtype": "method",
@@ -1583,15 +3875,15 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 53,
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 54,
             "description": "* IMAGES **",
             "class": "LR.LevelImporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 57,
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 58,
             "description": "Import all the images",
             "itemtype": "method",
             "name": "importImages",
@@ -1611,27 +3903,27 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 72,
-            "description": "* OBJECTS **",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 85,
+            "description": "* ENTITIES **",
             "class": "LR.LevelImporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 76,
-            "description": "Import all objects and do the promise",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 89,
+            "description": "Import all entities and do the promise",
             "itemtype": "method",
-            "name": "importObjectsAndDo",
+            "name": "importEntitiesAndDo",
             "params": [
                 {
                     "name": "objects",
-                    "description": "Objects informations",
+                    "description": "Entities informations",
                     "type": "Object"
                 },
                 {
                     "name": "game",
-                    "description": "The game where objects will be imported",
+                    "description": "The game where entities will be imported",
                     "type": "Phaser.Game"
                 },
                 {
@@ -1640,24 +3932,27 @@
                     "type": "Function"
                 }
             ],
+            "return": {
+                "description": "the root of all entities"
+            },
             "class": "LR.LevelImporter",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 94,
-            "description": "Import all objects",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 109,
+            "description": "Import all entities",
             "itemtype": "method",
-            "name": "importObjectsAndDo",
+            "name": "importEntities",
             "params": [
                 {
                     "name": "Objects",
-                    "description": "objects informations",
+                    "description": "Entities informations",
                     "type": "Object"
                 },
                 {
                     "name": "game",
-                    "description": "The game where objects will be imported",
+                    "description": "The game where entities will be imported",
                     "type": "Phaser.Game"
                 }
             ],
@@ -1665,20 +3960,20 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 124,
-            "description": "Override this method to do something between the objects importation and\nthe promise",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 141,
+            "description": "Override this method to do something between the entities importation and\nthe promise",
             "itemtype": "method",
-            "name": "doAfterImportObjectsAndBeforePromise",
+            "name": "doAfterImportEntitiesAndBeforePromise",
             "params": [
                 {
                     "name": "objects",
-                    "description": "Objects informations",
+                    "description": "Entities informations",
                     "type": "Object"
                 },
                 {
                     "name": "game",
-                    "description": "The game where objects will be imported",
+                    "description": "The game where entiites will be imported",
                     "type": "Phaser.Game"
                 }
             ],
@@ -1686,20 +3981,20 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimporter.js",
-            "line": 136,
-            "description": "Import an object",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
+            "line": 153,
+            "description": "Import an entity",
             "itemtype": "method",
-            "name": "importObject",
+            "name": "importEntity",
             "params": [
                 {
                     "name": "object",
-                    "description": "Object informations",
+                    "description": "Entity informations",
                     "type": "Object"
                 },
                 {
                     "name": "game",
-                    "description": "The game where objects will be imported",
+                    "description": "The game where entities will be imported",
                     "type": "Phaser.Game"
                 }
             ],
@@ -1707,155 +4002,428 @@
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/levelimportergame.js",
-            "line": 54,
-            "description": "Call Behaviour.create for each behaviours.\nNeed to be called once when all gameobjects are created.\n(Recursive function)",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimportergame.js",
+            "line": 42,
+            "description": "Import all the images",
             "itemtype": "method",
-            "name": "createBehaviours",
+            "name": "importImages",
             "params": [
                 {
-                    "name": "current",
-                    "description": "importable object",
+                    "name": "images",
+                    "description": "Images informations",
                     "type": "Object"
+                },
+                {
+                    "name": "loader",
+                    "description": "The loader used to import images",
+                    "type": "Phaser.Loader"
                 }
             ],
             "class": "LR.LevelImporterGame",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/pollinator.js",
-            "line": 3,
-            "author": "LadybugRiders",
-            "class": "Phaser.Plugin.Pollinator",
+            "file": "app\\shared\\js\\dev\\phaser\\levelimportergame.js",
+            "line": 98,
+            "description": "Import all the behaviours",
+            "itemtype": "method",
+            "name": "importBehaviours",
+            "params": [
+                {
+                    "name": "behaviours",
+                    "description": "Behaviours informations",
+                    "type": "Object"
+                },
+                {
+                    "name": "loader",
+                    "description": "The loader used to import behaviours",
+                    "type": "Phaser.Loader"
+                }
+            ],
+            "class": "LR.LevelImporterGame",
             "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/pollinator.js",
-            "line": 42,
-            "description": "Map a callback on an event",
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 7,
+            "description": "Remove an object from the specified array and return it",
             "itemtype": "method",
-            "name": "on",
+            "name": "removeFromArray",
             "params": [
                 {
-                    "name": "key",
-                    "description": "Event's name",
-                    "type": "String"
+                    "name": "object",
+                    "description": "Object to be removed",
+                    "type": "Object"
                 },
                 {
-                    "name": "callback",
-                    "description": "Function to be called when the event occurs",
-                    "type": "Function"
+                    "name": "array",
+                    "description": "The array containing the object",
+                    "type": "Array"
                 }
             ],
-            "optional": "{object} callbackContext Callback's context",
-            "class": "Phaser.Plugin.Pollinator"
+            "return": {
+                "description": "null if not found"
+            },
+            "class": "LR.LR",
+            "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/pollinator.js",
-            "line": 60,
-            "description": "Unmap a callback on an event",
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 35,
+            "description": "Converts from degrees to radians.",
             "itemtype": "method",
-            "name": "off",
+            "name": "toRadians",
             "params": [
                 {
-                    "name": "key",
-                    "description": "Event's name",
-                    "type": "String"
+                    "name": "angle",
+                    "description": "in degrees",
+                    "type": "Number"
+                }
+            ],
+            "class": "LR.LR",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 45,
+            "description": "Converts from radians to degrees.",
+            "itemtype": "method",
+            "name": "toDegrees",
+            "params": [
+                {
+                    "name": "angle",
+                    "description": "in radians",
+                    "type": "Number"
+                }
+            ],
+            "class": "LR.LR",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 55,
+            "description": "Rotates a point with the given angle (in degrees)",
+            "itemtype": "method",
+            "name": "rotatePoint",
+            "params": [
+                {
+                    "name": "point",
+                    "description": "",
+                    "type": "Phaser.Point"
                 },
                 {
-                    "name": "callback",
-                    "description": "Function to be called when the event occurs",
-                    "type": "Function"
+                    "name": "angle",
+                    "description": "In degrees. Positive angle go counter-clokwise",
+                    "type": "Number"
                 }
             ],
-            "optional": "{object} callbackContext Callback's context",
-            "class": "Phaser.Plugin.Pollinator"
+            "return": {
+                "description": "Phaser.Point"
+            },
+            "class": "LR.LR",
+            "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/pollinator.js",
-            "line": 88,
-            "description": "Dispatch an event to all callback related to it",
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 71,
+            "description": "Rotates a point with the given angle (in degrees) around the specified anchor point",
             "itemtype": "method",
-            "name": "dispatch",
+            "name": "rotatePointAround",
             "params": [
                 {
-                    "name": "key",
-                    "description": "Event's name",
-                    "type": "String"
+                    "name": "point",
+                    "description": "",
+                    "type": "Phaser.Point"
+                },
+                {
+                    "name": "angle",
+                    "description": "In degrees. Positive angle go counter-clokwise",
+                    "type": "Number"
+                },
+                {
+                    "name": "anchor",
+                    "description": "The anchor point to rotate around",
+                    "type": "Phaser.Point"
                 }
             ],
-            "optional": "{object} args Parameters to send to callbacks",
-            "class": "Phaser.Plugin.Pollinator"
+            "return": {
+                "description": "Phaser.Point"
+            },
+            "class": "LR.LR",
+            "namespace": "LR"
         },
         {
-            "file": "app/shared/js/dev/phaser/pollinator.js",
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 94,
+            "description": "Compute angle between two points / vectors",
+            "itemtype": "method",
+            "name": "angle",
+            "params": [
+                {
+                    "name": "pointA",
+                    "description": "",
+                    "type": "Phaser.Point"
+                },
+                {
+                    "name": "pointB",
+                    "description": "",
+                    "type": "Phaser.Point"
+                }
+            ],
+            "class": "LR.LR",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
             "line": 110,
-            "description": "Destroy the instance of Pollinator",
+            "description": "This function returns the object's property defined by a complex string\nie : if string = \"body.x\"\nthe object value will be the body property of the object\nIf a property is not found, the object is returned as itself\nexample of returned object :\n{ object : instanceof P2.Body , property : \"x\"}\nyou can then access your property : object[property]",
+            "class": "LR.LR",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 140,
+            "description": "Returns an object containing the sides of the shapes \nproperties of the object : left, right, top, bottom",
             "itemtype": "method",
-            "name": "destroy",
-            "class": "Phaser.Plugin.Pollinator"
+            "name": "getRectShapeSides",
+            "params": [
+                {
+                    "name": "go",
+                    "description": "",
+                    "type": "GameObject"
+                },
+                {
+                    "name": "shape",
+                    "description": "",
+                    "type": "P2.Shape"
+                }
+            ],
+            "class": "LR.LR",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\lr.js",
+            "line": 14,
+            "description": "Find a entity by its GameObject name",
+            "itemtype": "method",
+            "name": "FindByName",
+            "params": [
+                {
+                    "name": "root",
+                    "description": "Root of the search",
+                    "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+                },
+                {
+                    "name": "name",
+                    "description": "Gameobject's name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Found entity",
+                "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+            },
+            "class": "LR.LR",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\lr.js",
+            "line": 43,
+            "description": "Find a entity by its GameObject ID",
+            "itemtype": "method",
+            "name": "FindByID",
+            "params": [
+                {
+                    "name": "root",
+                    "description": "Root of the search",
+                    "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+                },
+                {
+                    "name": "name",
+                    "description": "Gameobject's ID",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Found entity",
+                "type": "Phaser.World | Phaser.Group | Phaser.Sprite"
+            },
+            "class": "LR.LR",
+            "namespace": "LR"
         }
     ],
     "warnings": [
         {
+            "message": "unknown tag: name",
+            "line": " app\\shared\\js\\dev\\phaser\\entity\\bitmap_text.js:108"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " app\\shared\\js\\dev\\phaser\\entity\\text.js:84"
+        },
+        {
             "message": "param name missing: {Object}",
-            "line": " app/shared/js/dev/phaser/collision_manager.js:2"
+            "line": " app\\shared\\js\\dev\\phaser\\collision_manager.js:2"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " app/shared/js/dev/phaser/collision_manager.js:41"
+            "line": " app\\shared\\js\\dev\\phaser\\collision_manager.js:45"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " app/shared/js/dev/phaser/gameobject.js:265"
+            "line": " app\\shared\\js\\dev\\phaser\\gameobject.js:433"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " app/shared/js/dev/phaser/gameobject.js:280"
+            "line": " app\\shared\\js\\dev\\phaser\\gameobject.js:448"
         },
         {
-            "message": "Missing item type\n* IMAGES LOADER **",
-            "line": " app/editor/js/dev/angular/controller_header.js:47"
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\shared\\js\\dev\\phaser\\gameobject.js:472"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\shared\\js\\dev\\phaser\\gameobject.js:488"
+        },
+        {
+            "message": "replacing incorrect tag: parma with param",
+            "line": " app\\shared\\js\\dev\\phaser\\utils.js:140"
+        },
+        {
+            "message": "Missing item type\n* PROJECT **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:130"
+        },
+        {
+            "message": "Missing item type\n* IMAGES **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:181"
+        },
+        {
+            "message": "Missing item type\n* AUDIOS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:268"
+        },
+        {
+            "message": "Missing item type\n* LAYERS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:301"
+        },
+        {
+            "message": "Missing item type\n* BEHAVIOURS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:349"
+        },
+        {
+            "message": "Missing item type\n* PREFABS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:383"
+        },
+        {
+            "message": "Missing item type\n* FONTS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:422"
+        },
+        {
+            "message": "Missing item type\n* LEVELS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:439"
+        },
+        {
+            "message": "Missing item type\n* INPUTS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:473"
+        },
+        {
+            "message": "Missing item type\n* ADDING ENTITIES **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:518"
         },
         {
             "message": "Missing item type\n* LEVEL IMPORTER **",
-            "line": " app/editor/js/dev/angular/controller_header.js:67"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:546"
         },
         {
             "message": "Missing item type\n* LEVEL EXPORTER **",
-            "line": " app/editor/js/dev/angular/controller_header.js:88"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:567"
         },
         {
-            "message": "Missing item type\nOwner of the weapon ( different from gameobject to which to script's attached )",
-            "line": " app/game/js/dev/phaser/objects/weapon.js:30"
+            "message": "Missing item type\n* LEVEL DEFAULT **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:588"
         },
         {
-            "message": "Missing item type\n* ASSETS **",
-            "line": " app/shared/js/dev/phaser/levelexporter.js:30"
+            "message": "Missing item type\n* SETTINGS **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:609"
         },
         {
-            "message": "Missing item type\n* IMAGES **",
-            "line": " app/shared/js/dev/phaser/levelexporter.js:49"
+            "message": "Missing item type\n* CUTSCENE EDITOR **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:628"
         },
         {
-            "message": "Missing item type\n* OBJECTS **",
-            "line": " app/shared/js/dev/phaser/levelexporter.js:98"
+            "message": "Missing item type\n******  HELP *******",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:662"
         },
         {
-            "message": "Missing item type\n* ASSETS **",
-            "line": " app/shared/js/dev/phaser/levelimporter.js:38"
+            "message": "Missing item type\nCalled when an action of the current event has finished",
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js:135"
         },
         {
-            "message": "Missing item type\n* IMAGES **",
-            "line": " app/shared/js/dev/phaser/levelimporter.js:53"
+            "message": "Missing item type\nTween properties can be composite. By example, if we have a property like \"body.x\", the tween\nactually acts on the body itself as a target, not the entity.\nSo we have to manually parse the properties and create the tween on the right objects.",
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js:195"
         },
         {
-            "message": "Missing item type\n* OBJECTS **",
-            "line": " app/shared/js/dev/phaser/levelimporter.js:72"
+            "message": "Missing item type\nCreates a tween for the targeted object and start it",
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js:237"
+        },
+        {
+            "message": "Missing item type\nCalls a function on the _target GameObject",
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js:259"
+        },
+        {
+            "message": "Missing item type\nThis function returns the target object of the tween property defined by the string\nie : if string = \"body.x\"\nthe return value will be the body property of the object\nIf a property is not found, the object is returned as itself\nexample of returned object :\n{ targetObject : P2.Body... , property : \"x\"}",
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js:282"
+        },
+        {
+            "message": "Missing item type\nThis is an array that can be used to know which functions can be called as \"other\"\nThis will mostly be used by the editor",
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\cutscene_manager.js:315"
         },
         {
             "message": "Missing item type",
-            "line": " app/shared/js/dev/phaser/pollinator.js:3"
+            "line": " app\\shared\\js\\dev\\phaser\\plugin\\pollinator.js:3"
+        },
+        {
+            "message": "Missing item type\nThis creates a default dialog box at the top of the screen, fixed to camera",
+            "line": " app\\shared\\js\\dev\\phaser\\ui\\dialog_box.js:86"
+        },
+        {
+            "message": "Missing item type\n* ASSETS **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:33"
+        },
+        {
+            "message": "Missing item type\n* IMAGES **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:56"
+        },
+        {
+            "message": "Missing item type\n* ATLASES **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:177"
+        },
+        {
+            "message": "Missing item type\n* SOUNDS **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:222"
+        },
+        {
+            "message": "Missing item type\n* BEHAVIOURS **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:277"
+        },
+        {
+            "message": "Missing item type\n* OBJECTS **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:382"
+        },
+        {
+            "message": "Missing item type\n* ASSETS **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelimporter.js:38"
+        },
+        {
+            "message": "Missing item type\n* IMAGES **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelimporter.js:54"
+        },
+        {
+            "message": "Missing item type\n* ENTITIES **",
+            "line": " app\\shared\\js\\dev\\phaser\\levelimporter.js:85"
+        },
+        {
+            "message": "Missing item type\nThis function returns the object's property defined by a complex string\nie : if string = \"body.x\"\nthe object value will be the body property of the object\nIf a property is not found, the object is returned as itself\nexample of returned object :\n{ object : instanceof P2.Body , property : \"x\"}\nyou can then access your property : object[property]",
+            "line": " app\\shared\\js\\dev\\phaser\\utils.js:110"
         }
     ]
 }

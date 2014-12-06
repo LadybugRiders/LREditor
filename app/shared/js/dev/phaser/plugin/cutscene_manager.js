@@ -4,6 +4,7 @@
 * Start Manage cutscenes.
 *
 * @class CutsceneManager
+* @namespace Phaser.Plugin
 * @constructor
 * @param {Phaser.Game} game
 */
