@@ -364,8 +364,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.game.camera.view.centerX, /* x */
 			$scope.game.camera.view.centerY,
 			null,
-			0, 0, 0, 0
+			0, null, 0, 0
 		);
+		console.log(button);
 		button.name = "button" + $scope.game.world.children.length;
 		button.go.id = $scope.getID();
 		//add Input Handler, for dragging and other events

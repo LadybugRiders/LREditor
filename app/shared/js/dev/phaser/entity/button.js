@@ -18,11 +18,10 @@
 */
 LR.Entity.Button = function(_game, _x, _y, _key, _overFrame, _outFrame, _downFrame, _upFrame, _name) {
 	Phaser.Button.call(this, _game, _x, _y, _key, this.onClick, this, _overFrame, _outFrame, _downFrame, _upFrame);
-
 	this.anchor.setTo(0.5, 0.5);
 	this.onInputDown.add( this.onDown, this);
 	this.onInputUp.add( this.onUp, this);
-
+	
 	this.go = new LR.GameObject(this);
 	if (_name) {
 		this.go.name = _name;

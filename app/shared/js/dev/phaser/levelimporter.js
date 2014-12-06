@@ -265,7 +265,11 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 
 	//tint color
 	if( _objectData.tint != null ){
-		_entity.tint = _objectData.tint;
+		if( typeof(_objectData.tint) == "string"){
+			_entity.tint = parseInt(_objectData.tint);
+		}else{
+			_entity.tint = _objectData.tint;
+		}
 	}
 
 	//Animations
