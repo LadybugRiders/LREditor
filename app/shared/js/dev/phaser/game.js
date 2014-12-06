@@ -5,7 +5,7 @@
 * @class Game
 * @namespace LR
 */
-LR.Game = function(_containerId,_scaleMode,_debug) {
+LR.Game = function(_containerId,_width, _height, _scaleMode,_debug) {
 	/**
 	* The Input Manager of LadybugRiders Engine
 	* 
@@ -87,8 +87,13 @@ LR.Game = function(_containerId,_scaleMode,_debug) {
 	if( appVersion.indexOf("android") >= 0 || appVersion.indexOf("ios") >= 0)
 		renderType = Phaser.CANVAS;
 
-	Phaser.Game.call(this, 640, 360,
+	if (_width && _height) {
+		Phaser.Game.call(this, _width, _height,
 					 renderType, _containerId, functions);
+	} else {
+		Phaser.Game.call(this, 640, 360,
+					 renderType, _containerId, functions);
+	}
 }
 
 LR.Game.prototype = Object.create(Phaser.Game.prototype);
