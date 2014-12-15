@@ -1,5 +1,11 @@
 "use strict";
-
+/**
+* Misc Utilities
+*
+* @namespace LR
+* @class Utils
+* @constructor
+*/
 LR.Utils = function(){
 
 }
@@ -56,11 +62,12 @@ LR.Utils.toDegrees = function(_radians) {
 * Rotates a point with the given angle (in degrees)
 *
 * @method rotatePoint
-* @param {Phaser.Point} point
+* @param {Phaser.Point} point If null, default value is (1,0)
 * @param {Number} angle In degrees. Positive angle go counter-clokwise
 * @return Phaser.Point
 */
 LR.Utils.rotatePoint = function(_point,_angle){
+	if( _point == null ) _point = new Phaser.Point(1,0);
 	_angle = _angle * Math.PI / 180;
    var point= new Phaser.Point();
    point.x = _point.x*Math.cos(_angle) - _point.y*Math.sin(_angle);

@@ -94,7 +94,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateMoveHandle = function(){
 LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
 	if( this.draggerX ){
 		//distance between the scaler handle and the object position
-		var delta = this.scalerX.x - this.mainTarget.x;
+		var delta = this.scalerX.x - this.mainTarget.world.x;
 		//distance between the anchor position of the object and the right edge
 		var dEdge = (this.mainTarget.width * (1 -this.mainTarget.anchor.x ));
 		var w = this.mainTarget.width + ( ( delta - dEdge ) * this.mainTarget.anchor.x ) ;
@@ -103,7 +103,7 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
 		this.resizeShapes(deltaWidth,0);
 	}else if( this.draggerY) {
 		//distance between the scaler handle and the object position
-		var delta = this.mainTarget.y - this.scalerY.y;
+		var delta = this.mainTarget.world.y - this.scalerY.y;
 		//distance between the anchor position of the object and the right edge
 		var dEdge = (this.mainTarget.height * (1 -this.mainTarget.anchor.y ));
 		var h = this.mainTarget.height + ( ( delta - dEdge ) * this.mainTarget.anchor.y ) ;
@@ -121,7 +121,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateScaleHandle = function(){
 
 LR.Editor.Behaviour.EntityHandle.prototype.updateRotateHandle = function(){
 	if( this.rotater.input.isDragged ){
-		var dir = Phaser.Point.subtract( this.mainTarget.position,this.rotater.position );
+		var pos = new Phaser.Point(this.mainTarget.world.x, this.mainTarget.world.y);
+		var dir = Phaser.Point.subtract( pos,this.rotater.position );
 		var angle = dir.normalize().angle(new Phaser.Point(),true);
 		this.mainTarget.angle = angle;
 		if( this.mainTarget.body ){
@@ -309,11 +310,11 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateScale = function(){
 	this.toggleAxises(false);
 	this.toggleScalers(true);
 	//Placer Scaler X 
-	this.scalerX.x = this.mainTarget.x + this.mainTarget.width * ( 1 - this.mainTarget.anchor.x );
-	this.scalerX.y = this.mainTarget.y ;//+ this.mainTarget.height * ( 0.5 );
+	this.scalerX.x = this.mainTarget.world.x + this.mainTarget.width * ( 1 - this.mainTarget.anchor.x );
+	this.scalerX.y = this.mainTarget.world.y ;//+ this.mainTarget.height * ( 0.5 );
 	//Placer Scaler Y 
-	this.scalerY.x = this.mainTarget.x;
-	this.scalerY.y = this.mainTarget.y - this.mainTarget.height * this.mainTarget.anchor.y ;
+	this.scalerY.x = this.mainTarget.world.x;
+	this.scalerY.y = this.mainTarget.world.y - this.mainTarget.height * this.mainTarget.anchor.y ;
 }
 
 LR.Editor.Behaviour.EntityHandle.prototype.deactivateScale = function(){
@@ -337,10 +338,12 @@ LR.Editor.Behaviour.EntityHandle.prototype.activateRotate = function(){
 	var distance = this.mainTarget.width;
 	if( this.mainTarget.height > distance )
 		distance = this.mainTarget.height;
-	distance *= 0.6;
-	this.rotater.position.rotate( this.mainTarget.x, this.mainTarget.y,
-								this.mainTarget.angle, true, distance
-							);
+	distance *= 0.55;
+	//compute the vector to add to the world's sprite position
+	var normRotated = LR.Utils.rotatePoint(null,this.mainTarget.angle).normalize();
+	normRotated = normRotated.setMagnitude(distance);
+	var rotatedPoint = this.mainTarget.go.world.add(normRotated.x,normRotated.y);
+	this.rotater.x = rotatedPoint.x; this.rotater.y = rotatedPoint.y;
 	this.toggleAxises(false);
 }
 
