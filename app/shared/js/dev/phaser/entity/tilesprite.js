@@ -33,6 +33,8 @@ LR.Entity.TileSprite = function(_game, _x, _y, _width, _height, _texture,_name) 
 	this.hidden = false;
 	this.outOfViewHide = false;
 	this.alphaBeforeHide = 1;
+
+	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
 };
 
 LR.Entity.TileSprite.prototype = Object.create(Phaser.TileSprite.prototype);
@@ -93,4 +95,11 @@ LR.Entity.TileSprite.prototype.destroy = function() {
 		this.go.destroy();
 	}
 	Phaser.TileSprite.prototype.destroy.call(this);
+};
+
+// Called when the scene is launching. All objects are created then.
+LR.Entity.TileSprite.prototype.onAddedToGroup = function(_sprite,_group) {
+	if(this.body && this.body.onSpriteAddedToGroup){
+		this.body.onSpriteAddedToGroup(_sprite,_group);
+	}
 };

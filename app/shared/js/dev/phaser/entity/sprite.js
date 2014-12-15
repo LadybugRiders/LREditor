@@ -94,10 +94,6 @@ LR.Entity.Sprite.prototype.destroy = function() {
 	Phaser.Sprite.prototype.destroy.call(this);
 };
 
-LR.Entity.Sprite.prototype.updateTransform = function() {
-	Phaser.Sprite.prototype.updateTransform.call(this);
-};
-
 // Called when the scene is launching. All objects are created then.
 LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {
 	if(this.body && this.body.onSpriteAddedToGroup){

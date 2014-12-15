@@ -30,7 +30,7 @@ LR.Entity.Group.prototype.update = function() {
 
 LR.Entity.Group.prototype.postUpdate = function() {
 	Phaser.Group.prototype.postUpdate.call(this);
-
+	
 	//Set world position of the group
 	this.world.setTo(this.game.camera.x + this.worldTransform.tx, 
 					this.game.camera.y + this.worldTransform.ty);
@@ -43,7 +43,6 @@ LR.Entity.Group.prototype.postUpdate = function() {
 			this.go.postUpdate();
 		}
 	}
-
 };
 
 LR.Entity.Group.prototype.render = function() {
