@@ -86,6 +86,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("revertPrefabBroadcast", _args);
 		});
 
+		$scope.$on("openPrefabsModalEmit", function(_event, _args) {
+			$scope.$broadcast("openPrefabsModalBroadcast", _args);
+		});
+
 		$scope.$on("setHideOutOfViewEmit", function(_event, _args) {
 			$scope.$broadcast("setHideOutOfViewBroadcast", _args);
 		});

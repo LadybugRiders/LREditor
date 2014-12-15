@@ -2,7 +2,7 @@
 
 var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
   
-  function main() {
+  function main() { 
     if ($scope.currentEntity) {
       $scope.tmp.prefabs = new Object();
       $scope.tmp.prefabs.name = $scope.currentEntity.name;
@@ -56,6 +56,7 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
           }
         });
     }
+    $scope.close();
     
   };
 
@@ -91,6 +92,29 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
         i++;
       }
       return found;
+  }
+
+  $scope.prefabNameAlreadyExists = function(_name){
+     //check if prefab already exist in the list
+      var i = 0;
+      var found = false;
+      while( i < $scope.project.assets.prefabs.length && found == false ){
+        var prefab = $scope.project.assets.prefabs[i];
+        //if the prefab already exists
+        if( _name == prefab.name ){
+          found = true;
+        }
+        i++;
+      }
+      return found;
+  }
+
+  $scope.containsSearchWord = function(_prefabName,_searchWord){
+    if( _searchWord == null || _searchWord == "" )
+      return true;
+    if( _prefabName.indexOf(_searchWord) >= 0)
+      return true;
+    return false;
   }
 
   main();

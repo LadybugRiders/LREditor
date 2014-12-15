@@ -27,6 +27,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.openEditModal(_args.context,_args.varName,_args.isLong);
 		});
 
+		$scope.$on("openPrefabsModalBroadcast", function(_event, _args) {
+			$scope.managePrefabs();
+		});
+
 		$scope.$on("sendCutscenesBroadcast", function(_event, _args) {
 			$scope.setCutscenes(_args.cutscenes);
 		});
@@ -546,6 +550,15 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	/*******************
 	** LEVEL IMPORTER **
 	*******************/
+	//Save the current Level
+	$scope.levelSave = function() {
+		var data = {
+	      levelName: $scope.project.level.substring(1),
+	      levelPath: $scope.project.path + "/assets/levels",
+	      levelStorage: "file"
+	    };
+		$scope.$emit("exportLevelEmit", data);
+	};
 
 	$scope.levelImport = function() {
 		var modalInstance = $modal.open({

@@ -7,8 +7,10 @@
 			<div class="col-md-12" ng-show="currentEntity==null">
 				<span>No entity selected</span>
 			</div>
+			<!-- PREFABS -->
 			<div class="col-md-12" ng-show="currentEntity.prefab!=null">
 				<button ng-click="revertPrefab()">RevertPrefab</button>
+				<button ng-click="savePrefab()">SavePrefab</button>
 			</div>
 		</div>
 

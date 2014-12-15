@@ -229,6 +229,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.$emit("revertPrefabEmit", { entity : $scope.currentEntity});
 	}
 
+	$scope.savePrefab = function(){
+		$scope.$emit("openPrefabsModalEmit", { entity : $scope.currentEntity});
+	}
+
 	//================================================================
 	//						BEHAVIOURS
 	//================================================================

@@ -18,11 +18,24 @@
                     <tr>
                         <td>{{currentEntity.name}}</td>
                         <td><input type="text" ng-model="tmp.prefabs.name" class="form-control"/></td>
-                        <td><button class="btn btn-success" ng-click="add()">Add</button></td>
+                        <td>
+                            <button class="btn btn-success" 
+                            ng-click="add()"
+                            ng-show="prefabNameAlreadyExists(tmp.prefabs.name) == false">Add</button>
+                            <button class="btn btn-success" 
+                            ng-click="add()"
+                            ng-show="prefabNameAlreadyExists(tmp.prefabs.name) == true">Save</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div>
+        <div class="col-md-5">
+            <input type="text" ng-model="searchWord" class="form-control"/>
+        </div>
+        <span class="glyphicon glyphicon-search"></span>
     </div>
     <div class="row">
         <!-- TABLE -->
@@ -35,9 +48,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="prefab in project.assets.prefabs">
+                    <tr ng-repeat="prefab in project.assets.prefabs" ng-show="containsSearchWord(prefab.name,searchWord)">
                         <td>{{prefab.name}}</td>
-                        <td><button class="btn btn-warning" ng-click="update(prefab)" ng-disabled="'true'">Update</button><button class="btn btn-primary" ng-click="import(prefab)">Import</button></td>
+                        <td><button class="btn btn-primary" ng-click="import(prefab)">Import</button></td>
                     </tr>
                 </tbody>
             </table>
