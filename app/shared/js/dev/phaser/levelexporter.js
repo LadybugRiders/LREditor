@@ -18,13 +18,12 @@ LR.LevelExporter = function() {
 * @param {Phaser.Game} game The game of the level
 * @return {Object} exported level
 */
-LR.LevelExporter.prototype.export = function(_game, _project, _dataSettings,_cutscenes) {
+LR.LevelExporter.prototype.export = function(_game, _project,_cutscenes) {
 	var level = new Object();
 
 	level.assets = this.exportAssets(_game, _project);
 	level.objects = this.exportEntities(_game.world);
-	if( _dataSettings )
-		level.settings = _dataSettings;
+	level.settings = _project.settings;
 	level.cutscenes = _cutscenes;
 
 	return level;

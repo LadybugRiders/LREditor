@@ -10,16 +10,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.ID_count = 0;
 
-		$scope.dataSettings = {
-			"camera" : {
-				x: -320, y: -180,
-				width: 640, height:360,
-				debug: true,
-				fixedToCamera: true
-			},
-			"debugBodiesInGame" : false
-		}
-
 		$scope.cutscenes = [];
 
 		//============ PROJECT ===================
@@ -203,8 +193,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 
-		$scope.sendSettings();
-
 		$timeout(function() {
 			if (localStorage) {
 				var newLevel = localStorage.getItem("project.newLevel");
@@ -261,9 +249,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.editorGroup = new LR.Entity.Group($scope.game);
 		$scope.game.add.existing($scope.editorGroup);
 		$scope.editorGroup.name = "__editor";
-
 		//Camera DEbug
-		$scope.changeGameCamera($scope.dataSettings.camera);
+		$scope.changeGameCameraSize($scope.project.settings.camera);
 		//entity handle
 		$scope.entityHandle = new LR.Entity.Group($scope.game,0,0);
 		$scope.entityHandle.name = "__entity_handle";
@@ -693,7 +680,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	//$scope.export = function(_url, _levelName, _storage) {
 	$scope.export = function(_levelPath, _levelName, _storage) {
 		var exporter = new LR.LevelExporter();
-		var level = exporter.export($scope.game, $scope.project, $scope.dataSettings,$scope.cutscenes);
+		var level = exporter.export($scope.game, $scope.project,$scope.cutscenes);
 		var lvlStr = JSON.stringify(level);
 
 		if (_storage == null || _storage === "localstorage") {
@@ -839,6 +826,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//follow that direction
 		_$scope.game.camera.x += point.x * _$scope.game.time.elapsed * 0.0015;
 		_$scope.game.camera.y += point.y * _$scope.game.time.elapsed * 0.0015;
+
+		$scope.project.settings.ed_camera = { x: $scope.game.camera.x, y: $scope.game.camera.y};
 	}
 
 	function deactivateCameraFollow(){
@@ -870,7 +859,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if ($scope.game.camera.ed_debugObject.fixedToCamera) {
 			var camW = $scope.game.camera.width;
 			var debObjW = (
-				$scope.dataSettings.camera.width * $scope.game.world.scale.x
+				$scope.project.settings.camera.width * $scope.game.world.scale.x
 			);
 			$scope.game.camera.ed_debugObject.cameraOffset.x = Math.round(
 				(camW - debObjW) * 0.5
@@ -878,7 +867,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 			var camH = $scope.game.camera.height;
 			var debObjH = (
-				$scope.dataSettings.camera.height * $scope.game.world.scale.y
+				$scope.project.settings.camera.height * $scope.game.world.scale.y
 			);
 			$scope.game.camera.ed_debugObject.cameraOffset.y = Math.round(
 				(camH - debObjH) * 0.5
@@ -891,34 +880,28 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	//							GAME SETTINGS
 	//===============================================================
 
-	//send current settings to other controllers
-	$scope.sendSettings = function(){
-		if( $scope.dataSettings ){
-			$scope.$emit("sendSettingsEmit", $scope.dataSettings);
-		}
-	}
-
 	//called when importing a level
 	$scope.importSettings = function(_dataSettings){
 		if( _dataSettings == null)
 			return;
-		$scope.dataSettings = _dataSettings;
-		$scope.sendSettings();
-		$scope.changeGameCamera(_dataSettings.camera);
+		$scope.project.settings = JSON.parse(JSON.stringify(_dataSettings));
+		$scope.changeGameCameraSize(_dataSettings.camera);
+		if(_dataSettings.ed_camera){
+			$scope.game.camera.x = _dataSettings.ed_camera.x ;
+			$scope.game.camera.y = _dataSettings.ed_camera.y ;
+		}
 	}
 
 	//called when settings are saved
 	$scope.saveSettings = function(_dataSettings){
 		if( _dataSettings == null)
 			return;
-		$scope.dataSettings = _dataSettings;
-		$scope.changeGameCamera(_dataSettings.camera);
+		$scope.changeGameCameraSize(_dataSettings.camera);
+		$scope.project.settings = JSON.parse(JSON.stringify(_dataSettings));
 	}
 
 	//Mainly called by the modal settings. Changes the camera size of the game. Not the editor view
-	$scope.changeGameCamera = function(_dataCam){
-		//Copy data
-		$scope.dataSettings.camera = jQuery.extend(true, {}, _dataCam);
+	$scope.changeGameCameraSize = function(_dataCam){
 		//Create Graphics if not already done
 		if( $scope.game.camera.ed_debugObject != null ){
 			$scope.game.camera.ed_debugObject.destroy();

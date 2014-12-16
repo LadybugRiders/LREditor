@@ -18,6 +18,7 @@ LR.Editor.LevelImporterEditor.prototype.constructor = LR.Editor.LevelImporterEdi
 LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promise) {
 	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
 	this.$scope.cutscenes = _level.cutscenes;
+	this.$scope.settings = _level.settings;
 	if(_level.prefabName){
 		this.prefab = { name : _level.prefabName, path : _level.prefabPath};
 	}
