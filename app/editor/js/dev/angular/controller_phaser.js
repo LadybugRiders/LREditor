@@ -454,12 +454,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//rename
 		if( iObj.name.indexOf("(clone)") < 0 )
 			iObj.name += " (clone)";
-		//reposition
-		if( _position ){
-			iObj.go.x = _position.x; iObj.go.y = _position.y;
-		}
+		
 		$scope.reassignID(iObj);
 		iObj.go.changeParent(_entity.parent);
+		//reposition
+		if( _position ){
+			//compute local position of the mouse in the parent's transform
+			if(_entity.parent.world){
+				_position.x -= _entity.parent.world.x;
+				_position.y -= _entity.parent.world.y;
+			}
+			iObj.go.x = _position.x; iObj.go.y = _position.y;
+		}
 		if(iObj.parent.ed_outOfViewHide == true)
 			iObj.ed_outOfViewHide = true;
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});

@@ -82,15 +82,15 @@ LR.Body.prototype.postUpdate = function () {
 }
 
 // Called when the scene is launching. All objects are created then.
-LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {
-    		
-    this.postUpdate();
-    _group.updateTransform();
-    this.data.updateAABB();
+LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {    		
 
 	this.lastParentPos = new Phaser.Point(_group.x,_group.y);
 	this.localPosition = new Phaser.Point(_sprite.x,_sprite.y);
 	this.lastPosition = new Phaser.Point(_sprite.x,_sprite.y);
+
+    this.postUpdate();
+    _group.updateTransform();
+    this.data.updateAABB();
 };
 
 /**
