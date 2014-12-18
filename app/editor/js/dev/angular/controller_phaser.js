@@ -228,6 +228,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if( this.cameraFollowMouse ){
 			cameraFollow($scope);
 		}
+
+		$scope.xMouseText.text = "x:" + $scope.game.input.x;
+		$scope.yMouseText.text = "y:" + $scope.game.input.y;
 	};
 
 	$scope.render = function() {
@@ -256,6 +259,17 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.entityHandle.name = "__entity_handle";
 		$scope.entityHandleScript = $scope.entityHandle.go.addBehaviour( new LR.Editor.Behaviour.EntityHandle($scope.entityHandle.go,$scope));
 		$scope.editorGroup.add($scope.entityHandle);
+		//mouse position
+		$scope.xMouseText = new LR.Entity.Text($scope.game,2,20,"x:",{ font: "20px Arial", fill: "0x000000"},"__xMouse");
+		$scope.xMouseText.fixedToCamera = true;
+		$scope.xMouseText.anchor.x = 0;
+		$scope.game.add.existing($scope.xMouseText);
+		$scope.editorGroup.add($scope.xMouseText);
+		$scope.yMouseText = new LR.Entity.Text($scope.game,2,50,"y:",{ font: "20px Arial", fill: "0x000000"},"__xMouse");
+		$scope.yMouseText.fixedToCamera = true;
+		$scope.yMouseText.anchor.x = 0;
+		$scope.game.add.existing($scope.yMouseText);
+		$scope.editorGroup.add($scope.yMouseText);
 	};
 
 	$scope.sendCamera = function() {
