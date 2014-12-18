@@ -478,8 +478,8 @@ LR.Editor.Behaviour.EntityHandle.prototype.placeTarget = function(_target,_selec
 		//for that we need to compute the position of the handle from the 
 		//camera debug object point of view 
 		var rectObject = this.$scope.game.camera.ed_debugObject;
-        _target.cameraOffset.x = this.axisX.x - rectObject.graphicsData[0].points[0];
-        _target.cameraOffset.y = this.axisX.y - rectObject.graphicsData[0].points[1];
+        _target.cameraOffset.x = this.axisX.x - rectObject.graphicsData[0].shape.x;
+        _target.cameraOffset.y = this.axisX.y - rectObject.graphicsData[0].shape.y;
 	}else{		
 		var localX = this.axisX.world.x;
 		var localY = this.axisX.world.y;

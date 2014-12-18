@@ -179,7 +179,6 @@ LR.LevelExporter.prototype.exportImage = function(_cachedImage, _frame) {
 
 LR.LevelExporter.prototype.exportAtlases = function(_game, _project) {
 	var atlases = new Array();
-
 	atlases = this.getAtlases(_game.world, atlases);
 
 	//search path Data for each atlas to export

@@ -47,7 +47,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		//When settings are modified in the modal
 		$scope.$on("saveSettingsBroadcast", function(_event, _args) {
 			$scope.project.settings = jQuery.extend(true, {}, _args);
-			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
 		});
 
 		// tmp object (for modals for example)

@@ -40,6 +40,7 @@ LR.Game = function(_containerId,_width, _height, _scaleMode,_debug) {
 	};
 
 	var create = function() {
+		console.log(_debug);
 		if(_debug)
 			this.game.add.plugin(Phaser.Plugin.Debug);
 		this.game.plugins.add(Phaser.Plugin.PlayerSave);

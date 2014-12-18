@@ -706,6 +706,14 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		
 	}
 
+	$scope.containsSearchWord = function(_name,_searchWord){
+	    if( _searchWord == null || _searchWord == "" || _name == null )
+	      return true;
+	    if( _name.toUpperCase().indexOf(_searchWord.toUpperCase()) >= 0)
+	      return true;
+	    return false;
+    }
+
 	//=========================================================
 	//					MODALS
 	//=========================================================

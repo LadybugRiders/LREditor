@@ -166,6 +166,7 @@ LR.Behaviour.prototype.onEndCutscene = function(){
 Object.defineProperty( LR.Behaviour.prototype, "x",
 	{
 		get : function(){
+			console.log("caca");
 			return this.go.x;
 		},
 
@@ -218,6 +219,20 @@ Object.defineProperty( LR.Behaviour.prototype, "game",
 	{
 		get : function(){
 			return this.entity.game;
+		}
+	}
+);
+
+/**
+* Accessor to the current gameobject's body (readonly)
+*
+* @property body
+* @type LR.Body
+*/
+Object.defineProperty( LR.Behaviour.prototype, "body",
+	{
+		get : function(){
+			return this.entity.body;
 		}
 	}
 );

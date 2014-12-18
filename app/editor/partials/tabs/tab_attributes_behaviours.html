@@ -33,8 +33,7 @@
 					</select> -->
 					<select ng-model="selectedBehaviour">
 						<option value="{{behaviour}}" 
-								ng-show="bhSearchWord == null|| bhSearchWord =='' || 
-								behaviour.name.toUpperCase().indexOf(bhSearchWord.toUpperCase())>=0"
+								ng-show="containsSearchWord(behaviour.name,bhSearchWord)"
 								ng-repeat="behaviour in data.behaviours"
 								title="{{behaviour.desc}}">
 							{{behaviour.name}}

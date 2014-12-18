@@ -3,7 +3,7 @@
 var SettingsCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   function main() {
-
+    $scope.modalSettingsData = JSON.parse(JSON.stringify($scope.project.settings));
   };
 
   $scope.save = function () {

@@ -32,8 +32,12 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
       //Images
       var imagesKeys = exporter.getImageKeys($scope.currentEntity);
       var imagesObject = $scope.buildImagesExportObject(imagesKeys);
+      //Atlases
+      var atlases = exporter.getAtlases($scope.currentEntity);
+      var atlasesObject = $scope.buildAtlasesExportObject(atlases);
       //This object stores the whole json, with assets to load and objects to create
-      var jsonObject = { "assets" : { "images": imagesObject }, "objects" : prefabRoot };
+      var jsonObject = { "assets" : { "images": imagesObject, "atlases" : atlasesObject }, 
+                          "objects" : prefabRoot };
 
       var url = "/editorserverapi/v0/prefab";
       var params = {
@@ -73,6 +77,24 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
         var imObj = $scope.project.assets.images[j];
         if(imObj.name == key){
           imagesObjects.push(imObj);
+        }
+      }
+    }
+    return imagesObjects;
+  }
+
+  //go though all atlases and get their data object from the project assets
+  $scope.buildAtlasesExportObject = function(_keys){
+    var imagesObjects = new Array();
+    for( var i=0; i < _keys.length; i++){
+      var key = _keys[i];
+      for(var j=0; j < $scope.project.assets.atlases.length; j++){
+        var imObj = $scope.project.assets.atlases[j];
+        if(imObj.name == key){
+          var o = new Object();
+          o.name = imObj.name;
+          o.path = imObj.path;
+          imagesObjects.push(o);
         }
       }
     }
