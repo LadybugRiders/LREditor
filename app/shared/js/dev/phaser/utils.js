@@ -10,6 +10,11 @@ LR.Utils = function(){
 
 }
 
+LR.Utils.RIGHT = "right";
+LR.Utils.LEFT = "left";
+LR.Utils.TOP = "top";
+LR.Utils.BOTTOM = "bottom";
+
 /**
 * Remove an object from the specified array and return it
 *
@@ -146,7 +151,8 @@ LR.Utils.getPropertyByString = function( _object, _string){
 
 /**
 * Returns an object containing the sides of the shapes 
-* properties of the object : left, right, top, bottom
+* properties of the object : left, right, top, bottom 
+* in the world coordinates
 *
 * @method getRectShapeSides
 * @param {GameObject} go
@@ -154,6 +160,7 @@ LR.Utils.getPropertyByString = function( _object, _string){
 */
 LR.Utils.getRectShapeSides = function(_go,_shape){
 	var data = _go.getShapeData(_shape.lr_name);
+	var p2 = _go.entity.game.physics.p2;
 
 	//Rotate shape offset with the body, as offset isnt changed with rotations
 	var realOffset = new Phaser.Point(data.x,data.y); 
@@ -163,14 +170,21 @@ LR.Utils.getRectShapeSides = function(_go,_shape){
 
 	//Compute bounds of the shape
 	var bounds = new Object();
-	bounds.left = _go.x + data.x - _go.entity.anchor.x * data.width;
-	bounds.right = _go.x + data.x + (1-_go.entity.anchor.x) * data.width;
-	bounds.top = _go.y + data.y - _go.entity.anchor.y * data.height;
-	bounds.bottom = _go.y + data.y + (1-_go.entity.anchor.y) * data.height;
+	bounds.left = _go.entity.world.x + p2.mpx(_shape.centerOfMass[0]);
+	bounds.right = _go.entity.world.x + p2.mpx(_shape.centerOfMass[0]) + p2.mpx(_shape.width)
+	bounds.top = _go.entity.world.y + p2.mpx(_shape.centerOfMass[1]);
+	bounds.bottom = _go.entity.world.y + p2.mpx(_shape.centerOfMass[1]) + p2.mpx(_shape.height);
 
 	return bounds;
 }
 
+/**
+* Returns true if the sprite is visible by the camera
+*
+* @method isSpriteInCameraView
+* @param {LR.Entity.Sprite} sprite The sprite
+* @param {Camera} camera The active camera
+*/
 LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
 	var rect = new Phaser.Rectangle(
 							_sprite.world.x - Math.abs(_sprite.width) * 0.5 ,
@@ -182,4 +196,47 @@ LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
 	var inCam = _camera.view.intersects(rect);
 	
 	return inCam;
+}
+
+/**
+* Returns the side of the collision between two gameobject with a rectangle shape
+*
+* @method getRectCollisionSide
+* @param {LR.GameObject} gameobject1 The first gameobject
+* @param {Shape} shape1 The first rectangle shape
+* @param {LR.GameObject} gameobject2 The first gameobject
+* @param {Shape} shape2 The first rectangle shape
+*/
+LR.Utils.getRectCollisionSide = function(_go1,_rect1,_go2,_rect2){
+
+	var p2 = _go1.game.physics.p2;
+
+	var w = 0.5 * p2.mpx(_rect1.width + _rect2.width);
+	var h = 0.5 * p2.mpx(_rect1.height + _rect2.height);
+	
+	var center1 = new Phaser.Point(_go1.entity.world.x + p2.mpx(_rect1.centerOfMass[0]) ,
+									_go1.entity.world.y + p2.mpx(_rect1.centerOfMass[1]));
+
+	var center2 = new Phaser.Point(_go2.entity.world.x + p2.mpx(_rect2.centerOfMass[0]) ,
+									_go2.entity.world.y + p2.mpx(_rect2.centerOfMass[1]));
+	var dx = center1.x - center2.x;
+	var dy = center1.y - center2.y;
+
+    var wy = w * dy;
+    var hx = h * dx;
+
+    if (wy > hx){
+        if (wy > -hx){
+        	return LR.Utils.TOP;
+        }else{
+            return LR.Utils.RIGHT;
+        }
+    }else{
+        if (wy > -hx){
+        	return LR.Utils.LEFT;
+        }else{
+            return LR.Utils.BOTTOM;
+        }
+    }
+	return -1;
 }
