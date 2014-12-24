@@ -50,7 +50,7 @@ LR.Game = function(_containerId,_width, _height, _scaleMode,_debug) {
 		//Scale
 		if(this.scaleMode != null){
 			this.game.scale.scaleMode = this.scaleMode;
-			this.game.scale.setMaximum();
+			this.game.scale.setMinMax(0,0,2000,2000);
 			this.game.scale.refresh();
 		}
 

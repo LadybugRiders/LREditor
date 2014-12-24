@@ -515,7 +515,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			else
 				createdTween.onComplete.add(this.onTweenComplete,this);
 			console.log(tween);
-	    	createdTween.to(newProp, tween.duration, null, false,tween.delay, tween.repeat +(tween.yoyo?1:0), tween.yoyo);
+	    	createdTween.to(newProp, tween.duration, Phaser.Easing.Default,
+	    					 false,tween.delay, 
+	    					 tween.repeat +(tween.yoyo?1:0), 
+	    					 tween.yoyo);
 	    	//keep trace of tween and base properties
 	    	createdTween.baseProp = {"object":targetData.object,"property":targetData.property,
 	    							"baseValue":targetData.object[targetData.property]};

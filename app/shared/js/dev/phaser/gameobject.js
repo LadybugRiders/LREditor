@@ -941,7 +941,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 		//console.log(tweenData);
 		if( tweenData.repeat < 0)
 			tweenData.repeat = Number.MAX_VALUE;
-    	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, 
+    	createdTween.to(newProp, tweenData.duration, Phaser.Easing.Default, true,tweenData.delay, 
     					tweenData.repeat+(tweenData.yoyo?1:0), tweenData.yoyo);
     	//keep reference
     	tweensObject[key] = createdTween;
