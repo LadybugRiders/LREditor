@@ -805,7 +805,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.onRevertedPrefabLoaded = function(_rootEntity,_game){
-		$scope.onPrefabLoaded(_rootEntity,_game);
 		//keep position
 		var oldPos = {x:$scope.currentRevertedPrefab.x,y:$scope.currentRevertedPrefab.y};
 		//Set new entity's parent
@@ -814,6 +813,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		oldParent.remove(_rootEntity);
 		parent.add(_rootEntity);
 		_rootEntity.go.x = oldPos.x; _rootEntity.go.y = oldPos.y;
+		$scope.copyPrefabIDs($scope.currentRevertedPrefab,_rootEntity);
 		//Delete former entity
 		$scope.deleteEntity($scope.currentRevertedPrefab);
 		$scope.currentRevertedPrefab = null;
@@ -821,6 +821,43 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 		$scope.$emit("selectEntityEmit", {entity : _rootEntity});
 		$scope.forceAttributesRefresh(_rootEntity);
+	}
+
+	$scope.copyPrefabIDs = function(_oldPrefab,_newPrefab){
+		//begin by reseting depth
+		while( Math.abs(_newPrefab.z - _oldPrefab.z) > 1){
+			if(_newPrefab.z > _oldPrefab.z){
+				_newPrefab.parent.moveDown(_newPrefab);
+				_newPrefab.parent.updateTransform();
+			}
+		}
+
+		//then reassign ids when possible
+		//for every entity in the old prefab
+		var changeIDs = function(_oldEntity,_newEntity){
+
+			//search an object with the same name in the new entity(prefab)
+			var search = LR.GameObject.FindByName(_newEntity, _oldEntity.go.name);
+			
+			//affect the same id as the old prefab entity
+			if( search != null )
+				search.go.id = _oldEntity.go.id;
+			//Search children
+			for( var i=0; i < _oldEntity.children.length;i++ ) {
+				changeIDs(_oldEntity.children[i],_newEntity);	
+			};
+		}
+		//store references in behaviours params
+		//keeps ID of params reference to gameobjects in the scene from the old prefab
+		var linkedObjects = $scope.storeBehavioursParamsReferences(_newPrefab,new Object(),_newPrefab);
+		
+		//Reset ID to their former values in the current scene
+		changeIDs(_oldPrefab,_newPrefab);
+		
+		//Reassign parameters with new objects IDs
+		$scope.reassignBehavioursParamsReferences(_newPrefab,linkedObjects);
+
+
 	}
 
 	//===============================================================

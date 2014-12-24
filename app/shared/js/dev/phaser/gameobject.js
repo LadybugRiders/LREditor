@@ -1035,12 +1035,11 @@ LR.GameObject.FindByName = function(_root, _name) {
 			var i = 0;
 			while (i < _root.children.length && gameobject == null) {
 				var child = _root.children[i];
-				if (LR.GameObject.FindByName(child, _name)) {
-					gameobject = child;
-				}
-
+				var go = LR.GameObject.FindByName(child, _name);
+				if(go)
+					gameobject = go;
 				i++;
-			};
+			}
 		}
 	}
 	return gameobject;
