@@ -25,11 +25,28 @@ LR.Entity.Sprite = function(_game, _x, _y, _texture, _name) {
 	}
 	this.localPosition = new Phaser.Point();
 
-	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
-
+	/**
+	* Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.
+	*
+	* @property hidden
+	* @type boolean
+	* @default false
+	*/
 	this.hidden = false;
+	/**
+	* Enable sprite to be hidden when out of the camera view.
+	* Each time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject
+	* Create this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})
+	*
+	* @property outOfViewHide
+	* @type boolean
+	* @default false
+	*/
 	this.outOfViewHide = false;
+
 	this.alphaBeforeHide = 1;
+
+	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
 
 };
 
@@ -58,11 +75,13 @@ LR.Entity.Sprite.prototype.update = function() {
 		//show if enters camera view
 		if( inCam && this.hidden ){
 			this.hidden = false;
+			this.go.sendMessage("onShow");
 			this.alpha = this.alphaBeforeHide;
 		}
 		//hide if quits camera view
 		if( !inCam && !this.hidden ){
 			this.hidden = true;
+			this.go.sendMessage("onHide");
 			this.alphaBeforeHide = this.alpha;
 			this.alpha = 0;
 		}

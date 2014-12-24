@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -115,7 +116,7 @@
                         * @class Game
                         * @namespace LR
                         */
-                        LR.Game = function(_containerId,_scaleMode,_debug) {
+                        LR.Game = function(_containerId,_width, _height, _scaleMode,_debug) {
                         	/**
                         	* The Input Manager of LadybugRiders Engine
                         	* 
@@ -160,7 +161,7 @@
                         		//Scale
                         		if(this.scaleMode != null){
                         			this.game.scale.scaleMode = this.scaleMode;
-                        			this.game.scale.setMaximum();
+                        			this.game.scale.setMinMax(0,0,2000,2000);
                         			this.game.scale.refresh();
                         		}
                         
@@ -197,8 +198,13 @@
                         	if( appVersion.indexOf(&quot;android&quot;) &gt;= 0 || appVersion.indexOf(&quot;ios&quot;) &gt;= 0)
                         		renderType = Phaser.CANVAS;
                         
-                        	Phaser.Game.call(this, 640, 360,
+                        	if (_width &amp;&amp; _height) {
+                        		Phaser.Game.call(this, _width, _height,
                         					 renderType, _containerId, functions);
+                        	} else {
+                        		Phaser.Game.call(this, 640, 360,
+                        					 renderType, _containerId, functions);
+                        	}
                         }
                         
                         LR.Game.prototype = Object.create(Phaser.Game.prototype);

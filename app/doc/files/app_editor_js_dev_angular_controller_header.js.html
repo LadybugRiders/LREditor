@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -137,6 +138,10 @@
                         			$scope.openEditModal(_args.context,_args.varName,_args.isLong);
                         		});
                         
+                        		$scope.$on(&quot;openPrefabsModalBroadcast&quot;, function(_event, _args) {
+                        			$scope.managePrefabs();
+                        		});
+                        
                         		$scope.$on(&quot;sendCutscenesBroadcast&quot;, function(_event, _args) {
                         			$scope.setCutscenes(_args.cutscenes);
                         		});
@@ -147,13 +152,12 @@
                         
                         		//Receive settings from phaser when importing
                         		$scope.$on(&quot;sendSettingsBroadcast&quot;, function(_event, _args) {
-                        			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
+                        			$scope.project.settings = jQuery.extend(true, {}, _args);
                         			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
                         		});
                         		//When settings are modified in the modal
                         		$scope.$on(&quot;saveSettingsBroadcast&quot;, function(_event, _args) {
-                        			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
-                        			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
+                        			$scope.project.settings = jQuery.extend(true, {}, _args);
                         		});
                         
                         		// tmp object (for modals for example)
@@ -179,6 +183,13 @@
                         		$scope.project.assets.bitmapFonts = new Array();
                         		$scope.project.assets.atlases = new Array();
                         
+                        		$scope.project.settings = {
+                        			world :{},
+                        			camera : { x:0,y:0,width : 640, height : 340},
+                        			ed_camera :{x : 0, y : 0},
+                        			debugBodiesInGame : false
+                        		};
+                        
                         		//modal data for cutscenes edition
                         		$scope.modalCSData = {
                         			state : &quot;none&quot;,
@@ -192,12 +203,6 @@
                         			context : null,
                         			varName : &quot;&quot;,
                         			isLong : false
-                        		};
-                        
-                        		$scope.modalSettingsData = {
-                        			world :{},
-                        			camera : {},
-                        			debugBodiesInGame : false
                         		};
                         
                         		$scope.modalLayersData = { layers : {} };
@@ -656,6 +661,15 @@
                         	/*******************
                         	** LEVEL IMPORTER **
                         	*******************/
+                        	//Save the current Level
+                        	$scope.levelSave = function() {
+                        		var data = {
+                        	      levelName: $scope.project.level.substring(1),
+                        	      levelPath: $scope.project.path + &quot;/assets/levels&quot;,
+                        	      levelStorage: &quot;file&quot;
+                        	    };
+                        		$scope.$emit(&quot;exportLevelEmit&quot;, data);
+                        	};
                         
                         	$scope.levelImport = function() {
                         		var modalInstance = $modal.open({

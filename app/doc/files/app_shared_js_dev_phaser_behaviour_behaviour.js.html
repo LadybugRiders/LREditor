@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -276,6 +277,7 @@
                         Object.defineProperty( LR.Behaviour.prototype, &quot;x&quot;,
                         	{
                         		get : function(){
+                        			console.log(&quot;caca&quot;);
                         			return this.go.x;
                         		},
                         
@@ -328,6 +330,20 @@
                         	{
                         		get : function(){
                         			return this.entity.game;
+                        		}
+                        	}
+                        );
+                        
+                        /**
+                        * Accessor to the current gameobject&#x27;s body (readonly)
+                        *
+                        * @property body
+                        * @type LR.Body
+                        */
+                        Object.defineProperty( LR.Behaviour.prototype, &quot;body&quot;,
+                        	{
+                        		get : function(){
+                        			return this.entity.body;
                         		}
                         	}
                         );
