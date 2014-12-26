@@ -30,9 +30,28 @@ LR.Entity.TileSprite = function(_game, _x, _y, _width, _height, _texture,_name) 
 		this.go.name = _texture;
 	}
 
+	/**
+	* Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.
+	*
+	* @property hidden
+	* @type boolean
+	* @default false
+	*/
 	this.hidden = false;
+	/**
+	* Enable sprite to be hidden when out of the camera view.
+	* Each time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject
+	* Create this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})
+	*
+	* @property outOfViewHide
+	* @type boolean
+	* @default false
+	*/
 	this.outOfViewHide = false;
+	
 	this.alphaBeforeHide = 1;
+
+	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
 };
 
 LR.Entity.TileSprite.prototype = Object.create(Phaser.TileSprite.prototype);
@@ -93,4 +112,11 @@ LR.Entity.TileSprite.prototype.destroy = function() {
 		this.go.destroy();
 	}
 	Phaser.TileSprite.prototype.destroy.call(this);
+};
+
+// Called when the scene is launching. All objects are created then.
+LR.Entity.TileSprite.prototype.onAddedToGroup = function(_sprite,_group) {
+	if(this.body && this.body.onSpriteAddedToGroup){
+		this.body.onSpriteAddedToGroup(_sprite,_group);
+	}
 };

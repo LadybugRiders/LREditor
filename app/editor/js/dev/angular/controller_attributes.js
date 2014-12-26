@@ -229,6 +229,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.$emit("revertPrefabEmit", { entity : $scope.currentEntity});
 	}
 
+	$scope.savePrefab = function(){
+		$scope.$emit("openPrefabsModalEmit", { entity : $scope.currentEntity});
+	}
+
 	//================================================================
 	//						BEHAVIOURS
 	//================================================================
@@ -510,7 +514,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				tween.repeat = Number.MAX_VALUE;
 			else
 				createdTween.onComplete.add(this.onTweenComplete,this);
-	    	createdTween.to(newProp, tween.duration, tween.easing, false,tween.delay, tween.repeat + +(tweenData.yoyo?1:0), tween.yoyo);
+			console.log(tween);
+	    	createdTween.to(newProp, tween.duration, Phaser.Easing.Default,
+	    					 false,tween.delay, 
+	    					 tween.repeat +(tween.yoyo?1:0), 
+	    					 tween.yoyo);
 	    	//keep trace of tween and base properties
 	    	createdTween.baseProp = {"object":targetData.object,"property":targetData.property,
 	    							"baseValue":targetData.object[targetData.property]};
@@ -700,6 +708,14 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	$scope.changeMaxCharPerLine = function(){
 		
 	}
+
+	$scope.containsSearchWord = function(_name,_searchWord){
+	    if( _searchWord == null || _searchWord == "" || _name == null )
+	      return true;
+	    if( _name.toUpperCase().indexOf(_searchWord.toUpperCase()) >= 0)
+	      return true;
+	    return false;
+    }
 
 	//=========================================================
 	//					MODALS

@@ -10,16 +10,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.ID_count = 0;
 
-		$scope.dataSettings = {
-			"camera" : {
-				x: -320, y: -180,
-				width: 640, height:360,
-				debug: true,
-				fixedToCamera: true
-			},
-			"debugBodiesInGame" : false
-		}
-
 		$scope.cutscenes = [];
 
 		//============ PROJECT ===================
@@ -203,8 +193,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 
-		$scope.sendSettings();
-
 		$timeout(function() {
 			if (localStorage) {
 				var newLevel = localStorage.getItem("project.newLevel");
@@ -240,6 +228,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if( this.cameraFollowMouse ){
 			cameraFollow($scope);
 		}
+
+		$scope.xMouseText.text = "x:" + $scope.game.input.x;
+		$scope.yMouseText.text = "y:" + $scope.game.input.y;
 	};
 
 	$scope.render = function() {
@@ -261,14 +252,24 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.editorGroup = new LR.Entity.Group($scope.game);
 		$scope.game.add.existing($scope.editorGroup);
 		$scope.editorGroup.name = "__editor";
-
 		//Camera DEbug
-		$scope.changeGameCamera($scope.dataSettings.camera);
+		$scope.changeGameCameraSize($scope.project.settings.camera);
 		//entity handle
 		$scope.entityHandle = new LR.Entity.Group($scope.game,0,0);
 		$scope.entityHandle.name = "__entity_handle";
 		$scope.entityHandleScript = $scope.entityHandle.go.addBehaviour( new LR.Editor.Behaviour.EntityHandle($scope.entityHandle.go,$scope));
 		$scope.editorGroup.add($scope.entityHandle);
+		//mouse position
+		$scope.xMouseText = new LR.Entity.Text($scope.game,2,20,"x:",{ font: "20px Arial", fill: "0x000000"},"__xMouse");
+		$scope.xMouseText.fixedToCamera = true;
+		$scope.xMouseText.anchor.x = 0;
+		$scope.game.add.existing($scope.xMouseText);
+		$scope.editorGroup.add($scope.xMouseText);
+		$scope.yMouseText = new LR.Entity.Text($scope.game,2,50,"y:",{ font: "20px Arial", fill: "0x000000"},"__xMouse");
+		$scope.yMouseText.fixedToCamera = true;
+		$scope.yMouseText.anchor.x = 0;
+		$scope.game.add.existing($scope.yMouseText);
+		$scope.editorGroup.add($scope.yMouseText);
 	};
 
 	$scope.sendCamera = function() {
@@ -454,12 +455,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//rename
 		if( iObj.name.indexOf("(clone)") < 0 )
 			iObj.name += " (clone)";
-		//reposition
-		if( _position ){
-			iObj.go.x = _position.x; iObj.go.y = _position.y;
-		}
+		
 		$scope.reassignID(iObj);
 		iObj.go.changeParent(_entity.parent);
+		//reposition
+		if( _position ){
+			//compute local position of the mouse in the parent's transform
+			if(_entity.parent.world){
+				_position.x -= _entity.parent.world.x;
+				_position.y -= _entity.parent.world.y;
+			}
+			iObj.go.x = _position.x; iObj.go.y = _position.y;
+		}
 		if(iObj.parent.ed_outOfViewHide == true)
 			iObj.ed_outOfViewHide = true;
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
@@ -687,7 +694,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	//$scope.export = function(_url, _levelName, _storage) {
 	$scope.export = function(_levelPath, _levelName, _storage) {
 		var exporter = new LR.LevelExporter();
-		var level = exporter.export($scope.game, $scope.project, $scope.dataSettings,$scope.cutscenes);
+		var level = exporter.export($scope.game, $scope.project,$scope.cutscenes);
 		var lvlStr = JSON.stringify(level);
 
 		if (_storage == null || _storage === "localstorage") {
@@ -798,7 +805,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.onRevertedPrefabLoaded = function(_rootEntity,_game){
-		$scope.onPrefabLoaded(_rootEntity,_game);
 		//keep position
 		var oldPos = {x:$scope.currentRevertedPrefab.x,y:$scope.currentRevertedPrefab.y};
 		//Set new entity's parent
@@ -807,6 +813,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		oldParent.remove(_rootEntity);
 		parent.add(_rootEntity);
 		_rootEntity.go.x = oldPos.x; _rootEntity.go.y = oldPos.y;
+		$scope.copyPrefabIDs($scope.currentRevertedPrefab,_rootEntity);
 		//Delete former entity
 		$scope.deleteEntity($scope.currentRevertedPrefab);
 		$scope.currentRevertedPrefab = null;
@@ -814,6 +821,43 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 		$scope.$emit("selectEntityEmit", {entity : _rootEntity});
 		$scope.forceAttributesRefresh(_rootEntity);
+	}
+
+	$scope.copyPrefabIDs = function(_oldPrefab,_newPrefab){
+		//begin by reseting depth
+		while( Math.abs(_newPrefab.z - _oldPrefab.z) > 1){
+			if(_newPrefab.z > _oldPrefab.z){
+				_newPrefab.parent.moveDown(_newPrefab);
+				_newPrefab.parent.updateTransform();
+			}
+		}
+
+		//then reassign ids when possible
+		//for every entity in the old prefab
+		var changeIDs = function(_oldEntity,_newEntity){
+
+			//search an object with the same name in the new entity(prefab)
+			var search = LR.GameObject.FindByName(_newEntity, _oldEntity.go.name);
+			
+			//affect the same id as the old prefab entity
+			if( search != null )
+				search.go.id = _oldEntity.go.id;
+			//Search children
+			for( var i=0; i < _oldEntity.children.length;i++ ) {
+				changeIDs(_oldEntity.children[i],_newEntity);	
+			};
+		}
+		//store references in behaviours params
+		//keeps ID of params reference to gameobjects in the scene from the old prefab
+		var linkedObjects = $scope.storeBehavioursParamsReferences(_newPrefab,new Object(),_newPrefab);
+		
+		//Reset ID to their former values in the current scene
+		changeIDs(_oldPrefab,_newPrefab);
+		
+		//Reassign parameters with new objects IDs
+		$scope.reassignBehavioursParamsReferences(_newPrefab,linkedObjects);
+
+
 	}
 
 	//===============================================================
@@ -833,6 +877,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//follow that direction
 		_$scope.game.camera.x += point.x * _$scope.game.time.elapsed * 0.0015;
 		_$scope.game.camera.y += point.y * _$scope.game.time.elapsed * 0.0015;
+
+		$scope.project.settings.ed_camera = { x: $scope.game.camera.x, y: $scope.game.camera.y};
 	}
 
 	function deactivateCameraFollow(){
@@ -864,7 +910,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if ($scope.game.camera.ed_debugObject.fixedToCamera) {
 			var camW = $scope.game.camera.width;
 			var debObjW = (
-				$scope.dataSettings.camera.width * $scope.game.world.scale.x
+				$scope.project.settings.camera.width * $scope.game.world.scale.x
 			);
 			$scope.game.camera.ed_debugObject.cameraOffset.x = Math.round(
 				(camW - debObjW) * 0.5
@@ -872,7 +918,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 			var camH = $scope.game.camera.height;
 			var debObjH = (
-				$scope.dataSettings.camera.height * $scope.game.world.scale.y
+				$scope.project.settings.camera.height * $scope.game.world.scale.y
 			);
 			$scope.game.camera.ed_debugObject.cameraOffset.y = Math.round(
 				(camH - debObjH) * 0.5
@@ -885,34 +931,28 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	//							GAME SETTINGS
 	//===============================================================
 
-	//send current settings to other controllers
-	$scope.sendSettings = function(){
-		if( $scope.dataSettings ){
-			$scope.$emit("sendSettingsEmit", $scope.dataSettings);
-		}
-	}
-
 	//called when importing a level
 	$scope.importSettings = function(_dataSettings){
 		if( _dataSettings == null)
 			return;
-		$scope.dataSettings = _dataSettings;
-		$scope.sendSettings();
-		$scope.changeGameCamera(_dataSettings.camera);
+		$scope.project.settings = JSON.parse(JSON.stringify(_dataSettings));
+		$scope.changeGameCameraSize(_dataSettings.camera);
+		if(_dataSettings.ed_camera){
+			$scope.game.camera.x = _dataSettings.ed_camera.x ;
+			$scope.game.camera.y = _dataSettings.ed_camera.y ;
+		}
 	}
 
 	//called when settings are saved
 	$scope.saveSettings = function(_dataSettings){
 		if( _dataSettings == null)
 			return;
-		$scope.dataSettings = _dataSettings;
-		$scope.changeGameCamera(_dataSettings.camera);
+		$scope.changeGameCameraSize(_dataSettings.camera);
+		$scope.project.settings = JSON.parse(JSON.stringify(_dataSettings));
 	}
 
 	//Mainly called by the modal settings. Changes the camera size of the game. Not the editor view
-	$scope.changeGameCamera = function(_dataCam){
-		//Copy data
-		$scope.dataSettings.camera = jQuery.extend(true, {}, _dataCam);
+	$scope.changeGameCameraSize = function(_dataCam){
 		//Create Graphics if not already done
 		if( $scope.game.camera.ed_debugObject != null ){
 			$scope.game.camera.ed_debugObject.destroy();

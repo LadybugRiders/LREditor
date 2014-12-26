@@ -2,7 +2,7 @@
 
 var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
   
-  function main() {
+  function main() { 
     if ($scope.currentEntity) {
       $scope.tmp.prefabs = new Object();
       $scope.tmp.prefabs.name = $scope.currentEntity.name;
@@ -32,8 +32,12 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
       //Images
       var imagesKeys = exporter.getImageKeys($scope.currentEntity);
       var imagesObject = $scope.buildImagesExportObject(imagesKeys);
+      //Atlases
+      var atlases = exporter.getAtlases($scope.currentEntity);
+      var atlasesObject = $scope.buildAtlasesExportObject(atlases);
       //This object stores the whole json, with assets to load and objects to create
-      var jsonObject = { "assets" : { "images": imagesObject }, "objects" : prefabRoot };
+      var jsonObject = { "assets" : { "images": imagesObject, "atlases" : atlasesObject }, 
+                          "objects" : prefabRoot };
 
       var url = "/editorserverapi/v0/prefab";
       var params = {
@@ -56,6 +60,7 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
           }
         });
     }
+    $scope.close();
     
   };
 
@@ -78,6 +83,24 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
     return imagesObjects;
   }
 
+  //go though all atlases and get their data object from the project assets
+  $scope.buildAtlasesExportObject = function(_keys){
+    var imagesObjects = new Array();
+    for( var i=0; i < _keys.length; i++){
+      var key = _keys[i];
+      for(var j=0; j < $scope.project.assets.atlases.length; j++){
+        var imObj = $scope.project.assets.atlases[j];
+        if(imObj.name == key){
+          var o = new Object();
+          o.name = imObj.name;
+          o.path = imObj.path;
+          imagesObjects.push(o);
+        }
+      }
+    }
+    return imagesObjects;
+  }
+
   function prefabAlreadyExists(_$scope, _prefab){
      //check if prefab already exist in the list
       var i = 0;
@@ -91,6 +114,29 @@ var PrefabsCtrlModal = function ($scope, $modalInstance, $http) {
         i++;
       }
       return found;
+  }
+
+  $scope.prefabNameAlreadyExists = function(_name){
+     //check if prefab already exist in the list
+      var i = 0;
+      var found = false;
+      while( i < $scope.project.assets.prefabs.length && found == false ){
+        var prefab = $scope.project.assets.prefabs[i];
+        //if the prefab already exists
+        if( _name == prefab.name ){
+          found = true;
+        }
+        i++;
+      }
+      return found;
+  }
+
+  $scope.containsSearchWord = function(_prefabName,_searchWord){
+    if( _searchWord == null || _searchWord == "" )
+      return true;
+    if( _prefabName.indexOf(_searchWord) >= 0)
+      return true;
+    return false;
   }
 
   main();

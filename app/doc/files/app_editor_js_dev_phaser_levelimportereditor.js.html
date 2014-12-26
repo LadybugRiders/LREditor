@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -128,6 +129,7 @@
                         LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promise) {
                         	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
                         	this.$scope.cutscenes = _level.cutscenes;
+                        	this.$scope.settings = _level.settings;
                         	if(_level.prefabName){
                         		this.prefab = { name : _level.prefabName, path : _level.prefabPath};
                         	}

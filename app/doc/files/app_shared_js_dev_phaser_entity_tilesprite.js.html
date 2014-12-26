@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -140,9 +141,28 @@
                         		this.go.name = _texture;
                         	}
                         
+                        	/**
+                        	* Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.
+                        	*
+                        	* @property hidden
+                        	* @type boolean
+                        	* @default false
+                        	*/
                         	this.hidden = false;
+                        	/**
+                        	* Enable sprite to be hidden when out of the camera view.
+                        	* Each time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject
+                        	* Create this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})
+                        	*
+                        	* @property outOfViewHide
+                        	* @type boolean
+                        	* @default false
+                        	*/
                         	this.outOfViewHide = false;
+                        	
                         	this.alphaBeforeHide = 1;
+                        
+                        	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
                         };
                         
                         LR.Entity.TileSprite.prototype = Object.create(Phaser.TileSprite.prototype);
@@ -203,6 +223,13 @@
                         		this.go.destroy();
                         	}
                         	Phaser.TileSprite.prototype.destroy.call(this);
+                        };
+                        
+                        // Called when the scene is launching. All objects are created then.
+                        LR.Entity.TileSprite.prototype.onAddedToGroup = function(_sprite,_group) {
+                        	if(this.body &amp;&amp; this.body.onSpriteAddedToGroup){
+                        		this.body.onSpriteAddedToGroup(_sprite,_group);
+                        	}
                         };
                         
                             </pre>

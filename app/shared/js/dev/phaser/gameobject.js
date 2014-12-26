@@ -941,7 +941,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 		//console.log(tweenData);
 		if( tweenData.repeat < 0)
 			tweenData.repeat = Number.MAX_VALUE;
-    	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, 
+    	createdTween.to(newProp, tweenData.duration, Phaser.Easing.Default, true,tweenData.delay, 
     					tweenData.repeat+(tweenData.yoyo?1:0), tweenData.yoyo);
     	//keep reference
     	tweensObject[key] = createdTween;
@@ -1035,12 +1035,11 @@ LR.GameObject.FindByName = function(_root, _name) {
 			var i = 0;
 			while (i < _root.children.length && gameobject == null) {
 				var child = _root.children[i];
-				if (LR.GameObject.FindByName(child, _name)) {
-					gameobject = child;
-				}
-
+				var go = LR.GameObject.FindByName(child, _name);
+				if(go)
+					gameobject = go;
 				i++;
-			};
+			}
 		}
 	}
 	return gameobject;

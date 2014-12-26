@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -231,6 +232,7 @@
                         		entity.setBounds(0, 0, _object.width, _object.height);
                         	} else {
                         		entity = this.importEntity(_object, _game);
+                        		entity.updateTransform();
                         	}
                         
                         	if (_object.children != null) {
@@ -241,6 +243,7 @@
                         				console.log(&quot;Parent is null&quot;);
                         			}else if (cChild) {
                         				entity.add(cChild);
+                        				cChild.updateTransform();
                         			}
                         		};
                         	}
@@ -375,7 +378,11 @@
                         
                         	//tint color
                         	if( _objectData.tint != null ){
-                        		_entity.tint = _objectData.tint;
+                        		if( typeof(_objectData.tint) == &quot;string&quot;){
+                        			_entity.tint = parseInt(_objectData.tint);
+                        		}else{
+                        			_entity.tint = _objectData.tint;
+                        		}
                         	}
                         
                         	//Animations

@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -234,6 +235,7 @@
                             <ul class="api-class-tabs">
                                 <li class="api-class-tab index"><a href="#index">Index</a></li>
                         
+                                    <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
                             </ul>
                         
                             <div>
@@ -241,11 +243,83 @@
                                     <h2 class="off-left">Item Index</h2>
                         
                         
+                                        <div class="index-section properties">
+                                            <h3>Properties</h3>
+                        
+                                            <ul class="index-list properties">
+                                                    <li class="index-item property">
+                                                        <a href="#property_hidden">hidden</a>
+                        
+                                                    </li>
+                                                    <li class="index-item property">
+                                                        <a href="#property_outOfViewHide">outOfViewHide</a>
+                        
+                                                    </li>
+                                            </ul>
+                                        </div>
                         
                         
                                 </div>
                         
                         
+                                    <div id="properties" class="api-class-tabpanel">
+                                        <h2 class="off-left">Properties</h2>
+                        
+                                            <div id="property_hidden" class="property item">
+                                                <h3 class="name"><code>hidden</code></h3>
+                                                <span class="type">Boolean</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_entity_sprite.js.html#l28"><code>app\shared\js\dev\phaser\entity\sprite.js:28</code></a>
+                                                    </p>
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.</p>
+                                            
+                                                </div>
+                                            
+                                                    <p><strong>Default:</strong> false</p>
+                                            
+                                            
+                                            </div>
+                                            <div id="property_outOfViewHide" class="property item">
+                                                <h3 class="name"><code>outOfViewHide</code></h3>
+                                                <span class="type">Boolean</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_entity_sprite.js.html#l36"><code>app\shared\js\dev\phaser\entity\sprite.js:36</code></a>
+                                                    </p>
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Enable sprite to be hidden when out of the camera view.
+                                            Each time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject
+                                            Create this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})</p>
+                                            
+                                                </div>
+                                            
+                                                    <p><strong>Default:</strong> false</p>
+                                            
+                                            
+                                            </div>
+                                    </div>
                         
                         
                             </div>

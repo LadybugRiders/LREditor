@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -128,11 +129,12 @@
                         */
                         LR.Entity.Button = function(_game, _x, _y, _key, _overFrame, _outFrame, _downFrame, _upFrame, _name) {
                         	Phaser.Button.call(this, _game, _x, _y, _key, this.onClick, this, _overFrame, _outFrame, _downFrame, _upFrame);
-                        
                         	this.anchor.setTo(0.5, 0.5);
+                        	this.onInputOver.add( this.onOver, this);
+                        	this.onInputOut.add( this.onOut, this);
                         	this.onInputDown.add( this.onDown, this);
                         	this.onInputUp.add( this.onUp, this);
-                        
+                        	
                         	this.go = new LR.GameObject(this);
                         	if (_name) {
                         		this.go.name = _name;
@@ -229,6 +231,40 @@
                         
                         			if (typeof behaviour.onInputDown === &quot;function&quot;) {
                         				behaviour.onInputDown();
+                        			}
+                        		};
+                        	}
+                        };
+                        
+                        /**
+                        * call behaviours onOver function
+                        *
+                        * @method onDown
+                        */
+                        LR.Entity.Button.prototype.onOver = function() {
+                        	if (this.go) {
+                        		for (var i = 0; i &lt; this.go.behaviours.length; i++) {
+                        			var behaviour = this.go.behaviours[i];
+                        
+                        			if (typeof behaviour.onInputOver === &quot;function&quot;) {
+                        				behaviour.onInputOver();
+                        			}
+                        		};
+                        	}
+                        };
+                        
+                        /**
+                        * call behaviours onOver function
+                        *
+                        * @method onDown
+                        */
+                        LR.Entity.Button.prototype.onOut = function() {
+                        	if (this.go) {
+                        		for (var i = 0; i &lt; this.go.behaviours.length; i++) {
+                        			var behaviour = this.go.behaviours[i];
+                        
+                        			if (typeof behaviour.onInputOut === &quot;function&quot;) {
+                        				behaviour.onInputOut();
                         			}
                         		};
                         	}

@@ -334,7 +334,9 @@
         "app\\shared\\js\\dev\\phaser\\utils.js": {
             "name": "app\\shared\\js\\dev\\phaser\\utils.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "LR.Utils": 1
+            },
             "fors": {},
             "namespaces": {
                 "LR": 1
@@ -1051,6 +1053,20 @@
             "description": "Utilities for level import/export.",
             "is_constructor": 1
         },
+        "LR.Utils": {
+            "name": "LR.Utils",
+            "shortname": "LR.Utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "LR",
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 2,
+            "description": "Misc Utilities",
+            "is_constructor": 1
+        },
         "LR.LR": {
             "name": "LR.LR",
             "shortname": "LR",
@@ -1067,103 +1083,103 @@
     "classitems": [
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 130,
+            "line": 134,
             "description": "* PROJECT **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 181,
+            "line": 185,
             "description": "* IMAGES **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 268,
+            "line": 272,
             "description": "* AUDIOS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 301,
+            "line": 305,
             "description": "* LAYERS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 349,
+            "line": 353,
             "description": "* BEHAVIOURS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 383,
+            "line": 387,
             "description": "* PREFABS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 422,
+            "line": 426,
             "description": "* FONTS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 439,
+            "line": 443,
             "description": "* LEVELS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 473,
+            "line": 477,
             "description": "* INPUTS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 518,
+            "line": 522,
             "description": "* ADDING ENTITIES **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 546,
+            "line": 550,
             "description": "* LEVEL IMPORTER **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 567,
+            "line": 580,
             "description": "* LEVEL EXPORTER **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 588,
+            "line": 601,
             "description": "* LEVEL DEFAULT **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 609,
+            "line": 622,
             "description": "* SETTINGS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 628,
+            "line": 641,
             "description": "* CUTSCENE EDITOR **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 662,
+            "line": 675,
             "description": "******  HELP *******",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\phaser\\levelimportereditor.js",
-            "line": 26,
+            "line": 27,
             "description": "Import all the images",
             "itemtype": "method",
             "name": "importImages",
@@ -1520,7 +1536,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 178,
+            "line": 179,
             "description": "Accessor to the GameObject's y property",
             "itemtype": "property",
             "name": "x",
@@ -1530,7 +1546,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 196,
+            "line": 197,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -1540,7 +1556,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 211,
+            "line": 212,
             "description": "Accessor to the current game (readonly)",
             "itemtype": "property",
             "name": "game",
@@ -1550,7 +1566,17 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 225,
+            "line": 226,
+            "description": "Accessor to the current gameobject's body (readonly)",
+            "itemtype": "property",
+            "name": "body",
+            "type": "LR.Body",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 240,
             "description": "Find an instance of a specific Behaviour held by a gameobject",
             "itemtype": "method",
             "name": "FindBehaviour",
@@ -1691,7 +1717,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
-            "line": 76,
+            "line": 77,
             "description": "call behaviours onClick function",
             "itemtype": "method",
             "name": "onClick",
@@ -1700,7 +1726,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
-            "line": 93,
+            "line": 94,
             "description": "call behaviours onUp function",
             "itemtype": "method",
             "name": "onUp",
@@ -1709,11 +1735,51 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
-            "line": 110,
+            "line": 111,
             "description": "call behaviours onDown function",
             "itemtype": "method",
             "name": "onDown",
             "class": "Entity.Button",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "line": 128,
+            "description": "call behaviours onOver function",
+            "itemtype": "method",
+            "name": "onDown",
+            "class": "Entity.Button",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\button.js",
+            "line": 145,
+            "description": "call behaviours onOver function",
+            "itemtype": "method",
+            "name": "onDown",
+            "class": "Entity.Button",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\sprite.js",
+            "line": 28,
+            "description": "Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.",
+            "itemtype": "property",
+            "name": "hidden",
+            "type": "boolean",
+            "default": "false",
+            "class": "Entity.Sprite",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\sprite.js",
+            "line": 36,
+            "description": "Enable sprite to be hidden when out of the camera view.\nEach time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject\nCreate this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})",
+            "itemtype": "property",
+            "name": "outOfViewHide",
+            "type": "boolean",
+            "default": "false",
+            "class": "Entity.Sprite",
             "namespace": "Entity"
         },
         {
@@ -1810,6 +1876,28 @@
                 }
             ],
             "class": "Entity.Text",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\tilesprite.js",
+            "line": 33,
+            "description": "Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.",
+            "itemtype": "property",
+            "name": "hidden",
+            "type": "boolean",
+            "default": "false",
+            "class": "Entity.TileSprite",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\tilesprite.js",
+            "line": 41,
+            "description": "Enable sprite to be hidden when out of the camera view.\nEach time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject\nCreate this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})",
+            "itemtype": "property",
+            "name": "outOfViewHide",
+            "type": "boolean",
+            "default": "false",
+            "class": "Entity.TileSprite",
             "namespace": "Entity"
         },
         {
@@ -2567,7 +2655,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 88,
+            "line": 96,
             "description": "The local x coordinate of the body",
             "itemtype": "property",
             "name": "x",
@@ -2577,7 +2665,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 107,
+            "line": 115,
             "description": "The local y coordinate of the body",
             "itemtype": "property",
             "name": "y",
@@ -2587,7 +2675,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 127,
+            "line": 135,
             "description": "The world x coordinate of the body",
             "itemtype": "property",
             "name": "worldX",
@@ -2597,7 +2685,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 149,
+            "line": 157,
             "description": "The world y coordinate of the body",
             "itemtype": "property",
             "name": "worldY",
@@ -2607,7 +2695,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 169,
+            "line": 177,
             "description": "Tells if the sprite can rotate indepently from its body",
             "itemtype": "property",
             "name": "bindRotation",
@@ -3495,7 +3583,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1049,
+            "line": 1048,
             "description": "Find a gameobject by its ID",
             "itemtype": "method",
             "name": "<static> FindByID",
@@ -3540,14 +3628,14 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 33,
+            "line": 32,
             "description": "* ASSETS **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 37,
+            "line": 36,
             "description": "Export all the level's assets.",
             "itemtype": "method",
             "name": "exportAssets",
@@ -3567,14 +3655,14 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 56,
+            "line": 55,
             "description": "* IMAGES **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 60,
+            "line": 59,
             "description": "Export all the level's images.",
             "itemtype": "method",
             "name": "exportImages",
@@ -3594,7 +3682,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 78,
+            "line": 77,
             "description": "Return the image keys of the entities and its children.",
             "itemtype": "method",
             "name": "getImages",
@@ -3619,7 +3707,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 106,
+            "line": 105,
             "description": "Export all the level's images.",
             "itemtype": "method",
             "name": "exportImages",
@@ -3639,7 +3727,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 154,
+            "line": 153,
             "description": "Export a cached image into an exportable image.",
             "itemtype": "method",
             "name": "exportImage",
@@ -3664,28 +3752,28 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 177,
+            "line": 176,
             "description": "* ATLASES **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 222,
+            "line": 220,
             "description": "* SOUNDS **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 277,
+            "line": 275,
             "description": "* BEHAVIOURS **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 281,
+            "line": 279,
             "description": "Export all the level's behaviours.",
             "itemtype": "method",
             "name": "exportBehaviours",
@@ -3710,7 +3798,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 299,
+            "line": 297,
             "description": "Return the behaviours of the entities and its children.",
             "itemtype": "method",
             "name": "getBehaviours",
@@ -3730,7 +3818,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 321,
+            "line": 319,
             "description": "Return a merge array of behaviours (no doublons).",
             "itemtype": "method",
             "name": "mergeBehaviours",
@@ -3755,7 +3843,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 354,
+            "line": 352,
             "description": "Add project path to exported behaviours.",
             "itemtype": "method",
             "name": "addPathToExportedBehaviours",
@@ -3775,14 +3863,14 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 382,
+            "line": 380,
             "description": "* OBJECTS **",
             "class": "LR.LevelExporter",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 386,
+            "line": 384,
             "description": "Export all the level's entities.",
             "itemtype": "method",
             "name": "exportEntities",
@@ -3802,7 +3890,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelexporter.js",
-            "line": 422,
+            "line": 420,
             "description": "Export all the level's entities.",
             "itemtype": "method",
             "name": "exportEntity",
@@ -3961,7 +4049,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
-            "line": 141,
+            "line": 143,
             "description": "Override this method to do something between the entities importation and\nthe promise",
             "itemtype": "method",
             "name": "doAfterImportEntitiesAndBeforePromise",
@@ -3982,7 +4070,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
-            "line": 153,
+            "line": 155,
             "description": "Import an entity",
             "itemtype": "method",
             "name": "importEntity",
@@ -4045,7 +4133,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 7,
+            "line": 18,
             "description": "Remove an object from the specified array and return it",
             "itemtype": "method",
             "name": "removeFromArray",
@@ -4064,12 +4152,12 @@
             "return": {
                 "description": "null if not found"
             },
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 35,
+            "line": 46,
             "description": "Converts from degrees to radians.",
             "itemtype": "method",
             "name": "toRadians",
@@ -4080,12 +4168,12 @@
                     "type": "Number"
                 }
             ],
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 45,
+            "line": 56,
             "description": "Converts from radians to degrees.",
             "itemtype": "method",
             "name": "toDegrees",
@@ -4096,19 +4184,19 @@
                     "type": "Number"
                 }
             ],
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 55,
+            "line": 66,
             "description": "Rotates a point with the given angle (in degrees)",
             "itemtype": "method",
             "name": "rotatePoint",
             "params": [
                 {
                     "name": "point",
-                    "description": "",
+                    "description": "If null, default value is (1,0)",
                     "type": "Phaser.Point"
                 },
                 {
@@ -4120,12 +4208,12 @@
             "return": {
                 "description": "Phaser.Point"
             },
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 71,
+            "line": 83,
             "description": "Rotates a point with the given angle (in degrees) around the specified anchor point",
             "itemtype": "method",
             "name": "rotatePointAround",
@@ -4149,12 +4237,12 @@
             "return": {
                 "description": "Phaser.Point"
             },
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 94,
+            "line": 106,
             "description": "Compute angle between two points / vectors",
             "itemtype": "method",
             "name": "angle",
@@ -4170,20 +4258,20 @@
                     "type": "Phaser.Point"
                 }
             ],
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 110,
+            "line": 122,
             "description": "This function returns the object's property defined by a complex string\nie : if string = \"body.x\"\nthe object value will be the body property of the object\nIf a property is not found, the object is returned as itself\nexample of returned object :\n{ object : instanceof P2.Body , property : \"x\"}\nyou can then access your property : object[property]",
-            "class": "LR.LR",
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 140,
-            "description": "Returns an object containing the sides of the shapes \nproperties of the object : left, right, top, bottom",
+            "line": 152,
+            "description": "Returns an object containing the sides of the shapes \nproperties of the object : left, right, top, bottom \nin the world coordinates",
             "itemtype": "method",
             "name": "getRectShapeSides",
             "params": [
@@ -4198,7 +4286,59 @@
                     "type": "P2.Shape"
                 }
             ],
-            "class": "LR.LR",
+            "class": "LR.Utils",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 181,
+            "description": "Returns true if the sprite is visible by the camera",
+            "itemtype": "method",
+            "name": "isSpriteInCameraView",
+            "params": [
+                {
+                    "name": "sprite",
+                    "description": "The sprite",
+                    "type": "LR.Entity.Sprite"
+                },
+                {
+                    "name": "camera",
+                    "description": "The active camera",
+                    "type": "Camera"
+                }
+            ],
+            "class": "LR.Utils",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 201,
+            "description": "Returns the side of the collision between two gameobject with a rectangle shape",
+            "itemtype": "method",
+            "name": "getRectCollisionSide",
+            "params": [
+                {
+                    "name": "gameobject1",
+                    "description": "The first gameobject",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "shape1",
+                    "description": "The first rectangle shape",
+                    "type": "Shape"
+                },
+                {
+                    "name": "gameobject2",
+                    "description": "The first gameobject",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "shape2",
+                    "description": "The first rectangle shape",
+                    "type": "Shape"
+                }
+            ],
+            "class": "LR.Utils",
             "namespace": "LR"
         },
         {
@@ -4287,71 +4427,71 @@
         },
         {
             "message": "replacing incorrect tag: parma with param",
-            "line": " app\\shared\\js\\dev\\phaser\\utils.js:140"
+            "line": " app\\shared\\js\\dev\\phaser\\utils.js:152"
         },
         {
             "message": "Missing item type\n* PROJECT **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:130"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:134"
         },
         {
             "message": "Missing item type\n* IMAGES **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:181"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:185"
         },
         {
             "message": "Missing item type\n* AUDIOS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:268"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:272"
         },
         {
             "message": "Missing item type\n* LAYERS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:301"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:305"
         },
         {
             "message": "Missing item type\n* BEHAVIOURS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:349"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:353"
         },
         {
             "message": "Missing item type\n* PREFABS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:383"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:387"
         },
         {
             "message": "Missing item type\n* FONTS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:422"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:426"
         },
         {
             "message": "Missing item type\n* LEVELS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:439"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:443"
         },
         {
             "message": "Missing item type\n* INPUTS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:473"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:477"
         },
         {
             "message": "Missing item type\n* ADDING ENTITIES **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:518"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:522"
         },
         {
             "message": "Missing item type\n* LEVEL IMPORTER **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:546"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:550"
         },
         {
             "message": "Missing item type\n* LEVEL EXPORTER **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:567"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:580"
         },
         {
             "message": "Missing item type\n* LEVEL DEFAULT **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:588"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:601"
         },
         {
             "message": "Missing item type\n* SETTINGS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:609"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:622"
         },
         {
             "message": "Missing item type\n* CUTSCENE EDITOR **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:628"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:641"
         },
         {
             "message": "Missing item type\n******  HELP *******",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:662"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:675"
         },
         {
             "message": "Missing item type\nCalled when an action of the current event has finished",
@@ -4387,27 +4527,27 @@
         },
         {
             "message": "Missing item type\n* ASSETS **",
-            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:33"
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:32"
         },
         {
             "message": "Missing item type\n* IMAGES **",
-            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:56"
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:55"
         },
         {
             "message": "Missing item type\n* ATLASES **",
-            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:177"
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:176"
         },
         {
             "message": "Missing item type\n* SOUNDS **",
-            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:222"
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:220"
         },
         {
             "message": "Missing item type\n* BEHAVIOURS **",
-            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:277"
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:275"
         },
         {
             "message": "Missing item type\n* OBJECTS **",
-            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:382"
+            "line": " app\\shared\\js\\dev\\phaser\\levelexporter.js:380"
         },
         {
             "message": "Missing item type\n* ASSETS **",
@@ -4423,7 +4563,7 @@
         },
         {
             "message": "Missing item type\nThis function returns the object's property defined by a complex string\nie : if string = \"body.x\"\nthe object value will be the body property of the object\nIf a property is not found, the object is returned as itself\nexample of returned object :\n{ object : instanceof P2.Body , property : \"x\"}\nyou can then access your property : object[property]",
-            "line": " app\\shared\\js\\dev\\phaser\\utils.js:110"
+            "line": " app\\shared\\js\\dev\\phaser\\utils.js:122"
         }
     ]
 }

@@ -16,7 +16,7 @@ var ImagesCtrlModal = function ($scope, $modalInstance, $timeout) {
   $scope.containsSearchWord = function(_imageName,_searchWord){
     if( _searchWord == null || _searchWord == "" )
       return true;
-    if( _imageName.indexOf(_searchWord) > 0)
+    if( _imageName.indexOf(_searchWord) >= 0)
       return true;
     return false;
   }

@@ -24,6 +24,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "LR.LevelImporterGame",
         "LR.LevelUtilities",
         "LR.State",
+        "LR.Utils",
         "Misc.TriggerMessageObject",
         "Phaser.Plugin..Pollinator",
         "Phaser.Plugin.CutsceneManager",

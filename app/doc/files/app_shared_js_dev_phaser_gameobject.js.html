@@ -61,6 +61,7 @@
                                 <li><a href="../classes/LR.LevelUtilities.html">LR.LevelUtilities</a></li>
                                 <li><a href="../classes/LR.LR.html">LR.LR</a></li>
                                 <li><a href="../classes/LR.State.html">LR.State</a></li>
+                                <li><a href="../classes/LR.Utils.html">LR.Utils</a></li>
                                 <li><a href="../classes/Misc.TriggerMessageObject.html">Misc.TriggerMessageObject</a></li>
                                 <li><a href="../classes/Phaser.Plugin..Pollinator.html">Phaser.Plugin..Pollinator</a></li>
                                 <li><a href="../classes/Phaser.Plugin.CutsceneManager.html">Phaser.Plugin.CutsceneManager</a></li>
@@ -1051,7 +1052,7 @@
                         		//console.log(tweenData);
                         		if( tweenData.repeat &lt; 0)
                         			tweenData.repeat = Number.MAX_VALUE;
-                            	createdTween.to(newProp, tweenData.duration, null, true,tweenData.delay, 
+                            	createdTween.to(newProp, tweenData.duration, Phaser.Easing.Default, true,tweenData.delay, 
                             					tweenData.repeat+(tweenData.yoyo?1:0), tweenData.yoyo);
                             	//keep reference
                             	tweensObject[key] = createdTween;
@@ -1145,12 +1146,11 @@
                         			var i = 0;
                         			while (i &lt; _root.children.length &amp;&amp; gameobject == null) {
                         				var child = _root.children[i];
-                        				if (LR.GameObject.FindByName(child, _name)) {
-                        					gameobject = child;
-                        				}
-                        
+                        				var go = LR.GameObject.FindByName(child, _name);
+                        				if(go)
+                        					gameobject = go;
                         				i++;
-                        			};
+                        			}
                         		}
                         	}
                         	return gameobject;

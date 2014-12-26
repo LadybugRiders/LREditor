@@ -121,6 +121,7 @@ LR.LevelImporter.prototype.importEntities = function(_object, _game) {
 		entity.setBounds(0, 0, _object.width, _object.height);
 	} else {
 		entity = this.importEntity(_object, _game);
+		entity.updateTransform();
 	}
 
 	if (_object.children != null) {
@@ -131,6 +132,7 @@ LR.LevelImporter.prototype.importEntities = function(_object, _game) {
 				console.log("Parent is null");
 			}else if (cChild) {
 				entity.add(cChild);
+				cChild.updateTransform();
 			}
 		};
 	}

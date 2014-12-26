@@ -27,6 +27,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			$scope.openEditModal(_args.context,_args.varName,_args.isLong);
 		});
 
+		$scope.$on("openPrefabsModalBroadcast", function(_event, _args) {
+			$scope.managePrefabs();
+		});
+
 		$scope.$on("sendCutscenesBroadcast", function(_event, _args) {
 			$scope.setCutscenes(_args.cutscenes);
 		});
@@ -37,13 +41,12 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		//Receive settings from phaser when importing
 		$scope.$on("sendSettingsBroadcast", function(_event, _args) {
-			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
+			$scope.project.settings = jQuery.extend(true, {}, _args);
 			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
 		});
 		//When settings are modified in the modal
 		$scope.$on("saveSettingsBroadcast", function(_event, _args) {
-			$scope.modalSettingsSave = jQuery.extend(true, {}, _args);
-			$scope.modalSettingsData = jQuery.extend(true, {}, _args);
+			$scope.project.settings = jQuery.extend(true, {}, _args);
 		});
 
 		// tmp object (for modals for example)
@@ -69,6 +72,13 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.project.assets.bitmapFonts = new Array();
 		$scope.project.assets.atlases = new Array();
 
+		$scope.project.settings = {
+			world :{},
+			camera : { x:0,y:0,width : 640, height : 340},
+			ed_camera :{x : 0, y : 0},
+			debugBodiesInGame : false
+		};
+
 		//modal data for cutscenes edition
 		$scope.modalCSData = {
 			state : "none",
@@ -82,12 +92,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			context : null,
 			varName : "",
 			isLong : false
-		};
-
-		$scope.modalSettingsData = {
-			world :{},
-			camera : {},
-			debugBodiesInGame : false
 		};
 
 		$scope.modalLayersData = { layers : {} };
@@ -546,6 +550,15 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	/*******************
 	** LEVEL IMPORTER **
 	*******************/
+	//Save the current Level
+	$scope.levelSave = function() {
+		var data = {
+	      levelName: $scope.project.level.substring(1),
+	      levelPath: $scope.project.path + "/assets/levels",
+	      levelStorage: "file"
+	    };
+		$scope.$emit("exportLevelEmit", data);
+	};
 
 	$scope.levelImport = function() {
 		var modalInstance = $modal.open({

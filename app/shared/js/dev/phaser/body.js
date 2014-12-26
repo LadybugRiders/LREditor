@@ -58,11 +58,11 @@ LR.Body.prototype.postUpdate = function () {
 	this.worldPosition.y = worldPos.y + this.localPosition.y + this.localRotationOffset.y;
 
 	//affect P2 body world position
-	this.data.position[0] = this.game.physics.p2.pxmi(this.worldPosition.x);			
-	this.data.position[1] = this.game.physics.p2.pxmi(this.worldPosition.y);
+	this.data.position[0] = this.world.pxmi(this.worldPosition.x);			
+	this.data.position[1] = this.world.pxmi(this.worldPosition.y);
 	
-	//Reposition Sprite
-    this.sprite.x = this.localPosition.x
+    //Reposition Sprite
+    this.sprite.x = this.localPosition.x;
     this.sprite.y = this.localPosition.y;
 
  	//Keep last world position (pixels)
@@ -76,13 +76,21 @@ LR.Body.prototype.postUpdate = function () {
         this.sprite.rotation = this.data.angle + this._offsetRotation;
     }
 
+    if (this.static == true)
+        this.data.updateAABB();
+
 }
 
 // Called when the scene is launching. All objects are created then.
-LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {		
+LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {    		
+
 	this.lastParentPos = new Phaser.Point(_group.x,_group.y);
 	this.localPosition = new Phaser.Point(_sprite.x,_sprite.y);
 	this.lastPosition = new Phaser.Point(_sprite.x,_sprite.y);
+
+    this.postUpdate();
+    _group.updateTransform();
+    this.data.updateAABB();
 };
 
 /**
