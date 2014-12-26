@@ -55,8 +55,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		// project data
 		$scope.project = {
 			name: "Project",
-      path: "/game",
-      file: "project.json"
+		    path: "/game",
+		    file: "project.json"
 		};
 
 		// project assets

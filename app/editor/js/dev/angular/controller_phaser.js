@@ -193,6 +193,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
 
+		// import default level if set
 		$timeout(function() {
 			if (localStorage) {
 				var newLevel = localStorage.getItem("project.newLevel");
@@ -200,16 +201,17 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
       				localStorage.setItem("project.newLevel", false);
 					return;
 				}
+
 				//if we are importing a level
 				var levelImport = localStorage.getItem("project.levelImport");
-      			if( levelImport != "null"){
+      			if (levelImport != "null") {
       				localStorage.setItem("project.levelImport", null);
       				localStorage.setItem("project.levelDefault", levelImport);
-      			}else{
+      			} else {
 					//if we are just launching the editor, check default;
 					levelImport = localStorage.getItem("project.levelDefault");      				
       			}
-				if (levelImport) {
+				if (levelImport !== null && levelImport !== "null") {
 					$scope.project.level = levelImport;
 					var levelPath = $scope.project.path + "/assets/levels";
 					$scope.import(levelPath, levelImport, "file", function(err) {
@@ -675,7 +677,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				$scope.importSettings(_data.settings);
 
 				//cutscenes should be imported now
-				$scope.$emit("sendCutscenesEmit",{"cutscenes":$scope.cutscenes});
+				$scope.$emit("sendCutscenesEmit", {"cutscenes":$scope.cutscenes});
 			}).error(function(_error) {
 				console.error(_error);
 			});
