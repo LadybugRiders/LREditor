@@ -117,21 +117,23 @@ Object.defineProperty(LR.Entity.BitmapText.prototype, "text",
     	},
 
 	    set: function(value) {
-	    	var _stringValue = value.toString();
-	    	//check padding for number values
-			if( typeof value == "number" && this.numberPadding > 0){
-				_stringValue = this.pad( value, this.numberPadding );
-			}
+	    	if (value) {
+		    	var _stringValue = value.toString();
+		    	//check padding for number values
+				if( typeof value == "number" && this.numberPadding > 0){
+					_stringValue = this.pad( value, this.numberPadding );
+				}
 
-			if( this.maxCharPerLine > 0)
-				_stringValue = this.wrapText(_stringValue);
+				if( this.maxCharPerLine > 0)
+					_stringValue = this.wrapText(_stringValue);
 
-	        if (_stringValue !== this._text)
-	        {
-	            this._text = this.prefix + ( _stringValue || ' ' ) + this.suffix ;
-	            this.dirty = true;
-	            this.updateTransform();
-	        }
+		        if (_stringValue !== this._text)
+		        {
+		            this._text = this.prefix + ( _stringValue || ' ' ) + this.suffix ;
+		            this.dirty = true;
+		            this.updateTransform();
+		        }
+		    }
 		}
 	}
 ); 
