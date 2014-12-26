@@ -79,6 +79,11 @@ LR.Body.prototype.postUpdate = function () {
     if (this.static == true)
         this.data.updateAABB();
 
+    if( this.debugBody){
+        this.debugBody.x = this.worldPosition.x;
+        this.debugBody.y = this.worldPosition.y;
+    }
+
 }
 
 // Called when the scene is launching. All objects are created then.
