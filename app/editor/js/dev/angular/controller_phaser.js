@@ -398,8 +398,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.addBitmapText = function() {
-		if($scope.project.assets.bitmapFonts.length <= 0)
+		if($scope.project.assets.bitmapFonts.length <= 0) {
+			window.alert("Error while creating BitmapText Entity: No BitmapFont \"founds\" in fonts folder. Try to add a BitmapFont please.");
 			return;
+		}
 		var text = new LR.Entity.BitmapText($scope.game, 
 										$scope.game.camera.view.centerX, /* x */
 										$scope.game.camera.view.centerY, /* y */

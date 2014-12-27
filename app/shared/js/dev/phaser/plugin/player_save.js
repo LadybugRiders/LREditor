@@ -116,7 +116,7 @@ Phaser.Plugin.PlayerSave.prototype.createLevelSave = function(_levelName){
 */
 Phaser.Plugin.PlayerSave.prototype.getLevelSave = function(_levelName){
 	if(_levelName == null)
-		_levelName = this.game.state.getCurrentState().levelName
+		_levelName = this.game.state.getCurrentState().levelName;
 	var levelData = this.tempData.levels[ _levelName ];
 	return levelData;
 }
