@@ -44,6 +44,7 @@ LR.Editor.LevelImporterEditor.prototype.importImages = function(_images, _loader
 		);
 
 		var projectImage = this.getProjectImageByName(imgData.name);
+
 		if (projectImage) {
 			projectImage.frameWidth = imgData.frameWidth;
 			projectImage.frameHeight = imgData.frameHeight;
@@ -62,7 +63,8 @@ LR.Editor.LevelImporterEditor.prototype.getProjectImageByName = function(_name) 
 	var i = 0;
 	var found = false;
 	while (i<projectImages.length && found == false) {
-		var img = projectImages[i];
+		var img = projectImages[i];$
+		
 		if (img.name == _name) {
 			projectImage = img;
 			found = true;
