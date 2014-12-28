@@ -104,6 +104,7 @@ LR.Behaviour.Trigger.prototype.create = function(_data){
 LR.Behaviour.Trigger.prototype.onBeginContact = function(_otherBody, _myShape, _otherShape, _equation){
 	if( _otherBody == null )
 		return;
+	console.log("jskljgd");
 	//check if a limit has been declared
 	if( this.activeCountLimit > 0 && this.activeCount >= this.activeCountLimit ){
 		return;

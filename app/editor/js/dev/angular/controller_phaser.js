@@ -229,8 +229,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			cameraFollow($scope);
 		}
 
-		$scope.xMouseText.text = "x:" + $scope.game.input.x;
-		$scope.yMouseText.text = "y:" + $scope.game.input.y;
+		$scope.xMouseText.text = "x:" + $scope.game.input.mousePointer.worldX;
+		$scope.yMouseText.text = "y:" + $scope.game.input.mousePointer.worldY;
 	};
 
 	$scope.render = function() {
