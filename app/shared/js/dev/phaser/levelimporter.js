@@ -47,8 +47,17 @@ LR.LevelImporter.prototype.import = function(_level, _game, _promise) {
 * @param {Phaser.Loader} loader The loader used to import assets
 */
 LR.LevelImporter.prototype.importAssets = function(_assets, _loader) {
-	this.importImages(_assets.images, _loader);
-	this.importAtlases(_assets.atlases,_loader);
+	if (_assets)
+	{
+		if (_assets.images) {
+			this.importImages(_assets.images, _loader);
+		}
+
+		if (_assets.atlases) {
+			this.importAtlases(_assets.atlases, _loader);
+		}
+	}
+	
 };
 
 /***********
@@ -96,14 +105,20 @@ LR.LevelImporter.prototype.importAtlases = function(_atlases, _loader) {
 * @return the root of all entities
 */
 LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _promise) {
-	var root = this.importEntities(_objects, _game);
+	var error = null;
+	var root = null;
 
-	this.doAfterImportEntitiesAndBeforePromise(_objects, _game);
+	if (_objects) {
+		this.importEntities(_objects, _game);
+
+		this.doAfterImportEntitiesAndBeforePromise(_objects, _game);
+	} else {
+		error = "No entity to import.";
+	}
 	
 	if (typeof _promise === "function") {
-		_promise(root, _game);
+		_promise(error, root);
 	}
-
 };
 
 /**
