@@ -30,6 +30,7 @@ LR.Game = function(_containerId, _width, _height, _scaleMode, _debug) {
 	*/
 	this.collisionManager = null;
 
+	this.scaleMode = _scaleMode;
 	this.debug = _debug;
 
 	var renderType = Phaser.AUTO;
@@ -51,6 +52,10 @@ LR.Game.prototype = Object.create(Phaser.Game.prototype);
 LR.Game.prototype.constructor = LR.Game;
 
 LR.Game.prototype.preload = function() {
+	this.scale.scaleMode = this.scaleMode;
+	this.scale.pageAlignVertically = true;
+	this.scale.pageAlignHorizontally = true;
+
 	// load layers from json file
 	this.game.load.json("layersData", "assets/physics/layers.json", true);
 	// load inputs from json file
