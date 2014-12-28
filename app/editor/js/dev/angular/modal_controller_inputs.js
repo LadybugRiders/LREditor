@@ -8,7 +8,6 @@ var InputsCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.buildKeys();
     //copy data of input
     $scope.modalInputsData.inputs = jQuery.extend(true, {}, $scope.project.assets.inputs );
-    console.log($scope.modalInputsData.inputs);
     //convert keys values to keys ids ie 32 => "SPACEBAR"
     for(var actionName in $scope.modalInputsData.inputs){
       var keyData = $scope.modalInputsData.inputs[actionName];

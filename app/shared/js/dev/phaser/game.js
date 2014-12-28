@@ -56,7 +56,7 @@ LR.Game.prototype.preload = function() {
 	// load inputs from json file
 	this.game.load.json("inputsData", "assets/inputs/inputs.json", true);
 	//load save
-	this.game.load.json("saveData","assets/save/playersave.json",true);
+	this.game.load.json("saveData", "assets/save/playersave.json", true);
 };
 
 LR.Game.prototype.create = function() {
