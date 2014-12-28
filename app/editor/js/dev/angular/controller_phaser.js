@@ -215,8 +215,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 					$scope.project.level = levelImport;
 					var levelPath = $scope.project.path + "/assets/levels";
 					$scope.import(levelPath, levelImport, "file", function(err) {
-						if (err == null) {
-							$scope.$apply();
+						if (err) {
+							console.warn(err);
 						}
 					});
 				}
@@ -666,8 +666,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	$scope.import = function(_levelPath, _levelName, _storage, _promise) {
 		if (_storage === "file") {
 			var url = "/editorserverapi/v0/level";
-			url += "?name=" + _levelName + ".json";
-			url += "&path=" + _levelPath;
+			url += _levelName;
+			url += "?path=" + _levelPath;
 			$http.get(url).success(function(_data) {
 				var importer = new LR.Editor.LevelImporterEditor($scope);
 				importer.import(_data, $scope.game, function(err, data) {

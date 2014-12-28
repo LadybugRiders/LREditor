@@ -32,7 +32,6 @@ LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promis
 * @param {Phaser.Loader} loader The loader used to import images
 */
 LR.Editor.LevelImporterEditor.prototype.importImages = function(_images, _loader) {
-	
 	for (var i = 0; i < _images.length; i++) {
 		var imgData = _images[i];
 
