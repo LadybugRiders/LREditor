@@ -731,7 +731,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		importer.import(_prefabData, $scope.game, $scope.onPrefabLoaded);
 	};
 
-	$scope.onPrefabLoaded = function(_rootEntity,_game){
+	$scope.onPrefabLoaded = function(_error,_rootEntity,_game){
+		if(_rootEntity == null){
+			console.warn("Prefab not rightly loaded");
+			return;
+		}
 		//store references in behaviours params
 		//IDs will change so we need to keep them
 		var linkedObjects = $scope.storeBehavioursParamsReferences(_rootEntity,new Object(),_rootEntity);
