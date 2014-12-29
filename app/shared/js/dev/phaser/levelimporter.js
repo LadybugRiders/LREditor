@@ -110,7 +110,6 @@ LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _prom
 
 	if (_objects) {
 		root = this.importEntities(_objects, _game);
-		console.log(root);
 		this.doAfterImportEntitiesAndBeforePromise(_objects, _game);
 	} else {
 		error = "No entity to import.";
