@@ -203,6 +203,8 @@ LR.LevelImporterGame.prototype.setBehaviours = function(_objectData, _entity) {
 						var bhInstance = _entity.go.addBehaviour(new Class(_entity.go));
 						//keep args for the create() of behaviours, done later
 						bhInstance.args_create = bhData.params;
+						if(bhData.enabled != null)
+							bhInstance.enabled = bhData.enabled;
 					} else {
 						console.error(
 							"LR.LevelImporterGame - Unkown behaviour: " + behaviourClass);

@@ -102,6 +102,23 @@ LR.Behaviour.prototype.start = function() {
 LR.Behaviour.prototype.destroy = function(){
 
 }
+/**
+* Enable the behaviour
+*
+* @method enable
+*/
+LR.Behaviour.prototype.enable = function(){
+	this.enabled = true;
+}
+
+/**
+* Disable the behaviour. A disabled behaviour won't have his update function called anymore
+*
+* @method disable
+*/
+LR.Behaviour.prototype.disable = function(){
+	this.enabled = false;
+}
 
 /**
 * Called when a body collision just begins
@@ -150,9 +167,6 @@ LR.Behaviour.prototype.onBeginCutscene = function(){
 *
 * @method onEndCutscene
 */
-LR.Behaviour.prototype.onBeginCutscene = function(){
-
-}
 LR.Behaviour.prototype.onEndCutscene = function(){
 	
 }

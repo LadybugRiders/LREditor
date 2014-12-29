@@ -257,8 +257,13 @@ LR.Editor.LevelImporterEditor.prototype.setPhysics = function(_objectData, _enti
 };
 
 LR.Editor.LevelImporterEditor.prototype.setBehaviours = function(_objectData, _entity) {
+	if(_objectData.behaviours != null ){
+		for(var i=0; i < _objectData.behaviours.length; i++){
+			if(_objectData.behaviours[i].enabled == null)
+				_objectData.behaviours[i].enabled = true;
+		}
+	}
 	LR.LevelImporter.prototype.setBehaviours.call(this, _objectData, _entity);
-	
 	//add input behaviour on sprites /text
 	if (_entity.type != Phaser.GROUP) {
 		_entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
