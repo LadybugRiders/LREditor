@@ -666,6 +666,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.resetShape = function(_index){
 		if( $scope.currentEntity && $scope.currentEntity.body ){
+			//phaser P2 bodies dont work with scales < 0
+			var oldScale = new Phaser.Point($scope.currentEntity.scale.x,$scope.currentEntity.scale.y);
+			$scope.currentEntity.scale.set(1);
 			var dataShape = { 
 						"x" : 0, "y" : 0, 
 						"width" : $scope.currentEntity.width, "height" : $scope.currentEntity.height,
@@ -673,6 +676,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 						};
 			var shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, dataShape )		
 			shape.sensor = true;
+			$scope.currentEntity.scale = oldScale;
 			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}
 	}

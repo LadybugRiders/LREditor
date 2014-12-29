@@ -231,8 +231,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			cameraFollow($scope);
 		}
 
-		$scope.xMouseText.text = "x:" + $scope.game.input.mousePointer.worldX;
-		$scope.yMouseText.text = "y:" + $scope.game.input.mousePointer.worldY;
+		$scope.xMouseText.text = "x:" + Math.round($scope.game.input.mousePointer.worldX);
+		$scope.yMouseText.text = "y:" + Math.round($scope.game.input.mousePointer.worldY);
 	};
 
 	$scope.render = function() {
@@ -812,7 +812,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	    });
 	}
 
-	$scope.onRevertedPrefabLoaded = function(_rootEntity,_game){
+	$scope.onRevertedPrefabLoaded = function(_error,_rootEntity,_game){
 		//keep position
 		var oldPos = {x:$scope.currentRevertedPrefab.x,y:$scope.currentRevertedPrefab.y};
 		//Set new entity's parent
