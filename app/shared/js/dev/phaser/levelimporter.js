@@ -345,7 +345,7 @@ LR.LevelImporter.prototype.setPhysics = function(_objectData, _entity) {
 		var shapeData = _objectData.body.shapes[i];
 		//this will replace a shape or replace the current one
 		var newShape = null;
-		if(shapeData.type == "rectangle"){
+		if(shapeData.type == "rectangle" || shapeData.type == null){
 			newShape = _entity.go.replaceShapeByRectangle(i, shapeData);	
 		}else if(shapeData.type == "circle"){
 			newShape = _entity.go.replaceShapeByCircle(i, shapeData);	
