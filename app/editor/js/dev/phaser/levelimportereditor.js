@@ -253,6 +253,7 @@ LR.Editor.LevelImporterEditor.prototype.setPhysics = function(_objectData, _enti
 	for(var i=0; i < _entity.go.getShapesCount(); i++){
 		var shape = _entity.go.getShape(i);
 		shape.ed_sensor = _objectData.body.shapes[i].sensor;
+		shape.ed_type = LR.Utils.getShapeType(shape);
 	}
 };
 

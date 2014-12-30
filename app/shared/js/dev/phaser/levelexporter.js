@@ -594,14 +594,8 @@ LR.LevelExporter.prototype.setPhysics = function(_entity, _object) {
 	for(var i=0; i < _entity.go.getShapesCount(); i++){
 		var data = _entity.go.getShapeData(i);
 		var shape = _entity.go.getShape(i);
-		_object.body.shapes.push( { 
-			"x" : data.x , "y" : data.y, 
-			"width" : data.width, "height" : data.height,
-			"rotation" : data.rotation,
-			"name": shape.lr_name, "id":i,
-			"sensor": shape.ed_sensor
-			} 
-		);
+		data.sensor = shape.ed_sensor;
+		_object.body.shapes.push( data );
 	}
 
 	return _object;

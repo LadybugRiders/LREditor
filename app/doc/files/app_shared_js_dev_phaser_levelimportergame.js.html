@@ -314,6 +314,8 @@
                         						var bhInstance = _entity.go.addBehaviour(new Class(_entity.go));
                         						//keep args for the create() of behaviours, done later
                         						bhInstance.args_create = bhData.params;
+                        						if(bhData.enabled != null)
+                        							bhInstance.enabled = bhData.enabled;
                         					} else {
                         						console.error(
                         							&quot;LR.LevelImporterGame - Unkown behaviour: &quot; + behaviourClass);

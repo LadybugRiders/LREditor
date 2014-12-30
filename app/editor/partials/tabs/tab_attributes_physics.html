@@ -94,6 +94,11 @@
 				</div>
 				<!-- EDIT A SHAPE -->
 				<div class="form-group">
+					<select ng-model="currentEntity.go.getShape(shape.id).ed_type" 
+							ng-options="type as type for type in ['rectangle','circle']"
+							ng-change="resetShape(shape.id)" 
+							class="form-control">
+					</select>
 					<!-- Sensor -->		
 					<label>
 					Is Sensor <input type="checkbox" ng-model="currentEntity.go.getShape(shape.id).ed_sensor" />
@@ -107,11 +112,18 @@
 								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>
 					</div>
 
-					<div class="row">
+					<!-- rectangle size -->
+					<div ng-show="currentEntity.go.getShape(shape.id).ed_type=='rectangle'" class="row">
 						<label class="col-md-4">Size</label>
 						<input type="number" ng-model="data.body.shapes[shape.id].width" 
 								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>
 						<input type="number" ng-model="data.body.shapes[shape.id].height" 
+								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>	
+					</div>
+					<!-- circle size -->
+					<div ng-show="currentEntity.go.getShape(shape.id).ed_type=='circle'" class="row">
+						<label class="col-md-4">Radius</label>
+						<input type="number" ng-model="data.body.shapes[shape.id].radius" 
 								ng-change="resizeShape(shape.id)" class="col-md-4" integer/>	
 					</div>
 

@@ -200,12 +200,15 @@ LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
 
 /**
 * Returns the side of the collision between two gameobject with a rectangle shape
+* returned data can be compared with :
+* LR.Utils.RIGHT | LR.Utils.LEFT | LR.Utils.TOP | LR.Utils.BOTTOM 
 *
 * @method getRectCollisionSide
 * @param {LR.GameObject} gameobject1 The first gameobject
 * @param {Shape} shape1 The first rectangle shape
 * @param {LR.GameObject} gameobject2 The first gameobject
 * @param {Shape} shape2 The first rectangle shape
+* @return integer
 */
 LR.Utils.getRectCollisionSide = function(_go1,_rect1,_go2,_rect2){
 
@@ -239,4 +242,12 @@ LR.Utils.getRectCollisionSide = function(_go1,_rect1,_go2,_rect2){
         }
     }
 	return -1;
+}
+
+LR.Utils.getShapeType = function(_shape){
+	switch(_shape.type){
+		case 32 : return "rectangle";
+		case 1 : return "circle";
+	}
+	return "";
 }

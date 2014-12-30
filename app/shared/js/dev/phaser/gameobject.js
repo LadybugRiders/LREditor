@@ -528,7 +528,12 @@ LR.GameObject.prototype.sendMessage = function(_functionName, _messageObject){
 //============================================================
 //						SHAPES
 //============================================================
-
+/**
+* Returns the number of shapes attached to the body
+*
+* @method getShapesCount
+* @return integer
+*/
 LR.GameObject.prototype.getShapesCount = function(){
 	if( this.body == null )
 		return 0;
@@ -540,6 +545,7 @@ LR.GameObject.prototype.getShapesCount = function(){
 *
 * @method getShape
 * @param {number} shapeIndex
+* @return P2.Shape
 */
 LR.GameObject.prototype.getShape = function(_shapeIndex){
 	if( _shapeIndex == null )
@@ -558,6 +564,7 @@ LR.GameObject.prototype.getShape = function(_shapeIndex){
 *
 * @method getShapeByName
 * @param {number} shapeName The name of the researched shape
+* @return P2.Shape
 */
 LR.GameObject.prototype.getShapeByName = function(_shapeName){
 	for(var i=0; i < this.getShapesCount(); i++ ){
@@ -622,11 +629,16 @@ LR.GameObject.prototype.getShapeData = function(_shapeIndex){
 	if( shape ){
 		data.x = this.game.physics.p2.mpxi( this.body.data.shapeOffsets[_shapeIndex][0] );
 		data.y = this.game.physics.p2.mpxi( this.body.data.shapeOffsets[_shapeIndex][1] );
-		data.width = this.game.physics.p2.mpx( shape.width );
-		data.height = this.game.physics.p2.mpx( shape.height ); 
+		if(LR.Utils.getShapeType(shape) == "rectangle"){
+			data.width = this.game.physics.p2.mpx( shape.width );
+			data.height = this.game.physics.p2.mpx( shape.height ); 
+		}else if(LR.Utils.getShapeType(shape) == "circle"){
+			data.radius = this.game.physics.p2.mpx(shape.radius);
+		}
 		data.rotation = LR.Utils.toDegrees( this.game.physics.p2.mpx( this.body.data.shapeAngles[_shapeIndex] ) );
 		data.sensor = shape.sensor;
 		data.name = shape.lr_name;
+		data.type = LR.Utils.getShapeType(shape);
 	}
 	return data;
 }
@@ -638,6 +650,7 @@ LR.GameObject.prototype.getShapeData = function(_shapeIndex){
 * @method replaceShapeByRectangle
 * @param {Number} shapeIndex
 * @param {Object} data Can contain x {Number}, y{Number}, width{Number}, height{Number}, rotation{Number}, sensor {Boolean} properties, name {String}
+* @return P2.Shape
 */
 LR.GameObject.prototype.replaceShapeByRectangle = function(_shapeIndex, _data){
 	//Make sure data is set
@@ -651,6 +664,53 @@ LR.GameObject.prototype.replaceShapeByRectangle = function(_shapeIndex, _data){
 	var newShape = new p2.Rectangle(
 					this.game.physics.p2.pxm( _data.width),
 					this.game.physics.p2.pxm( _data.height)				
+				);
+	//Check index before inserting
+	if( _shapeIndex < this.body.data.shapes.length && _shapeIndex >= 0 ){
+		//keep the former name of the shape
+		newShape.lr_name = this.body.data.shapes[_shapeIndex].lr_name;
+		//affect new shape in place of the current one
+		this.body.data.shapes[_shapeIndex] = newShape;
+		this.body.data.shapeOffsets[_shapeIndex] = [this.game.physics.p2.pxmi(_data.x), this.game.physics.p2.pxmi(_data.y)];
+		this.body.data.shapeAngles[_shapeIndex] = LR.Utils.toRadians(_data.rotation);
+	}else{
+		//if the _shapeIndex is incorrect, just add the new shape
+		this.body.data.addShape(newShape,
+								[this.game.physics.p2.pxmi(_data.x), this.game.physics.p2.pxmi(_data.y)],
+								LR.Utils.toRadians(_data.rotation));
+		if( _data.name == null ) 
+			_data.name = "shape"+ _shapeIndex;
+		newShape.lr_name = _data.name;
+	}
+	//Tells P2 to update the shapes
+	this.body.data.updateMassProperties();
+    this.body.data.updateBoundingRadius();
+    this.body.data.aabbNeedsUpdate = true;
+    //Tells Phaser.Body to update the shapes
+    this.body.shapeChanged();
+		
+	return newShape;
+}
+
+/**
+* Replaces the shape at the given index with a new Circle, creating a new shape from the data provided
+* This shape will be pushed to the end of shapes array if _shapeIndex is incorrect
+*
+* @method replaceShapeByCircle
+* @param {Number} shapeIndex
+* @param {Object} data Can contain x {Number}, y{Number}, radius{Number}, rotation{Number}, sensor {Boolean} properties, name {String}
+* @return P2.Shape
+*/
+LR.GameObject.prototype.replaceShapeByCircle = function(_shapeIndex, _data){
+	//Make sure data is set
+	if( _data.x == null ) _data.x = 0;
+	if( _data.y == null ) _data.y = 0;
+	if( _data.radius == null ) _data.radius = this.entity.radius;
+	if( _data.rotation == null ) _data.rotation = 0;
+
+	//Create the new Circle from input _data
+	var newShape = new p2.Circle(
+					this.game.physics.p2.pxm( _data.radius)				
 				);
 	//Check index before inserting
 	if( _shapeIndex < this.body.data.shapes.length && _shapeIndex >= 0 ){

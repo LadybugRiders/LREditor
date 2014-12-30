@@ -166,8 +166,8 @@
                         		// project data
                         		$scope.project = {
                         			name: &quot;Project&quot;,
-                              path: &quot;/game&quot;,
-                              file: &quot;project.json&quot;
+                        		    path: &quot;/game&quot;,
+                        		    file: &quot;project.json&quot;
                         		};
                         
                         		// project assets
@@ -340,22 +340,10 @@
                         	};
                         
                         	$scope.loadCurrentProjectAtlases = function() {
-                        		var url = &quot;/editorserverapi/v0/image&quot;;
+                        		var url = &quot;/editorserverapi/v0/atlas&quot;;
                         		url += &quot;?path=&quot; + $scope.project.path + &quot;/assets/atlases&quot;;
                         		$http.get(url).success(function(_data) {
-                        			var textures = new Array();
-                        			//clear invalid data
-                        			for(var i=0; i &lt; _data.images.length; i++){
-                        				if( _data.images[i].path.indexOf(&quot;.json&quot;) &lt; 0 ){
-                        					var index = _data.images[i].path.lastIndexOf(&quot;.&quot;);
-                        					if( index &gt; 0 ){
-                        						_data.images[i].path = _data.images[i].path.substring(0, index );
-                        					}
-                        					textures.push(_data.images[i]);
-                        				}
-                        			}
-                        
-                        			$scope.project.assets.atlases = JSON.parse( JSON.stringify(textures));
+                        			$scope.project.assets.atlases = _data.atlases;
                         
                         			$scope.$emit(&quot;sendAtlasesEmit&quot;, {atlases: $scope.project.assets.atlases});
                         		}).error(function(_error) {
@@ -504,18 +492,10 @@
                         		url += &quot;?path=&quot; + $scope.project.path + &quot;/assets/prefabs&quot;;
                         		$http.get(url).success(function(_data) {
                         			$scope.project.assets.prefabs = _data.prefabs;
-                        			//clean .old
-                        			for( var i=0; i &lt; $scope.project.assets.prefabs.length; i++ ){
-                        				var prefab = $scope.project.assets.prefabs[i];
-                        				if( prefab.name.indexOf(&quot;.old&quot;) &gt;= 0){
-                        					$scope.project.assets.prefabs.splice(i,1);
-                        				}
-                        			}
                         		}).error(function(_error) {
                         			$scope.project.assets.prefabs = new Array();
                         			console.error(_error);
                         		});
-                        
                         	};
                         
                         	$scope.managePrefabs = function() {
@@ -556,28 +536,21 @@
                         	***********/
                         
                         	$scope.loadCurrentProjectLevels = function() {
-                        		var url = &quot;/editorserverapi/v0/prefab&quot;;
+                        		var url = &quot;/editorserverapi/v0/level&quot;;
                         		url += &quot;?path=&quot; + $scope.project.path + &quot;/assets/levels&quot;;
                         		$http.get(url).success(function(_data) {
-                        			$scope.project.assets.levels = JSON.parse(JSON.stringify(_data.prefabs));
+                        			$scope.project.assets.levels = JSON.parse(JSON.stringify(_data.levels));
                         			
+                        			// get level short paths
                         			for( var i=0; i &lt; $scope.project.assets.levels.length; i++ ){
-                        				var prefab = $scope.project.assets.levels[i];
-                        				if( prefab.name.indexOf(&quot;.old&quot;) &gt;= 0){
-                        					$scope.project.assets.levels.splice(i,1);
-                        				}
-                        			}
-                        			for( var i=0; i &lt; $scope.project.assets.levels.length; i++ ){
-                        				var prefab = $scope.project.assets.levels[i];
-                        				var shortPath = prefab.path.substring(1);
+                        				var level = $scope.project.assets.levels[i];
+                        				var shortPath = level.path.substring(1);
                         				var extIndex = shortPath.indexOf(&quot;.json&quot;);
                         				if( extIndex &gt;= 0){
                         					shortPath = shortPath.substring(0,extIndex);
                         				}
-                        				prefab.shortPath = shortPath;
+                        				level.shortPath = shortPath;
                         			}
-                        
-                        			//$scope.$emit(&quot;sendBitmapFontsEmit&quot;,{bitmapFonts : $scope.project.assets.bitmapFonts});
                         		}).error(function(_error) {
                         			$scope.project.assets.levels = new Array();
                         			console.error(_error);

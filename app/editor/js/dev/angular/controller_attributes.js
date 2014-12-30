@@ -177,10 +177,15 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 					var shape = $scope.currentEntity.go.getShape(i);
 					var edDataShape = { 
 						"x" : data.x , "y" : data.y, 
-						"width" : data.width, "height" : data.height,
 						"rotation" : data.rotation,
 						"id":i
 						};
+					if(shape.ed_type == "rectangle"){
+						edDataShape.width = data.width;
+						edDataShape.height = data.height;
+					}else if(shape.ed_type == "circle"){
+						edDataShape.radius = data.radius;
+					}
 					$scope.data.body.shapes.push(edDataShape);
 				}
 				$scope.data.body.bindRotation = _entity.body.bindRotation;
@@ -588,7 +593,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			//Rescale after sprite workaround
 			$scope.currentEntity.scale.x = scale.x; $scope.currentEntity.scale.y = scale.y;
 	
-			$scope.currentEntity.go.enablePhysics();
 			$scope.currentEntity.go.enableSensor();
 			$scope.currentEntity.body.debug = true;
 
@@ -597,6 +601,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.currentEntity.body.ed_debugEditor = true;
 
 			$scope.currentEntity.go.getShape().lr_name = "mainShape";
+			$scope.currentEntity.go.getShape().ed_type = "rectangle";
 			//move group of the debug body in the editor group ( preventing from exporting it )
 			$scope.$emit("moveEntityToEditorEmit",{ entity : $scope.currentEntity.body.debugBody});
 			
@@ -632,6 +637,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 					LR.Utils.toRadians($scope.data.body.rotation)
 				);
 			newShape.sensor = true;
+			newShape.ed_type = "rectangle";
 		}
 	}
 
@@ -644,6 +650,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			newShape.mass = 0;
 			newShape.sensor = true;
 			newShape.lr_name = _name;
+			newShape.ed_type = "rectangle";
 			$scope.refreshCurrentEntity($scope.currentEntity,true);
 			$scope.shapeName = "";
 		}
@@ -651,31 +658,52 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 	$scope.resizeShape = function(_index){
 		if( $scope.currentEntity && $scope.currentEntity.body ){
-			var formerEdSensor = this.currentEntity.go.getShape(_index).ed_sensor;
-			var shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, $scope.data.body.shapes[_index] )		
+			var oldShape = this.currentEntity.go.getShape(_index);
+			var formerEdSensor = oldShape.ed_sensor;
+			var formerType = oldShape.ed_type;
+			var shape = null;
+			if( oldShape.ed_type == "rectangle" )
+				shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, $scope.data.body.shapes[_index] );		
+			else if(oldShape.ed_type == "circle")
+				shape =  $scope.currentEntity.go.replaceShapeByCircle(_index, $scope.data.body.shapes[_index] );
 			shape.sensor = true;
 			shape.ed_sensor = formerEdSensor;
+			shape.ed_type = formerType;
 
 			//Resize sprite if none
 			if( $scope.currentEntity.key == "none"){
-				$scope.currentEntity.width = $scope.data.body.shapes[0].width;
-				$scope.currentEntity.height = $scope.data.body.shapes[0].height;
+				if( oldShape.ed_type == "rectangle" ){
+					$scope.currentEntity.width = $scope.data.body.shapes[0].width;
+					$scope.currentEntity.height = $scope.data.body.shapes[0].height;
+				}else if( oldShape.ed_type == "circle"){
+					$scope.currentEntity.width = $scope.data.body.shapes[0].radius * 2;
+					$scope.currentEntity.height = $scope.data.body.shapes[0].radius * 2;
+				}
 			}
 		}
 	}
 
-	$scope.resetShape = function(_index){
+	$scope.resetShape = function(_index,_type){
 		if( $scope.currentEntity && $scope.currentEntity.body ){
 			//phaser P2 bodies dont work with scales < 0
 			var oldScale = new Phaser.Point($scope.currentEntity.scale.x,$scope.currentEntity.scale.y);
 			$scope.currentEntity.scale.set(1);
-			var dataShape = { 
-						"x" : 0, "y" : 0, 
-						"width" : $scope.currentEntity.width, "height" : $scope.currentEntity.height,
-						"rotation" : 0
-						};
-			var shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, dataShape )		
+			//get shape type
+			if(_type == null)
+				_type = $scope.currentEntity.go.getShape(_index).ed_type;
+			var dataShape = { "x" : 0, "y" : 0, "rotation": 0};
+			var shape = null;
+			if(_type == "rectangle" || _type == null){
+				dataShape.width = $scope.currentEntity.width; 
+				dataShape.height = $scope.currentEntity.height;
+				shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, dataShape );		
+			}else if( _type == "circle"){
+				dataShape.radius = $scope.currentEntity.width > $scope.currentEntity.height ? $scope.currentEntity.width*0.5:$scope.currentEntity.height*0.5;
+				shape = $scope.currentEntity.go.replaceShapeByCircle(_index, dataShape );
+			}
 			shape.sensor = true;
+			shape.ed_type = _type;
+			console.log(_type);
 			$scope.currentEntity.scale = oldScale;
 			$scope.refreshCurrentEntity($scope.currentEntity,true);
 		}

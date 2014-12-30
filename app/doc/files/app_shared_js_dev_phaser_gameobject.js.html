@@ -639,7 +639,12 @@
                         //============================================================
                         //						SHAPES
                         //============================================================
-                        
+                        /**
+                        * Returns the number of shapes attached to the body
+                        *
+                        * @method getShapesCount
+                        * @return integer
+                        */
                         LR.GameObject.prototype.getShapesCount = function(){
                         	if( this.body == null )
                         		return 0;
@@ -651,6 +656,7 @@
                         *
                         * @method getShape
                         * @param {number} shapeIndex
+                        * @return P2.Shape
                         */
                         LR.GameObject.prototype.getShape = function(_shapeIndex){
                         	if( _shapeIndex == null )
@@ -669,6 +675,7 @@
                         *
                         * @method getShapeByName
                         * @param {number} shapeName The name of the researched shape
+                        * @return P2.Shape
                         */
                         LR.GameObject.prototype.getShapeByName = function(_shapeName){
                         	for(var i=0; i &lt; this.getShapesCount(); i++ ){
@@ -738,6 +745,7 @@
                         		data.rotation = LR.Utils.toDegrees( this.game.physics.p2.mpx( this.body.data.shapeAngles[_shapeIndex] ) );
                         		data.sensor = shape.sensor;
                         		data.name = shape.lr_name;
+                        		data.type = LR.Utils.getShapeType(shape);
                         	}
                         	return data;
                         }
@@ -749,6 +757,7 @@
                         * @method replaceShapeByRectangle
                         * @param {Number} shapeIndex
                         * @param {Object} data Can contain x {Number}, y{Number}, width{Number}, height{Number}, rotation{Number}, sensor {Boolean} properties, name {String}
+                        * @return P2.Shape
                         */
                         LR.GameObject.prototype.replaceShapeByRectangle = function(_shapeIndex, _data){
                         	//Make sure data is set

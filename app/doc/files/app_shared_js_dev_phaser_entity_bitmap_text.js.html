@@ -228,21 +228,23 @@
                             	},
                         
                         	    set: function(value) {
-                        	    	var _stringValue = value.toString();
-                        	    	//check padding for number values
-                        			if( typeof value == &quot;number&quot; &amp;&amp; this.numberPadding &gt; 0){
-                        				_stringValue = this.pad( value, this.numberPadding );
-                        			}
+                        	    	if (value) {
+                        		    	var _stringValue = value.toString();
+                        		    	//check padding for number values
+                        				if( typeof value == &quot;number&quot; &amp;&amp; this.numberPadding &gt; 0){
+                        					_stringValue = this.pad( value, this.numberPadding );
+                        				}
                         
-                        			if( this.maxCharPerLine &gt; 0)
-                        				_stringValue = this.wrapText(_stringValue);
+                        				if( this.maxCharPerLine &gt; 0)
+                        					_stringValue = this.wrapText(_stringValue);
                         
-                        	        if (_stringValue !== this._text)
-                        	        {
-                        	            this._text = this.prefix + ( _stringValue || &#x27; &#x27; ) + this.suffix ;
-                        	            this.dirty = true;
-                        	            this.updateTransform();
-                        	        }
+                        		        if (_stringValue !== this._text)
+                        		        {
+                        		            this._text = this.prefix + ( _stringValue || &#x27; &#x27; ) + this.suffix ;
+                        		            this.dirty = true;
+                        		            this.updateTransform();
+                        		        }
+                        		    }
                         		}
                         	}
                         ); 

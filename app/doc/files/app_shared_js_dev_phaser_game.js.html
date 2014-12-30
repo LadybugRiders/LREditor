@@ -116,7 +116,7 @@
                         * @class Game
                         * @namespace LR
                         */
-                        LR.Game = function(_containerId,_width, _height, _scaleMode,_debug) {
+                        LR.Game = function(_containerId, _width, _height, _scaleMode, _debug) {
                         	/**
                         	* The Input Manager of LadybugRiders Engine
                         	* 
@@ -141,56 +141,8 @@
                         	*/
                         	this.collisionManager = null;
                         
-                        	var preload = function() {
-                        		// load layers from json file
-                        		this.game.load.json(&quot;layersData&quot;, &quot;assets/physics/layers.json&quot;, true);
-                        		// load inputs from json file
-                        		this.game.load.json(&quot;inputsData&quot;, &quot;assets/inputs/inputs.json&quot;, true);
-                        		//load save
-                        		this.game.load.json(&quot;saveData&quot;,&quot;assets/save/playersave.json&quot;,true);
-                        	};
-                        
-                        	var create = function() {
-                        		if(_debug)
-                        			this.game.add.plugin(Phaser.Plugin.Debug);
-                        		this.game.plugins.add(Phaser.Plugin.PlayerSave);
-                        		this.game.plugins.add(Phaser.Plugin.InputManager);
-                        		this.game.plugins.add(Phaser.Plugin.CutsceneManager);
-                        		this.game.plugins.add(Phaser.Plugin.DialogManager);
-                        
-                        		//Scale
-                        		if(this.scaleMode != null){
-                        			this.game.scale.scaleMode = this.scaleMode;
-                        			this.game.scale.setMinMax(0,0,2000,2000);
-                        			this.game.scale.refresh();
-                        		}
-                        
-                        		var stateBoot = new LR.State.StateBoot(this);
-                        		var stateLoader = new LR.State.StateLoader(this);
-                        		var stateLevel = new LR.State.StateLevel(this);
-                        
-                        		//COCOON JS needs JSON parser		
-                        		if( this.game.device.cocoonJS == true){
-                        			 window.DOMParser = DOMishParser;
-                        		}
-                        
-                        		this.state.start(&quot;Boot&quot;);
-                        	};
-                        
-                        	var update = function() {
-                        	};
-                        
-                        	var render = function() {
-                        
-                        	};
-                        
-                        	var functions = {
-                        		preload: preload,
-                        		create: create,
-                        		update: update,
-                        		render: render,
-                        		scaleMode : _scaleMode
-                        	};
+                        	this.scaleMode = _scaleMode;
+                        	this.debug = _debug;
                         
                         	var renderType = Phaser.AUTO;
                         
@@ -200,15 +152,59 @@
                         
                         	if (_width &amp;&amp; _height) {
                         		Phaser.Game.call(this, _width, _height,
-                        					 renderType, _containerId, functions);
+                        					 renderType, _containerId, this);
                         	} else {
                         		Phaser.Game.call(this, 640, 360,
-                        					 renderType, _containerId, functions);
+                        					 renderType, _containerId, this);
                         	}
                         }
                         
                         LR.Game.prototype = Object.create(Phaser.Game.prototype);
                         LR.Game.prototype.constructor = LR.Game;
+                        
+                        LR.Game.prototype.preload = function() {
+                        	this.scale.scaleMode = this.scaleMode;
+                        	this.scale.pageAlignVertically = true;
+                        	this.scale.pageAlignHorizontally = true;
+                        
+                        	// load layers from json file
+                        	this.game.load.json(&quot;layersData&quot;, &quot;assets/physics/layers.json&quot;, true);
+                        	// load inputs from json file
+                        	this.game.load.json(&quot;inputsData&quot;, &quot;assets/inputs/inputs.json&quot;, true);
+                        	//load save
+                        	this.game.load.json(&quot;saveData&quot;, &quot;assets/save/playersave.json&quot;, true);
+                        };
+                        
+                        LR.Game.prototype.create = function() {
+                        	if (this.debug)
+                        		this.game.add.plugin(Phaser.Plugin.Debug);
+                        	this.game.plugins.add(Phaser.Plugin.PlayerSave);
+                        	this.game.plugins.add(Phaser.Plugin.InputManager);
+                        	this.game.plugins.add(Phaser.Plugin.CutsceneManager);
+                        	this.game.plugins.add(Phaser.Plugin.DialogManager);
+                        
+                        	//Scale
+                        	if(this.scaleMode != null){
+                        		this.game.scale.scaleMode = this.scaleMode;
+                        		this.game.scale.setMinMax(0,0,2000,2000);
+                        		this.game.scale.refresh();
+                        	}
+                        
+                        	var stateBoot = new LR.State.StateBoot(this);
+                        	var stateLoader = new LR.State.StateLoader(this);
+                        	var stateLevel = new LR.State.StateLevel(this);
+                        
+                        	//COCOON JS needs JSON parser		
+                        	if( this.game.device.cocoonJS == true){
+                        		 window.DOMParser = DOMishParser;
+                        	}
+                        
+                        	this.state.start(&quot;Boot&quot;);
+                        };
+                        
+                        ////////////
+                        // STATIC //
+                        ////////////
                         
                         LR.Game.GetUrlParamValue = function(_param) {
                         	var value = null;
