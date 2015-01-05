@@ -519,8 +519,12 @@ LR.GameObject.prototype.sendMessage = function(_functionName, _messageObject){
 	var BH;
 	for(var i=0; i < this.behaviours.length; i++){
 		BH = this.behaviours[i];
+		//try calling method directly
 		if( BH[_functionName]){
 			BH[_functionName](_messageObject);
+		//if it fails, try calling the prototype's function
+		}else if( BH.prototype && BH.prototype[_functionName]){
+			BH.prototype[_functionName].call(BH,_messageObject);
 		}
 	}
 }

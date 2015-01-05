@@ -132,7 +132,7 @@ LR.Behaviour.Trigger.prototype.sendData = function(_otherBody, _myShape, _otherS
 	this.messageObject.collShape = _otherShape;
 	this.messageObject.equation = _equation;
 
-	if( this.callbackName != null )
+	if( this.callbackName != null && this.otherNotified == null )
 		_otherBody.go.sendMessage(this.callbackName,this.messageObject);
 
 	if( this.otherNotified != null )
