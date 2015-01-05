@@ -2753,6 +2753,46 @@
             "namespace": "LR"
         },
         {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 207,
+            "description": "The bottom ( highest y shape value ) of the body in the world",
+            "itemtype": "property",
+            "name": "bottom",
+            "type": "number",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 221,
+            "description": "The top ( lowest y shape value ) of the body in the world",
+            "itemtype": "property",
+            "name": "top",
+            "type": "number",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 235,
+            "description": "The left ( lowest x shape value ) of the body in the world",
+            "itemtype": "property",
+            "name": "left",
+            "type": "number",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\body.js",
+            "line": 249,
+            "description": "The right ( highest x shape value ) of the body in the world",
+            "itemtype": "property",
+            "name": "right",
+            "type": "number",
+            "class": "LR.Body",
+            "namespace": "LR"
+        },
+        {
             "file": "app\\shared\\js\\dev\\phaser\\collision_manager.js",
             "line": 19,
             "description": "Object containing data of layers ( as the CollisionGroup for example )",

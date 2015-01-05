@@ -744,6 +744,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//Reassign parameters with new objects IDs
 		$scope.reassignBehavioursParamsReferences(_rootEntity,linkedObjects);
 
+		if(_rootEntity.ed_fixedToCamera == false){
+			_rootEntity.go.x = $scope.game.camera.view.centerX;
+			_rootEntity.go.y = $scope.game.camera.view.centerY;
+		}
+
 		$scope.$emit("refreshListEmit", {world: _game.world});
 		$scope.forceAttributesRefresh(_rootEntity);
 	}

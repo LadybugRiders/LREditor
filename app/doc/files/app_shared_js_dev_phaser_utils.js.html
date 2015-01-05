@@ -395,8 +395,19 @@
                         * @param {Shape} shape2 The second shape
                         * @return integer
                         */
-                        LR.Utils.getCircleCollisionSide = function(_go1,_rect1,_go2,_rect2){
+                        LR.Utils.getCircleCollisionSide = function(_go1,_shape1,_go2,_shape2){
+                        	var pos1 = new Phaser.Point( _go1.entity.body.worldX, _go1.entity.body.worldY);
+                        	var pos2 = new Phaser.Point( _go2.entity.body.worldX, _go2.entity.body.worldY);
                         
+                        	var angle = Phaser.Math.angleBetweenPoints(pos1,pos2);
+                        	angle = Phaser.Math.radToDeg(angle);
+                        	if(angle &lt; 45 &amp;&amp; angle &gt;= -45)
+                        		return LR.Utils.RIGHT;
+                        	if(angle &lt; -45 &amp;&amp; angle &gt;= -135)
+                        		return LR.Utils.TOP;
+                        	if(angle &lt; -135 &amp;&amp; angle &gt;= -225)
+                        		return LR.Utils.LEFT;
+                        	return LR.Utils.BOTTOM;
                         }
                         
                         LR.Utils.getShapeType = function(_shape){

@@ -200,6 +200,67 @@ Object.defineProperty(LR.Body.prototype, "bindRotation", {
 
 });
 
+//=======================================================
+//                  BOUNDS
+//=======================================================
+
+/**
+* The bottom ( highest y shape value ) of the body in the world 
+*
+* @property bottom
+* @type number
+*/
+Object.defineProperty(LR.Body.prototype, "bottom", {
+
+    get: function () {
+        return this.world.mpxi( this.data.aabb.lowerBound[1]);
+    }
+
+});
+
+/**
+* The top ( lowest y shape value ) of the body in the world 
+*
+* @property top
+* @type number
+*/
+Object.defineProperty(LR.Body.prototype, "top", {
+
+    get: function () {
+        return this.world.mpxi( this.data.aabb.upperBound[1]);
+    }
+
+});
+
+/**
+* The left ( lowest x shape value ) of the body in the world 
+*
+* @property left
+* @type number
+*/
+Object.defineProperty(LR.Body.prototype, "left", {
+
+    get: function () {
+        return this.world.mpxi( this.data.aabb.upperBound[0]);
+    }
+
+});
+
+/**
+* The right ( highest x shape value ) of the body in the world 
+*
+* @property right
+* @type number
+*/
+Object.defineProperty(LR.Body.prototype, "right", {
+
+    get: function () {
+        return this.world.mpxi( this.data.aabb.lowerBound[0]);
+    }
+
+});
+
+
 Object.defineProperty(LR.Body.prototype, "angle", {
 
     get: function () {
@@ -211,3 +272,4 @@ Object.defineProperty(LR.Body.prototype, "angle", {
     }
 
 });
+
