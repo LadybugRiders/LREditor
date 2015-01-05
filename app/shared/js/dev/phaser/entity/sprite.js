@@ -113,8 +113,8 @@ LR.Entity.Sprite.prototype.destroy = function() {
 	Phaser.Sprite.prototype.destroy.call(this);
 };
 
-// Called when the scene is launching. All objects are created then.
-LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {
+// Called by the parent group when the scene is launching. All objects are created then.
+LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {	
 	if(this.body && this.body.onSpriteAddedToGroup){
 		this.body.onSpriteAddedToGroup(_sprite,_group);
 	}

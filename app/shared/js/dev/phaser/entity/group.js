@@ -7,6 +7,7 @@ LR.Entity.Group = function(_game) {
 
 	this.world = new Phaser.Point();
 	this.worldAngle = 0;
+
 };
 
 LR.Entity.Group.prototype = Object.create(Phaser.Group.prototype);
@@ -59,3 +60,16 @@ LR.Entity.Group.prototype.destroy = function() {
 	Phaser.Group.prototype.destroy.call(this);
 };
 
+LR.Entity.Group.prototype.onAddedToGroup = function(_addedGroup,_parentGroup) {
+	if( _parentGroup.world ){
+		this.world.x = this.x + _parentGroup.world.x;
+		this.world.y = this.y + _parentGroup.world.y;
+	}else{
+		this.world.x = this.x;
+		this.world.y = this.y;
+	}
+	for(var i=0; i < this.children.length; i++){
+		if( this.children[i].onAddedToGroup != null)
+			this.children[i].onAddedToGroup(this.children[i],this);
+	}
+};

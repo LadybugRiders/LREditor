@@ -144,8 +144,10 @@ LR.LevelImporter.prototype.importEntities = function(_object, _game) {
 			var cChild = this.importEntities(child, _game);
 			if( entity == null ){
 				console.log("Parent is null");
-			}else if (cChild) {
-				entity.add(cChild);
+			}else if (cChild) {			
+				if(child.type == "LR.Entity.Group" && cChild.onAddedToGroup)
+					cChild.onAddedToGroup(cChild ,entity);
+				entity.add(cChild,true);
 				cChild.updateTransform();
 			}
 		};

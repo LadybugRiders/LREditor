@@ -36,12 +36,13 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 LR.Body.prototype = Object.create(Phaser.Physics.P2.Body.prototype);
 LR.Body.prototype.constructor = LR.Body;
 
-LR.Body.prototype.postUpdate = function () {   
-    
+LR.Body.prototype.postUpdate = function () { 
+
 	//Add delta between the last body world position and the new one
 	//to the localPosition
-	this.localPosition.x += (this.worldX - this.lastPosition.x) ;
+	this.localPosition.x += (this.worldX - this.lastPosition.x);
 	this.localPosition.y += (this.worldY - this.lastPosition.y);
+
 
 	//try getting world Postion of the parent
 	var worldPos = new Phaser.Point();
@@ -87,11 +88,8 @@ LR.Body.prototype.postUpdate = function () {
 }
 
 // Called when the scene is launching. All objects are created then.
-LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) {    		
-
-	this.lastParentPos = new Phaser.Point(_group.x,_group.y);
+LR.Body.prototype.onSpriteAddedToGroup = function(_sprite,_group) { 
 	this.localPosition = new Phaser.Point(_sprite.x,_sprite.y);
-	this.lastPosition = new Phaser.Point(_sprite.x,_sprite.y);
 
     this.postUpdate();
     _group.updateTransform();
