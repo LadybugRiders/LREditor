@@ -187,29 +187,18 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	***********/
 
 	$scope.loadCurrentProjectImages = function() {
-		var url = "/editorserverapi/v0/image";
-		url += "?path=" + $scope.project.path + "/assets/images";
-		$http.get(url).success(function(_data) {
-			//parse names to find frames sizes
-			for(var i=0; i < _data.images.length; i++){
-				if( _data.images[i].frameWidth != null )
-					continue;
-				var imageName = _data.images[i].path;
-				var regex = /[0-9]+x[0-9]+/.exec(imageName);
-				if( regex ){
-					var aFrame = regex[0].split("x");
-					_data.images[i].frameWidth = parseInt(aFrame[0]);
-					_data.images[i].frameHeight = parseInt(aFrame[1]);
+		LR.Editor.AssetManager.GetInstance().loadImages(
+			"/editorserverapi/v0/image",
+			$scope.project.path + "/assets/images",
+			function(error, data) {
+				if (error) {
+					console.error(_error);
+				} else {
+        			$scope.project.assets.images = $scope.project.assets.images.concat(data.images);
+					$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
 				}
 			}
-			$scope.project.assets.images = _data.images;
-
-
-			$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
-		}).error(function(_error) {
-			$scope.images = new Object();
-			console.error(_error);
-		});
+		);
 	};
 
 	$scope.manageImages = function() {
@@ -227,6 +216,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			console.info('Modal dismissed at: ' + new Date());
 		});
 	};
+
+	/************
+	** ATLASES **
+	************/
 
 	$scope.loadCurrentProjectAtlases = function() {
 		var url = "/editorserverapi/v0/atlas";

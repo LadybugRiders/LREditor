@@ -7,6 +7,9 @@ var LREditorCtrlMod = angular.module('LREditor.controllers');
 LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $http) {
 	function main() {
 
+		//=============== ASSET MANAGET ===================
+		var assetManager = new LR.Editor.AssetManager($http);
+
 		//================== PROJECT ======================
 		$scope.$on("sendProjectEmit", function(_event, _args) {
 			$scope.$broadcast("sendProjectBroadcast", _args);
