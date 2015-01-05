@@ -44,6 +44,7 @@
                                 <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
                                 <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
                                 <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.AssetManager.html">Editor.AssetManager</a></li>
                                 <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
                                 <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
                                 <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
@@ -243,7 +244,7 @@
                         	this.messageObject.collShape = _otherShape;
                         	this.messageObject.equation = _equation;
                         
-                        	if( this.callbackName != null )
+                        	if( this.callbackName != null &amp;&amp; this.otherNotified == null )
                         		_otherBody.go.sendMessage(this.callbackName,this.messageObject);
                         
                         	if( this.otherNotified != null )

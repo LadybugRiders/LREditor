@@ -44,6 +44,7 @@
                                 <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
                                 <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
                                 <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.AssetManager.html">Editor.AssetManager</a></li>
                                 <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
                                 <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
                                 <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
@@ -224,8 +225,8 @@
                         	Phaser.Sprite.prototype.destroy.call(this);
                         };
                         
-                        // Called when the scene is launching. All objects are created then.
-                        LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {
+                        // Called by the parent group when the scene is launching. All objects are created then.
+                        LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {	
                         	if(this.body &amp;&amp; this.body.onSpriteAddedToGroup){
                         		this.body.onSpriteAddedToGroup(_sprite,_group);
                         	}

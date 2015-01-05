@@ -44,6 +44,7 @@
                                 <li><a href="../classes/Behaviour.Trigger.html">Behaviour.Trigger</a></li>
                                 <li><a href="../classes/Behaviour.TriggerChangeLevel.html">Behaviour.TriggerChangeLevel</a></li>
                                 <li><a href="../classes/Behaviour.TriggerCutscene.html">Behaviour.TriggerCutscene</a></li>
+                                <li><a href="../classes/Editor.AssetManager.html">Editor.AssetManager</a></li>
                                 <li><a href="../classes/Editor.LevelImporterEditor.html">Editor.LevelImporterEditor</a></li>
                                 <li><a href="../classes/Entity.BitmapText.html">Entity.BitmapText</a></li>
                                 <li><a href="../classes/Entity.Button.html">Entity.Button</a></li>
@@ -705,14 +706,8 @@
                         	for(var i=0; i &lt; _entity.go.getShapesCount(); i++){
                         		var data = _entity.go.getShapeData(i);
                         		var shape = _entity.go.getShape(i);
-                        		_object.body.shapes.push( { 
-                        			&quot;x&quot; : data.x , &quot;y&quot; : data.y, 
-                        			&quot;width&quot; : data.width, &quot;height&quot; : data.height,
-                        			&quot;rotation&quot; : data.rotation,
-                        			&quot;name&quot;: shape.lr_name, &quot;id&quot;:i,
-                        			&quot;sensor&quot;: shape.ed_sensor
-                        			} 
-                        		);
+                        		data.sensor = shape.ed_sensor;
+                        		_object.body.shapes.push( data );
                         	}
                         
                         	return _object;

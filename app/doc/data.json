@@ -45,6 +45,17 @@
                 "Behaviour": 1
             }
         },
+        "app\\editor\\js\\dev\\asset_manager.js": {
+            "name": "app\\editor\\js\\dev\\asset_manager.js",
+            "modules": {},
+            "classes": {
+                "Editor.AssetManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Editor": 1
+            }
+        },
         "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js": {
             "name": "app\\shared\\js\\dev\\phaser\\behaviour\\common\\trigger.js",
             "modules": {},
@@ -409,6 +420,19 @@
                     "type": "GameObject"
                 }
             ]
+        },
+        "Editor.AssetManager": {
+            "name": "Editor.AssetManager",
+            "shortname": "Editor.AssetManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Editor",
+            "file": "app\\editor\\js\\dev\\asset_manager.js",
+            "line": 3,
+            "description": "Asset manager class"
         },
         "Behaviour.Trigger": {
             "name": "Behaviour.Trigger",
@@ -1095,85 +1119,91 @@
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 260,
+            "line": 220,
+            "description": "* ATLASES **",
+            "class": "Editor.LevelImporterEditor"
+        },
+        {
+            "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
+            "line": 253,
             "description": "* AUDIOS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 293,
+            "line": 286,
             "description": "* LAYERS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 341,
+            "line": 334,
             "description": "* BEHAVIOURS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 375,
+            "line": 368,
             "description": "* PREFABS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 406,
+            "line": 399,
             "description": "* FONTS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 423,
+            "line": 416,
             "description": "* LEVELS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 450,
+            "line": 443,
             "description": "* INPUTS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 495,
+            "line": 488,
             "description": "* ADDING ENTITIES **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 523,
+            "line": 516,
             "description": "* LEVEL IMPORTER **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 553,
+            "line": 546,
             "description": "* LEVEL EXPORTER **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 574,
+            "line": 567,
             "description": "* LEVEL DEFAULT **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 595,
+            "line": 588,
             "description": "* SETTINGS **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 614,
+            "line": 607,
             "description": "* CUTSCENE EDITOR **",
             "class": "Editor.LevelImporterEditor"
         },
         {
             "file": "app\\editor\\js\\dev\\angular\\controller_header.js",
-            "line": 648,
+            "line": 641,
             "description": "******  HELP *******",
             "class": "Editor.LevelImporterEditor"
         },
@@ -2673,7 +2703,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 101,
+            "line": 99,
             "description": "The local x coordinate of the body",
             "itemtype": "property",
             "name": "x",
@@ -2683,7 +2713,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 120,
+            "line": 118,
             "description": "The local y coordinate of the body",
             "itemtype": "property",
             "name": "y",
@@ -2693,7 +2723,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 140,
+            "line": 138,
             "description": "The world x coordinate of the body",
             "itemtype": "property",
             "name": "worldX",
@@ -2703,7 +2733,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 162,
+            "line": 160,
             "description": "The world y coordinate of the body",
             "itemtype": "property",
             "name": "worldY",
@@ -2713,7 +2743,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 182,
+            "line": 180,
             "description": "Tells if the sprite can rotate indepently from its body",
             "itemtype": "property",
             "name": "bindRotation",
@@ -3260,7 +3290,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 531,
+            "line": 535,
             "description": "Returns the number of shapes attached to the body",
             "itemtype": "method",
             "name": "getShapesCount",
@@ -3272,7 +3302,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 543,
+            "line": 547,
             "description": "Returns the wanted shape",
             "itemtype": "method",
             "name": "getShape",
@@ -3291,7 +3321,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 561,
+            "line": 565,
             "description": "Returns the shape by its name (property lr_name)\nIf many shapes share the same name, this method will return the first encountered in the shapes array",
             "itemtype": "method",
             "name": "getShapeByName",
@@ -3310,7 +3340,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 578,
+            "line": 582,
             "description": "Returns the shapes by their names (property lr_name)",
             "itemtype": "method",
             "name": "getShapesByNames",
@@ -3330,7 +3360,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 597,
+            "line": 601,
             "description": "Returns the index of the shape found by its name (property lr_name)",
             "itemtype": "method",
             "name": "getShapeIndexByName",
@@ -3350,7 +3380,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 613,
+            "line": 617,
             "description": "Returns the size of the wanted shape. You can either pass its index or its name",
             "itemtype": "method",
             "name": "getShapeData",
@@ -3370,7 +3400,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 642,
+            "line": 650,
             "description": "Replaces the shape at the given index with a new Rectangle, creating a new shape from the data provided\nThis sahpe will be pushed to the end of shapes array if _shapeIndex is incorrect",
             "itemtype": "method",
             "name": "replaceShapeByRectangle",
@@ -3394,7 +3424,31 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 698,
+            "line": 699,
+            "description": "Replaces the shape at the given index with a new Circle, creating a new shape from the data provided\nThis shape will be pushed to the end of shapes array if _shapeIndex is incorrect",
+            "itemtype": "method",
+            "name": "replaceShapeByCircle",
+            "params": [
+                {
+                    "name": "shapeIndex",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "data",
+                    "description": "Can contain x {Number}, y{Number}, radius{Number}, rotation{Number}, sensor {Boolean} properties, name {String}",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "P2.Shape"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 753,
             "description": "Returns the specified sound",
             "itemtype": "method",
             "name": "getSound",
@@ -3414,7 +3468,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 709,
+            "line": 764,
             "description": "Plays the specified sound",
             "itemtype": "method",
             "name": "playSound",
@@ -3440,7 +3494,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 725,
+            "line": 780,
             "description": "Sets the position of the GameObject. Takes the body in account",
             "itemtype": "method",
             "name": "setPosition",
@@ -3461,7 +3515,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 742,
+            "line": 797,
             "description": "Accessor to the entity's body. Read only.",
             "itemtype": "property",
             "name": "body",
@@ -3471,7 +3525,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 756,
+            "line": 811,
             "description": "Accessor to the entity's x.",
             "itemtype": "property",
             "name": "x",
@@ -3481,7 +3535,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 778,
+            "line": 833,
             "description": "Accessor to the entity's y.",
             "itemtype": "property",
             "name": "y",
@@ -3491,7 +3545,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 800,
+            "line": 855,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -3501,7 +3555,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 814,
+            "line": 869,
             "description": "Accessor to the body's gravity. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "gravity",
@@ -3511,7 +3565,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 836,
+            "line": 891,
             "description": "Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3521,7 +3575,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 852,
+            "line": 907,
             "description": "Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3531,7 +3585,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 868,
+            "line": 923,
             "description": "Changes the parent of the entity",
             "itemtype": "method",
             "name": "changeParent",
@@ -3547,7 +3601,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 885,
+            "line": 940,
             "description": "Adds a tween with the data specified\nexample of input data : { \"properties\":{\"body.x\":100},\"duration\": 1000 ...etc..}",
             "itemtype": "method",
             "name": "addTween",
@@ -3563,7 +3617,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 904,
+            "line": 959,
             "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched",
             "itemtype": "method",
             "name": "launchTween",
@@ -3579,7 +3633,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1001,
+            "line": 1056,
             "description": "Called when a cutscene begins",
             "itemtype": "method",
             "name": "onBeginCutscene",
@@ -3588,7 +3642,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1013,
+            "line": 1068,
             "description": "Called when a cutscene ends",
             "itemtype": "method",
             "name": "onEndCutscene",
@@ -3597,7 +3651,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1029,
+            "line": 1084,
             "description": "Find a gameobject by its name",
             "itemtype": "method",
             "name": "<static> FindByName",
@@ -3622,7 +3676,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1057,
+            "line": 1112,
             "description": "Find a gameobject by its ID",
             "itemtype": "method",
             "name": "<static> FindByID",
@@ -4088,7 +4142,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
-            "line": 157,
+            "line": 159,
             "description": "Override this method to do something between the entities importation and\nthe promise",
             "itemtype": "method",
             "name": "doAfterImportEntitiesAndBeforePromise",
@@ -4109,7 +4163,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\levelimporter.js",
-            "line": 169,
+            "line": 171,
             "description": "Import an entity",
             "itemtype": "method",
             "name": "importEntity",
@@ -4351,7 +4405,41 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\utils.js",
-            "line": 201,
+            "line": 205,
+            "description": "Returns the side of the collision between two gameobject's shapes \nreturned data can be compared with :\nLR.Utils.RIGHT | LR.Utils.LEFT | LR.Utils.TOP | LR.Utils.BOTTOM",
+            "itemtype": "method",
+            "name": "getCollisionSide",
+            "params": [
+                {
+                    "name": "gameobject1",
+                    "description": "The first gameobject",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "shape1",
+                    "description": "The first shape",
+                    "type": "Shape"
+                },
+                {
+                    "name": "gameobject2",
+                    "description": "The second gameobject",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "shape2",
+                    "description": "The second shape",
+                    "type": "Shape"
+                }
+            ],
+            "return": {
+                "description": "integer"
+            },
+            "class": "LR.Utils",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 228,
             "description": "Returns the side of the collision between two gameobject with a rectangle shape\nreturned data can be compared with :\nLR.Utils.RIGHT | LR.Utils.LEFT | LR.Utils.TOP | LR.Utils.BOTTOM",
             "itemtype": "method",
             "name": "getRectCollisionSide",
@@ -4368,12 +4456,46 @@
                 },
                 {
                     "name": "gameobject2",
-                    "description": "The first gameobject",
+                    "description": "The second gameobject",
                     "type": "LR.GameObject"
                 },
                 {
                     "name": "shape2",
-                    "description": "The first rectangle shape",
+                    "description": "The second rectangle shape",
+                    "type": "Shape"
+                }
+            ],
+            "return": {
+                "description": "integer"
+            },
+            "class": "LR.Utils",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\utils.js",
+            "line": 274,
+            "description": "Returns the side of the collision between two gameobject whose one is a circle shape\nreturned data can be compared with :\nLR.Utils.RIGHT | LR.Utils.LEFT | LR.Utils.TOP | LR.Utils.BOTTOM",
+            "itemtype": "method",
+            "name": "getCircleCollisionSide",
+            "params": [
+                {
+                    "name": "gameobject1",
+                    "description": "The first gameobject",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "shape1",
+                    "description": "The first shape",
+                    "type": "Shape"
+                },
+                {
+                    "name": "gameobject2",
+                    "description": "The second gameobject",
+                    "type": "LR.GameObject"
+                },
+                {
+                    "name": "shape2",
+                    "description": "The second shape",
                     "type": "Shape"
                 }
             ],
@@ -4480,60 +4602,64 @@
             "line": " app\\editor\\js\\dev\\angular\\controller_header.js:185"
         },
         {
+            "message": "Missing item type\n* ATLASES **",
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:220"
+        },
+        {
             "message": "Missing item type\n* AUDIOS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:260"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:253"
         },
         {
             "message": "Missing item type\n* LAYERS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:293"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:286"
         },
         {
             "message": "Missing item type\n* BEHAVIOURS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:341"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:334"
         },
         {
             "message": "Missing item type\n* PREFABS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:375"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:368"
         },
         {
             "message": "Missing item type\n* FONTS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:406"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:399"
         },
         {
             "message": "Missing item type\n* LEVELS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:423"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:416"
         },
         {
             "message": "Missing item type\n* INPUTS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:450"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:443"
         },
         {
             "message": "Missing item type\n* ADDING ENTITIES **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:495"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:488"
         },
         {
             "message": "Missing item type\n* LEVEL IMPORTER **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:523"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:516"
         },
         {
             "message": "Missing item type\n* LEVEL EXPORTER **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:553"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:546"
         },
         {
             "message": "Missing item type\n* LEVEL DEFAULT **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:574"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:567"
         },
         {
             "message": "Missing item type\n* SETTINGS **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:595"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:588"
         },
         {
             "message": "Missing item type\n* CUTSCENE EDITOR **",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:614"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:607"
         },
         {
             "message": "Missing item type\n******  HELP *******",
-            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:648"
+            "line": " app\\editor\\js\\dev\\angular\\controller_header.js:641"
         },
         {
             "message": "Missing item type\nCalled when an action of the current event has finished",

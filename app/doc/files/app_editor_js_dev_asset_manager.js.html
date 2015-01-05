@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>app\shared\js\dev\phaser\plugin\dialog_manager.js - LREditor API</title>
+    <title>app\editor\js\dev\asset_manager.js - LREditor API</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -106,71 +106,61 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: app\shared\js\dev\phaser\plugin\dialog_manager.js</h1>
+                        <h1 class="file-heading">File: app\editor\js\dev\asset_manager.js</h1>
                         
                         <div class="file">
                             <pre class="code prettyprint linenums">
                         &quot;use strict&quot;;
                         
                         /**
-                        * Load and Manage a DialogManager.
+                        * Asset manager class
                         *
-                        * @class DialogManager
-                        * @namespace Phaser.Plugin
-                        * @constructor
-                        * @param {Phaser.Game} game
+                        * @class AssetManager
+                        * @namespace Editor
                         */
-                        Phaser.Plugin.DialogManager = function( _game, _parent ){
-                        	this.game = _game;
+                        LR.Editor.AssetManager = function($http) {
+                            if (LR.Editor.AssetManager.INSTANCE == null) {
+                                this.$http = $http;
                         
-                        	if (Phaser.Plugin.DialogManager.INSTANCE == null) {
-                        		Phaser.Plugin.call(this, _game, _parent);
+                                LR.Editor.AssetManager.INSTANCE = this;
+                            }
                         
-                        		Phaser.Plugin.DialogManager.INSTANCE = this;
-                        		_game.dialogManager = Phaser.Plugin.DialogManager.INSTANCE;
-                        	}
-                        
-                        	this.state = &quot;IDLE&quot;;
-                        
-                        	this.dialogBoxScript = null;
-                        
-                        	this.onEndCallback = null;
-                        	this.onEndContext = null;
-                        
-                        	return Phaser.Plugin.DialogManager.INSTANCE;
+                            return LR.Editor.AssetManager.INSTANCE;
                         }
                         
-                        Phaser.Plugin.DialogManager.prototype = Object.create(Phaser.Plugin);
-                        Phaser.Plugin.DialogManager.prototype.constructor = Phaser.Plugin.DialogManager;
+                        LR.Editor.AssetManager.prototype.constructor = LR.Editor.AssetManager;
                         
-                        Phaser.Plugin.DialogManager.prototype.update = function(){
+                        LR.Editor.AssetManager.INSTANCE = null;
                         
-                        }
+                        LR.Editor.AssetManager.prototype.loadImages = function(_url, _path, _promise) {
+                            var url = &quot;&quot; + _url;
+                            url += &quot;?path=&quot; + _path;
+                            this.$http.get(url).success(function(_data) {
+                                //parse names to find frames sizes
+                                for(var i=0; i &lt; _data.images.length; i++){
+                                    if( _data.images[i].frameWidth != null )
+                                        continue;
+                                    var imageName = _data.images[i].path;
+                                    var regex = /[0-9]+x[0-9]+/.exec(imageName);
+                                    if( regex ){
+                                        var aFrame = regex[0].split(&quot;x&quot;);
+                                        _data.images[i].frameWidth = parseInt(aFrame[0]);
+                                        _data.images[i].frameHeight = parseInt(aFrame[1]);
+                                    }
+                                }
                         
-                        Phaser.Plugin.DialogManager.prototype.activate = function(_text, _callback, _context){
-                        	//if there&#x27;s no existing dialog box
-                        	if( this.dialogBoxScript == null ){
-                        		//Create a new basic one
-                        		var dBGroup = new LR.Entity.Group(this.game);
-                        		this.dialogBoxScript = new LR.UI.Behaviour.DialogBox(dBGroup.go);
-                        		this.dialogBoxScript.createBasic();
-                        		//Add group to game
-                        		this.game.state.getCurrentState().addGameObject(dBGroup.go,true);
-                        		//set callbacks
-                        		this.dialogBoxScript.setEndCallback( this.onDialogBoxDismissed, this ) ;
-                        	}
-                        	//callback to call when the dialog box is dismissed
-                        	this.onEndCallback = _callback;
-                        	this.onEndContext = _context;
+                                if (typeof _promise === &quot;function&quot;) {
+                                    _promise(null, _data);
+                                }
+                            }).error(function(_error) {
+                                if (typeof _promise === &quot;function&quot;) {
+                                    _promise(_error, null);
+                                }
+                            });
+                        };
                         
-                        	this.dialogBoxScript.setValidInput(&quot;valid&quot;);
-                        
-                        	this.dialogBoxScript.setText( _text );
-                        }
-                        
-                        Phaser.Plugin.DialogManager.prototype.onDialogBoxDismissed = function(){
-                        	if( this.onEndCallback )
-                        		this.onEndCallback.call(this.onEndContext);
+                        LR.Editor.AssetManager.GetInstance = function() {
+                            return LR.Editor.AssetManager.INSTANCE;
                         }
                             </pre>
                         </div>

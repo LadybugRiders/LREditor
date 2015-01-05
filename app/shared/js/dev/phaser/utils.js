@@ -198,6 +198,33 @@ LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
 	return inCam;
 }
 
+//==========================================================
+//					COLLISION / SHAPES
+//==========================================================
+
+/**
+* Returns the side of the collision between two gameobject's shapes 
+* returned data can be compared with :
+* LR.Utils.RIGHT | LR.Utils.LEFT | LR.Utils.TOP | LR.Utils.BOTTOM 
+*
+* @method getCollisionSide
+* @param {LR.GameObject} gameobject1 The first gameobject
+* @param {Shape} shape1 The first shape
+* @param {LR.GameObject} gameobject2 The second gameobject
+* @param {Shape} shape2 The second shape
+* @return integer
+*/
+LR.Utils.getCollisionSide = function(_go1,_shape1,_go2,_shape2){
+	var firstShapeType = LR.Utils.getShapeType(_shape1);
+	var secondShapeType = LR.Utils.getShapeType(_shape2);
+	if(firstShapeType == "rectangle" && secondShapeType == "rectangle" ){
+		return LR.Utils.getRectCollisionSide(_go1,_shape1,_go2,_shape2);
+	}else if(firstShapeType == "circle" || secondShapeType == "circle"){
+		return LR.Utils.getCircleCollisionSide(_go1,_shape1,_go2,_shape2);
+	}
+	return null;
+}
+
 /**
 * Returns the side of the collision between two gameobject with a rectangle shape
 * returned data can be compared with :
@@ -206,8 +233,8 @@ LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
 * @method getRectCollisionSide
 * @param {LR.GameObject} gameobject1 The first gameobject
 * @param {Shape} shape1 The first rectangle shape
-* @param {LR.GameObject} gameobject2 The first gameobject
-* @param {Shape} shape2 The first rectangle shape
+* @param {LR.GameObject} gameobject2 The second gameobject
+* @param {Shape} shape2 The second rectangle shape
 * @return integer
 */
 LR.Utils.getRectCollisionSide = function(_go1,_rect1,_go2,_rect2){
@@ -242,6 +269,33 @@ LR.Utils.getRectCollisionSide = function(_go1,_rect1,_go2,_rect2){
         }
     }
 	return -1;
+}
+
+/**
+* Returns the side of the collision between two gameobject whose one is a circle shape
+* returned data can be compared with :
+* LR.Utils.RIGHT | LR.Utils.LEFT | LR.Utils.TOP | LR.Utils.BOTTOM 
+*
+* @method getCircleCollisionSide
+* @param {LR.GameObject} gameobject1 The first gameobject
+* @param {Shape} shape1 The first shape
+* @param {LR.GameObject} gameobject2 The second gameobject
+* @param {Shape} shape2 The second shape
+* @return integer
+*/
+LR.Utils.getCircleCollisionSide = function(_go1,_shape1,_go2,_shape2){
+	var pos1 = new Phaser.Point( _go1.entity.body.worldX, _go1.entity.body.worldY);
+	var pos2 = new Phaser.Point( _go2.entity.body.worldX, _go2.entity.body.worldY);
+
+	var angle = Phaser.Math.angleBetweenPoints(pos1,pos2);
+	angle = Phaser.Math.radToDeg(angle);
+	if(angle < 45 && angle >= -45)
+		return LR.Utils.RIGHT;
+	if(angle < -45 && angle >= -135)
+		return LR.Utils.TOP;
+	if(angle < -135 && angle >= -225)
+		return LR.Utils.LEFT;
+	return LR.Utils.BOTTOM;
 }
 
 LR.Utils.getShapeType = function(_shape){

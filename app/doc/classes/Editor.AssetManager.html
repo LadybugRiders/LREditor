@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>app\shared\js\dev\phaser\plugin\dialog_manager.js - LREditor API</title>
+    <title>Editor.AssetManager - LREditor API</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -106,73 +106,43 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: app\shared\js\dev\phaser\plugin\dialog_manager.js</h1>
+                        <h1>Editor.AssetManager Class</h1>
+                        <div class="box meta">
                         
-                        <div class="file">
-                            <pre class="code prettyprint linenums">
-                        &quot;use strict&quot;;
                         
-                        /**
-                        * Load and Manage a DialogManager.
-                        *
-                        * @class DialogManager
-                        * @namespace Phaser.Plugin
-                        * @constructor
-                        * @param {Phaser.Game} game
-                        */
-                        Phaser.Plugin.DialogManager = function( _game, _parent ){
-                        	this.game = _game;
+                                <div class="foundat">
+                                    Defined in: <a href="../files/app_editor_js_dev_asset_manager.js.html#l3"><code>app\editor\js\dev\asset_manager.js:3</code></a>
+                                </div>
                         
-                        	if (Phaser.Plugin.DialogManager.INSTANCE == null) {
-                        		Phaser.Plugin.call(this, _game, _parent);
                         
-                        		Phaser.Plugin.DialogManager.INSTANCE = this;
-                        		_game.dialogManager = Phaser.Plugin.DialogManager.INSTANCE;
-                        	}
+                        </div>
                         
-                        	this.state = &quot;IDLE&quot;;
                         
-                        	this.dialogBoxScript = null;
+                        <div class="box intro">
+                            <p>Asset manager class</p>
                         
-                        	this.onEndCallback = null;
-                        	this.onEndContext = null;
+                        </div>
                         
-                        	return Phaser.Plugin.DialogManager.INSTANCE;
-                        }
                         
-                        Phaser.Plugin.DialogManager.prototype = Object.create(Phaser.Plugin);
-                        Phaser.Plugin.DialogManager.prototype.constructor = Phaser.Plugin.DialogManager;
+                        <div id="classdocs" class="tabview">
+                            <ul class="api-class-tabs">
+                                <li class="api-class-tab index"><a href="#index">Index</a></li>
                         
-                        Phaser.Plugin.DialogManager.prototype.update = function(){
+                            </ul>
                         
-                        }
+                            <div>
+                                <div id="index" class="api-class-tabpanel index">
+                                    <h2 class="off-left">Item Index</h2>
                         
-                        Phaser.Plugin.DialogManager.prototype.activate = function(_text, _callback, _context){
-                        	//if there&#x27;s no existing dialog box
-                        	if( this.dialogBoxScript == null ){
-                        		//Create a new basic one
-                        		var dBGroup = new LR.Entity.Group(this.game);
-                        		this.dialogBoxScript = new LR.UI.Behaviour.DialogBox(dBGroup.go);
-                        		this.dialogBoxScript.createBasic();
-                        		//Add group to game
-                        		this.game.state.getCurrentState().addGameObject(dBGroup.go,true);
-                        		//set callbacks
-                        		this.dialogBoxScript.setEndCallback( this.onDialogBoxDismissed, this ) ;
-                        	}
-                        	//callback to call when the dialog box is dismissed
-                        	this.onEndCallback = _callback;
-                        	this.onEndContext = _context;
                         
-                        	this.dialogBoxScript.setValidInput(&quot;valid&quot;);
                         
-                        	this.dialogBoxScript.setText( _text );
-                        }
                         
-                        Phaser.Plugin.DialogManager.prototype.onDialogBoxDismissed = function(){
-                        	if( this.onEndCallback )
-                        		this.onEndCallback.call(this.onEndContext);
-                        }
-                            </pre>
+                                </div>
+                        
+                        
+                        
+                        
+                            </div>
                         </div>
                     </div>
                 </div>

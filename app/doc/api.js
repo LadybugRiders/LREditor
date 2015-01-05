@@ -7,6 +7,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Behaviour.Trigger",
         "Behaviour.TriggerChangeLevel",
         "Behaviour.TriggerCutscene",
+        "Editor.AssetManager",
         "Editor.LevelImporterEditor",
         "Entity.BitmapText",
         "Entity.Button",
