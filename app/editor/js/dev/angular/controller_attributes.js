@@ -24,6 +24,20 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		"Verdana",
 		"Times New Roman"];
 
+		$scope.tweenTypes = {
+			"Linear" : ["None"],
+			"Quadratic" : ["In","Out","InOut"],
+			"Cubic" : ["In","Out","InOut"],
+			"Quartic" : ["In","Out","InOut"],
+			"Quintic" : ["In","Out","InOut"],
+			"Sinusoidal" : ["In","Out","InOut"],
+			"Exponential" : ["In","Out","InOut"],
+			"Circular" : ["In","Out","InOut"],
+			"Elastic" : ["In","Out","InOut"],
+			"Back" : ["In","Out","InOut"],
+			"Bounce" : ["In","Out","InOut"]
+		};
+
 		$scope.modalArgsData = {
 			args : {}
 		};
@@ -470,7 +484,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	tween.name = _tweenName;
     	tween.properties = "{}";
     	tween.duration = 1000;
-    	tween.easing = null; tween.delay = 0;
+    	tween.easing = ["Linear","None"]; tween.delay = 0;
     	tween.repeat = 0; tween.yoyo = false;
     	tween.relative = true; tween.autoStart = false;
     	$scope.currentEntity.go.addTween(tween);
@@ -519,8 +533,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				tween.repeat = Number.MAX_VALUE;
 			else
 				createdTween.onComplete.add(this.onTweenComplete,this);
-			console.log(tween);
-	    	createdTween.to(newProp, tween.duration, Phaser.Easing.Default,
+			var easing = Phaser.Easing[tween.easing[0]][tween.easing[1]];
+	    	createdTween.to(newProp, tween.duration, easing,
 	    					 false,tween.delay, 
 	    					 tween.repeat +(tween.yoyo?1:0), 
 	    					 tween.yoyo);
@@ -558,6 +572,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     		_entity.ed_launchedTweens.splice(i,1);
     		break;
     	}
+    }
+
+    $scope.onEasingChanged = function(_tweenData){
+    	_tweenData.easing[1] = $scope.tweenTypes[_tweenData.easing[0]][0];
     }
 
 	//================================================================

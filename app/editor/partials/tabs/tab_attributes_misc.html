@@ -15,6 +15,18 @@
 							</button>
 						</div>
 					</div>
+					<label>Easing</label>
+					<div class="row">
+						<select ng-model="tween.data.easing[0]"
+								ng-options="k as k for (k,v) in tweenTypes" 
+								ng-change="onEasingChanged(tween.data)"
+								class="col-md-6">
+						</select>
+						<select ng-model="tween.data.easing[1]"
+								ng-options="k as k for k in tweenTypes[tween.data.easing[0]]" 
+								class="col-md-6">
+						</select>
+					</div>
 					<div class="row">
 						<label class="col-md-4"> Duration </label>
 						<input type ="number" class="col-md-4" ng-model="tween.data.duration" integer/>

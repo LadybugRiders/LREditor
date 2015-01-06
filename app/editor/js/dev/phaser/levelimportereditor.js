@@ -275,6 +275,9 @@ LR.Editor.LevelImporterEditor.prototype.setTweens = function(_objectData, _entit
 	if( _objectData.tweens != null ){
 		var tweens = JSON.parse( JSON.stringify(_objectData.tweens)) ;
 		for(var key in tweens){
+			//easing cannot be null ( NONE is an obsolete value that should be discarded)
+			if(tweens[key].easing == null || tweens[key].easing == "NONE")
+				tweens[key].easing = ["Linear","None"];
 			_entity.go.tweensData[key] = {data:tweens[key],
 										chained : tweens[key].chain != null};
 		}
