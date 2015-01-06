@@ -11,6 +11,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.ID_count = 0;
 
 		$scope.cutscenes = [];
+		$scope.loadedImages = new Array();
 
 		//============ PROJECT ===================
 
@@ -576,6 +577,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				_image.loaded = true;
 			});
 
+			$scope.loadedImages.push(_image);
+
 			$scope.game.load.onFileComplete.remove(successCallback);
 			$scope.game.load.onFileComplete.remove(errorCallback);
 		};
@@ -594,6 +597,16 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 	$scope.unloadImage = function(_image) {
 		if (_image) {
+			//find in loaded images
+			var indexOfImage = -1;
+			for(var i=0; i < $scope.loadedImages.length; i ++){
+				if( $scope.loadedImages[i].name == _image.name)
+					indexOfImage = i;
+			}
+			//if found, remove from array of loaded images
+			if( indexOfImage >= 0)
+				$scope.loadedImages.splice( indexOfImage,1);
+
 			$scope.forAllGameObjects($scope.game.world, function(_gameobject) {
 				if (_gameobject.key === _image.name) {
 					_gameobject.loadTexture("none");
@@ -676,6 +689,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 					}
 				});
 
+				$scope.loadedImages = JSON.parse( JSON.stringify( _data.assets.images ) );
+				$scope.$emit("sendLoadedImagesEmit",{"images":$scope.loadedImages});
+
 				$scope.importSettings(_data.settings);
 
 				//cutscenes should be imported now
@@ -736,6 +752,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			console.warn("Prefab not rightly loaded");
 			return;
 		}
+		$scope.storeNewLoadedPrefabImages(_rootEntity);
 		//store references in behaviours params
 		//IDs will change so we need to keep them
 		var linkedObjects = $scope.storeBehavioursParamsReferences(_rootEntity,new Object(),_rootEntity);
@@ -796,6 +813,38 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if(_entity.children){
 			for(var i=0; i < _entity.children.length; i++){
 				$scope.reassignBehavioursParamsReferences(_entity.children[i],_linkedObjects);
+			}
+		}
+	}
+
+	//Look into prefab keys and store new keys
+	$scope.storeNewLoadedPrefabImages = function(_rootEntity){
+		if(_rootEntity.key != null && ! _rootEntity.isAtlas){
+			//search key in loaded images
+			var found = false;
+			for(var i=0; i < $scope.loadedImages.length; i++){
+				var img = $scope.loadedImages[i];
+				if( img.name == _rootEntity.key ){
+					found = true;
+					break;
+				}
+			}
+			//if not found, add the image to the loaded ones
+			if( ! found ){
+				for(var i=0; i < $scope.project.assets.images.length; i++){
+					var assetImage = $scope.project.assets.images[i];
+					if( assetImage.name == _rootEntity.key ){
+						$scope.loadedImages.push(
+							JSON.parse( JSON.stringify(assetImage))
+						);
+					}
+				}
+			}
+		}
+		//do the same for children
+		if( _rootEntity.children ){
+			for(var c=0; c < _rootEntity.children.length; c++){
+				$scope.storeNewLoadedPrefabImages( _rootEntity.children[c] );
 			}
 		}
 	}

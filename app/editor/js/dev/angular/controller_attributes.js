@@ -45,7 +45,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.modalParamsData = {
 		};
 
-		$scope.$on("sendImagesBroadcast", function(_event, _args) {
+		$scope.$on("sendLoadedImagesBroadcast", function(_event, _args) {
 			if (_args.images) {
 				$scope.data.images = _args.images
 			}
@@ -178,6 +178,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				if (key !== "none") {
 					var image = $scope.currentEntity.game.cache.getImage(key);
 					$scope.data.image = image;
+					$scope.data.imageKey = $scope.currentEntity.key;
 				}
 				$scope.data.imageFrame = $scope.currentEntity.frame;
 			}
@@ -300,28 +301,29 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	//						DISPLAY
 	//================================================================
 
-	$scope.changeTexture = function(_image, _frame) {
-		if (typeof _image !== "object") {
+	$scope.changeTexture = function(_imageKey, _frame) {
+		/*if (typeof _image !== "object") {
 			_image = new Image();
 		}
 		if (_image.name == null || _image.name === "") {
 			_image.name = null;
-		}
+		}*/
 
 		if (_frame == null || _frame === "") {
 			_frame = 0;
 		}
-
-		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
+		console.log(_imageKey);
+		var image = $scope.currentEntity.game.cache.getImage(_imageKey);
+		if (image) {
 			var lastTexture = $scope.currentEntity.key;
-			$scope.currentEntity.loadTexture(_image.name);
+			$scope.currentEntity.loadTexture(_imageKey);
 			$scope.currentEntity.frame = ( parseInt(_frame) );
 			if( lastTexture == "none"){
-				$scope.currentEntity.width = parseInt(_image.frameWidth);
-				$scope.currentEntity.height = parseInt(_image.frameHeight);
+				$scope.currentEntity.width = parseInt(image.frameWidth);
+				$scope.currentEntity.height = parseInt(image.frameHeight);
 			}
 		} else {
-			console.error("No image with the name '" + _image.name +"'' in cache");
+			console.error("No image with the name '" + _imageKey +"'' in cache");
 		}
 	};
 

@@ -8,8 +8,17 @@
 	<!-- IMAGE -->
 	<div ng-show="!currentEntity.isAtlas">
 		<div class="form-group">
-			<label>Image [ {{currentEntity.key}} {{currentEntity.frame}} ]</label>
-			<select ng-model="data.image" ng-options="image.name for image in data.images | filter:{loaded:true}" class="form-control">
+			<label>Image [ {{data.imageKey}} {{data.imageFrame}} ]</label>
+			<!-- <select ng-model="data.imageKey" 
+					ng-options="image.name for image in data.images | filter:{loaded:true}" 
+					class="form-control">
+			</select> -->
+			<select ng-model="data.imageKey">
+				<option 
+						ng-repeat="img in data.images"
+						value="{{img.name}}"
+				> {{img.name}}
+				</option>
 			</select>
 		</div>
 		<div ng-if="data.type != 'button' " class="form-group">
@@ -20,7 +29,7 @@
 			</div>
 			<!-- APPLY -->
 			<div class="form-group">
-				<button ng-click="changeTexture(data.image, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
+				<button ng-click="changeTexture(data.imageKey, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
 			</div>
 		</div>
 	</div>
