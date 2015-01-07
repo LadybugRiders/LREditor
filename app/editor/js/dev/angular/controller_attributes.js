@@ -51,7 +51,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 		});
 
-		$scope.$on("sendAtlasesBroadcast", function(_event, _args) {
+		$scope.$on("sendLoadedAtlasesBroadcast", function(_event, _args) {
 			if (_args.atlases) {
 				$scope.data.atlases = _args.atlases
 			}
@@ -164,14 +164,14 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 			
 			//image
-			if( $scope.data.type == "sprite" || $scope.data.type == "tilesprite"){
+			if( $scope.data.type == "sprite" || $scope.data.type == "tilesprite"){	
+				var key = $scope.currentEntity.key;
 				//Atlas
 				if( $scope.currentEntity.isAtlas == true ){
-					$scope.data.atlas = $scope.currentEntity.atlas;
+					$scope.selectAtlas(key,true);
 					$scope.data.frameName = $scope.currentEntity.frameName;
 				}
 
-				var key = $scope.currentEntity.key;
 				if (key === "" || key === "__missing" || key == null) {
 					$scope.data.image = $scope.noneImage;
 				} 
@@ -215,6 +215,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			this.resetData();
 			console.error("entity is null");
 		}
+		$timeout(function() {
+  			$scope.$apply();
+		});
 	};
 
 	$scope.clone = function() {
@@ -421,6 +424,19 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.currentEntity.isAtlas = true;
 	}
 
+	$scope.selectAtlas = function(_atlasName,_force){
+		if( $scope.currentEntity.key == _atlasName && _force != true)
+			return;
+		for(var i=0; i < $scope.data.atlases.length; i++){
+			if( _atlasName == $scope.data.atlases[i].name){
+				$scope.data.atlas = $scope.data.atlases[i];
+				$scope.data.frameName = $scope.data.atlas.frames[0].filename;
+			}
+		}
+		$timeout(function() {
+  			$scope.$apply();
+		});		
+	}
 	//============ ANIMATION =============================
 
     $scope.addAnimToCurrentEntity = function(_name){

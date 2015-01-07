@@ -12,6 +12,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.cutscenes = [];
 		$scope.loadedImages = new Array();
+		$scope.loadedAtlases = new Array();
 
 		//============ PROJECT ===================
 
@@ -651,6 +652,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				_atlas.loaded = true;
 				_atlas.frames = $scope.game.cache.getJSON(_atlas.name).frames;
 			});
+			$scope.loadedAtlases.push(_atlas);
 
 			$scope.game.load.onLoadComplete.remove(successCallback);
 			$scope.game.load.onFileComplete.remove(errorCallback);
@@ -683,15 +685,24 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			url += "?path=" + _levelPath;
 			$http.get(url).success(function(_data) {
 				var importer = new LR.Editor.LevelImporterEditor($scope);
-				importer.import(_data, $scope.game, function(err, data) {
+				importer.import(_data, $scope.game, function(_err, _root, _game,_project) {
+					
 					if (typeof _promise === "function") {
-						_promise(err, data);
+						_promise(_err, _root);
 					}
+					//build loaded atlases array
+					for(var i=0; i < _project.assets.atlases.length; i++){
+						if(_project.assets.atlases[i].loaded){
+							$scope.loadedAtlases.push( _project.assets.atlases[i]);
+						}
+					}
+					$scope.$emit("sendLoadedAtlasesEmit",{"atlases":$scope.loadedAtlases});
+				
 				});
 
-				$scope.loadedImages = JSON.parse( JSON.stringify( _data.assets.images ) );
+				$scope.loadedImages = JSON.parse( JSON.stringify( _data.assets.images ) );				
 				$scope.$emit("sendLoadedImagesEmit",{"images":$scope.loadedImages});
-
+				
 				$scope.importSettings(_data.settings);
 
 				//cutscenes should be imported now

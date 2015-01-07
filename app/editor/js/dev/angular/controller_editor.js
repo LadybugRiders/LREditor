@@ -110,6 +110,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("sendLoadedImagesBroadcast", _args);
 		});
 
+		$scope.$on("sendLoadedAtlasesEmit", function(_event, _args) {
+			$scope.$broadcast("sendLoadedAtlasesBroadcast", _args);
+		});
+
 		$scope.$on("loadImageEmit", function(_event, _args) {
 			$scope.$broadcast("loadImageBroadcast", _args);
 		});

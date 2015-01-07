@@ -113,10 +113,10 @@ LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _prom
 		this.doAfterImportEntitiesAndBeforePromise(_objects, _game);
 	} else {
 		error = "No entity to import.";
-	}
+	}	
 	
 	if (typeof _promise === "function") {
-		_promise(error, root, _game);
+		_promise(error, root, _game, this.$scope.project );
 	}
 };
 
