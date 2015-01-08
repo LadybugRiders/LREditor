@@ -116,7 +116,7 @@ LR.LevelImporter.prototype.importEntitiesAndDo = function(_objects, _game, _prom
 	}	
 	
 	if (typeof _promise === "function") {
-		_promise(error, root, _game, this.$scope.project );
+		_promise(error, root, _game, this.$scope?this.$scope.project:null );
 	}
 };
 
@@ -274,10 +274,10 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 
 	if(_objectData.type == "LR.Entity.Button"){
 		_entity.setFrames(
-			_objectData.onOverFrameID,
-			_objectData.onOutFrameID,
-			_objectData.onDownFrameID,
-			_objectData.onUpFrameID
+			_objectData.onOverFrameID|0,
+			_objectData.onOutFrameID|0,
+			_objectData.onDownFrameID|0,
+			_objectData.onUpFrameID|0
 		);
 	}
 

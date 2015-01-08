@@ -197,10 +197,10 @@ LR.Editor.LevelImporterEditor.prototype.setDisplay = function(_objectData, _enti
 	// Button specifics
 	if( _objectData.type == "LR.Entity.Button") {
 		// frames
-		_entity.onOverFrameID = parseInt(_objectData.onOverFrameID);
-		_entity.onOutFrameID = parseInt(_objectData.onOutFrameID);
-		_entity.onDownFrameID = parseInt(_objectData.onDownFrameID);
-		_entity.onUpFrameID = parseInt(_objectData.onUpFrameID);
+		_entity.onOverFrameID = parseInt(_objectData.onOverFrameID | 0);
+		_entity.onOutFrameID = parseInt(_objectData.onOutFrameID | 0);
+		_entity.onDownFrameID = parseInt(_objectData.onDownFrameID | 0);
+		_entity.onUpFrameID = parseInt(_objectData.onUpFrameID | 0);
 	}
 
 	//tint color

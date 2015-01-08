@@ -541,10 +541,10 @@ LR.LevelExporter.prototype.setDisplay = function(_entity, _object) {
 	// Button specifics
 	if (_object.type == "LR.Entity.Button") {
 		// frames
-		_object.onOverFrameID = _entity._onOverFrameID;
-		_object.onOutFrameID = _entity._onOutFrameID;
-		_object.onDownFrameID = _entity._onDownFrameID;
-		_object.onUpFrameID = _entity._onUpFrameID;
+		_object.onOverFrameID = _entity.onOverFrameID | 0;
+		_object.onOutFrameID = _entity.onOutFrameID | 0;
+		_object.onDownFrameID = _entity.onDownFrameID | 0;
+		_object.onUpFrameID = _entity.onUpFrameID | 0;
 	}
 
 	// Tint Color

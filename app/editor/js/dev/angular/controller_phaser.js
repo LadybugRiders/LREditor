@@ -378,6 +378,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		button.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(button.go, $scope));
 		button.ed_locked = false;
 		button.ed_fixedToCamera = false;
+		//fill frames
+		button.onOverFrameID = 0;
+		button.onOutFrameID = 0;
+		button.onDownFrameID = 0;
+		button.onUpFrameID = 0;
 		//Add to editor game
 		$scope.game.add.existing(button);
 		this.checkAddingEntity(button);

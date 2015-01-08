@@ -164,7 +164,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			}
 			
 			//image
-			if( $scope.data.type == "sprite" || $scope.data.type == "tilesprite"){	
+			if( $scope.data.type == "sprite" || $scope.data.type == "tilesprite" || $scope.data.type == "button"){	
 				var key = $scope.currentEntity.key;
 				//Atlas
 				if( $scope.currentEntity.isAtlas == true ){
@@ -305,17 +305,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	//================================================================
 
 	$scope.changeTexture = function(_imageKey, _frame) {
-		/*if (typeof _image !== "object") {
-			_image = new Image();
-		}
-		if (_image.name == null || _image.name === "") {
-			_image.name = null;
-		}*/
+		
 
 		if (_frame == null || _frame === "") {
 			_frame = 0;
 		}
-		console.log(_imageKey);
+
 		var image = $scope.currentEntity.game.cache.getImage(_imageKey);
 		if (image) {
 			var lastTexture = $scope.currentEntity.key;
@@ -330,17 +325,12 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		}
 	};
 
-	$scope.changeTextureButton = function(_image) {
-		if (typeof _image !== "object") {
-			_image = new Image();
-		}
-		if (_image.name == null || _image.name === "") {
-			_image.name = null;
-		}
-
-		if ($scope.currentEntity.game.cache.getImage(_image.name)) {
+	$scope.changeTextureButton = function(_imageKey) {
+		console.log(_imageKey);
+		var image = $scope.currentEntity.game.cache.getImage(_imageKey);
+		if (image) {
 			var lastTexture = $scope.currentEntity.key;
-			$scope.currentEntity.loadTexture(_image.name, 0);
+			$scope.currentEntity.loadTexture(_imageKey, 0);
 			$scope.currentEntity.setFrames(
 				parseInt($scope.currentEntity.onOverFrameID),
 				parseInt($scope.currentEntity.onOutFrameID),
@@ -348,11 +338,11 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				parseInt($scope.currentEntity.onUpFrameID)
 			);
 			if(lastTexture == "none") {
-				$scope.currentEntity.width = parseInt(_image.frameWidth);
-				$scope.currentEntity.height = parseInt(_image.frameHeight);
+				$scope.currentEntity.width = parseInt(image.frameWidth);
+				$scope.currentEntity.height = parseInt(image.frameHeight);
 			}
 		} else {
-			console.error("No image with the name '" + _image.name +"'' in cache");
+			console.error("No image with the name '" + image +"'' in cache");
 		}
 	};
 
