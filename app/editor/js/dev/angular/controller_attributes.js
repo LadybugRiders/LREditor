@@ -305,7 +305,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	//================================================================
 
 	$scope.changeTexture = function(_imageKey, _frame) {
-		
 
 		if (_frame == null || _frame === "") {
 			_frame = 0;
@@ -789,6 +788,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
 		// we need args as an object, but it is stored as a string
 		$scope.modalParamsData.behaviour = _behaviour;
+		$scope.modalParamsData.game = $scope.currentEntity.game;
 		
 		var modalInstance = $modal.open({
 			scope: $scope,

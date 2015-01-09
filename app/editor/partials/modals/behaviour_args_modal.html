@@ -15,20 +15,31 @@
             <tr ng-repeat="(name,val) in modalParamsData.tmp.behaviour.params">
                 <td>
                     {{name}}
-                </td>
+                </td>                
+                <!-- VALUE -->
                 <td>
-                    <input json-text type="text" ng-model="val" class="form-control" disabled/>
+                    <input json-text type="text" 
+                    ng-model="val" 
+                    ng-show="isGameObjectReference(val)==false"
+                    class="form-control" disabled/>
+
+                    <label ng-show="isGameObjectReference(val)==true"
+                    class="form-control" disabled>
+                    {{getGameObjectNameByID(val)}} </label>
                 </td>
+                <!-- PICK ENTITY -->
                 <td>                    
                     <button class="btn btn-default" ng-click="pickEntity(name)">
-                        <span class="glyphicon glyphicon-list-alt"></span>
+                        <span class="glyphicon glyphicon-list-alt" tooltip="Pick a GameObject"></span>
                     </button>
                 </td>
+                <!-- EDIT -->
                 <td>
                     <button class="btn btn-default" ng-click="openEditModal(modalParamsData.tmp.behaviour.params, name, true)">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </td>
+                <!-- DELETE -->
                 <td>
                     <button class="btn btn-danger" ng-click="deleteArg(name)">
                         <span class="glyphicon glyphicon-remove-sign"></span>

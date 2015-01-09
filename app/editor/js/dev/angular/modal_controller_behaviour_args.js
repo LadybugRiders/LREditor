@@ -7,12 +7,16 @@ var BehaviourArgsCtrlModal = function ($scope, $modalInstance, $timeout) {
     $scope.modalParamsData.tmp.behaviour = new Object();
     $scope.modalParamsData.tmp.behaviour.name = $scope.modalParamsData.behaviour.name;
     
+    //clone the data in order to being able to revert future changes
     var clone = new Object();
     try {
       clone = JSON.parse(JSON.stringify($scope.modalParamsData.behaviour.params));
     } catch(e) {
     }
     $scope.modalParamsData.tmp.behaviour.params = clone;
+
+    //find gameobjects referenced in the params
+    $scope.buildGameObjectReferences();
   };
 
   $scope.save = function () {
@@ -59,13 +63,53 @@ var BehaviourArgsCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.pickEntity = function(_argName){  
     $scope.currentArg = _argName;
-    $scope.$emit("pickEntityEmit",{context:this, callback : this.onGameObjectPicked});
+    var currentPick = null;
+    //check if a gameobject is already picked
+    var idString = $scope.modalParamsData.tmp.behaviour.params[_argName];
+    if( $scope.goHash[idString] != null)
+      currentPick = $scope.goHash[idString].entity;
+    
+    $scope.$emit("pickEntityEmit",{context:this, callback : this.onGameObjectPicked, currentPick : currentPick});
   }
 
   $scope.onGameObjectPicked = function(_entity){
     if( _entity && $scope.currentArg ){
-      $scope.modalParamsData.tmp.behaviour.params[$scope.currentArg] = "#GO_"+_entity.go.id;
+      var idString = "#GO_"+_entity.go.id;
+      $scope.modalParamsData.tmp.behaviour.params[$scope.currentArg] = idString;
+      $scope.addGameObject(idString);
     }
+  }
+
+  $scope.isGameObjectReference = function(_value){
+    if(typeof _value == "string" && _value.indexOf("#GO_") >=0){
+      return true;
+    }
+    return false;
+  }
+
+  $scope.buildGameObjectReferences = function(){
+    $scope.goHash = {};
+    var params = $scope.modalParamsData.tmp.behaviour.params;
+    for(var key in params){
+      var value = params[key];
+      if( $scope.isGameObjectReference(value) ){
+        $scope.addGameObject(value);
+      }
+    }
+  }
+
+  $scope.addGameObject = function(_idString){
+      var id = parseInt(_idString.substring(4));
+      var go = LR.GameObject.FindByID($scope.modalParamsData.game.world, id);
+      if( go ){
+        $scope.goHash[_idString] = go;
+      }
+  }
+
+  $scope.getGameObjectNameByID = function(_id){
+    if( $scope.goHash[_id] != null)
+      return $scope.goHash[_id].name + " [ID:" + $scope.goHash[_id].id + "]";
+    return "undefined";
   }
 
   main();

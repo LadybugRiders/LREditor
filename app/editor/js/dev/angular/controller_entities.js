@@ -16,7 +16,7 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 		});
 
 		$scope.$on("pickEntityBroadcast", function(_event, _args) {
-			$scope.openPickEntityModal(_args.context, _args.callback);
+			$scope.openPickEntityModal(_args.context, _args.callback, _args.currentPick);
 		});
 
 		//when selected from phaser
@@ -28,6 +28,7 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 		});
 
 		$scope.entities = new Array();
+		$scope.modalPickData = {pickedEntity:null};
 
 		$scope.isCollapsed = true;
 	};
@@ -86,7 +87,8 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 	//					PICK GAMEOBJECT
 	//===============================================================
 
-	$scope.openPickEntityModal = function(_context,_callback){
+	$scope.openPickEntityModal = function(_context,_callback,_currentPick){
+		$scope.modalPickData.pickedEntity = _currentPick;
 		var modalInstance = $modal.open({
 			scope: $scope,
 			templateUrl: 'partials/modals/pick_entity_modal.html',
