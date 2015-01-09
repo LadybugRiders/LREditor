@@ -45,6 +45,10 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		$scope.modalParamsData = {
 		};
 
+		$scope.$on("sendProjectBroadcast", function(_event, _args) {
+			$scope.project = _args.project;
+		});
+
 		$scope.$on("sendLoadedImagesBroadcast", function(_event, _args) {
 			if (_args.images) {
 				$scope.data.images = _args.images
@@ -305,6 +309,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	//================================================================
 
 	$scope.changeTexture = function(_imageKey, _frame) {
+		if( $scope.currentEntity == null)
+			return;
 
 		if (_frame == null || _frame === "") {
 			_frame = 0;
@@ -316,8 +322,17 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			$scope.currentEntity.loadTexture(_imageKey);
 			$scope.currentEntity.frame = ( parseInt(_frame) );
 			if( lastTexture == "none"){
-				$scope.currentEntity.width = parseInt(image.frameWidth);
-				$scope.currentEntity.height = parseInt(image.frameHeight);
+				var imageData = null;
+				for(var i=0; i < $scope.project.assets.images.length; i++){
+					if( $scope.project.assets.images[i].name == _imageKey ){
+						imageData = $scope.project.assets.images[i];
+						break;
+					}
+				}
+				if( imageData != null){
+					$scope.currentEntity.width = parseInt(imageData.frameWidth);
+					$scope.currentEntity.height = parseInt(imageData.frameHeight);
+				}
 			}
 		} else {
 			console.error("No image with the name '" + _imageKey +"'' in cache");
