@@ -430,14 +430,23 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		return $scope.ID_count;
 	}
 
-	$scope.reassignID = function(_entity){
-		if(_entity.go)
+	$scope.reassignID = function(_entity,_crossRefArray){
+		if( _crossRefArray == null)
+			_crossRefArray = new Array();
+		var crossRef = null;
+		if(_entity.go){
+			var crossRef = {"formerID": _entity.go.id};
 			_entity.go.id = $scope.getID();
+			crossRef.newID = _entity.go.id;
+		}
+		if( crossRef != null )
+			_crossRefArray.push(crossRef);
 		if( _entity.children != null ){
 			for( var i=0; i < _entity.children.length; i ++){
-				$scope.reassignID( _entity.children[i] );
+				$scope.reassignID( _entity.children[i],_crossRefArray );
 			}
 		}
+		return _crossRefArray;
 	}
 
 	$scope.checkAddingEntity = function(_entity){
@@ -467,7 +476,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if( iObj.name.indexOf("(clone)") < 0 )
 			iObj.name += " (clone)";
 		
-		$scope.reassignID(iObj);
+		var crossRefArray = $scope.reassignID(iObj);
+		$scope.refreshCloneBehavioursParamReferences(iObj,crossRefArray);
 		iObj.go.changeParent(_entity.parent);
 		//reposition
 		if( _position ){
@@ -544,6 +554,39 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			bh.enabled = true;
 		}
 		$scope.$emit("refreshCurrentEntityEmit",{entity : _entity} );
+	}
+
+	//When an entity is cloned, we need to be able to recheck its references 
+	//in behaviours parameters to match it with the new entities' ids
+	$scope.refreshCloneBehavioursParamReferences = function(_entity,_crossRefArray){
+		if(_entity.behaviours == null)
+			return;
+		//For each behaviour
+		for(var i=0; i < _entity.behaviours.length; i++){
+			var bh = _entity.behaviours[i];
+			for(var key in bh.params){
+				var val = bh.params[key];
+				if(typeof val == "string" && val.indexOf("#GO_")>=0 ){
+					var idRef = val.substring(4);
+					var newID;
+					for(var j=0; j < _crossRefArray.length; j++){
+						if( _crossRefArray[j].formerID == idRef){
+
+							newID = _crossRefArray[j].newID;
+							break;
+						}
+					}
+					bh.params[key] = "#GO_"+newID;
+				}
+			}
+		}
+
+		//Recursive for children
+		if(_entity.children){
+			for(var i=0; i < _entity.children.length; i++){
+				$scope.refreshCloneBehavioursParamReferences(_entity.children[i],_crossRefArray);
+			}
+		}
 	}
 
 	//===================================================================
