@@ -780,20 +780,35 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			_storage = "localstorage";
 			localStorage.setItem(_levelName, lvlStr);
 		} else if (_storage === "file") {
-			var url = "/editorserverapi/v0/level";
-			var params = {
-				name: _levelName + ".json",
-				path: _levelPath,
-				data: lvlStr
+			var req = {
+				method: 'POST',
+				url: "/editorserverapi/v0/level",
+				headers: {
+					'Content-Type': undefined // AngularJs will choose by itself (more secure)
+				},
+				data: {
+					name: _levelName + ".json",
+					path: _levelPath,
+					data: lvlStr
+				},
+				transformRequest: $scope.transformLevelDataToFormData
 			};
-			$http.post(url, params, function(error, data) {
-				if (error) {
-					console.error(error);
-				} else {
-					console.log("Level exported!!");
-				}
+
+			$http(req).success(function(data) {
+				// do nothing
+			}).error(function(error) {
+				console.error(error);
 			});
 		}
+	};
+
+	$scope.transformLevelDataToFormData = function(data) {
+		var fd = new FormData();
+		angular.forEach(data, function(value, key) {
+			fd.append(key, value);
+		});
+
+		return fd;
 	};
 
 	//===============================================================
