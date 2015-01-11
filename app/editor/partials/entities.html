@@ -1,6 +1,7 @@
 <accordion accordion-draggable>
-	<accordion-group heading="Entities [ {{project.level.substring(1)}} ]" is-open="'true'">
-		<div class="row">
+	<accordion-group heading="Entities [ {{project.level.substring(1)}} ]" 
+			is-open="'true'">
+		<div class="row" style="min-height:0px; height:auto; max-height:450px; overflow:auto; overflow-y:scroll;">
 			<ul class="list-entities">
 				<li ng-repeat='data in entities | noeditorentities' ng-include="'partials/directives/entity_directive.html'">
 				</li>
