@@ -1,71 +1,69 @@
 <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand">LREditor</a>
-    </div>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand">LREditor</a>
+  </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="" ng-click="play()">Play</a></li>
-        <!-- Project -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{project.name}} <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="" ng-click="changeCurrentProject()">Change current project</a></li>
-            <li><a href="" ng-click="newLevel()">New Level</a></li>
-          </ul>
-        </li>
-        <!-- Assets -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="" ng-click="manageImages()">Images</a></li>
-            <li><a href="" ng-click="manageAtlases()">Atlases</a></li>
-            <li><a href="" ng-click="manageAudios()">Audios</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Physics</li>
-            <li><a href="" ng-click="manageLayers()">Layers</a></li>
-            <li class="divider"></li>
-            <li><a href="" ng-click="manageBehaviours()">Behaviours <small>(coming soon)</small></a></li>
-            <li><a href="" ng-click="managePrefabs()">Prefabs</a></li>
-            <li><a href="" ng-click="manageInputs()">Inputs</a></li>
-          </ul>
-        </li>
-        <!-- Entities -->        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Entities <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="" ng-click="addGroup()">Add Group</a></li>
-            <li><a href="" ng-click="addSprite()">Add Sprite</a></li>
-            <li><a href="" ng-click="addTileSprite()">Add TileSprite</a></li>
-            <li><a href="" ng-click="addButton()">Add Button</a></li>
-            <li><a href="" ng-click="addText()">Add Text</a></li>
-            <li><a href="" ng-click="addBitmapText()">Add BitmapText</a></li>
-          </ul>
-        </li>
-        <!-- Level -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Level <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="" ng-click="levelSave()">Save</a></li>
-            <li><a href="" ng-click="levelImport()">Import</a></li>
-            <li><a href="" ng-click="levelExport()">Export</a></li>
-            <li><a href="" ng-click="levelDefault()">Set default imported level in editor</a></li>
-            <li class="divider"></li>
-            <li><a href="" ng-click="openCutsceneEditor()">Cutscenes</a></li>
-            <li><a href="" ng-click="openSettings()">Settings</a></li>
-          </ul>
-        </li>
-        <li><a href="" ng-click="help()">Help</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li><a href="" ng-click="play()">Play</a></li>
+      <!-- Project -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{project.name}} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-click="changeCurrentProject()">Change current project</a></li>
+          <li><a href="" ng-click="newLevel()">New Level</a></li>
+        </ul>
+      </li>
+      <!-- Assets -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-click="manageImages()">Images</a></li>
+          <li><a href="" ng-click="manageAtlases()">Atlases</a></li>
+          <li><a href="" ng-click="manageAudios()">Audios</a></li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Physics</li>
+          <li><a href="" ng-click="manageLayers()">Layers</a></li>
+          <li class="divider"></li>
+          <li><a href="" ng-click="manageBehaviours()">Behaviours <small>(coming soon)</small></a></li>
+          <li><a href="" ng-click="managePrefabs()">Prefabs</a></li>
+          <li><a href="" ng-click="manageInputs()">Inputs</a></li>
+        </ul>
+      </li>
+      <!-- Entities -->        
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Entities <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-click="addGroup()">Add Group</a></li>
+          <li><a href="" ng-click="addSprite()">Add Sprite</a></li>
+          <li><a href="" ng-click="addTileSprite()">Add TileSprite</a></li>
+          <li><a href="" ng-click="addButton()">Add Button</a></li>
+          <li><a href="" ng-click="addText()">Add Text</a></li>
+          <li><a href="" ng-click="addBitmapText()">Add BitmapText</a></li>
+        </ul>
+      </li>
+      <!-- Level -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Level <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-click="levelSave()">Save</a></li>
+          <li><a href="" ng-click="levelImport()">Import</a></li>
+          <li><a href="" ng-click="levelExport()">Export</a></li>
+          <li><a href="" ng-click="levelDefault()">Set default imported level in editor</a></li>
+          <li class="divider"></li>
+          <li><a href="" ng-click="openCutsceneEditor()">Cutscenes</a></li>
+          <li><a href="" ng-click="openSettings()">Settings</a></li>
+        </ul>
+      </li>
+      <li><a href="" ng-click="help()">Help</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
 </nav>

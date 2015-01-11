@@ -152,11 +152,13 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			update: $scope.update,
 			render: $scope.render
 		};
+
 		var width =	window.innerWidth;
 		var header = $("header");
 		if (header.length > 0) {
 			header = header[0];
 		}
+
 		var headerHeight = $(header).height();
 		var height = window.innerHeight - headerHeight;
 		$scope.game = new Phaser.Game(width, height, Phaser.AUTO, 'phaser', functions);
@@ -194,6 +196,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.createEditorEntities();
 
 		$scope.$emit("refreshListEmit", {world: $scope.game.world});
+
+		// set to resize to the exact fit
+		$scope.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+		$scope.game.scale.pageAlignVertically = true;
+		$scope.game.scale.pageAlignHorizontally = true;
 
 		// import default level if set
 		$timeout(function() {

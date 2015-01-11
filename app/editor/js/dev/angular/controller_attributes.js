@@ -434,12 +434,9 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		for(var i=0; i < $scope.data.atlases.length; i++){
 			if( _atlasName == $scope.data.atlases[i].name){
 				$scope.data.atlas = $scope.data.atlases[i];
-				$scope.data.frameName = $scope.data.atlas.frames[0].filename;
+				$scope.data.frameName = Object.keys($scope.data.atlas.frames)[0];
 			}
 		}
-		$timeout(function() {
-  			$scope.$apply();
-		});		
 	}
 	//============ ANIMATION =============================
 

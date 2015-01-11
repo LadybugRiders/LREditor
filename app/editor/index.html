@@ -2,6 +2,7 @@
 <html lang="en" ng-app="LREditor">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LREditor</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../shared/css/bootstrap.min.css">
@@ -13,7 +14,7 @@
 <body ng-controller="EditorCtrl">
   <header ng-include="'partials/header.html'" ng-controller="HeaderCtrl"></header>
 
-  <div ng-view></div>
+  <div ng-view class="container-fluid"></div>
 
   <!--<footer ng-include="'partials/footer.html'"></footer>-->
 

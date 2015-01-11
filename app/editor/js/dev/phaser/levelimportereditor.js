@@ -84,7 +84,7 @@ LR.Editor.LevelImporterEditor.prototype.importAtlases = function(_atlases, _load
 		var atData = _atlases[i];
 		var atPath = this.$scope.project.path + "/assets/atlases" + atData.path;
 
-		_loader.atlas(
+		_loader.atlasJSONHash(
 			atData.name, atPath+".png", atPath+".json"
 		);
 		_loader.json(atData.name, atPath+".json");

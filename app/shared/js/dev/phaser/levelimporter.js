@@ -85,7 +85,7 @@ LR.LevelImporter.prototype.importAtlases = function(_atlases, _loader) {
 	var atlasesPath = this.$scope.project.path+"/assets/atlases";
 	for (var i = 0; i < _atlases.length; i++) {
 		var atlas = _atlases[i];
-		_loader.atlas(
+		_loader.atlasJSONHash(
 			atlas.name, atlasesPath+atlas.path + ".png", 
 			atlasesPath+atlas.path+".json");
 	};
@@ -180,7 +180,7 @@ LR.LevelImporter.prototype.importEntity = function(_object, _game) {
 
 	if (entity) {
 
-		this.setGeneral(_object, entity);
+		this.setGeneral(_object, entity);		
 
 		this.setDisplay(_object, entity);
 
@@ -255,17 +255,31 @@ LR.LevelImporter.prototype.setDisplay = function(_objectData, _entity) {
 	_entity.visible = _objectData.visible;
 	_entity.alpha = _objectData.alpha || 1;
 
+
+
 	if (_objectData.key) {
 		var w = _entity.width;
 		var h = _entity.height;
-		_entity.loadTexture(_objectData.key, _objectData.frame);
+		var scaleX = _objectData.scaleX;
+		var scaleY = _objectData.scaleY;
+
+		//don't set a frame for atalses, they don't need it and it can mess the entity up
+		if( _objectData.frameName == null )
+			_entity.loadTexture(_objectData.key, _objectData.frame);
+		else
+			_entity.loadTexture(_objectData.key);
+		//scale and size can be messy after loading a texture
 		_entity.width = w;
 		_entity.height = h;
+		_entity.scale.x = scaleX;
+		_entity.scale.y = scaleY;
+
 		if( _objectData.type == "LR.Entity.TileSprite" && _entity.game.renderType == Phaser.CANVAS){
 			_entity.tilePosition.y = h ;//* 0.5;
 			_entity.tilePosition.x = w ;//* 0.5;
 		}
 	}
+
 
 	if( _objectData.frameName ){
 		_entity.isAtlas = true;

@@ -30,7 +30,7 @@
 	</div>
 	<!-- ATLAS -->
 	<div ng-show="currentEntity.isAtlas">
-		<label>Atlas</label>
+		<label>Atlas [ {{ data.imageKey }} ]</label>
 		<select ng-model="data.imageKey" ng-change="selectAtlas(data.imageKey)" class="form-control">
 			<option ng-repeat="img in data.atlases"
 					value="{{img.name}}"
@@ -39,10 +39,10 @@
 		</select>
 		<label>Frame Name [ {{data.frameName}} ]</label>
 		<select ng-model="data.frameName" class="form-control">
-			<option ng-repeat="frm in data.atlas.frames"
-					ng-value="{{frm.filename}}"
-					selected="frm.filename==currentEntity.frameName"
-			> {{frm.filename}}
+			<option ng-repeat="(frmName,frmData) in data.atlas.frames"
+					ng-value="{{frmName}}"
+					selected="frmName==currentEntity.frameName"
+			> {{frmName}}
 			</option>
 		</select>
 		<!-- <select ng-model="data.frameName" class="form-control">

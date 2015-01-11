@@ -65,7 +65,7 @@ LR.LevelImporterGame.prototype.importAtlases = function(_atlases, _loader) {
 	var atlasesPath = "assets/atlases";
 	for (var i = 0; i < _atlases.length; i++) {
 		var atlas = _atlases[i];
-		_loader.atlas(
+		_loader.atlasJSONHash(
 			atlas.name, atlasesPath+atlas.path + ".png", 
 			atlasesPath+atlas.path+".json");
 	};
