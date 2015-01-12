@@ -226,9 +226,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			this.resetData();
 			console.error("entity is null");
 		}
-		$timeout(function() {
-  			$scope.$apply();
-		});
+		console.log($scope.data.imageKey);
 	};
 
 	$scope.clone = function() {

@@ -267,7 +267,9 @@ LR.Editor.LevelImporterEditor.prototype.setBehaviours = function(_objectData, _e
 	LR.LevelImporter.prototype.setBehaviours.call(this, _objectData, _entity);
 	//add input behaviour on sprites /text
 	if (_entity.type != Phaser.GROUP) {
-		_entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
+		var inputHandleBH = _entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
+		if(_objectData.locked == true)
+			inputHandleBH.lock();
 	}
 };
 

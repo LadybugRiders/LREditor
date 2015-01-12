@@ -520,8 +520,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		_entity.go.sendMessage("lock");
 
-		if( $scope.entityHandleScript.target === _entity ){
-			$scope.entityHandleScript.deactivate();
+		//hide the entity handle if the entity to lock is currently selected
+		if( $scope.entityHandleScript.isTargetSelected(_entity) ){
+			$scope.entityHandleScript.removeTarget(_entity);
 		}
 	}
 
