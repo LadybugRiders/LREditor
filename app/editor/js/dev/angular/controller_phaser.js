@@ -313,7 +313,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			return;
 		$scope.currentEntity = _entity;
 		if( _entity.parent != $scope.editorGroup && _entity != $scope.game.world ){
-			if($scope.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT)){
+			if($scope.game.input.keyboard.isDown(Phaser.Keyboard.CONTROL)){
 				$scope.entityHandleScript.addTarget(_entity);
 			}else{
 				$scope.entityHandleScript.activate(_entity);

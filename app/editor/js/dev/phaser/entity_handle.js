@@ -29,8 +29,8 @@ LR.Editor.Behaviour.EntityHandle = function(_gameobject,_$scope) {
 
     var inputManager = this.entity.game.inputManager;
     //Full drag on CTRL
-    inputManager.bindKeyPress("ctrl",this.activateTotalDrag, this );
-    inputManager.bindKeyRelease("ctrl",this.deactivateTotalDrag, this );
+    inputManager.bindKeyPress("shift",this.activateTotalDrag, this );
+    inputManager.bindKeyRelease("shift",this.deactivateTotalDrag, this );
     //Clone on C
     inputManager.bindKeyRelease("clone",this.duplicate, this );
     //Delete
