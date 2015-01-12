@@ -7,6 +7,13 @@ var LREditorCtrlMod = angular.module('LREditor.controllers');
 LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$timeout",
 	function($scope, $http,$modal, $timeout) {
 	function main() {
+		$scope.collapse = {
+			general: false,
+			display: true,
+			physics: true,
+			behaviours: true,
+			misc: true
+		};
 		$scope.currentEntity = null;
 		$scope.noneImage = new Image();
 		$scope.noneImage.name = "none";

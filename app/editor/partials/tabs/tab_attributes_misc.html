@@ -10,7 +10,7 @@
 							<input json-text type="text" ng-model="tween.data.properties" class="form-control" ng-disabled="true"/>
 						</div>
 						<div class="form-group col-md-2">
-							<button ng-click="openEditModal(tween.data,'properties')" type="button" class="btn btn-default">
+							<button ng-click="openEditModal(tween.data,'properties')" type="button" class="btn btn-default btn-xs">
 								<span class="glyphicon glyphicon-pencil"></span>
 							</button>
 						</div>
@@ -66,18 +66,18 @@
 					</div>
 					<!-- Play / Stop-->
 					<div class="row">
-						<button ng-click="playTween(key)"> 
+						<button ng-click="playTween(key)" class="btn btn-default btn-xs"> 
 							<span class="glyphicon glyphicon-play"></span>
 						</button>
-						<button ng-click="stopTweens()"> 
+						<button ng-click="stopTweens()" class="btn btn-default btn-xs"> 
 							<span class="glyphicon glyphicon-stop"></span>
 						</button>
 					</div>
 					<div class="row">
-						<button ng-click="removeTween(key)" type="button" class="btn btn-danger">
+						<button ng-click="removeTween(key)" type="button" class="btn btn-danger btn-xs">
 							Delete
 						</button>
-						<button ng-click="copyTween(tween)" type="button" class="btn btn-primary">
+						<button ng-click="copyTween(tween)" type="button" class="btn btn-primary btn-xs">
 							Copy
 						</button>
 					</div>
@@ -92,10 +92,10 @@
 				</input>
 			</div>
 			<div class="col-md-2">
-				<button ng-click="addTween(newTweenName)" type="button" class="btn btn-primary">Add</button>
+				<button ng-click="addTween(newTweenName)" type="button" class="btn btn-primary btn-xs">Add</button>
 			</div>
 			<div class="col-md-2">
-				<button ng-click="pasteTween(newTweenName)" type="button" class="btn btn-primary">Paste</button>
+				<button ng-click="pasteTween(newTweenName)" type="button" class="btn btn-primary btn-xs">Paste</button>
 			</div>
 		</div>
 	</li>
@@ -128,7 +128,7 @@
 						<input type ="checkbox" class="col-md-1" ng-model="soundData.loop" />
 					</div>
 					<div class="row">
-						<button ng-click="removeSound($index)" type="button" class="btn btn-danger">
+						<button ng-click="removeSound($index)" type="button" class="btn btn-danger btn-xs">
 							Delete
 						</button>
 					</div>
@@ -143,7 +143,7 @@
 				</input>
 			</div>
 			<div class="col-md-4">
-				<button ng-click="addSound(newSoundName)" type="button" class="btn btn-primary">Add Sound</button>
+				<button ng-click="addSound(newSoundName)" type="button" class="btn btn-primary btn-xs">Add Sound</button>
 			</div>
 		</div>
 	</li>

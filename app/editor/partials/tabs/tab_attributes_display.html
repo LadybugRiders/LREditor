@@ -24,7 +24,7 @@
 			</div>
 			<!-- APPLY -->
 			<div class="form-group">
-				<button ng-click="changeTexture(data.imageKey, data.imageFrame)" type="button" class="btn btn-default">Apply</button>
+				<button ng-click="changeTexture(data.imageKey, data.imageFrame)" type="button" class="btn btn-default btn-xs">Apply</button>
 			</div>
 		</div>
 	</div>
@@ -57,7 +57,7 @@
 		</select> -->
 		<!-- APPLY -->
 		<div class="form-group">
-			<button ng-click="changeAtlas(data.imageKey, data.frameName)" type="button" class="btn btn-default">Apply</button>
+			<button ng-click="changeAtlas(data.imageKey, data.frameName)" type="button" class="btn btn-default btn-xs">Apply</button>
 		</div>
 	</div>
 
@@ -75,7 +75,7 @@
 		</div>
 		<!-- APPLY -->
 		<div class="form-group">
-			<button ng-click="changeTextureButton(data.imageKey)" type="button" class="btn btn-default">Apply</button>
+			<button ng-click="changeTextureButton(data.imageKey)" type="button" class="btn btn-default btn-xs">Apply</button>
 		</div>
 	</div>
 	
@@ -138,10 +138,10 @@
 			<input type="text" ng-model="anim.ed_frames" ng-change="changeAnim(anim)" class="form-group">
 			</input>
 			<!-- Play / Stop-->
-			<button ng-click="playAnim(anim)"> 
+			<button ng-click="playAnim(anim)" class="btn btn-default btn-xs"> 
 				<span class="glyphicon glyphicon-play"></span>
 			</button>
-			<button ng-click="stopAnim(anim)"> 
+			<button ng-click="stopAnim(anim)" class="btn btn-default btn-xs"> 
 				<span class="glyphicon glyphicon-stop"></span>
 			</button>
 			<!-- Allow loop -->
@@ -167,7 +167,7 @@
 				</div>
 			</div>	
 			<!-- Remove -->			
-			<button ng-click="removeAnim(anim)" class="btn btn-danger"> 
+			<button ng-click="removeAnim(anim)" class="btn btn-danger btn-xs"> 
 				<span class="glyphicon glyphicon-remove-sign"></span>
 			</button>
 		</accordion-group>
@@ -178,7 +178,7 @@
 			<input type="text" ng-model="animName" class="form-control"/>
 		</div>
 		<div class="col-md-4">
-			<button ng-click="addAnimToCurrentEntity(animName)" type="button" class="btn btn-primary">Add Anim</button>
+			<button ng-click="addAnimToCurrentEntity(animName)" type="button" class="btn btn-primary btn-xs">Add Anim</button>
 		</div>
 	</div>
 	<!-- AutoPlay -->	

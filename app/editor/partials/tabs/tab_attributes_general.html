@@ -1,26 +1,14 @@
-<div class="body-inner">
 <div class="row">
-	<div class="form-group col-md-3">
-		<!-- visible -->
-		<button ng-click="toggleVisible()" type="button" class="btn btn-default">
-			<div ng-if="currentEntity.visible == false">
-				<span class="glyphicon glyphicon-eye-close"></span>
-			</div>
-			<div ng-if="currentEntity.visible == true">
-				<span class="glyphicon glyphicon-eye-open"></span>
-			</div>
-		</button>
-	</div>
-	<div class="form-group col-md-3">
-		<!-- LOCK -->		
-		<div ng-if="currentEntity.ed_locked == true">
-			<button ng-click="toggleLock(false)" type="button" class="btn btn-danger">
-				<span class="glyphicon glyphicon-move"></span>
+	<div class="col-md-12">
+		<div class="btn-group" role="group">
+			<!-- visible -->
+			<button ng-click="toggleVisible()" type="button" class="btn btn-default btn-xs">
+				<span class="glyphicon glyphicon-eye-close" ng-show="!currentEntity.visible"></span>
+				<span class="glyphicon glyphicon-eye-open" ng-show="currentEntity.visible"></span>
 			</button>
-		</div>
-		<div ng-if="currentEntity.ed_locked == false">
-			<button ng-click="toggleLock(true)" type="button" class="btn btn-primary">
-				<span class="glyphicon glyphicon-move"></span>
+			<button ng-click="currentEntity.ed_locked = !currentEntity.ed_locked" type="button" class="btn btn-default btn-xs">
+				<span class="glyphicon glyphicon-move" ng-show="!currentEntity.ed_locked"></span>
+				<span class="glyphicon glyphicon-ban-circle" ng-show="currentEntity.ed_locked"></span>
 			</button>
 		</div>
 	</div>
@@ -120,7 +108,7 @@
 					class="form-control" />
 		</div>
 		<div class="col-md-4">
-			<button ng-click="openEditModal(currentEntity,'text',true)" type="button" class="btn btn-default" tooltip="Edit Text">
+			<button ng-click="openEditModal(currentEntity,'text',true)" type="button" class="btn btn-default btn-xs" tooltip="Edit Text">
 					<span class="glyphicon glyphicon-pencil"></span>
 			</button>	
 		</div>	
@@ -196,11 +184,10 @@
 </div>
 
 <div class="row">
-	<div class="col-md-4">
-		<button ng-click="clone()"  type="button" class="btn btn-primary">Clone</button>
+	<div class="col-md-12">
+		<div class="btn-group" role="group">
+			<button ng-click="clone()"  type="button" class="btn btn-primary btn-xs">Clone</button>
+			<button ng-click="delete()"  type="button" class="btn btn-danger btn-xs">Delete</button>
+		</div>
 	</div>
-	<div class="col-md-4">
-		<button ng-click="delete()"  type="button" class="btn btn-danger">Delete</button>
-	</div>
-</div>
 </div>

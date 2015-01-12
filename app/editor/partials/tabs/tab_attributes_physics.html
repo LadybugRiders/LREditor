@@ -5,7 +5,7 @@
 	<!-- ADD BODY -->
 	<div ng-if="data.type != 'group'" >
 		<div ng-if="currentEntity.body == null" class="form-group">
-			<button ng-click="addBodyToCurrentEntity()" type="button" class="btn btn-default">Add Body</button>
+			<button ng-click="addBodyToCurrentEntity()" type="button" class="btn btn-default btn-xs">Add Body</button>
 		</div>
 	</div>
 
@@ -71,7 +71,7 @@
 					class="col-md-4" integer/>
 				</div>
 
-				<button ng-click="removeBodyFromCurrentEntity()" type="button" class="btn btn-danger">Remove Body</button>
+				<button ng-click="removeBodyFromCurrentEntity()" type="button" class="btn btn-danger btn-xs">Remove Body</button>
 
 			</accordion-group>
 		</accordion>
@@ -81,14 +81,14 @@
 		<accordion>
 			<accordion-group ng-repeat="shape in data.body.shapes" heading="{{currentEntity.go.getShape(shape.id).lr_name}}">
 				<!-- heading -->
-				<div class="row">
-					<button ng-click="openEditModal(currentEntity.go.getShape(shape.id),'lr_name')" type="button" class="btn btn-default" tooltip="rename">
+				<div class="btn-group" role="group">
+					<button ng-click="openEditModal(currentEntity.go.getShape(shape.id),'lr_name')" type="button" class="btn btn-default btn-xs" tooltip="rename">
 						<span class="glyphicon glyphicon-pencil"></span>
 					</button>
-					<button ng-click="resetShape(shape.id)" type="button" class="btn btn-default">
+					<button ng-click="resetShape(shape.id)" type="button" class="btn btn-default btn-xs">
 						<span class="glyphicon glyphicon-repeat" tooltip="reset"></span>
 					</button>
-					<button ng-click="deleteShape(shape.id)" type="button" class="btn btn-danger">
+					<button ng-click="deleteShape(shape.id)" type="button" class="btn btn-danger btn-xs">
 						<span class="glyphicon glyphicon-remove-sign" tooltip="remove"></span>
 					</button>
 				</div>
@@ -142,7 +142,7 @@
 				<input type="text" ng-model="shapeName" class="form-control"/>
 			</div>
 			<div class="col-md-4">
-				<button ng-click="addShapeToCurrentEntity(shapeName)" type="button" class="btn btn-default">Add Shape</button>
+				<button ng-click="addShapeToCurrentEntity(shapeName)" type="button" class="btn btn-default btn-xs">Add Shape</button>
 			</div>
 		</div>
 

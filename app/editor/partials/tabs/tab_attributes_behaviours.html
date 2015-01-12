@@ -1,6 +1,5 @@
 <!-- BEHAVIOURS -->
 <div class="form-group">
-	<label>Behaviours</label>
 	<ul class="list-group">
 		<li class="list-group-item">
 			<accordion>
@@ -10,7 +9,7 @@
 							<input json-text type="text" ng-model="behaviour.params" class="form-control" ng-disabled="'true'"/>
 						</div>
 						<div class="form-group col-md-2">
-							<button ng-click="openBehaviourArgsModal(behaviour)" type="button" class="btn btn-default">
+							<button ng-click="openBehaviourArgsModal(behaviour)" type="button" class="btn btn-default btn-xs">
 								<span class="glyphicon glyphicon-pencil"></span>
 							</button>
 						</div>
@@ -21,7 +20,7 @@
 						</label>
 					</div>
 					<div class="row">
-						<button ng-click="deleteBehaviour(behaviour)" type="button" class="btn btn-danger">
+						<button ng-click="deleteBehaviour(behaviour)" type="button" class="btn btn-danger btn-xs">
 							Delete
 						</button>
 					</div>
@@ -46,7 +45,7 @@
 					</select>
 				</div>
 				<div class="col-md-4">
-					<button ng-click="addBehaviour(selectedBehaviour)" type="button" class="btn btn-primary">Add</button>
+					<button ng-click="addBehaviour(selectedBehaviour)" type="button" class="btn btn-primary btn-xs">Add</button>
 				</div>
 			</div>
 		</li>
@@ -61,7 +60,7 @@
 		<li class="list-group-item">
 			<div class="row">
 				<div class="col-md-12">
-					<button ng-click="removeAllBehaviours()" type="button" class="btn btn-danger">Remove all behaviours</button>
+					<button ng-click="removeAllBehaviours()" type="button" class="btn btn-danger btn-xs">Remove all behaviours</button>
 				</div>
 			</div>
 		</li>

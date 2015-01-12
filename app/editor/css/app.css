@@ -2,10 +2,6 @@
 	margin-bottom: 0;
 }
 
-accordion .panel-heading:hover {
-	cursor: move;
-}
-
 accordion a:hover {
 	cursor: pointer;
 }

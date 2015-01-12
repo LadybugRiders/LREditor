@@ -24,20 +24,67 @@
 	</div>
 </div>
 
-<tabset justified="true">
-	<tab heading="General">
-		<div ng-include="'partials/tabs/tab_attributes_general.html'"> </div>
-	</tab>
-	<tab heading="Display">				
-		<div ng-include="'partials/tabs/tab_attributes_display.html'"> </div>
-	</tab>
-	<tab heading="Physics">
-		<div ng-include="'partials/tabs/tab_attributes_physics.html'"> </div>
-	</tab>
-	<tab heading="Behaviours">
-		<div ng-include="'partials/tabs/tab_attributes_behaviours.html'"> </div>				
-	</tab>
-	<tab heading="Misc">
-		<div ng-include="'partials/tabs/tab_attributes_misc.html'"> </div>				
-	</tab>
-</tabset>
+<div class="row"  justified="true">
+	<div class="col-md-12">
+		<a class="" ng-click="collapse.general = !collapse.general">
+			<span class="glyphicon glyphicon-chevron-right" ng-show="collapse.general"></span>
+			<span class="glyphicon glyphicon-chevron-down" ng-show="!collapse.general"></span>
+			General
+		</a>
+		<div collapse="collapse.general">
+			<div ng-include="'partials/tabs/tab_attributes_general.html'"> </div>
+		</div>
+	</div>
+</div>
+
+<div class="row"  justified="true">
+	<div class="col-md-12">
+		<a class="" ng-click="collapse.display = !collapse.display">
+			<span class="glyphicon glyphicon-chevron-right" ng-show="collapse.display"></span>
+			<span class="glyphicon glyphicon-chevron-down" ng-show="!collapse.display"></span>
+			Display
+		</a>
+		<div collapse="collapse.display">
+			<div ng-include="'partials/tabs/tab_attributes_display.html'"> </div>
+		</div>
+	</div>
+</div>
+
+<div class="row"  justified="true">
+	<div class="col-md-12">
+		<a class="" ng-click="collapse.physics = !collapse.physics">
+			<span class="glyphicon glyphicon-chevron-right" ng-show="collapse.physics"></span>
+			<span class="glyphicon glyphicon-chevron-down" ng-show="!collapse.physics"></span>
+			Physics
+		</a>
+		<div collapse="collapse.physics">
+			<div ng-include="'partials/tabs/tab_attributes_physics.html'"> </div>
+		</div>
+	</div>
+</div>
+
+<div class="row"  justified="true">
+	<div class="col-md-12">
+		<a class="" ng-click="collapse.behaviours = !collapse.behaviours">
+			<span class="glyphicon glyphicon-chevron-right" ng-show="collapse.behaviours"></span>
+			<span class="glyphicon glyphicon-chevron-down" ng-show="!collapse.behaviours"></span>
+			Behaviours
+		</a>
+		<div collapse="collapse.behaviours">
+			<div ng-include="'partials/tabs/tab_attributes_behaviours.html'"> </div>
+		</div>
+	</div>
+</div>
+
+<div class="row"  justified="true">
+	<div class="col-md-12">
+		<a class="" ng-click="collapse.misc = !collapse.misc">
+			<span class="glyphicon glyphicon-chevron-right" ng-show="collapse.misc"></span>
+			<span class="glyphicon glyphicon-chevron-down" ng-show="!collapse.misc"></span>
+			Misc
+		</a>
+		<div collapse="collapse.misc">
+			<div ng-include="'partials/tabs/tab_attributes_misc.html'"> </div>
+		</div>
+	</div>
+</div>
