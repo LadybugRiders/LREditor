@@ -1102,11 +1102,18 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		}
 		//Create standing camera
 		_dataCam.fixedToCamera = false;
+
+		if($scope.game.camera.ed_debugObject)
+			$scope.game.camera.ed_debugObject.destroy();
+
 		$scope.game.camera.ed_debugObject = this.createDebugCameraRect(_dataCam,0x0000FF,1);
+		
 		//Create rect fixed to the editor's camera
 		_dataCam.x = 0; _dataCam.y = 0; 
 		_dataCam.fixedToCamera = true;
-		$scope.game.camera.ed_debugObject2 = this.createDebugCameraRect(_dataCam, 0xFFFFFF, 0.15);
+		if($scope.game.camera.ed_debugObject2)
+			$scope.game.camera.ed_debugObject2.destroy();
+		$scope.game.camera.ed_debugObject2 = this.createDebugCameraRect(_dataCam, 0x000000, 0.15);
 	}
 
 	$scope.createDebugCameraRect = function(_dataCam,_color,_alpha){
@@ -1114,7 +1121,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		rectCam.lineStyle(2, _color,_alpha);
 		rectCam.name = "__cam_rect";
 		$scope.moveEntityToEditorGroup(rectCam);
-    	
     	rectCam.drawRect(_dataCam.x, _dataCam.y,
 						_dataCam.width, _dataCam.height);
 		rectCam.visible = _dataCam.debug;
@@ -1122,9 +1128,9 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		rectCam.fixedToCamera = _dataCam.fixedToCamera;
 		if( _dataCam.fixedToCamera == true){
 			rectCam.cameraOffset.x = 
-				(window.innerWidth - _dataCam.width) * 0.5;
+				($scope.game.canvas.width - _dataCam.width) * 0.5;
 			rectCam.cameraOffset.y = 
-				(window.innerHeight - _dataCam.height) * 0.5;
+				($scope.game.canvas.height - _dataCam.height) * 0.5;
 		}
 		return rectCam;
 	}
