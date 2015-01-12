@@ -140,6 +140,10 @@ LR.Editor.Behaviour.EntityHandle.prototype.updateRotateHandle = function(){
 
 LR.Editor.Behaviour.EntityHandle.prototype.activate = function(_target) {
 
+	if( this.totalDragActive ){
+		return;
+	}
+
 	this.cleanSprites();
 	this.cleanTargets();
 
