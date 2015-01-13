@@ -9,7 +9,7 @@
 	<div ng-show="!currentEntity.isAtlas">
 		<div class="form-group">
 			<label>Image</label>
-			<select ng-model="data.imageKey" class="form-control">
+			<select ng-model="data.imageKey" class="form-control" id="selectKey">
 				<option ng-repeat="img in data.images"
 						value="{{img.name}}"
 				> {{img.name}}
@@ -30,31 +30,20 @@
 	</div>
 	<!-- ATLAS -->
 	<div ng-show="currentEntity.isAtlas">
-		<label>Atlas [ {{ data.imageKey }} ]</label>
-		<select ng-model="data.imageKey" ng-change="selectAtlas(data.imageKey)" class="form-control">
+		<label>Atlas</label>
+		<select ng-model="data.imageKey" ng-change="selectAtlas(data.imageKey)" class="form-control" id="selectKey">
 			<option ng-repeat="img in data.atlases"
 					value="{{img.name}}"
 			> {{img.name}}
 			</option>
 		</select>
-		<label>Frame Name [ {{data.frameName}} ]</label>
-		<select ng-model="data.frameName" class="form-control">
+		<label>Frame Name</label>
+		<select ng-model="data.frameName" class="form-control" id="selectFrameName">
 			<option ng-repeat="(frmName,frmData) in data.atlas.frames"
 					ng-value="{{frmName}}"
-					selected="frmName==currentEntity.frameName"
 			> {{frmName}}
 			</option>
 		</select>
-		<!-- <select ng-model="data.frameName" class="form-control">
-			<script type="text/javascript">
-				var htmlOptions = "";
-				for(var i=0; i < $scope.data.atlas.frames.length; i++){
-					htmlOptions += "<option value="+$scope.data.atlas[i].filename;
-					htmlOptions += ">"+$scope.data.atlas[i].filename+"</option>";
-				}
-				//document.write(htmlOptions);
-			</script>
-		</select> -->
 		<!-- APPLY -->
 		<div class="form-group">
 			<button ng-click="changeAtlas(data.imageKey, data.frameName)" type="button" class="btn btn-default btn-xs">Apply</button>

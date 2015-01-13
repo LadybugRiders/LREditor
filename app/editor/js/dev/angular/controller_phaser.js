@@ -850,6 +850,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 		$scope.$emit("refreshListEmit", {world: _game.world});
 		$scope.forceAttributesRefresh(_rootEntity);
+		$scope.entityHandleScript.activate(_rootEntity);
 	}
 
 	$scope.storeBehavioursParamsReferences = function(_entity,_linkedObjects,_prefabRoot){

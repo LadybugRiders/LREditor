@@ -226,8 +226,36 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			this.resetData();
 			console.error("entity is null");
 		}
-		console.log($scope.data.imageKey);
+		//force select dropdowns refresh (needed for some reason)
+		$timeout( $scope.forceImageDataRefreshNoApply,100);
 	};
+
+	$scope.forceImageDataRefreshNoApply = function(){
+		//first, force image name
+		var dropdownElmt = document.getElementById("selectKey");
+		if(dropdownElmt!=null){
+			for(var i=0; i< dropdownElmt.options.length; i++){
+				if(dropdownElmt.options[i].text == $scope.data.imageKey){
+					dropdownElmt.options[i].selected = true;
+				}else{							
+					dropdownElmt.options[i].selected = false;
+				}
+			}
+		}
+		//then force frame name if atlas
+		if( $scope.currentEntity.isAtlas){
+			dropdownElmt = document.getElementById("selectFrameName");
+			if(dropdownElmt!=null){
+				for(var i=0; i< dropdownElmt.options.length; i++){
+					if(dropdownElmt.options[i].text == $scope.data.frameName){
+						dropdownElmt.options[i].selected = true;
+					}else{							
+						dropdownElmt.options[i].selected = false;
+					}
+				}
+			}
+		}
+	}
 
 	$scope.clone = function() {
 		$scope.$emit("cloneEntityEmit", {entity: $scope.currentEntity});
@@ -345,7 +373,6 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	};
 
 	$scope.changeTextureButton = function(_imageKey) {
-		console.log(_imageKey);
 		var image = $scope.currentEntity.game.cache.getImage(_imageKey);
 		if (image) {
 			var lastTexture = $scope.currentEntity.key;
