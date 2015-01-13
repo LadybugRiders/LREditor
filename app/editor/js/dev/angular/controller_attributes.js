@@ -8,7 +8,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	function($scope, $http,$modal, $timeout) {
 	function main() {
 		$scope.collapse = {
-			general: false,
+			general: true,
 			display: true,
 			physics: true,
 			behaviours: true,
@@ -352,9 +352,20 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		var image = $scope.currentEntity.game.cache.getImage(_imageKey);
 		if (image) {
 			var lastTexture = $scope.currentEntity.key;
-			$scope.currentEntity.loadTexture(_imageKey);
+			$scope.currentEntity.loadTexture(_imageKey,parseInt(_frame));
 			$scope.currentEntity.frame = ( parseInt(_frame) );
+
+			//tweak > phaser has issues refreshing the texture with tilesprites
+			//that's a bit harsh but the PIXI.texture is okay after first loading so no other solution was found
+			if( $scope.data.type == "tilesprite"){
+				$timeout(
+					function(){
+						$scope.currentEntity.loadTexture(_imageKey);					
+					}
+				,100);				
+			}
 			if( lastTexture == "none"){
+				//search image data
 				var imageData = null;
 				for(var i=0; i < $scope.project.assets.images.length; i++){
 					if( $scope.project.assets.images[i].name == _imageKey ){
@@ -362,6 +373,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 						break;
 					}
 				}
+				//Set widt/height with the image data
 				if( imageData != null){
 					$scope.currentEntity.width = parseInt(imageData.frameWidth);
 					$scope.currentEntity.height = parseInt(imageData.frameHeight);
