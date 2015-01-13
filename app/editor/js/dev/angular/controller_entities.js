@@ -31,6 +31,7 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 		$scope.modalPickData = {pickedEntity:null};
 
 		$scope.isCollapsed = true;
+		
 	};
 
 	$scope.refreshList = function(_world) {
@@ -38,6 +39,7 @@ LREditorCtrlMod.controller('EntitiesCtrl', ["$scope", "$http", "$modal", "$timeo
 			$timeout(function() {
 				$scope.entities = new Array();
 				$scope.entities.push(_world);
+				$scope.$apply();
 			}, 100);
 		}
 	};

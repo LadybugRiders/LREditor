@@ -763,6 +763,12 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 				//cutscenes should be imported now
 				$scope.$emit("sendCutscenesEmit", {"cutscenes":$scope.cutscenes});
+				
+				$timeout(
+					function(){
+						$scope.$emit("refreshListEmit",$scope.game.world);
+					},100
+				);
 			}).error(function(_error) {
 				console.error(_error);
 			});
