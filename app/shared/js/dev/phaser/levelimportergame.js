@@ -232,8 +232,17 @@ LR.LevelImporterGame.prototype.setSounds = function(_objectData, _entity) {
 			var sound = _entity.game.add.audio(data.key);
 			if( sound ){
 				_entity.go.addSound(data.name,sound);
-				if( data.autoPlay == true)
-					_entity.go.playSound(data.name,1,data.loop);
+
+
+				if( data.autoPlay == true){
+					var volume = 1;
+					if( data.volume != null){
+						volume = data.volume;
+
+					}
+
+					_entity.go.playSound(data.name,volume,data.loop);
+				}
 			}
 		}
 	}

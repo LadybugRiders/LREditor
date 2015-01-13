@@ -287,6 +287,7 @@ LR.Editor.LevelImporterEditor.prototype.setTweens = function(_objectData, _entit
 };
 
 LR.Editor.LevelImporterEditor.prototype.setSounds = function(_objectData, _entity) {
-	if( _objectData.sounds != null )
+	if( _objectData.sounds != null ){
 		_entity.ed_sounds = jQuery.extend(true, [], _objectData.sounds);
+	}
 };

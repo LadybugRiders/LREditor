@@ -124,6 +124,10 @@
 						<input type ="checkbox" class="col-md-1" ng-model="soundData.autoPlay" />
 					</div>
 					<div class="row" ng-show="soundData.autoPlay">
+						<label class="col-md-3">Volume</label>
+						<input class="col-md-9" type ="number" ng-model="soundData.volume" number/>
+					</div>
+					<div class="row" ng-show="soundData.autoPlay">
 						<label class="col-md-4"> Loop </label>
 						<input type ="checkbox" class="col-md-1" ng-model="soundData.loop" />
 					</div>
