@@ -8,7 +8,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	function($scope, $http,$modal, $timeout) {
 	function main() {
 		$scope.collapse = {
-			general: true,
+			general: false,
 			display: true,
 			physics: true,
 			behaviours: true,

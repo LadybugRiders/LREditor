@@ -13,137 +13,172 @@
 		</div>
 	</div>
 </div>
+
 <!-- NAME -->
-<div class="form-group">
-	<label>Name</label>
-	<input type="text" ng-model="currentEntity.name" class="form-control"/>
+<div class="row">
+	<div class="col-md-12">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="name-addon">Name</span>
+			<input type="text" ng-model="currentEntity.name" class="form-control" aria-describedby="name-addon"/>
+		</div>
+	</div>
 </div>
 
+
 <!-- POSITION -->
-<div class="form-group">
-	<label>Position [ {{ currentEntity.world.x}}, {{currentEntity.world.y}} ]</label>
-	<div class="row">
-		<div class="col-md-6">
-			<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)"
-				 class="form-control" integer/>
+<div class="row">
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="position-x-addon">x</span>
+			<input type="number" ng-model="data.entityX" ng-change="setX(data.entityX)" class="form-control" aria-describedby="position-x-addon" integer/>
 		</div>
-		<div class="col-md-6">
-			<input type="number" ng-model="data.entityY" ng-change="setY(data.entityY)" 
-			class="form-control" integer/>
+	</div>
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="position-y-addon">y</span>
+			<input type="number" ng-model="data.entityY" ng-change="setY(data.entityY)" class="form-control" aria-describedby="position-y-addon" integer/>
 		</div>
 	</div>
 </div>
 
 <!-- ANCHOR -->
-<div class="form-group" ng-show="data.type != 'bitmaptext'">
-	<label>Anchor</label>
-	<div class="row">
-		<div class="col-md-6">
-			<input type="number" ng-model="currentEntity.anchor.x" 
-				 class="form-control" float/>
+<div class="row">
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="anchor-x-addon">anchor x</span>
+			<input type="number" ng-model="currentEntity.anchor.x" class="form-control" aria-describedby="anchor-x-addon"/>
 		</div>
-		<div class="col-md-6">
-			<input type="number" ng-model="currentEntity.anchor.y" 
-			class="form-control" float/>
+	</div>
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="anchor-y-addon">anchor y</span>
+			<input type="number" ng-model="currentEntity.anchor.y" class="form-control" aria-describedby="anchor-y-addon"/>
 		</div>
 	</div>
 </div>
 
 <!-- SCALE -->
-<div class="form-group">
-	<label>Scale</label>
-	<div class="row">
-		<div class="col-md-6">
-			<input type="number" ng-model="currentEntity.scale.x" 
-				 class="form-control" float/>
+<div class="row">
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="scale-x-addon">scale x</span>
+			<input type="number" ng-model="currentEntity.scale.x" class="form-control" aria-describedby="scale-x-addon"/>
 		</div>
-		<div class="col-md-6">
-			<input type="number" ng-model="currentEntity.scale.y"
-			class="form-control" float/>
+	</div>
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="scale-y-addon">scale y</span>
+			<input type="number" ng-model="currentEntity.scale.y" class="form-control" aria-describedby="scale-y-addon"/>
 		</div>
 	</div>
 </div>
 
-<div ng-if="data.type != 'group' && data.type != 'text' && data.type != 'bitmaptext' " class="form-group">
-	<!-- SIZE -->
-	<div class="form-group">
-		<label>Size</label>
-		<div class="row">
-			<div class="col-md-6">
-				<input type="number" ng-model="currentEntity.width" class="form-control" integer/>
-			</div>
-			<div class="col-md-6">
-				<input type="number" ng-model="currentEntity.height" class="form-control" integer/>
-			</div>
+<!-- SIZE -->
+<div class="row" ng-if="data.type != 'group' && data.type != 'text' && data.type != 'bitmaptext'" >
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="width-addon">width</span>
+			<input type="number" ng-model="currentEntity.width" class="form-control" aria-describedby="width-addon"/>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="height-addon">height</span>
+			<input type="number" ng-model="currentEntity.height" class="form-control" aria-describedby="height-addon"/>
 		</div>
 	</div>
 </div>
 
 <!-- ROTATION -->
-<div class="form-group">
-	<label>Rotation</label>
-	<div ng-if="currentEntity.body == null">
-		<input type="number" ng-model="currentEntity.angle" class="form-control"
-		integer/>
-	</div>
-	<div ng-if="currentEntity.body != null">
-		<div ng-if="currentEntity.body._bindRotation == true">
-			<input type="number" ng-model="currentEntity.body.angle" class="form-control"
-			integer/>
+<div class="row">
+	<div class="col-md-12">
+		<div ng-if="currentEntity.body == null">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="rotation-addon">rotation</span>
+				<input type="text" ng-model="currentEntity.angle" class="form-control" aria-describedby="rotation-addon"/>
+			</div>
 		</div>
 
-		<div ng-if="currentEntity.body._bindRotation == false">
-			<input type="number" ng-model="currentEntity.angle" class="form-control"
-			integer/>
+		<div class="input-group input-group-sm" ng-if="currentEntity.body != null && currentEntity.body._bindRotation == true">
+			<span class="input-group-addon" id="rotation-addon">rotation</span>
+			<input type="text" ng-model="currentEntity.body.angle" class="form-control" aria-describedby="rotation-addon"/>
+		</div>
+
+		<div class="input-group input-group-sm" ng-if="currentEntity.body != null && currentEntity.body._bindRotation == false">
+			<span class="input-group-addon" id="rotation-addon">rotation</span>
+			<input type="text" ng-model="currentEntity.angle" class="form-control" aria-describedby="rotation-addon"/>
 		</div>
 	</div>
 </div>
 
 <!-- Text Editing -->
 <div ng-if="data.type == 'text' || data.type == 'bitmaptext'" class="form-group">
-	<label> Text </label>
+	<hr/>
 	<div class="row">
-		<div class = "col-md-8">
-			<input type="text" ng-model="currentEntity.text" ng-change="changeText(currentEntity.text)" 
-					class="form-control" />
+		<div class = "col-md-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="text-addon">text</span>
+				<input type="text" ng-model="currentEntity.text" class="form-control" aria-describedby="text-addon" ng-change="changeText(currentEntity.text)"/>
+				<span class="input-group-btn">
+			    	<button class="btn btn-default" type="button" ng-click="openEditModal(currentEntity,'text',true)" tooltip="Edit Text">
+			    		<span class="glyphicon glyphicon-pencil"></span>
+			    	</button>
+			    </span>
+			</div>
 		</div>
-		<div class="col-md-4">
-			<button ng-click="openEditModal(currentEntity,'text',true)" type="button" class="btn btn-default btn-xs" tooltip="Edit Text">
-					<span class="glyphicon glyphicon-pencil"></span>
-			</button>	
-		</div>	
 	</div>
 
-	<label> Font {{currentEntity._font}} </label>
-	<select ng-model="currentEntity.fontName" 
-			ng-change="changeFont()"
-            ng-options="t as t for t in fonts" 
-            ng-show ="data.type == 'text'"
-            class="form-control">
-    </select>
-    <select 
-		ng-model="currentEntity.font" 
-		ng-change="currentEntity.setStyle()"
-        ng-options="t.name as t.name for t in bitmapFonts"
-        ng-show ="data.type == 'bitmaptext'"
-        class="form-control">
-	</select>
+	<div class="row">
+		<div class = "col-md-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="font-addon">font</span>
+				<select ng-model="currentEntity.fontName" 
+						ng-change="changeFont()"
+			            ng-options="t as t for t in fonts" 
+			            ng-show ="data.type == 'font'"
+			            class="form-control"
+			            aria-describedby="font-addon">
+			    </select>
+			    <select 
+					ng-model="currentEntity.font" 
+					ng-change="currentEntity.setStyle()"
+			        ng-options="t.name as t.name for t in bitmapFonts"
+			        ng-show ="data.type == 'bitmaptext'"
+			        class="form-control"
+			        aria-describedby="text-addon">
+				</select>
+			</div>
+		</div>
+	</div>
 
-	<label> Font Size </label>
-	<input type="number" ng-model="currentEntity.fontSize"
-			class="form-control" integer/>
+	<div class="row">
+		<div class = "col-md-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="font-size-addon">font size</span>
+				<input type="font-size" ng-model="currentEntity.fontSize" class="form-control" aria-describedby="font-size-addon" integer/>
+			</div>
+		</div>
+	</div>
 
-	<label> Color </label>
-	<!-- for text -->
-	<input type = "color" 
-			ng-model="currentEntity.fill"
-            ng-show ="data.type == 'text'"
-		class="form-control" />
+	<!-- Color for text -->
+	<div class="row" ng-show="data.type == 'text'">
+		<div class = "col-md-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="color-addon">color</span>
+				<input type="color" ng-model="currentEntity.fill" class="form-control" aria-describedby="color-addon"/>
+			</div>
+		</div>
+	</div>
 
-	<!-- for BITMAP text -->
-	<input type = "color" ng-model="currentEntity.ed_tintColor"
-            ng-show ="data.type == 'bitmaptext'"
-			ng-change = "changeTint()" class="form-control" />
+	<!-- Color for BITMAP text -->
+	<div class="row" ng-model="currentEntity.ed_tintColor">
+		<div class = "col-md-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="color-addon">color</span>
+				<input type="color" ng-model="currentEntity.ed_tintColor" ng-change = "changeTint()" class="form-control" aria-describedby="color-addon"/>
+			</div>
+		</div>
+	</div>
 			
 	<label ng-show ="data.type == 'text'"> Stroke </label>
 	<div class="row" ng-show ="data.type == 'text'">
@@ -177,10 +212,14 @@
 </div>
 
 <!-- DEBUG -->
-<div class="form-group">
-	<label>
-		Draw Bounds <input type="checkbox" ng-model="currentEntity.drawBounds"/>
-	</label>
+<div class="row">
+	<div class="col-md-12">
+		<div class="checkbox">
+			<label>
+				Draw Bounds <input type="checkbox" ng-model="currentEntity.drawBounds"/>
+		    </label>
+		</div>
+	</div>
 </div>
 
 <div class="row">
