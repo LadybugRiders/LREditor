@@ -946,10 +946,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	    	//set prefab data to new imported entity	    
 		    _data.prefabName = _rootPrefab.prefab.name;
 		    _data.prefabPath = _rootPrefab.prefab.path;
+			$scope.currentRevertedPrefab = _rootPrefab;
 		    //import	      
 			var importer = new LR.Editor.LevelImporterEditor($scope);
 			importer.import(_data, $scope.game, $scope.onRevertedPrefabLoaded);
-			$scope.currentRevertedPrefab = _rootPrefab;
 	    }).error(function(_error) {
 	      console.error(_error);
 	    });

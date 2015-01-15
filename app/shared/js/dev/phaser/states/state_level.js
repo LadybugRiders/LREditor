@@ -7,6 +7,8 @@ LR.State.StateLevel = function(_game) {
 	this.level = null;
 
 	this.forbidUpdate = true;
+
+	this.loadText = null;
 };
 
 LR.State.StateLevel.prototype = Object.create(LR.State.prototype);
@@ -21,7 +23,20 @@ LR.State.StateLevel.prototype.init = function(_args) {
 	}
 };
 
+LR.State.StateLevel.prototype.update = function() {
+	if( this.loadText ){
+		this.loadText.text = "loading : "+ this.game.load.progress + "%";
+	}
+}
+
 LR.State.StateLevel.prototype.preload = function() {
+	this.loadText = this.game.add.text(0, 0, "loading", {
+        font: "35px Arial",
+        fill: "#ffffff",
+        align: "center"
+    });
+    this.loadText.fixedToCamera = true;
+
 	if (this.levelName == null) {
 		this.levelName = LR.Game.GetUrlParamValue("levelname");
 	}

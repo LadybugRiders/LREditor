@@ -772,8 +772,6 @@ LR.GameObject.prototype.getSound = function(_name){
 LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
 	var sound = this.sounds[_name];
 	if(sound){
-
-		console.log(this.entity.game.sound);
 		if( sound.isPlaying ){
 			sound.stop();
 		}
