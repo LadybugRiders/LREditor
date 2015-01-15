@@ -669,6 +669,7 @@ LR.GameObject.prototype.replaceShapeByRectangle = function(_shapeIndex, _data){
 					this.game.physics.p2.pxm( _data.width),
 					this.game.physics.p2.pxm( _data.height)				
 				);
+
 	//Check index before inserting
 	if( _shapeIndex < this.body.data.shapes.length && _shapeIndex >= 0 ){
 		//keep the former name of the shape

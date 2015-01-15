@@ -18,8 +18,14 @@ LR.Body = function (_game, _sprite, _x, _y, _mass){
 	*/
 	this.localPosition = new Phaser.Point(_x,_y);
 	this.lastPosition = new Phaser.Point(_x,_y);
+
+    //call P2.Body constructor
 	Phaser.Physics.P2.Body.call(this,_game,_sprite,_x,_y,_mass);
 
+    //prevent Phaser from "binding" rotation
+    for(var i=0; i < this.data.shapeAngles.length; i ++){
+        this.data.shapeAngles[i] = 0;
+    }
     this.localRotation = 0;
     this.localRotationOffset = new Phaser.Point();
 
@@ -37,6 +43,9 @@ LR.Body.prototype = Object.create(Phaser.Physics.P2.Body.prototype);
 LR.Body.prototype.constructor = LR.Body;
 
 LR.Body.prototype.postUpdate = function () { 
+
+    if( this.go && this.go.name == "thorn1"){
+    }
 
 	//Add delta between the last body world position and the new one
 	//to the localPosition
@@ -71,7 +80,7 @@ LR.Body.prototype.postUpdate = function () {
 	this.lastPosition.y = this.worldPosition.y;
 
     //ROTATION
-    this.data.angle = ( this.localRotation + (this.sprite.parent.worldAngle || 0) ) * Math.PI / 180;
+    this.data.angle = Phaser.Math.degToRad( this.localRotation + (this.sprite.parent.worldAngle || 0) );
 
     if (!this.fixedRotation && this.bindRotation){
         this.sprite.rotation = this.data.angle + this._offsetRotation;
@@ -83,6 +92,7 @@ LR.Body.prototype.postUpdate = function () {
     if( this.debugBody){
         this.debugBody.x = this.worldPosition.x;
         this.debugBody.y = this.worldPosition.y;
+        this.debugBody.angle = this.localRotation;
     }
 
 }
@@ -134,6 +144,19 @@ Object.defineProperty(LR.Body.prototype, "y", {
     }
 
 });
+
+Object.defineProperty(LR.Body.prototype, "angle", {
+
+    get: function () {
+        return this.localRotation;
+    },
+
+    set: function (value) {
+        this.localRotation = value;
+    }
+
+});
+
 
 /**
 * The world x coordinate of the body
@@ -256,19 +279,6 @@ Object.defineProperty(LR.Body.prototype, "right", {
 
     get: function () {
         return this.world.mpxi( this.data.aabb.lowerBound[0]);
-    }
-
-});
-
-
-Object.defineProperty(LR.Body.prototype, "angle", {
-
-    get: function () {
-        return this.localRotation;
-    },
-
-    set: function (value) {
-        this.localRotation = value;
     }
 
 });
