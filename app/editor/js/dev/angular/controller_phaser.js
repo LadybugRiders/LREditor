@@ -986,9 +986,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		//then reassign ids when possible
 		//for every entity in the old prefab
 		var changeIDs = function(_oldEntity,_newEntity){
-
+			var search = null;
+			
 			//search an object with the same name in the new entity(prefab)
-			var search = LR.GameObject.FindByName(_newEntity, _oldEntity.go.name);
+			if( _oldEntity.go != null)
+				search = LR.GameObject.FindByName(_newEntity, _oldEntity.go.name);
 			
 			//affect the same id as the old prefab entity
 			if( search != null )
