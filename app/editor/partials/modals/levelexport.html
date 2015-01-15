@@ -26,7 +26,7 @@
         <div class="col-md-2">
             <label>Overwrite</label>
         </div>  
-        <div class="col-md-10">
+        <div class="col-md-8">
             <select 
                 ng-model="tmp.levels.selectedLevel" 
                 ng-options="t as t.shortPath for t in project.assets.levels"
@@ -37,6 +37,7 @@
 </div> 
 </div>
 <div class="modal-footer">
+    <button class="btn btn-danger" ng-show="tmp.levels.selectedLevel != null" ng-click="overwrite()">Overwrite</button>
     <button class="btn btn-primary" ng-click="export()">Export</button>
     <button class="btn btn-default" ng-click="close()">Close</button>
 </div>

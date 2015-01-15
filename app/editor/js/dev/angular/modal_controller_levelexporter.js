@@ -25,6 +25,33 @@ var LevelExportCtrlModal = function ($scope, $modalInstance, $timeout) {
       levelStorage: "file"
     };
 
+    var isNewLevel = true;
+    for( var i = 0 ; i < $scope.project.assets.levels.length; i ++){
+      var level = $scope.project.assets.levels[i];
+      if( level.name == $scope.tmp.levels.name ){
+        isNewLevel = false;
+        break;
+      }
+    }
+    if( isNewLevel ){
+      var newLevelData = { name : data.levelName , 
+                          path : "/"+data.levelName+".json",
+                          shortPath : data.levelName
+                        };
+      
+      $scope.project.assets.levels.push( newLevelData );
+    }
+
+    // $modalInstance.close(data);
+  };
+
+  $scope.overwrite = function () {
+    var data = {
+      levelName: scope.tmp.levels.selectedLevel.shortPath,
+      levelPath: $scope.tmp.levels.path,
+      levelStorage: "file"
+    };
+
     $modalInstance.close(data);
   };
 
