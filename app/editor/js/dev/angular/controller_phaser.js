@@ -699,7 +699,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 	$scope.loadAtlas = function(_atlas) {
 		
-    	$scope.game.load.atlas(_atlas.name, 
+    	$scope.game.load.atlasJSONHash(_atlas.name, 
     						$scope.project.path +"/assets/atlases"+_atlas.path+".png",
     						$scope.project.path +"/assets/atlases"+_atlas.path+".json");
 		$scope.game.load.json(_atlas.name, $scope.project.path +"/assets/atlases"+_atlas.path+".json");
