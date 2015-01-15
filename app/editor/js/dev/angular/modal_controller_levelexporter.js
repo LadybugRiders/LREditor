@@ -47,7 +47,7 @@ var LevelExportCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.overwrite = function () {
     var data = {
-      levelName: scope.tmp.levels.selectedLevel.shortPath,
+      levelName: $scope.tmp.levels.selectedLevel.shortPath,
       levelPath: $scope.tmp.levels.path,
       levelStorage: "file"
     };
