@@ -42,7 +42,7 @@ var LevelExportCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.project.assets.levels.push( newLevelData );
     }
 
-    // $modalInstance.close(data);
+    $modalInstance.close(data);
   };
 
   $scope.overwrite = function () {
