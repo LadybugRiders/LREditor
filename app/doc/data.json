@@ -1209,7 +1209,7 @@
         },
         {
             "file": "app\\editor\\js\\dev\\phaser\\levelimportereditor.js",
-            "line": 27,
+            "line": 32,
             "description": "Import all the images",
             "itemtype": "method",
             "name": "importImages",
@@ -2703,7 +2703,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 99,
+            "line": 109,
             "description": "The local x coordinate of the body",
             "itemtype": "property",
             "name": "x",
@@ -2713,7 +2713,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 118,
+            "line": 128,
             "description": "The local y coordinate of the body",
             "itemtype": "property",
             "name": "y",
@@ -2723,7 +2723,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 138,
+            "line": 161,
             "description": "The world x coordinate of the body",
             "itemtype": "property",
             "name": "worldX",
@@ -2733,7 +2733,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 160,
+            "line": 183,
             "description": "The world y coordinate of the body",
             "itemtype": "property",
             "name": "worldY",
@@ -2743,7 +2743,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 180,
+            "line": 203,
             "description": "Tells if the sprite can rotate indepently from its body",
             "itemtype": "property",
             "name": "bindRotation",
@@ -2754,7 +2754,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 207,
+            "line": 230,
             "description": "The bottom ( highest y shape value ) of the body in the world",
             "itemtype": "property",
             "name": "bottom",
@@ -2764,7 +2764,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 221,
+            "line": 244,
             "description": "The top ( lowest y shape value ) of the body in the world",
             "itemtype": "property",
             "name": "top",
@@ -2774,7 +2774,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 235,
+            "line": 258,
             "description": "The left ( lowest x shape value ) of the body in the world",
             "itemtype": "property",
             "name": "left",
@@ -2784,7 +2784,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\body.js",
-            "line": 249,
+            "line": 272,
             "description": "The right ( highest x shape value ) of the body in the world",
             "itemtype": "property",
             "name": "right",
@@ -3464,7 +3464,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 699,
+            "line": 700,
             "description": "Replaces the shape at the given index with a new Circle, creating a new shape from the data provided\nThis shape will be pushed to the end of shapes array if _shapeIndex is incorrect",
             "itemtype": "method",
             "name": "replaceShapeByCircle",
@@ -3488,7 +3488,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 753,
+            "line": 754,
             "description": "Returns the specified sound",
             "itemtype": "method",
             "name": "getSound",
@@ -3508,7 +3508,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 764,
+            "line": 765,
             "description": "Plays the specified sound",
             "itemtype": "method",
             "name": "playSound",
@@ -3534,7 +3534,23 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 780,
+            "line": 783,
+            "description": "Stops the specified sound",
+            "itemtype": "method",
+            "name": "playSound",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 800,
             "description": "Sets the position of the GameObject. Takes the body in account",
             "itemtype": "method",
             "name": "setPosition",
@@ -3555,7 +3571,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 797,
+            "line": 817,
             "description": "Accessor to the entity's body. Read only.",
             "itemtype": "property",
             "name": "body",
@@ -3565,7 +3581,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 811,
+            "line": 831,
             "description": "Accessor to the entity's x.",
             "itemtype": "property",
             "name": "x",
@@ -3575,7 +3591,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 833,
+            "line": 853,
             "description": "Accessor to the entity's y.",
             "itemtype": "property",
             "name": "y",
@@ -3585,7 +3601,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 855,
+            "line": 875,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -3595,7 +3611,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 869,
+            "line": 889,
             "description": "Accessor to the body's gravity. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "gravity",
@@ -3605,7 +3621,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 891,
+            "line": 911,
             "description": "Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3615,7 +3631,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 907,
+            "line": 927,
             "description": "Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3625,7 +3641,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 923,
+            "line": 943,
             "description": "Changes the parent of the entity",
             "itemtype": "method",
             "name": "changeParent",
@@ -3641,7 +3657,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 940,
+            "line": 960,
             "description": "Adds a tween with the data specified\nexample of input data : { \"properties\":{\"body.x\":100},\"duration\": 1000 ...etc..}",
             "itemtype": "method",
             "name": "addTween",
@@ -3657,7 +3673,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 959,
+            "line": 979,
             "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched",
             "itemtype": "method",
             "name": "launchTween",
@@ -3673,7 +3689,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1056,
+            "line": 1080,
             "description": "Called when a cutscene begins",
             "itemtype": "method",
             "name": "onBeginCutscene",
@@ -3682,7 +3698,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1068,
+            "line": 1092,
             "description": "Called when a cutscene ends",
             "itemtype": "method",
             "name": "onEndCutscene",
@@ -3691,7 +3707,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1084,
+            "line": 1108,
             "description": "Find a gameobject by its name",
             "itemtype": "method",
             "name": "<static> FindByName",
@@ -3716,7 +3732,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1112,
+            "line": 1136,
             "description": "Find a gameobject by its ID",
             "itemtype": "method",
             "name": "<static> FindByID",

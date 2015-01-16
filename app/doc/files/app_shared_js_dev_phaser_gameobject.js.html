@@ -781,6 +781,7 @@
                         					this.game.physics.p2.pxm( _data.width),
                         					this.game.physics.p2.pxm( _data.height)				
                         				);
+                        
                         	//Check index before inserting
                         	if( _shapeIndex &lt; this.body.data.shapes.length &amp;&amp; _shapeIndex &gt;= 0 ){
                         		//keep the former name of the shape
@@ -883,8 +884,27 @@
                         */
                         LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
                         	var sound = this.sounds[_name];
-                        	if(sound)
+                        	if(sound){
+                        		if( sound.isPlaying ){
+                        			sound.stop();
+                        		}
                         		sound.play(&#x27;&#x27;,0,_volume,_loop);
+                        	}
+                        }
+                        
+                        /**
+                        * Stops the specified sound
+                        *
+                        * @method playSound
+                        * @param {String} name
+                        */
+                        LR.GameObject.prototype.stopSound = function(_name){
+                        	var sound = this.sounds[_name];
+                        	if(sound){
+                        		if( sound.isPlaying ){
+                        			sound.stop();
+                        		}
+                        	}
                         }
                         //============================================================
                         //						SETTERS
@@ -1117,7 +1137,11 @@
                         		//console.log(tweenData);
                         		if( tweenData.repeat &lt; 0)
                         			tweenData.repeat = Number.MAX_VALUE;
-                            	createdTween.to(newProp, tweenData.duration, Phaser.Easing.Default, true,tweenData.delay, 
+                        
+                        		//build easing
+                        		var easing = Phaser.Easing[tweenData.easing[0]][tweenData.easing[1]];
+                        		//launch tween
+                            	createdTween.to(newProp, tweenData.duration, easing, true,tweenData.delay, 
                             					tweenData.repeat+(tweenData.yoyo?1:0), tweenData.yoyo);
                             	//keep reference
                             	tweensObject[key] = createdTween;

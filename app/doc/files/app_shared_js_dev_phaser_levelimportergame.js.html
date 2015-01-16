@@ -177,7 +177,7 @@
                         	var atlasesPath = &quot;assets/atlases&quot;;
                         	for (var i = 0; i &lt; _atlases.length; i++) {
                         		var atlas = _atlases[i];
-                        		_loader.atlas(
+                        		_loader.atlasJSONHash(
                         			atlas.name, atlasesPath+atlas.path + &quot;.png&quot;, 
                         			atlasesPath+atlas.path+&quot;.json&quot;);
                         	};
@@ -341,11 +341,34 @@
                         	if( _objectData.sounds != null ){
                         		for(var i=0; i &lt; _objectData.sounds.length; i++){
                         			var data = _objectData.sounds[i];
-                        			var sound = _entity.game.add.audio(data.key);
+                        			//search for an existing sound in SoundManager,
+                        			//as sounds are not destroyed between scenes
+                        			var soundId = _entity.go.name + i;
+                        			var sound = null;
+                        			for(var s=0; s &lt; _entity.game.sound._sounds.length; s ++){
+                        				var existingSound = _entity.game.sound._sounds[s];
+                        				if( existingSound.lr_id == soundId){
+                        					sound = existingSound;
+                        				}
+                        			}
+                        			//if not already created, create new sound
+                        			if( sound == null )
+                        				sound = _entity.game.add.audio(data.key);
+                        
                         			if( sound ){
+                        				sound.lr_id = soundId;
                         				_entity.go.addSound(data.name,sound);
-                        				if( data.autoPlay == true)
-                        					_entity.go.playSound(data.name,1,data.loop);
+                        
+                        
+                        				if( data.autoPlay == true){
+                        					var volume = 1;
+                        					if( data.volume != null){
+                        						volume = data.volume;
+                        
+                        					}
+                        
+                        					_entity.go.playSound(data.name,volume,data.loop);
+                        				}
                         			}
                         		}
                         	}

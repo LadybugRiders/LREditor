@@ -779,6 +779,21 @@ LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
 		sound.play('',0,_volume,_loop);
 	}
 }
+
+/**
+* Stops the specified sound
+*
+* @method playSound
+* @param {String} name
+*/
+LR.GameObject.prototype.stopSound = function(_name){
+	var sound = this.sounds[_name];
+	if(sound){
+		if( sound.isPlaying ){
+			sound.stop();
+		}
+	}
+}
 //============================================================
 //						SETTERS
 //============================================================

@@ -128,12 +128,17 @@
                         LR.Editor.LevelImporterEditor.prototype.constructor = LR.Editor.LevelImporterEditor;
                         
                         LR.Editor.LevelImporterEditor.prototype.import = function(_level, _game, _promise) {
-                        	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
-                        	this.$scope.cutscenes = _level.cutscenes;
-                        	this.$scope.settings = _level.settings;
+                        	
                         	if(_level.prefabName){
                         		this.prefab = { name : _level.prefabName, path : _level.prefabPath};
+                        	}else{
+                        		this.prefab = null;
                         	}
+                        
+                        	LR.LevelImporter.prototype.import.call(this,_level,_game,_promise);
+                        
+                        	this.$scope.cutscenes = _level.cutscenes;
+                        	this.$scope.settings = _level.settings;
                         };
                         
                         /**
@@ -196,7 +201,7 @@
                         		var atData = _atlases[i];
                         		var atPath = this.$scope.project.path + &quot;/assets/atlases&quot; + atData.path;
                         
-                        		_loader.atlas(
+                        		_loader.atlasJSONHash(
                         			atData.name, atPath+&quot;.png&quot;, atPath+&quot;.json&quot;
                         		);
                         		_loader.json(atData.name, atPath+&quot;.json&quot;);
@@ -309,10 +314,10 @@
                         	// Button specifics
                         	if( _objectData.type == &quot;LR.Entity.Button&quot;) {
                         		// frames
-                        		_entity.onOverFrameID = parseInt(_objectData.onOverFrameID);
-                        		_entity.onOutFrameID = parseInt(_objectData.onOutFrameID);
-                        		_entity.onDownFrameID = parseInt(_objectData.onDownFrameID);
-                        		_entity.onUpFrameID = parseInt(_objectData.onUpFrameID);
+                        		_entity.onOverFrameID = parseInt(_objectData.onOverFrameID | 0);
+                        		_entity.onOutFrameID = parseInt(_objectData.onOutFrameID | 0);
+                        		_entity.onDownFrameID = parseInt(_objectData.onDownFrameID | 0);
+                        		_entity.onUpFrameID = parseInt(_objectData.onUpFrameID | 0);
                         	}
                         
                         	//tint color
@@ -379,7 +384,9 @@
                         	LR.LevelImporter.prototype.setBehaviours.call(this, _objectData, _entity);
                         	//add input behaviour on sprites /text
                         	if (_entity.type != Phaser.GROUP) {
-                        		_entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
+                        		var inputHandleBH = _entity.go.addBehaviour(new LR.Editor.Behaviour.EntityInputHandler(_entity.go, this.$scope));
+                        		if(_objectData.locked == true)
+                        			inputHandleBH.lock();
                         	}
                         };
                         
@@ -387,6 +394,9 @@
                         	if( _objectData.tweens != null ){
                         		var tweens = JSON.parse( JSON.stringify(_objectData.tweens)) ;
                         		for(var key in tweens){
+                        			//easing cannot be null ( NONE is an obsolete value that should be discarded)
+                        			if(tweens[key].easing == null || tweens[key].easing == &quot;NONE&quot;)
+                        				tweens[key].easing = [&quot;Linear&quot;,&quot;None&quot;];
                         			_entity.go.tweensData[key] = {data:tweens[key],
                         										chained : tweens[key].chain != null};
                         		}
@@ -394,8 +404,9 @@
                         };
                         
                         LR.Editor.LevelImporterEditor.prototype.setSounds = function(_objectData, _entity) {
-                        	if( _objectData.sounds != null )
+                        	if( _objectData.sounds != null ){
                         		_entity.ed_sounds = jQuery.extend(true, [], _objectData.sounds);
+                        	}
                         };
                             </pre>
                         </div>
