@@ -151,7 +151,7 @@ Phaser.Plugin.PlayerSave.prototype.activateLevelSave = function(_levelName){
 */
 Phaser.Plugin.PlayerSave.prototype.revertLevelSave = function(){
 	var levelName =  this.game.state.getCurrentState().levelName;
-	this.tempData[levelName] = JSON.parse(JSON.stringify(this.saveData[levelName]));
+	this.tempData.levels[this.activeLevelName] = JSON.parse(JSON.stringify(this.saveData.levels[this.activeLevelName]));
 }
 
 /**
