@@ -45,7 +45,7 @@ Phaser.Plugin.PlayerSave.prototype.setValue = function(_key,_value){
 * Gets the value in the save
 *
 * @param key Name of the variable
-* @method setValue
+* @method getValue
 */
 Phaser.Plugin.PlayerSave.prototype.getValue = function(_key){	
   	return this.tempData[_key];

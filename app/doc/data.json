@@ -2334,7 +2334,7 @@
                 }
             ],
             "itemtype": "method",
-            "name": "setValue",
+            "name": "getValue",
             "class": "Phaser.Plugin.PlayerSave",
             "namespace": "Phaser.Plugin"
         },
