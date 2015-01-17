@@ -323,6 +323,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 				// _behaviour is a string
 				try {
 					var clone = JSON.parse(_behaviour);
+					clone.enabled = true;
 					$scope.currentEntity.behaviours.push(clone);
 				} catch (e) {
 					console.error(e);
