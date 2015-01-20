@@ -135,7 +135,7 @@
 				<select ng-model="currentEntity.fontName" 
 						ng-change="changeFont()"
 			            ng-options="t as t for t in fonts" 
-			            ng-show ="data.type == 'font'"
+			            ng-show ="data.type == 'text'"
 			            class="form-control"
 			            aria-describedby="font-addon">
 			    </select>
@@ -171,7 +171,7 @@
 	</div>
 
 	<!-- Color for BITMAP text -->
-	<div class="row" ng-model="currentEntity.ed_tintColor">
+	<div class="row" ng-show="data.type == 'bitmaptext'">
 		<div class = "col-md-12">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="color-addon">color</span>
@@ -180,35 +180,45 @@
 		</div>
 	</div>
 			
-	<label ng-show ="data.type == 'text'"> Stroke </label>
-	<div class="row" ng-show ="data.type == 'text'">
-		<div class = "col-md-4">
-			<input type = "number" ng-model="currentEntity.strokeThickness"
-				class="form-control" min="0" integer/>
+	<div class="row">
+		<div class = "col-md-6">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="stroke-addon">stroke</span>
+				<input type="number" ng-model="currentEntity.strokeThickness" class="form-control" aria-describedby="stroke-addon" integer/>
+			</div>
 		</div>
-		<div class = "col-md-4">
-			<input type = "color" ng-model="currentEntity.stroke"
-				class="form-control" />
-		</div>
-	</div>
-
-	<label ng-show ="data.type == 'text'" > Wrap 
-		<input type="checkbox" ng-model="currentEntity.wordWrap"/>
-	</label>
-	<div class="row" ng-if="currentEntity.wordWrap">
-		<label class = "col-md-3"> Width </label>
-		<div class = "col-md-4">
-			<input type = "number" ng-model="currentEntity.wordWrapWidth"
-				class="form-control" min="0" integer/>
+		<div class = "col-md-6">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="stroke-color-addon">color</span>
+				<input type="color" ng-model="currentEntity.stroke" class="form-control" aria-describedby="stroke-color-addon"/>
+			</div>
 		</div>
 	</div>
 
-	<label ng-show ="data.type == 'bitmaptext'" > Max Char By Line 
-		<input type = "number"
-				ng-model="currentEntity._maxCharPerLine"
-				ng-change="currentEntity.text = currentEntity.text"
-				class="form-control" min="0" integer/>
-	</label>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="checkbox">
+				<label>
+					Wrap <input type="checkbox" ng-model="currentEntity.wordWrap"/>
+			    </label>
+			</div>
+		</div>
+		<div class = "col-md-6">
+			<div class="input-group input-group-sm"  ng-if="currentEntity.wordWrap">
+				<span class="input-group-addon" id="wrap-width-addon">width</span>
+				<input type="number" ng-model="currentEntity.wordWrapWidth" class="form-control" aria-describedby="wrap-width-addon" min="0" integer/>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" ng-show="data.type == 'bitmaptext'">
+		<div class = "col-md-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="wrap-width-addon">Max Char By Line</span>
+				<input type="number" ng-model="currentEntity._maxCharPerLine" ng-change="currentEntity.text = currentEntity.text" class="form-control" aria-describedby="wrap-width-addon" min="0" integer/>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- DEBUG -->
@@ -218,15 +228,6 @@
 			<label>
 				Draw Bounds <input type="checkbox" ng-model="currentEntity.drawBounds"/>
 		    </label>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12">
-		<div class="btn-group" role="group">
-			<button ng-click="clone()"  type="button" class="btn btn-primary btn-xs">Clone</button>
-			<button ng-click="delete()"  type="button" class="btn btn-danger btn-xs">Delete</button>
 		</div>
 	</div>
 </div>

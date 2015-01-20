@@ -16,11 +16,22 @@
 	</div>
 </div>
 
-<!-- PREFABS -->
-<div class="row" ng-show="currentEntity.prefab!=null">
+<div class="row">
 	<div class="col-md-12">
-		<button ng-click="revertPrefab()">RevertPrefab</button>
-		<button ng-click="savePrefab()">SavePrefab</button>
+		<div class="btn-group" role="group">
+			<button ng-click="clone()"  type="button" class="btn btn-primary btn-xs">Clone</button>
+			<button ng-click="delete()"  type="button" class="btn btn-danger btn-xs">Delete</button>
+		</div>
+	</div>
+</div>
+
+<!-- PREFABS -->
+<div class="row" ng-show="currentEntity.prefab != null">
+	<div class="col-md-12">
+		<div class="btn-group" role="group">
+			<button ng-click="revertPrefab()"  type="button" class="btn btn-danger btn-xs">Revert prefab</button>
+			<button ng-click="savePrefab()"  type="button" class="btn btn-success btn-xs">Save refab</button>
+		</div>
 	</div>
 </div>
 
