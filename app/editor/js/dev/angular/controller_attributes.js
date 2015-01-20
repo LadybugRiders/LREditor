@@ -776,8 +776,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			var dataShape = { "x" : 0, "y" : 0, "rotation": 0};
 			var shape = null;
 			if(_type == "rectangle" || _type == null){
-				dataShape.width = $scope.currentEntity.width; 
-				dataShape.height = $scope.currentEntity.height;
+				dataShape.width = $scope.currentEntity.width * oldScale.x; 
+				dataShape.height = $scope.currentEntity.height * oldScale.y;
 				shape = $scope.currentEntity.go.replaceShapeByRectangle(_index, dataShape );		
 			}else if( _type == "circle"){
 				dataShape.radius = $scope.currentEntity.width > $scope.currentEntity.height ? $scope.currentEntity.width*0.5:$scope.currentEntity.height*0.5;

@@ -171,6 +171,28 @@ LR.Behaviour.prototype.onEndCutscene = function(){
 	
 }
 
+
+//============================================================
+//						CAMERA VISIBILITY
+//============================================================
+/**
+* Called when the entity enters the camera view
+* @method onShow
+*/
+LR.Behaviour.prototype.onShow = function(){
+
+}
+
+/**
+* Called when the entity quit the camera view
+*
+* @method onHide
+*/
+LR.Behaviour.prototype.onHide = function(){
+	
+}
+
+
 /**
 * Accessor to the GameObject's x property
 *
