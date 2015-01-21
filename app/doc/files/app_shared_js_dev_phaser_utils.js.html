@@ -128,6 +128,22 @@
                         LR.Utils.BOTTOM = &quot;bottom&quot;;
                         
                         /**
+                        * Adds as many _char as _width
+                        * example : pad(45,4,&quot;0&quot;) = &quot;0045&quot;
+                        * The char by default is &quot;0&quot;
+                        *
+                        * @method pad
+                        * @param {number|string} number : number or string to pad
+                        * @param {number} width : final length of the returned string
+                        * @param {string|char} char : char or string to add to fill the resulting string
+                        */
+                        LR.Utils.pad = function(_number, _width, _char) {
+                          _char = _char || &#x27;0&#x27;;
+                          _number = _number + &#x27;&#x27;;
+                          return _number.length &gt;= _width ? _number : new Array(_width - _number.length + 1).join(_char) + _number;
+                        }
+                        
+                        /**
                         * Remove an object from the specified array and return it
                         *
                         * @namespace LR
@@ -136,7 +152,7 @@
                         * @param {Array} array The array containing the object
                         * @return null if not found
                         */
-                        LR.Utils.RemoveFromArray = function(_object,_array){
+                        LR.Utils.removeFromArray = function(_object,_array){
                         	var found = false;
                         	var i;
                         	for( i=0; i &lt; _array.length; i++){

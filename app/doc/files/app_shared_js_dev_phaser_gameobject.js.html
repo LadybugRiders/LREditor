@@ -162,6 +162,8 @@
                         	*/
                         	this.sounds = new Object();
                         
+                        	this._3DSounds = null;
+                        
                         	/**
                         	* A reference to the current CollisionManager. Set when the GameObject is added to the CollisionManager
                         	* @property collisionManager
@@ -228,6 +230,10 @@
                         					this.behaviours[i].update();
                         			}
                         		}
+                        	}
+                        	//3DSounds
+                        	if(this.entity.exists &amp;&amp; this._3DSounds != null){
+                        		this._update3DSounds();
                         	}
                         };
                         
@@ -890,7 +896,11 @@
                         		if( sound.isPlaying ){
                         			sound.stop();
                         		}
-                        		sound.play(&#x27;&#x27;,0,_volume,_loop);
+                        		if( sound.lr_3D == true){
+                        			this._play3DSound(sound,_loop);
+                        		}else{
+                        			sound.play(&#x27;&#x27;,0,_volume,_loop);
+                        		}
                         	}
                         }
                         
@@ -908,6 +918,67 @@
                         		}
                         	}
                         }
+                        
+                        LR.GameObject.prototype._update3DSounds = function(){
+                        	//compute distance between the camera&#x27;s center and the GameObject
+                        	var d = Phaser.Point.distance(this.entity.world,
+                        								new Phaser.Point(this.entity.game.camera.view.centerX,this.entity.game.camera.view.centerY) );
+                        	var sound = null;
+                        	for( var i=0; i &lt; this._3DSounds.length; i++){
+                        		sound = this.sounds[ this._3DSounds[i]];
+                        		if(sound == null)
+                        			continue;
+                        		if( sound.lr_distance3D &lt; d ){
+                        			sound.volume = 0;
+                        		}else{
+                        			sound.volume = (1 - d / sound.lr_distance3D ) * sound.lr_volumeMax3D;
+                        		}
+                        	}
+                        }
+                        
+                        /**
+                        * Enable this specified sound to be 3D
+                        * The distance is used to make the sound audible. This is computed from the distance between the center of the camera and the position of the GameObject
+                        *
+                        * @method enable3DSound
+                        * @param {string} Name of the sound
+                        * @param {number} Distance where the sound begins to be audible
+                        * @param {number} Maximum volume of the sound
+                        */
+                        LR.GameObject.prototype.enable3DSound = function(_name,_distance,_volumeMax){
+                        	var sound = this.getSound(_name);
+                        	if( sound == null ){
+                        		console.warn(&quot; No sound found to enable 3D audio&quot;);
+                        		return;
+                        	}
+                        	if(_distance == null ) _distance = 300;
+                        	if(_volumeMax == null ) _volumeMax = 1;
+                        
+                        	sound.lr_3D = true;
+                        	sound.lr_distance3D = _distance;
+                        	sound.lr_volumeMax3D = _volumeMax;
+                        
+                        	if( this._3DSounds == null)
+                        		this._3DSounds = new Array();
+                        	this._3DSounds.push(_name);
+                        
+                        }
+                        
+                        LR.GameObject.prototype._play3DSound = function(_sound,_loop){
+                        	//compute distance between the camera&#x27;s center and the GameObject
+                        	var d = Phaser.Point.distance(this.entity.world,
+                        								new Phaser.Point(this.entity.game.camera.view.centerX,this.entity.game.camera.view.centerY) );
+                        	var volume = 1;
+                        	if( _sound.lr_distance3D &lt; d ){
+                        		volume = 0;
+                        	}else{
+                        		volume = (1 - d / _sound.lr_distance3D ) * _sound.lr_volumeMax3D;
+                        	}
+                        	
+                        	_sound.play(&#x27;&#x27;,0,volume,_loop);
+                        }
+                        
+                        
                         //============================================================
                         //						SETTERS
                         //============================================================
@@ -999,6 +1070,53 @@
                         		}
                         	}
                         );
+                        
+                        /**
+                        * Accessor to the entity&#x27;s world X coordinates
+                        * Unlike world property, you can set this value to change the position of the GameObject in the world
+                        *
+                        * @property worldX
+                        * @type {number}
+                        */
+                        Object.defineProperty( LR.GameObject.prototype, &quot;worldX&quot;,
+                        	{
+                        		get : function(){
+                        			return this.entity.world.x;
+                        		},
+                        
+                        		set : function(_value){
+                        			if( this.entity.parent.world == null){
+                        				this.x = _value;
+                        			}else{
+                        				this.x = _value - this.entity.parent.world.x;
+                        			}
+                        		}
+                        	}
+                        );
+                        
+                        /**
+                        * Accessor to the entity&#x27;s world Y coordinates
+                        * Unlike world property, you can set this value to change the position of the GameObject in the world
+                        *
+                        * @property worldX
+                        * @type {number}
+                        */
+                        Object.defineProperty( LR.GameObject.prototype, &quot;worldY&quot;,
+                        	{
+                        		get : function(){
+                        			return this.entity.world.y;
+                        		},
+                        
+                        		set : function(_value){
+                        			if( this.entity.parent.world == null){
+                        				this.y = _value;
+                        			}else{
+                        				this.y = _value - this.entity.parent.world.y;
+                        			}
+                        		}
+                        	}
+                        );
+                        
                         
                         /**
                         * Accessor to the body&#x27;s gravity. Returns 0 if no body affected.

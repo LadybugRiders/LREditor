@@ -784,7 +784,11 @@ LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
 		if( sound.isPlaying ){
 			sound.stop();
 		}
-		sound.play('',0,_volume,_loop);
+		if( sound.lr_3D == true){
+			this._play3DSound(sound,_loop);
+		}else{
+			sound.play('',0,_volume,_loop);
+		}
 	}
 }
 
@@ -805,7 +809,7 @@ LR.GameObject.prototype.stopSound = function(_name){
 
 LR.GameObject.prototype._update3DSounds = function(){
 	//compute distance between the camera's center and the GameObject
-	var d = Phaser.Point.distance(this.entity.position,
+	var d = Phaser.Point.distance(this.entity.world,
 								new Phaser.Point(this.entity.game.camera.view.centerX,this.entity.game.camera.view.centerY) );
 	var sound = null;
 	for( var i=0; i < this._3DSounds.length; i++){
@@ -846,6 +850,20 @@ LR.GameObject.prototype.enable3DSound = function(_name,_distance,_volumeMax){
 		this._3DSounds = new Array();
 	this._3DSounds.push(_name);
 
+}
+
+LR.GameObject.prototype._play3DSound = function(_sound,_loop){
+	//compute distance between the camera's center and the GameObject
+	var d = Phaser.Point.distance(this.entity.world,
+								new Phaser.Point(this.entity.game.camera.view.centerX,this.entity.game.camera.view.centerY) );
+	var volume = 1;
+	if( _sound.lr_distance3D < d ){
+		volume = 0;
+	}else{
+		volume = (1 - d / _sound.lr_distance3D ) * _sound.lr_volumeMax3D;
+	}
+	
+	_sound.play('',0,volume,_loop);
 }
 
 
@@ -940,6 +958,53 @@ Object.defineProperty( LR.GameObject.prototype, "world",
 		}
 	}
 );
+
+/**
+* Accessor to the entity's world X coordinates
+* Unlike world property, you can set this value to change the position of the GameObject in the world
+*
+* @property worldX
+* @type {number}
+*/
+Object.defineProperty( LR.GameObject.prototype, "worldX",
+	{
+		get : function(){
+			return this.entity.world.x;
+		},
+
+		set : function(_value){
+			if( this.entity.parent.world == null){
+				this.x = _value;
+			}else{
+				this.x = _value - this.entity.parent.world.x;
+			}
+		}
+	}
+);
+
+/**
+* Accessor to the entity's world Y coordinates
+* Unlike world property, you can set this value to change the position of the GameObject in the world
+*
+* @property worldX
+* @type {number}
+*/
+Object.defineProperty( LR.GameObject.prototype, "worldY",
+	{
+		get : function(){
+			return this.entity.world.y;
+		},
+
+		set : function(_value){
+			if( this.entity.parent.world == null){
+				this.y = _value;
+			}else{
+				this.y = _value - this.entity.parent.world.y;
+			}
+		}
+	}
+);
+
 
 /**
 * Accessor to the body's gravity. Returns 0 if no body affected.

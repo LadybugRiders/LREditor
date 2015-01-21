@@ -653,7 +653,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			_name = "sound"+ $scope.currentEntity.ed_sounds.length;
 		var dataSound = {name:_name, key:"",
 						autoPlay:false, loop:true, volume:1,
-						is3D : true, volumeMax3D : 1, distance3D : 300
+						is3D : false, volumeMax3D : 1, distance3D : 300
 						};
 
 		$scope.currentEntity.ed_sounds.push(dataSound);
