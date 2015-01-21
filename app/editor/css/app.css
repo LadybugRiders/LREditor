@@ -1,3 +1,8 @@
+.side-panel {
+	height: 100%;
+	overflow-y: scroll;
+}
+
 .navbar {
 	margin-bottom: 0;
 }
@@ -18,14 +23,6 @@ accordion a:hover {
 	max-height: 500px;
 	overflow-x: hidden;
 	overflow-y: scroll;
-}
-
-#entities {
-	left: 100px;
-}
-
-#attributes {
-	left: 450px;
 }
 
 .list-entities ul {

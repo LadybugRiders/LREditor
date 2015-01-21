@@ -10,6 +10,18 @@ moduleDirectives.directive('appVersion', ['version', function(version) {
 	};
 }]);
 
+moduleDirectives.directive('scrollable', function() {
+	return {
+		link: function(scope, elm, attrs, ctrl) {
+			elm.height(elm.parent().height());
+			// check the size every 500ms
+			setInterval(function() {
+				elm.height(elm.parent().height());
+			}, 500);
+		}
+	};
+});
+
 var INTEGER_REGEXP = /^\-?\d+$/;
 moduleDirectives.directive('integer', function() {
 	return {

@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-2" ng-controller="EntitiesCtrl" ng-include="'partials/entities.html'">
+    <div id="entities" class="col-md-2 side-panel" ng-controller="EntitiesCtrl" ng-include="'partials/entities.html'" scrollable>
     </div>
 	<div class="col-md-7" ng-controller="PhaserCtrl" ng-include="'partials/phaser.html'">
 	</div>
-    <div class="col-md-3" ng-controller="AttributesCtrl" ng-include="'partials/attributes.html'">
+    <div id="attributes" class="col-md-3 side-panel" ng-controller="AttributesCtrl" ng-include="'partials/attributes.html'" scrollable>
     </div>
 </div>
