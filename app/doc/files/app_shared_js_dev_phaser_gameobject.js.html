@@ -864,13 +864,15 @@
                         }
                         
                         /**
-                        * Returns the specified sound
+                        * Returns the specified sound. If none specified, returns the first sound of the GameObject (if it exists)
                         *
                         * @method getSound
                         * @param {String} name
                         * @return {Phaser.Sound}
                         */
                         LR.GameObject.prototype.getSound = function(_name){
+                        	if( _name == null &amp;&amp; Object.keys(this.sounds).length &gt; 0)
+                        		return this.sounds[Object.keys(this.sounds)[0]];
                         	return this.sounds[_name];
                         }
                         

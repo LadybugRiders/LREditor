@@ -247,6 +247,10 @@ LR.LevelImporterGame.prototype.setSounds = function(_objectData, _entity) {
 				sound.lr_id = soundId;
 				_entity.go.addSound(data.name,sound);
 
+				if( data.is3D == true){
+					_entity.go.enable3DSound(data.name, data.distance3D, data.volumeMax3D);
+				}
+
 
 				if( data.autoPlay == true){
 					var volume = 1;

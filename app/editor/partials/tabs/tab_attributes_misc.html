@@ -131,6 +131,21 @@
 						<label class="col-md-4"> Loop </label>
 						<input type ="checkbox" class="col-md-1" ng-model="soundData.loop" />
 					</div>
+					</br>
+					<!-- 3D SOUND -->
+					<div class="row" >
+						<label class="col-md-4"> 3D </label>
+						<input type ="checkbox" class="col-md-1" ng-model="soundData.is3D" />
+					</div>
+					<div class="row" ng-show="soundData.is3D">
+						<label class="col-md-5">Vol. Max</label>
+						<input class="col-md-7" type ="number" ng-model="soundData.volumeMax3D" number/>
+					</div>
+					<div class="row" ng-show="soundData.is3D">
+						<label class="col-md-5">Distance</label>
+						<input class="col-md-7" type ="number" ng-model="soundData.distance3D" number/>
+					</div>
+					<!-- REMOVE -->
 					<div class="row">
 						<button ng-click="removeSound($index)" type="button" class="btn btn-danger btn-xs">
 							Delete

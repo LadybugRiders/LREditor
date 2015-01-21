@@ -1574,7 +1574,25 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 174,
+            "line": 178,
+            "description": "Called when the entity enters the camera view",
+            "itemtype": "method",
+            "name": "onShow",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 186,
+            "description": "Called when the entity quit the camera view",
+            "itemtype": "method",
+            "name": "onHide",
+            "class": "LR.Behaviour",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
+            "line": 196,
             "description": "Accessor to the GameObject's x property",
             "itemtype": "property",
             "name": "x",
@@ -1584,7 +1602,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 193,
+            "line": 215,
             "description": "Accessor to the GameObject's y property",
             "itemtype": "property",
             "name": "x",
@@ -1594,7 +1612,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 211,
+            "line": 233,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -1604,7 +1622,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 226,
+            "line": 248,
             "description": "Accessor to the current game (readonly)",
             "itemtype": "property",
             "name": "game",
@@ -1614,7 +1632,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 240,
+            "line": 262,
             "description": "Accessor to the current gameobject's body (readonly)",
             "itemtype": "property",
             "name": "body",
@@ -1624,7 +1642,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 254,
+            "line": 276,
             "description": "Find an instance of a specific Behaviour held by a gameobject",
             "itemtype": "method",
             "name": "FindBehaviour",
@@ -3489,7 +3507,7 @@
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
             "line": 754,
-            "description": "Returns the specified sound",
+            "description": "Returns the specified sound. If none specified, returns the first sound of the GameObject (if it exists)",
             "itemtype": "method",
             "name": "getSound",
             "params": [
@@ -3508,7 +3526,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 765,
+            "line": 767,
             "description": "Plays the specified sound",
             "itemtype": "method",
             "name": "playSound",
@@ -3534,7 +3552,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 783,
+            "line": 785,
             "description": "Stops the specified sound",
             "itemtype": "method",
             "name": "playSound",
@@ -3550,7 +3568,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 800,
+            "line": 802,
             "description": "Sets the position of the GameObject. Takes the body in account",
             "itemtype": "method",
             "name": "setPosition",
@@ -3571,7 +3589,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 817,
+            "line": 819,
             "description": "Accessor to the entity's body. Read only.",
             "itemtype": "property",
             "name": "body",
@@ -3581,7 +3599,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 831,
+            "line": 833,
             "description": "Accessor to the entity's x.",
             "itemtype": "property",
             "name": "x",
@@ -3591,7 +3609,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 853,
+            "line": 855,
             "description": "Accessor to the entity's y.",
             "itemtype": "property",
             "name": "y",
@@ -3601,7 +3619,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 875,
+            "line": 877,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -3611,7 +3629,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 889,
+            "line": 891,
             "description": "Accessor to the body's gravity. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "gravity",
@@ -3621,7 +3639,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 911,
+            "line": 913,
             "description": "Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3631,7 +3649,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 927,
+            "line": 929,
             "description": "Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3641,7 +3659,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 943,
+            "line": 945,
             "description": "Changes the parent of the entity",
             "itemtype": "method",
             "name": "changeParent",
@@ -3657,7 +3675,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 960,
+            "line": 962,
             "description": "Adds a tween with the data specified\nexample of input data : { \"properties\":{\"body.x\":100},\"duration\": 1000 ...etc..}",
             "itemtype": "method",
             "name": "addTween",
@@ -3673,7 +3691,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 979,
+            "line": 981,
             "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched",
             "itemtype": "method",
             "name": "launchTween",
@@ -3689,7 +3707,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1080,
+            "line": 1082,
             "description": "Called when a cutscene begins",
             "itemtype": "method",
             "name": "onBeginCutscene",
@@ -3698,7 +3716,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1092,
+            "line": 1094,
             "description": "Called when a cutscene ends",
             "itemtype": "method",
             "name": "onEndCutscene",
@@ -3707,7 +3725,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1108,
+            "line": 1110,
             "description": "Find a gameobject by its name",
             "itemtype": "method",
             "name": "<static> FindByName",
@@ -3732,7 +3750,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1136,
+            "line": 1138,
             "description": "Find a gameobject by its ID",
             "itemtype": "method",
             "name": "<static> FindByID",

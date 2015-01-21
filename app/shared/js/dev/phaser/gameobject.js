@@ -50,6 +50,8 @@ LR.GameObject = function(_entity) {
 	*/
 	this.sounds = new Object();
 
+	this._3DSounds = null;
+
 	/**
 	* A reference to the current CollisionManager. Set when the GameObject is added to the CollisionManager
 	* @property collisionManager
@@ -116,6 +118,10 @@ LR.GameObject.prototype.update = function() {
 					this.behaviours[i].update();
 			}
 		}
+	}
+	//3DSounds
+	if(this.entity.exists && this._3DSounds != null){
+		this._update3DSounds();
 	}
 };
 
@@ -796,6 +802,53 @@ LR.GameObject.prototype.stopSound = function(_name){
 		}
 	}
 }
+
+LR.GameObject.prototype._update3DSounds = function(){
+	//compute distance between the camera's center and the GameObject
+	var d = Phaser.Point.distance(this.entity.position,
+								new Phaser.Point(this.entity.game.camera.view.centerX,this.entity.game.camera.view.centerY) );
+	var sound = null;
+	for( var i=0; i < this._3DSounds.length; i++){
+		sound = this.sounds[ this._3DSounds[i]];
+		if(sound == null)
+			continue;
+		if( sound.lr_distance3D < d ){
+			sound.volume = 0;
+		}else{
+			sound.volume = (1 - d / sound.lr_distance3D ) * sound.lr_volumeMax3D;
+		}
+	}
+}
+
+/**
+* Enable this specified sound to be 3D
+* The distance is used to make the sound audible. This is computed from the distance between the center of the camera and the position of the GameObject
+*
+* @method enable3DSound
+* @param {string} Name of the sound
+* @param {number} Distance where the sound begins to be audible
+* @param {number} Maximum volume of the sound
+*/
+LR.GameObject.prototype.enable3DSound = function(_name,_distance,_volumeMax){
+	var sound = this.getSound(_name);
+	if( sound == null ){
+		console.warn(" No sound found to enable 3D audio");
+		return;
+	}
+	if(_distance == null ) _distance = 300;
+	if(_volumeMax == null ) _volumeMax = 1;
+
+	sound.lr_3D = true;
+	sound.lr_distance3D = _distance;
+	sound.lr_volumeMax3D = _volumeMax;
+
+	if( this._3DSounds == null)
+		this._3DSounds = new Array();
+	this._3DSounds.push(_name);
+
+}
+
+
 //============================================================
 //						SETTERS
 //============================================================
