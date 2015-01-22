@@ -550,7 +550,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
     	tween.duration = 1000;
     	tween.easing = ["Linear","None"]; tween.delay = 0;
     	tween.repeat = 0; tween.yoyo = false;
-    	tween.relative = true; tween.autoStart = false;
+    	tween.relative = false; tween.autoStart = false;
     	$scope.currentEntity.go.addTween(tween);
     }
 
