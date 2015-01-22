@@ -31,7 +31,7 @@ LR.Game = function(_containerId, _width, _height, _scaleMode, _debug) {
 	this.collisionManager = null;
 
 	this.scaleMode = _scaleMode;
-	this.debug = _debug;
+	this.showDebug = _debug;
 
 	var renderType = Phaser.AUTO;
 
@@ -65,7 +65,7 @@ LR.Game.prototype.preload = function() {
 };
 
 LR.Game.prototype.create = function() {
-	if (this.debug)
+	if (this.showDebug)
 		this.game.add.plugin(Phaser.Plugin.Debug);
 	this.game.plugins.add(Phaser.Plugin.PlayerSave);
 	this.game.plugins.add(Phaser.Plugin.InputManager);
