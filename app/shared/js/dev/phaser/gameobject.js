@@ -645,7 +645,7 @@ LR.GameObject.prototype.getShapeData = function(_shapeIndex){
 		}else if(LR.Utils.getShapeType(shape) == "circle"){
 			data.radius = this.game.physics.p2.mpx(shape.radius);
 		}
-		data.rotation = LR.Utils.toDegrees( this.game.physics.p2.mpx( this.body.data.shapeAngles[_shapeIndex] ) );
+		data.rotation = LR.Utils.toDegrees( this.body.data.shapeAngles[_shapeIndex]);
 		data.sensor = shape.sensor;
 		data.name = shape.lr_name;
 		data.type = LR.Utils.getShapeType(shape);
