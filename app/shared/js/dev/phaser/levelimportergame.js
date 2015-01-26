@@ -231,18 +231,18 @@ LR.LevelImporterGame.prototype.setSounds = function(_objectData, _entity) {
 			var data = _objectData.sounds[i];
 			//search for an existing sound in SoundManager,
 			//as sounds are not destroyed between scenes
-			var soundId = _entity.go.name + i;
+			var soundId = _entity.go.name + i +"_"+ data.key;
 			var sound = null;
 			for(var s=0; s < _entity.game.sound._sounds.length; s ++){
 				var existingSound = _entity.game.sound._sounds[s];
 				if( existingSound.lr_id == soundId){
+					console.log(existingSound);
 					sound = existingSound;
 				}
 			}
 			//if not already created, create new sound
 			if( sound == null )
 				sound = _entity.game.add.audio(data.key);
-
 			if( sound ){
 				sound.lr_id = soundId;
 				_entity.go.addSound(data.name,sound);
