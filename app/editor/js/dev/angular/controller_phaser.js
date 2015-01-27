@@ -621,6 +621,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	}
 
 	$scope.loadImage = function(_image) {
+		console.log($scope.project.path);
 		$scope.game.load.spritesheet(
 			_image.name,
 			$scope.project.path + "/assets/images" + _image.path,
