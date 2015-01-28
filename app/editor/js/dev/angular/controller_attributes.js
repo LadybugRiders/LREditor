@@ -444,6 +444,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( bh ){
 				bh.enabled = false;
 			}
+			$scope.refreshCurrentEntity($scope.currentEntity);
 		}
 	}
 
