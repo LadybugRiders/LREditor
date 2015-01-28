@@ -1,117 +1,196 @@
-<div ng-if="data.type != 'group' && data.type != 'text' && data.type != 'bitmaptext' " class="form-group">
-	<!-- ACTIVATE ATLASING -->
-	<div class="form-group">
-		<label>
-			Atlas <input type="checkbox" ng-model="currentEntity.isAtlas"/>
-		</label>
-	</div>
-	<!-- IMAGE -->
-	<div ng-show="!currentEntity.isAtlas">
-		<div class="form-group">
-			<label>Image</label>
-			<select ng-model="data.imageKey" class="form-control" id="selectKey">
-				<option ng-repeat="img in data.images"
-						value="{{img.name}}"
-				> {{img.name}}
-				</option>
-			</select>
-		</div>
-		<div ng-if="data.type != 'button' " class="form-group">
-			<!-- FRAME -->
-			<div class="form-group">
-				<label>Frame</label>
-				<input type="number" ng-model="data.imageFrame" class="form-control"/>
-			</div>
-			<!-- APPLY -->
-			<div class="form-group">
-				<button ng-click="changeTexture(data.imageKey, data.imageFrame)" type="button" class="btn btn-default btn-xs">Apply</button>
+<div ng-if="data.type != 'group' && data.type != 'text' && data.type != 'bitmaptext' " class="row">
+	<div class="col-md-12">
+		<!-- ACTIVATE ATLASING -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="checkbox">
+					<label>
+						Atlas <input type="checkbox" ng-model="currentEntity.isAtlas"/>
+				    </label>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- ATLAS -->
-	<div ng-show="currentEntity.isAtlas">
-		<label>Atlas</label>
-		<select ng-model="data.imageKey" ng-change="selectAtlas(data.imageKey)" class="form-control" id="selectKey">
-			<option ng-repeat="img in data.atlases"
-					value="{{img.name}}"
-			> {{img.name}}
-			</option>
-		</select>
-		<label>Frame Name</label>
-		<select ng-model="data.frameName" class="form-control" id="selectFrameName">
-			<option ng-repeat="(frmName,frmData) in data.atlas.frames"
-					ng-value="{{frmName}}"
-			> {{frmName}}
-			</option>
-		</select>
-		<!-- APPLY -->
-		<div class="form-group">
-			<button ng-click="changeAtlas(data.imageKey, data.frameName)" type="button" class="btn btn-default btn-xs">Apply</button>
-		</div>
-	</div>
 
-	<div ng-if="data.type == 'button' " class="form-group">
-		<!-- FRAME -->
-		<div class="form-group">
-			<label>Frame - Over</label>
-			<input type="number" ng-model="currentEntity.onOverFrameID" class="form-control"/>
-			<label>Frame - Out</label>
-			<input type="number" ng-model="currentEntity.onOutFrameID" class="form-control"/>
-			<label>Frame - Down</label>
-			<input type="number" ng-model="currentEntity.onDownFrameID" class="form-control"/>
-			<label>Frame - Up</label>
-			<input type="number" ng-model="currentEntity.onUpFrameID" class="form-control"/>
+		<!-- IMAGE -->
+		<div ng-show="!currentEntity.isAtlas" class="row">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="image-addon">image</span>
+					<select ng-model="data.imageKey" class="form-control" id="selectKey" aria-describedby="image-addon">
+						<option ng-repeat="img in data.images"
+								value="{{img.name}}"
+						> {{img.name}}
+						</option>
+					</select>
+				</div>
+			</div>
 		</div>
-		<!-- APPLY -->
-		<div class="form-group">
-			<button ng-click="changeTextureButton(data.imageKey)" type="button" class="btn btn-default btn-xs">Apply</button>
+		<div  ng-show="!currentEntity.isAtlas && data.type != 'button'" class="row">
+			<!-- FRAME -->
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="frame-addon">frame</span>
+					<input type="number" ng-model="data.imageFrame" class="form-control" aria-describedby="frame-addon" integer/>
+				</div>
+			</div>
 		</div>
-	</div>
-	
-	<!-- COLOR -->
-	<div ng-show= "data.type == 'sprite' || data.type == 'tilesprite' || data.type =='button' " class="form-group">
-	<label> Color </label>
-		<input type = "color" ng-model="currentEntity.ed_tintColor"
-			ng-change = "changeTint()" class="form-control" />
+		<div  ng-show="!currentEntity.isAtlas && data.type != 'button'" class="row">
+			<!-- APPLY -->
+			<div class="col-md-12">
+		        <button ng-click="changeTexture(data.imageKey, data.imageFrame)" class="btn btn-success btn-xs btn-block" type="button">Apply</button>
+			</div>
+		</div>
+
+		<!-- ATLAS -->
+		<div ng-show="currentEntity.isAtlas" class="row">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="atlas-addon">atlas</span>
+					<select ng-model="data.imageKey" class="form-control" id="selectKey" aria-describedby="atlas-addon">
+						<option ng-repeat="img in data.atlases"
+								value="{{img.name}}"
+						> {{img.name}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div  ng-show="currentEntity.isAtlas && data.type != 'button'" class="row">
+			<!-- FRAME -->
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="frame-name-addon">frame - name</span>
+					<select ng-model="data.frameName" class="form-control" id="selectFrameName" aria-describedby="frame-name-addon">
+						<option ng-repeat="(frmName,frmData) in data.atlas.frames"
+								ng-value="{{frmName}}"
+						> {{frmName}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div  ng-show="currentEntity.isAtlas && data.type != 'button'" class="row">
+			<!-- APPLY -->
+			<div class="col-md-12">
+		        <button ng-click="changeAtlas(data.imageKey, data.frameName)" class="btn btn-success btn-xs btn-block" type="button">Apply</button>
+			</div>
+		</div>
+
+		<!-- BUTTON FRAMES -->
+		<!-- FRAME - OVER -->
+		<div  ng-show="data.type == 'button'" class="row">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="frame-over-addon">frame - over</span>
+					<input type="number" ng-model="currentEntity.onOverFrameID" class="form-control" aria-describedby="frame-over-addon" integer/>
+				</div>
+			</div>
+		</div>
+		<!-- FRAME - OUT -->
+		<div  ng-show="data.type == 'button'" class="row">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="frame-out-addon">frame - out</span>
+					<input type="number" ng-model="currentEntity.onOutFrameID" class="form-control" aria-describedby="frame-out-addon" integer/>
+				</div>
+			</div>
+		</div>
+		<!-- FRAME - Down -->
+		<div  ng-show="data.type == 'button'" class="row">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="frame-down-addon">frame - down</span>
+					<input type="number" ng-model="currentEntity.onDownFrameID" class="form-control" aria-describedby="frame-down-addon" integer/>
+				</div>
+			</div>
+		</div>
+		<!-- FRAME - UP -->
+		<div  ng-show="data.type == 'button'" class="row">
+			<div class="col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="frame-up-addon">frame - up</span>
+					<input type="number" ng-model="currentEntity.onUpFrameID" class="form-control" aria-describedby="frame-up-addon" integer/>
+				</div>
+			</div>
+		</div>
+		<div  ng-show="data.type == 'button'" class="row">
+			<!-- APPLY -->
+			<div class="col-md-12">
+		        <button ng-click="changeTextureButton(data.imageKey)" class="btn btn-success btn-xs btn-block" type="button">Apply</button>
+			</div>
+		</div>
+
+		<br/>
+		
+		<!-- COLOR -->
+		<div class="row" ng-show= "data.type == 'sprite' || data.type == 'tilesprite' || data.type =='button'">
+			<div class = "col-md-12">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon" id="tint-color-addon">color</span>
+					<input type="color" ng-model="currentEntity.ed_tintColor" ng-change = "changeTint()" class="form-control" aria-describedby="tint-color-addon"/>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
 <!-- ALPHA -->
-<div>
-	<label>Alpha</label>
-	<input type="number" min="0" max ="1"
-	ng-model="currentEntity.alpha"
-	float/>
-</div>
-<!-- VISIBLE -->
-<div class="form-group">
-	<label>
-		Visible <input type="checkbox" ng-model="currentEntity.visible"/>
-	</label>
-</div>
-<!-- HIDE OUT OF VIEW -->
-<div class="form-group">
-	<label>
-		Hide when out of view <input type="checkbox" 
-		ng-model="currentEntity.ed_outOfViewHide"
-		ng-change="toggleOutOfViewHide(currentEntity)"/>
-	</label>
-</div>
-<!-- FIXED TO CAMERA -->
-<div class="form-group">
-	<label>
-		Fixed To Camera <input type="checkbox" ng-model="currentEntity.ed_fixedToCamera" ng-change="toggleFixedToCamera()"/>
-	</label>
-</div>
-<div ng-if="data.type == 'tilesprite'" class="form-group">
-	<label>AutoScroll</label>
-	<div class="row">
-		<div class="col-md-6">
-			<input type="number" ng-model="currentEntity.scrollX" 
-				 class="form-control" integer/>
+<div class="row">
+	<div class="col-md-12">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="alpha-addon">alpha</span>
+			<input type="number" min="0" max ="1" ng-model="currentEntity.alpha" class="form-control" aria-describedby="alpha-addon" float/>
 		</div>
-		<div class="col-md-6">
-			<input type="number" ng-model="currentEntity.scrollY" 
-			class="form-control" integer/>
+	</div>
+</div>
+
+<!-- AUTO SCROLL -->
+<div class="row" ng-if="data.type == 'tilesprite'">
+	<div class="col-md-12">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="autoscroll-x-addon">autoscroll x</span>
+			<input type="number" ng-model="currentEntity.scrollX" class="form-control" aria-describedby="autoscroll-x-addon"/>
+		</div>
+	</div>
+</div>
+<div class="row" ng-if="data.type == 'tilesprite'">
+	<div class="col-md-12">
+		<div class="input-group input-group-sm">
+			<span class="input-group-addon" id="autoscroll-y-addon">autoscroll y</span>
+			<input type="number" ng-model="currentEntity.scrollY" class="form-control" aria-describedby="autoscroll-y-addon"/>
+		</div>
+	</div>
+</div>
+
+<!-- VISIBLE -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="checkbox">
+			<label>
+				Visible <input type="checkbox" ng-model="currentEntity.visible"/>
+		    </label>
+		</div>
+	</div>
+</div>
+
+<!-- HIDE OUT OF VIEW -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="checkbox">
+			<label>
+				Hide when out of view <input type="checkbox" ng-model="currentEntity.ed_outOfViewHide" ng-change="toggleOutOfViewHide(currentEntity)"/>
+		    </label>
+		</div>
+	</div>
+</div>
+
+<!-- FIXED TO CAMERA -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="checkbox">
+			<label>
+				Fixed To Camera <input type="checkbox" ng-model="currentEntity.ed_fixedToCamera" ng-change="toggleFixedToCamera()"/>
+		    </label>
 		</div>
 	</div>
 </div>
