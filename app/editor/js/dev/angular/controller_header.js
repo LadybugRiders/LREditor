@@ -100,33 +100,14 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		//Create Network API and change porject path
 		$scope.networkAPI = new LocalAPIManager($http,$scope); 
+		//$scope.networkAPI = new GithubAPIManager($http,$scope);
 
 		// load current project data
-		if (localStorage) {
-			var path = localStorage.getItem("project.path");
-			var file = localStorage.getItem("project.file");
-			if (path && file) {
-				console.log(path);
-				$scope.project.path = path;
-				$scope.project.file = file;
-			}
-
-
-			$scope.networkAPI.loadCurrentProjectData($scope.onProjectLoaded);
-		    $scope.networkAPI.loadCurrentProjectImages($scope.onImagesLoaded);
-		    $scope.networkAPI.loadCurrentProjectPrefabs($scope.onPrefabsLoaded);
-		    $scope.networkAPI.loadCurrentProjectAtlases($scope.onAtlasesLoaded);
-		    $scope.networkAPI.loadCurrentProjectAudios($scope.onAudioLoaded);
-		    $scope.networkAPI.loadCurrentProjectBehaviours($scope.onBehavioursLoaded);
-		    $scope.networkAPI.loadCurrentProjectInputs($scope.onInputsLoaded);
-		    $scope.networkAPI.loadCurrentProjectLayers($scope.onLayersLoaded);
-		    $scope.networkAPI.loadCurrentProjectFonts($scope.onFontsLoaded);
-		    $scope.networkAPI.loadCurrentProjectLevels($scope.onLevelsLoaded);
-
-			//$scope.project.path = $scope.networkAPI.getProjectPath();
-    } else {
-      console.warn("no localStorage");
-    }
+		if (localStorage) {			
+			$scope.networkAPI.initAPI(localStorage,$scope.onNetworkAPIReady);
+	    } else {
+	      console.warn("no localStorage");
+	    }
 	};
 
 	$scope.play = function() {
@@ -148,16 +129,41 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		}, 100);
 	};
 
+	//promise called when the network API is ready to use
+	$scope.onNetworkAPIReady = function(){
+		$scope.networkAPI.loadCurrentProjectData($scope.onProjectLoaded);
+	}
+
+	//Each time an assets set (images, audios...) is fully loaded
+	$scope.onAssetLoaded = function(){
+		$scope.assetsLoadInProgress --;
+		if(this.assetsLoadInProgress<=0){
+			$scope.$emit("assetsLoadedEmit",{});
+		}
+	}
+
 	/************
 	** PROJECT **
 	************/	
 
-	$scope.onProjectLoaded = function(_data){
-		//console.log("ProjectLoaded");
+	$scope.onProjectLoaded = function(_data){	
 		$timeout(function() {
 			$scope.$emit("sendProjectEmit", {project: $scope.project});
-		}, 100);
-	}
+
+			//load project assets	
+			$scope.assetsLoadInProgress = 9;
+		    $scope.networkAPI.loadCurrentProjectImages($scope.onImagesLoaded);
+		    $scope.networkAPI.loadCurrentProjectPrefabs($scope.onPrefabsLoaded);
+		    $scope.networkAPI.loadCurrentProjectAtlases($scope.onAtlasesLoaded);
+		    $scope.networkAPI.loadCurrentProjectAudios($scope.onAudioLoaded);
+		    $scope.networkAPI.loadCurrentProjectBehaviours($scope.onBehavioursLoaded);
+		    $scope.networkAPI.loadCurrentProjectInputs($scope.onInputsLoaded);
+		    $scope.networkAPI.loadCurrentProjectLayers($scope.onLayersLoaded);
+		    $scope.networkAPI.loadCurrentProjectFonts($scope.onFontsLoaded);
+		    $scope.networkAPI.loadCurrentProjectLevels($scope.onLevelsLoaded);
+			}, 100);
+		}
+		//console.log("ProjectLoaded");
 
 	$scope.changeCurrentProject = function() {
 		var modalInstance = $modal.open({
@@ -184,7 +190,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	** IMAGES **
 	***********/
 	$scope.onImagesLoaded = function(_data){
-		//console.log("ImagesLoaded");
+		console.log("ImagesLoaded");
+		$scope.onAssetLoaded();
 		$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
 	}
 
@@ -209,7 +216,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	************/
 
 	$scope.onAtlasesLoaded = function(_data) {
-		//console.log("AtlasesLoaded")
+		console.log("AtlasesLoaded");
+		$scope.onAssetLoaded();
 		$scope.$emit("sendAtlasesEmit", {atlases: $scope.project.assets.atlases});		
 	};
 
@@ -235,6 +243,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.onAudioLoaded = function() {
 		//console.log("AudioLoaded");
+		$scope.onAssetLoaded();
 		$scope.$emit("sendAudiosEmit", {audios: $scope.project.assets.audios});
 	};
 
@@ -260,6 +269,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	//Load the layers file and build/send the layers names array
 	$scope.onLayersLoaded = function(_data) {
 		//console.log('LayersLoaded')
+		$scope.onAssetLoaded();
 		$scope.$emit("sendLayersEmit", {"layers": $scope.project.assets.layers });
 	}
 
@@ -301,6 +311,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	//loads LR built in behaviours
 	$scope.onBehavioursLoaded = function(){
 		//console.log("BehavioursLoaded");
+		$scope.onAssetLoaded();
 		$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
 	}
 
@@ -314,6 +325,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.onPrefabsLoaded = function(_data) {
 		//console.log("PrefabsLoaded");
+		$scope.onAssetLoaded();
 	};
 
 	$scope.managePrefabs = function() {
@@ -338,6 +350,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.onFontsLoaded = function() {
 		//console.log("FontsLoaded");
+		$scope.onAssetLoaded();
 		$scope.$emit("sendBitmapFontsEmit",{bitmapFonts : $scope.project.assets.bitmapFonts});
 	};
 
@@ -348,6 +361,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	$scope.onLevelsLoaded = function() {
 		//console.log("LevelsLoaded");
 		//console.log($scope.project.assets.levels);
+		$scope.onAssetLoaded();
 	};
 
 	/***********
@@ -357,6 +371,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	$scope.onInputsLoaded = function(_data) {
 		//console.log("InputsLoaded");
 		//console.log(_data);
+		$scope.onAssetLoaded();
 	}
 
 	$scope.manageInputs = function() {

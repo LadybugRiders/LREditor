@@ -14,6 +14,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.loadedImages = new Array();
 		$scope.loadedAtlases = new Array();
 
+
+		$scope.$on("assetsLoadedBroadcast", function(_event, _args) {
+			$scope.importDefaultLevel();
+		});
+
 		//============ PROJECT ===================
 
 		$scope.$on("sendProjectBroadcast", function(_event, _args) {
@@ -141,8 +146,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$timeout(function() {
 				$scope.sendCamera();
 				$scope.sendWorld();
-			}, 500);
-		}, 500);
+			}, 100);
+		}, 100);
 	};
 
 	$scope.createPhaser = function() {
@@ -165,7 +170,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.preload = function() {
-		$scope.loadBitmapFonts($scope.project.assets.bitmapFonts);
+		if($scope.project)
+			$scope.loadBitmapFonts($scope.project.assets.bitmapFonts);
 		$scope.game.load.image("none", "assets/images/none.png");
 		$scope.game.load.image("__background", "assets/images/background.png");
 		$scope.game.load.image("__select", "assets/images/select.png");
@@ -202,6 +208,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.game.scale.pageAlignVertically = true;
 		$scope.game.scale.pageAlignHorizontally = true;
 
+	};
+
+	$scope.importDefaultLevel = function(){	
+		console.log("importDefaultLevel");
+		$scope.loadBitmapFonts($scope.project.assets.bitmapFonts);	
 		// import default level if set
 		$timeout(function() {
 			if (localStorage) {
@@ -220,7 +231,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 					//if we are just launching the editor, check default;
 					levelImport = localStorage.getItem("project.levelDefault");      				
       			}
-				if (levelImport !== null && levelImport !== "null") {
+				if (levelImport !== null && levelImport !== "null" && $scope.project) {
 					$scope.project.level = levelImport;
 					var levelPath = $scope.project.path + "/assets/levels";
 					$scope.import(levelPath, levelImport, "file", function(err) {
@@ -231,7 +242,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 				}
 			}
 		}, 1000);
-	};
+	}
 
 	$scope.update = function() {
 		$scope.game.world.bringToTop($scope.editorGroup);
@@ -263,8 +274,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.editorGroup = new LR.Entity.Group($scope.game);
 		$scope.game.add.existing($scope.editorGroup);
 		$scope.editorGroup.name = "__editor";
-		//Camera DEbug
-		$scope.changeGameCameraSize($scope.project.settings.camera);
 		//entity handle
 		$scope.entityHandle = new LR.Entity.Group($scope.game,0,0);
 		$scope.entityHandle.name = "__entity_handle";
@@ -281,6 +290,10 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.yMouseText.anchor.x = 0;
 		$scope.game.add.existing($scope.yMouseText);
 		$scope.editorGroup.add($scope.yMouseText);
+		if( $scope.project ){
+			//Camera DEbug
+			$scope.changeGameCameraSize($scope.project.settings.camera);
+		}
 	};
 
 	$scope.sendCamera = function() {

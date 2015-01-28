@@ -3,14 +3,11 @@
 var NetworkAPIManager = function(_$http,_$scope){	
 	this.$http = _$http;
 	this.$scope = _$scope;
-	//project data initializing
-	this.project = { "assets":{"images":[], "behaviours":[],
-								"levels":[], "layers":{},
-								"audios":{}, "prefabs" : [],
-								"inputs":{}, "bitmapFonts":[],
-								"atlases":[] 
-							}
-					};  
+}
+
+//Init the API. The promise is called when the API is ready to be used
+NetworkAPIManager.prototype.initAPI = function(_data){
+
 }
 
 NetworkAPIManager.prototype.loadCurrentProjectData = function(_promise){};

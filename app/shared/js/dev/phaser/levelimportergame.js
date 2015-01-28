@@ -236,7 +236,6 @@ LR.LevelImporterGame.prototype.setSounds = function(_objectData, _entity) {
 			for(var s=0; s < _entity.game.sound._sounds.length; s ++){
 				var existingSound = _entity.game.sound._sounds[s];
 				if( existingSound.lr_id == soundId){
-					console.log(existingSound);
 					sound = existingSound;
 				}
 			}

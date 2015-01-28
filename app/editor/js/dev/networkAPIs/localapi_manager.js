@@ -7,6 +7,18 @@ var LocalAPIManager = function(_$http,_$scope){
 LocalAPIManager.prototype = Object.create(NetworkAPIManager.prototype);
 LocalAPIManager.prototype.constructor = LocalAPIManager;
 
+//Init the API. The promise is called when the API is ready to be used
+LocalAPIManager.prototype.initAPI = function(_localStorage,_promise){
+	var path = _localStorage.getItem("project.path");
+	var file = _localStorage.getItem("project.file");
+	if (path && file) {
+		console.log(path);
+		this.$scope.project.path = path;
+		this.$scope.project.file = file;
+	}
+	_promise();
+}
+
 //================================================
 //              PROJECT
 //================================================

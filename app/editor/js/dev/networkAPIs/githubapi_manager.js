@@ -8,22 +8,36 @@ var GithubAPIManager = function(_$http,_$scope){
 	this.currentRepoName = "kimisrescue";
 	this.branchName = "dev";
 
-  //Objects received from git describing the folder data
+  this.onReadyPromise = null;
+
+  //Current Repository git data
   this.currentRepoData = null;
-  this.currentImageData = null;
+  //Objects received from git describing the folder data
+  this.foldersData = {};
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
-	this.imagesFolderPath = "assets/images";   
+	this.imagesFolderPath = "assets/images";  
 	this.rawRepoUrl = "https://raw.githubusercontent.com/"+this.userName+"/"
 						+this.currentRepoName+"/"+this.branchName+"/";  
  
-
-	this.getRepositoryData(this.onRepoFound);
 }
 
-NetworkAPIManager.prototype = Object.create(NetworkAPIManager.prototype);
-NetworkAPIManager.prototype.constructor = GithubAPIManager;
+GithubAPIManager.prototype = Object.create(NetworkAPIManager.prototype);
+GithubAPIManager.prototype.constructor = GithubAPIManager;
+
+//Initialize the API. The promise is called when the API is ready to be used
+GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
+  var path = _localStorage.getItem("project.path");
+  var file = _localStorage.getItem("project.file");
+  if (path && file) {
+    console.log(path);
+    this.$scope.project.path = path;
+    this.$scope.project.file = file;
+  }
+  this.onReadyPromise = _promise;
+  this.getRepositoryData(this.onRepoFound);
+}
 
 //============================================================
 //					CALLBACKS
@@ -31,19 +45,35 @@ NetworkAPIManager.prototype.constructor = GithubAPIManager;
 //called as a promise when repository found
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
   this.currentRepoData = _repoData;
+  this.reposCount = 2; 
+
   //find images folder and load images
-  this.findTreePathByString(_repoData.tree,	this.imagesFolderPath, this.onImagesFolderFound);
+  this.findTreePathByString(_repoData.tree,	"assets/images", this.onImagesFolderFound);
+  this.findTreePathByString(_repoData.tree, "assets/atlases", this.onAtlasesFolderFound);
 }
 
 //called as a promise when images folder found
 //Loads images into the project.assets data structure
 GithubAPIManager.prototype.onImagesFolderFound = function(_imagesFolder){
-  this.currentImageData = _imagesFolder;
-  this.loadCurrentProjectImages(this.onImagesLoaded);
+  this.foldersData.images = _imagesFolder;
+  this.checkReadiness();
 }
 
-GithubAPIManager.prototype.onImagesLoaded = function(){
-  console.log(this.project.assets.images.length);
+//called as a promise when images folder found
+//Loads images into the project.assets data structure
+GithubAPIManager.prototype.onAtlasesFolderFound = function(_atlasesFolder){
+  this.foldersData.atlases = _atlasesFolder;
+  this.checkReadiness();
+}
+
+GithubAPIManager.prototype.checkReadiness = function(){ 
+  console.log(this.reposCount);
+  this.reposCount --; 
+  //once ready
+  if(this.reposCount<=0 && this.onReadyPromise != null ){
+    this.onReadyPromise();
+    this.onReadyPromise = null;
+  }
 }
 
 //============================================================
@@ -63,12 +93,6 @@ GithubAPIManager.prototype.getRepositories = function(_promise){
   	)
   	.error(
   	);
-}
-
-GithubAPIManager.prototype.processRepositories = function(_json){
-   for(var i=0; i < _json.length; i++){
-	    console.log(_json[i].url);
-	}
 }
 
 //List images of the master branch
@@ -101,7 +125,7 @@ GithubAPIManager.prototype.getRepositoryData = function(_promise){
 //================================================
 //              PROJECT
 //================================================
-GithubAPIManager.prototype.loadCurrentProjectData = function() {
+GithubAPIManager.prototype.loadCurrentProjectData = function(_promise) {
   var url = "/editorserverapi/v0/project";
   url += "?name=" + this.$scope.project.file;
   url += "&path=" + "/kimisrescue";//this.$scope.project.path;
@@ -110,11 +134,8 @@ GithubAPIManager.prototype.loadCurrentProjectData = function() {
   this.$http.get(url).success(function(_data) {
     instance.$scope.project.name = _data.name;
     instance.$scope.project.projectFirstLevel = _data.firstLevel;
-    console.log(instance.$scope.project);
-
-    $timeout(function() {
-      instance.$scope.$emit("sendProjectEmit", {project: instance.$scope.project});
-    }, 100);
+    if(_promise)
+        _promise(_data);
 
   }).error(function(_error) {
     console.error(_error);
@@ -129,7 +150,7 @@ Image.EXTENTIONS_FILTER = /.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF)/i;
 
 GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
   var url = "https://api.github.com/repos/"+this.userName+
-          "/"+this.currentRepoName+"/git/trees/"+this.currentImageData.sha+"?recursive=1";
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.images.sha+"?recursive=1";
   var instance = this;
   //request object
   var req = {
@@ -143,7 +164,7 @@ GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
-            console.log(_data);
+            //console.log(_data);
             instance.getImages(_data.tree);
             //get Images for the tree data and stores them in assets
               if(_promise != null)
@@ -159,7 +180,6 @@ GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
 
 //Get all Images in the folder and store them
 GithubAPIManager.prototype.getImages = function(_imagesTree){
-
   for(var i=0; i < _imagesTree.length; i++){
     var gitData = _imagesTree[i];
     if( gitData == null)
@@ -183,6 +203,179 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
     }
   }
 }
+
+
+//================================================
+//        ATLASES
+//================================================
+GithubAPIManager.prototype.loadCurrentProjectAtlases = function(_promise) {
+  var url = "/editorserverapi/v0/atlas";
+  url += "?path=" + this.$scope.project.path + "/assets/atlases";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.atlases = _data.atlases;
+    if(_promise)
+      _promise(_data);
+  }).error(function(_error) {
+    instance.$scope.atlases = new Object();
+    console.error(_error);
+  });
+};
+
+//================================================
+//        AUDIOS
+//================================================
+GithubAPIManager.prototype.loadCurrentProjectAudios = function(_promise) {
+  var url = "/editorserverapi/v0/audio";
+  url += "?path=" + this.$scope.project.path + "/assets/audios";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.audios = _data.audios;
+    if(_promise)
+      _promise(_data)
+  }).error(function(_error) {
+    instance.$scope.audios = new Object();
+    console.error(_error);
+  });
+};
+
+//================================================
+//        LAYERS
+//================================================
+GithubAPIManager.prototype.loadCurrentProjectLayers = function(_promise) {
+  var url = "/editorserverapi/v0/layers";
+  url += "?name=layers.json";
+  url += "&path=" + this.$scope.project.path + "/assets/physics";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.layers = _data;
+    if(_promise)
+      _promise(_data);
+  }).error(function(_error) {
+    instance.$scope.layers = new Object();
+    console.error(_error);
+  });
+}
+
+//================================================
+//        BEHAVIOURS
+//================================================
+
+GithubAPIManager.prototype.loadCurrentProjectBehaviours = function(_promise) {
+  var url = "/editorserverapi/v0/behaviour";
+  url += "?path=" + this.$scope.project.path + "/assets/behaviours";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.behaviours = _data.behaviours;
+    instance.loadCommonLRBehaviours(_promise);
+  }).error(function(_error) {
+    instance.$scope.behaviours = new Object();
+    console.error(_error);
+  });
+}
+
+//loads LR built in behaviours
+GithubAPIManager.prototype.loadCommonLRBehaviours = function(_promise){
+  var url = "/editorserverapi/v0/behaviour";
+  url += "?path=" + this.$scope.project.path + "/../shared/js/dev/phaser/behaviour/common";
+  var instance= this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.behaviours= instance.$scope.project.assets.behaviours.concat( _data.behaviours );
+    if(_promise)
+      _promise(_data);
+  }).error(function(_error) {
+    instance.$scope.behaviours = new Object();
+    console.error(_error);
+  });
+}
+
+//================================================
+//        PREFABS
+//================================================
+
+GithubAPIManager.prototype.loadCurrentProjectPrefabs = function(_promise) {
+  var url = "/editorserverapi/v0/prefab";
+  url += "?path=" + this.$scope.project.path + "/assets/prefabs";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.prefabs = _data.prefabs;
+    if(_promise)
+      _promise(_data);
+  }).error(function(_error) {
+    instance.$scope.project.assets.prefabs = new Array();
+    console.error(_error);
+  });
+};
+
+
+//================================================
+//        FONTS
+//================================================
+
+GithubAPIManager.prototype.loadCurrentProjectFonts = function(_promise) {
+  var url = "/editorserverapi/v0/bitmapfont";
+  url += "?path=" + this.$scope.project.path + "/assets/fonts";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.bitmapFonts = _data.fonts;
+    if(_promise)
+      _promise(_data);
+  }).error(function(_error) {
+    instance.$scope.project.assets.bitmapFonts = new Array();
+    console.error(_error);
+  });
+
+};
+
+//================================================
+//        INPUTS
+//================================================
+
+GithubAPIManager.prototype.loadCurrentProjectInputs = function(_promise) {
+  var url = "/editorserverapi/v0/inputs";
+  url += "?name=inputs.json";
+  url += "&path=" + this.$scope.project.path + "/assets/inputs";
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.inputs = _data;
+    if(_promise)
+      _promise(_data);
+  }).error(function(_error) {
+    instance.$scope.project.assets.inputs = new Object();
+    console.error(_error);
+  });
+}
+
+//================================================
+//        LEVELS
+//================================================
+
+GithubAPIManager.prototype.loadCurrentProjectLevels = function(_promise) {
+  var url = "/editorserverapi/v0/level";
+  url += "?path=" + this.$scope.project.path + "/assets/levels";
+  
+  var instance = this;
+  this.$http.get(url).success(function(_data) {
+    instance.$scope.project.assets.levels = JSON.parse(JSON.stringify(_data.levels));
+    
+    // get level short paths
+    for( var i=0; i < instance.$scope.project.assets.levels.length; i++ ){
+      var level = instance.$scope.project.assets.levels[i];
+      var shortPath = level.path.substring(1);
+      var extIndex = shortPath.indexOf(".json");
+      if( extIndex >= 0){
+        shortPath = shortPath.substring(0,extIndex);
+      }
+      level.shortPath = shortPath;
+    }
+    _promise();
+  }).error(function(_error) {
+    instance.$scope.project.assets.levels = new Array();
+    console.error(_error);
+  });
+
+};
+
 
 //================================================
 //		GIT TREE NAVIGATION

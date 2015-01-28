@@ -14,7 +14,7 @@
 * @param {stirng} name Name of the GameObject attached
 */
 LR.Entity.BitmapText = function(_game, _x, _y, _key, _text, _size, _name) {
-	
+
 	Phaser.BitmapText.call(this, _game, _x, _y, _key, _text, _size);
 	
 	//this.anchor.setTo(0.5, 0.5);
