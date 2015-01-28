@@ -21,7 +21,7 @@ LR.LevelImporter = function() {
 */
 LR.LevelImporter.prototype.import = function(_level, _game, _promise) {
 	var loader = new Phaser.Loader(_game);
-	loader.crossOrigin = "";
+	loader.crossOrigin = "anonymous";
 
 	this.importAssets(_level.assets, loader, _game);
 	// if assets need to be loaded
