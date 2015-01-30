@@ -5,7 +5,8 @@
 			<div class="col-md-12">
 				<div class="checkbox">
 					<label>
-						Atlas <input type="checkbox" ng-model="currentEntity.isAtlas"/>
+						Atlas <input type="checkbox" ng-model="currentEntity.isAtlas" 
+						ng-change="toggleAtlas()"/>
 				    </label>
 				</div>
 			</div>
@@ -46,7 +47,7 @@
 			<div class="col-md-12">
 				<div class="input-group input-group-sm">
 					<span class="input-group-addon" id="atlas-addon">atlas</span>
-					<select ng-model="data.imageKey" class="form-control" id="selectKey" aria-describedby="atlas-addon">
+					<select ng-model="data.imageKey" ng-change="selectAtlas(data.imageKey)"class="form-control" id="selectKey" aria-describedby="atlas-addon">
 						<option ng-repeat="img in data.atlases"
 								value="{{img.name}}"
 						> {{img.name}}
