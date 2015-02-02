@@ -151,12 +151,17 @@ LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
 	if( _objectData.anims){
 		for( var key in _objectData.anims){
 			if( _objectData.anims[key].timer ){
+				var timer = _entity.game.time.events;
+				var timeDelay = _objectData.anims[key].timer;
 				var anim = _entity.animations.getAnimation(key);
 				anim.onComplete.add(
 					function(_entity){
-						_entity.game.time.events.add(
-					      Phaser.Timer.SECOND * _objectData.anims[key].timer, 
-					      anim.play,
+						timer.add(
+					      Phaser.Timer.SECOND * timeDelay, 
+					      function(){
+					      	if(_entity.animations.currentAnim == anim)
+					      		anim.play();
+					      },
 					      anim);
 					}
 				);
@@ -168,6 +173,7 @@ LR.LevelImporterGame.prototype.setDisplay = function(_objectData, _entity) {
 	if (_objectData.autoPlayAnim != null) {
 		_entity.animations.play(_objectData.autoPlayAnim);
 	}
+
 };
 
 LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
