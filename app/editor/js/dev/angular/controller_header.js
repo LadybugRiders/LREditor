@@ -230,6 +230,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.onAtlasesLoaded = function(_data) {
 		console.log("AtlasesLoaded");
+		console.log($scope.project.assets.atlases);
 		$scope.onAssetLoaded();
 		$scope.$emit("sendAtlasesEmit", {atlases: $scope.project.assets.atlases});		
 	};

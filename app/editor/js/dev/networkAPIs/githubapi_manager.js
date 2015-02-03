@@ -59,8 +59,8 @@ GithubAPIManager.prototype.onImagesFolderFound = function(_imagesFolder){
   this.checkReadiness();
 }
 
-//called as a promise when images folder found
-//Loads images into the project.assets data structure
+//called as a promise when atlases folder found
+//Loads atlases into the project.assets data structure
 GithubAPIManager.prototype.onAtlasesFolderFound = function(_atlasesFolder){
   this.foldersData.atlases = _atlasesFolder;
   this.checkReadiness();
@@ -175,7 +175,7 @@ GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
           function(_data, _status, _headers, _config){
             console.log( "error : " + _status);
           }
-        )
+        );
 }
 
 //Get all Images in the folder and store them
@@ -193,9 +193,7 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
       var extension = imageName.substr(imageName.lastIndexOf("."));
       if(Image.EXTENTIONS_FILTER.test(extension)){
         //process image name
-        imageName = imageName.substr(0,imageName.lastIndexOf(".")); // remove extension
-        imageName = imageName.substr(1); // remove first "/"
-        imageName = imageName.replace(/\//g, "-"); // replace "/" by "-"
+        imageName = this.processPathToName(imageName);
         //build image url
         var imageUrl = "/"+gitData.path;
         //build data
@@ -213,18 +211,91 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
 //        ATLASES
 //================================================
 GithubAPIManager.prototype.loadCurrentProjectAtlases = function(_promise) {
-  var url = "/editorserverapi/v0/atlas";
-  url += "?path=" + this.$scope.project.path + "/assets/atlases";
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.atlases.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.atlases = _data.atlases;
-    if(_promise)
-      _promise(_data);
-  }).error(function(_error) {
-    instance.$scope.atlases = new Object();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getAtlases(_data.tree);
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 };
+
+//Get all atlases in the folder and store them
+GithubAPIManager.prototype.getAtlases = function(_atlasTree){
+
+  for(var i=0; i < _atlasTree.length; i++){
+    var gitData = _atlasTree[i];
+    if( gitData == null)
+      return;
+  
+    //if it's a file
+    if(gitData.type == "blob"){
+      /********/
+      // we have to way of creating a new atlas data: 
+      //    we can fand either the image or the json first
+      /********/
+
+      //____get simple image name____
+      var imageName = "/"+gitData.path;
+      //get extension for IMAGES
+      var extension = imageName.substr(imageName.lastIndexOf("."));
+      //if it's an image
+      if(Image.EXTENTIONS_FILTER.test(extension)){
+        //process image name
+        imageName = this.processPathToName(imageName);
+        //build image url
+        var imageUrl = "/"+gitData.path;
+        //build data
+        var atlasData = this.findOrCreateAtlasData(imageName);
+        atlasData.path = imageUrl.substr(0,imageUrl.lastIndexOf("."));;
+        atlasData.imageSha = gitData.sha;
+      }
+      //TEST JSON
+      else{
+        var extJson = /.(json|JSON)/i.test(extension);
+        if(extJson){
+          var jsonName = this.processPathToName(imageName)
+          var atlasData = this.findOrCreateAtlasData(jsonName);
+          atlasData.jsonSha = gitData.sha;
+        }
+      }
+    }
+  }
+}
+
+//find an existing atlas if previously created. Create a new one if not.
+GithubAPIManager.prototype.findOrCreateAtlasData = function(_name){
+    var atlases = this.$scope.project.assets.atlases;
+    //find existing
+    for(var i=0; i < atlases.length; i++){
+      if(atlases[i].name == _name){
+        return atlases[i];
+      }
+    }
+    //create
+    var imgData = {"name":_name};
+    atlases.push( imgData );
+    return atlases[atlases.length-1];
+  }
 
 //================================================
 //        AUDIOS
@@ -382,8 +453,15 @@ GithubAPIManager.prototype.loadCurrentProjectLevels = function(_promise) {
 
 
 //================================================
-//		GIT TREE NAVIGATION
+//		 UTILS
 //================================================
+
+GithubAPIManager.prototype.processPathToName = function(_stringPath){
+  var str = _stringPath.substr(0,_stringPath.lastIndexOf(".")); // remove extension
+  str = str.substr(1); // remove first "/"
+  str = str.replace(/\//g, "-"); // replace "/" by "-"
+  return str;
+}
 
 //go in the git tree to find the specified path
 GithubAPIManager.prototype.findTreePathByString = function(_gitTree,_stringPath,_promise){
