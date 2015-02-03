@@ -14,7 +14,7 @@ var GithubAPIManager = function(_$http,_$scope){
   this.currentRepoData = null;
   //Objects received from git describing the folder data
   this.foldersData = {};
-  this.assetsFolderNames = ["images","atlases","audios","physics"]
+  this.assetsFolderNames = ["images","atlases","audios","physics","prefabs"]
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
@@ -470,19 +470,67 @@ GithubAPIManager.prototype.loadCommonLRBehaviours = function(_promise){
 //================================================
 
 GithubAPIManager.prototype.loadCurrentProjectPrefabs = function(_promise) {
-  var url = "/editorserverapi/v0/prefab";
-  url += "?path=" + this.$scope.project.path + "/assets/prefabs";
+  if(this.foldersData.prefabs == null){
+    if(_promise != null)
+      _promise.call(this,_data);
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.prefabs.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.prefabs = _data.prefabs;
-    if(_promise)
-      _promise(_data);
-  }).error(function(_error) {
-    instance.$scope.project.assets.prefabs = new Array();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': "application/json"
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getPrefabs(_data.tree);
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 };
 
+//Get all prefabs in the folder and store them
+GithubAPIManager.prototype.getPrefabs = function(_prefabsTree){
+
+  for(var i=0; i < _prefabsTree.length; i++){
+    var gitData = _prefabsTree[i];
+    if( gitData == null)
+      return;
+
+    //if it's a file
+    if(gitData.type == "blob"){
+      //____get simple image name____
+      var prefabName = "/"+gitData.path;
+      //get extension
+      var extension = prefabName.substr(prefabName.lastIndexOf("."));
+      if(/.(json)/i.test(extension)){
+        //process image name
+        prefabName = this.processPathToName(prefabName);
+        //build image url
+        var prefabUrl = "/"+gitData.path;
+        //build data
+        var prefabData = {"path":prefabUrl, "name":prefabName};
+        prefabData.sha = gitData.sha;
+        //push it in images
+        this.$scope.project.assets.prefabs.push( prefabData );
+      }
+    }
+  }
+}
 
 //================================================
 //        FONTS
