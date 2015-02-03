@@ -65,7 +65,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 		$scope.project.assets.levels = new Array();
 		$scope.project.assets.images = new Array();
-		$scope.project.assets.audios = new Object();
+		$scope.project.assets.audios = new Array();
 		$scope.project.assets.layers = new Object();
 		$scope.project.assets.behaviours = new Array();
 		$scope.project.assets.prefabs = new Array();
@@ -138,6 +138,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	$scope.onAssetLoaded = function(){
 		$scope.assetsLoadInProgress --;
 		if(this.assetsLoadInProgress<=0){
+			console.log("ALL_ASSETS_LOADED");
 			$scope.$emit("assetsLoadedEmit",{});
 		}
 	}
@@ -190,7 +191,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	** IMAGES **
 	***********/
 	$scope.onImagesLoaded = function(_data){
-		console.log("ImagesLoaded");
+		//console.log("ImagesLoaded");
 		$scope.onAssetLoaded();
 		$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
 		//parse names to find frames sizes
@@ -229,8 +230,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	************/
 
 	$scope.onAtlasesLoaded = function(_data) {
-		console.log("AtlasesLoaded");
-		console.log($scope.project.assets.atlases);
+		//console.log("AtlasesLoaded");
 		$scope.onAssetLoaded();
 		$scope.$emit("sendAtlasesEmit", {atlases: $scope.project.assets.atlases});		
 	};

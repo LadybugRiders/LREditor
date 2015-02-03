@@ -14,6 +14,7 @@ var GithubAPIManager = function(_$http,_$scope){
   this.currentRepoData = null;
   //Objects received from git describing the folder data
   this.foldersData = {};
+  this.assetsFolderNames = ["images","atlases","audios"]
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
@@ -45,36 +46,32 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
 //called as a promise when repository found
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
   this.currentRepoData = _repoData;
-  this.reposCount = 2; 
+  this.reposCount = 0; 
+  this.currentSearchAssetIndex = 0;
 
-  //find images folder and load images
-  this.findTreePathByString(_repoData.tree,	"assets/images", this.onImagesFolderFound);
-  this.findTreePathByString(_repoData.tree, "assets/atlases", this.onAtlasesFolderFound);
+  //find first asset folder
+  this.findTreePathByString(_repoData.tree,	"assets/"+this.assetsFolderNames[0], this.onCurrentAssetFolderFound);
 }
 
-//called as a promise when images folder found
-//Loads images into the project.assets data structure
-GithubAPIManager.prototype.onImagesFolderFound = function(_imagesFolder){
-  this.foldersData.images = _imagesFolder;
-  this.checkReadiness();
-}
-
-//called as a promise when atlases folder found
-//Loads atlases into the project.assets data structure
-GithubAPIManager.prototype.onAtlasesFolderFound = function(_atlasesFolder){
-  this.foldersData.atlases = _atlasesFolder;
-  this.checkReadiness();
-}
-
-GithubAPIManager.prototype.checkReadiness = function(){ 
-  this.reposCount --; 
-  //once ready
-  if(this.reposCount<=0 && this.onReadyPromise != null ){
+//called each time an asset folder is found
+GithubAPIManager.prototype.onCurrentAssetFolderFound = function(_assetFolder){
+  var assetName = this.assetsFolderNames[this.currentSearchAssetIndex];
+  console.log("Folder /"+assetName+ " found");
+  this.foldersData[assetName] = _assetFolder;
+  this.currentSearchAssetIndex ++;
+  //Search for next assets folder
+  if(this.currentSearchAssetIndex < this.assetsFolderNames.length){
+      this.findTreePathByString(this.currentRepoData.tree, 
+                              "assets/"+this.assetsFolderNames[this.currentSearchAssetIndex],
+                               this.onCurrentAssetFolderFound);
+  }else{    
+    //when no other asset folder is to be found
     console.log("allAssetsFound");
     this.onReadyPromise();
     this.onReadyPromise = null;
   }
 }
+
 
 //============================================================
 //					CALLS
@@ -146,7 +143,7 @@ GithubAPIManager.prototype.loadCurrentProjectData = function(_promise) {
 //				IMAGES
 //================================================
 
-Image.EXTENTIONS_FILTER = /.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF)/i;
+var IMAGES_EXTENTIONS_FILTER = /.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF)/i;
 
 GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
   var url = "https://api.github.com/repos/"+this.userName+
@@ -191,7 +188,7 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
       var imageName = "/"+gitData.path;
       //get extension
       var extension = imageName.substr(imageName.lastIndexOf("."));
-      if(Image.EXTENTIONS_FILTER.test(extension)){
+      if(IMAGES_EXTENTIONS_FILTER.test(extension)){
         //process image name
         imageName = this.processPathToName(imageName);
         //build image url
@@ -205,7 +202,6 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
     }
   }
 }
-
 
 //================================================
 //        ATLASES
@@ -259,7 +255,7 @@ GithubAPIManager.prototype.getAtlases = function(_atlasTree){
       //get extension for IMAGES
       var extension = imageName.substr(imageName.lastIndexOf("."));
       //if it's an image
-      if(Image.EXTENTIONS_FILTER.test(extension)){
+      if(IMAGES_EXTENTIONS_FILTER.test(extension)){
         //process image name
         imageName = this.processPathToName(imageName);
         //build image url
@@ -300,19 +296,70 @@ GithubAPIManager.prototype.findOrCreateAtlasData = function(_name){
 //================================================
 //        AUDIOS
 //================================================
+var AUDIOS_EXTENTIONS_FILTER = /.(ogg|OGG|wav|WAV|mp3|MP3)/i;
+
 GithubAPIManager.prototype.loadCurrentProjectAudios = function(_promise) {
-  var url = "/editorserverapi/v0/audio";
-  url += "?path=" + this.$scope.project.path + "/assets/audios";
+  if(this.foldersData.audios == null){
+    if(_promise != null)
+      _promise.call(this,_data);
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.audios.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.audios = _data.audios;
-    if(_promise)
-      _promise(_data)
-  }).error(function(_error) {
-    instance.$scope.audios = new Object();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getAudios(_data.tree);
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 };
+
+//Get all Audios in the folder and store them
+GithubAPIManager.prototype.getAudios = function(_audioTree){
+
+  for(var i=0; i < _audioTree.length; i++){
+    var gitData = _audioTree[i];
+    if( gitData == null)
+      return;
+
+    //if it's a file
+    if(gitData.type == "blob"){
+      //____get simple image name____
+      var audioName = "/"+gitData.path;
+      //get extension
+      var extension = audioName.substr(audioName.lastIndexOf("."));
+      if(AUDIOS_EXTENTIONS_FILTER.test(extension)){
+        //process image name
+        audioName = this.processPathToName(audioName,false);
+        //build image url
+        var audioUrl = "/"+gitData.path;
+        //build data
+        var audioData = {"path":audioUrl, "name":audioName};
+        audioData.sha = gitData.sha;
+        //push it in images
+        this.$scope.project.assets.audios.push( audioData );
+      }
+    }
+  }
+}
 
 //================================================
 //        LAYERS
@@ -456,8 +503,10 @@ GithubAPIManager.prototype.loadCurrentProjectLevels = function(_promise) {
 //		 UTILS
 //================================================
 
-GithubAPIManager.prototype.processPathToName = function(_stringPath){
-  var str = _stringPath.substr(0,_stringPath.lastIndexOf(".")); // remove extension
+GithubAPIManager.prototype.processPathToName = function(_stringPath,_removeExtension){
+  var str = _stringPath;
+  if( _removeExtension != false )
+    str = str.substr(0,str.lastIndexOf(".")); // remove extension
   str = str.substr(1); // remove first "/"
   str = str.replace(/\//g, "-"); // replace "/" by "-"
   return str;
