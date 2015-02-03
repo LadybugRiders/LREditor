@@ -466,17 +466,123 @@ GithubAPIManager.prototype.getLayers = function(_physicsTree,_promise) {
 //        BEHAVIOURS
 //================================================
 
+var Behaviour = {};
+Behaviour.KEY = "behaviour";
+Behaviour.EXTENTIONS_FILTER = /.(js)/i;
+Behaviour.FLAG_NAME = "//>>LREditor.Behaviour.name:";
+Behaviour.FLAG_PARAMS = "//>>LREditor.Behaviour.params:";
+Behaviour.FLAG_DESC = "//>>LREditor.Behaviour.desc";
+
 GithubAPIManager.prototype.loadCurrentProjectBehaviours = function(_promise) {
-  var url = "/editorserverapi/v0/behaviour";
-  url += "?path=" + this.$scope.project.path + "/assets/behaviours";
+  if(this.foldersData.behaviours == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.behaviours.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.behaviours = _data.behaviours;
-    instance.loadCommonLRBehaviours(_promise);
-  }).error(function(_error) {
-    instance.$scope.behaviours = new Object();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getBehaviours(_data.tree,_promise);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
+}
+
+GithubAPIManager.prototype.getBehaviours = function(_bhTree,_promise) {
+    var gitData = _bhTree[0];
+    if( gitData == null)
+      return;
+    
+    this.loadBehavioursFromTree(_bhTree,0,_promise);
+}
+
+//loads LR built in behaviours
+GithubAPIManager.prototype.loadBehavioursFromTree = function(_folderTree,_index,_promise){
+  //stop condition
+  if( _index >= _folderTree.length){
+    if(_promise)
+      _promise.call(this);
+    return;
+  }
+
+  var gitData = _folderTree[_index];
+
+  //if folder, pass
+  if(gitData.type == "tree"){
+    _index+=1;
+    this.loadBehavioursFromTree(_folderTree,_index,_promise);
+    return;
+  }
+
+  //try loading the behaviour file
+  var url = "https://api.github.com/repos/"+this.userName+
+      "/"+this.currentRepoName+"/git/blobs/"+gitData.sha;
+  var instance = this;
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+      'Accept': 'application/vnd.github-blob.raw',
+      'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            // get behaviour name
+            var name = getBehaviourInfos(_data, Behaviour.FLAG_NAME);
+            if (name == null) name = "Behaviour";
+            
+            // get behaviour params
+            var params = getBehaviourInfos(_data, Behaviour.FLAG_PARAMS);
+            if (params == null) {
+              params = {};
+            } else {
+              try {
+                params = JSON.parse(params);
+              } catch(error) {
+                console.warn("Error while parsing 'Behaviour.FLAG_PARAMS': " + error);
+              }
+            }
+
+            var desc = getBehaviourDesc(_data);
+
+            // add the behaviour
+            instance.$scope.project.assets.behaviours.push({
+              name: name,
+              params: params,
+              desc : desc,
+              path : "/"+gitData.path
+            });
+
+            //continue loading behaviours
+            _index+=1;
+            instance.loadBehavioursFromTree(_folderTree,_index,_promise);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 }
 
 //loads LR built in behaviours
@@ -494,6 +600,58 @@ GithubAPIManager.prototype.loadCommonLRBehaviours = function(_promise){
   });
 }
 
+
+function getBehaviourInfos(_data, _flag) {
+  var infos = null;
+  var clean = _data.replace(/\r/g,"");
+
+  // split lines
+  var clean = _data.replace(/\r/g, "");
+  var lines = clean.split("\n");
+
+  var i=0;
+  var found = false;
+  // found the line with the right key
+  while (i<lines.length && found == false) {
+    var line = lines[i];
+    line = line.replace(/ /g, '');
+
+    var index = line.indexOf(_flag);
+    if (index > -1) {
+      infos = line.split(_flag)[1];
+      found = true;
+    }
+
+    i++;
+  }
+  
+  return infos;
+}
+
+function getBehaviourDesc(_data) {
+  var infos = null;
+  var clean = _data.replace(/\r/g,"");
+
+  // split lines
+  var clean = _data.replace(/\r/g, "");
+  var lines = clean.split("\n");
+
+  var i=0;
+  var found = false;
+  // found the line with the right key
+  while (i<lines.length && found == false) {
+    var line = lines[i];
+    var index = line.indexOf(Behaviour.FLAG_DESC);
+    if (index > -1) {
+      infos = line.substring(line.indexOf(":"));
+      found = true;
+    }
+
+    i++;
+  }
+  
+  return infos;
+}
 //================================================
 //        PREFABS
 //================================================
