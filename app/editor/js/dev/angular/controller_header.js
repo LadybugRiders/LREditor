@@ -325,7 +325,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	//loads LR built in behaviours
 	$scope.onBehavioursLoaded = function(){
 		//console.log("BehavioursLoaded");
-		console.log($scope.project.assets.behaviours);
 		$scope.onAssetLoaded();
 		$scope.$emit("sendBehavioursEmit", {behaviours: $scope.project.assets.behaviours});
 	}

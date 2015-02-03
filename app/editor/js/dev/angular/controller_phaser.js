@@ -390,7 +390,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			null,
 			0, null, 0, 0
 		);
-		console.log(button);
+
 		button.name = "button" + $scope.game.world.children.length;
 		button.go.id = $scope.getID();
 		//add Input Handler, for dragging and other events
@@ -708,6 +708,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 									fontsPath + _bitmapFonts[i].path, 
 									fontsPath + _bitmapFonts[i].pathData);
 		}
+		$scope.game.load.start();
 	};
 
 	$scope.loadAtlas = function(_atlas) {
