@@ -16,7 +16,7 @@ var GithubAPIManager = function(_$http,_$scope){
   this.foldersData = {};
   this.assetsFolderNames = ["images","atlases","audios",
                             "physics","prefabs","levels",
-                            "inputs"]
+                            "inputs","fonts"]
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
@@ -48,7 +48,7 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
   this.currentRepoData = _repoData;
   this.reposCount = 0; 
-  this.currentSearchAssetIndex = 6;
+  this.currentSearchAssetIndex = 7;
 
   //find first asset folder
   this.findTreePathByString(_repoData.tree,	
@@ -304,7 +304,7 @@ GithubAPIManager.prototype.findOrCreateAtlasData = function(_name){
     var imgData = {"name":_name};
     atlases.push( imgData );
     return atlases[atlases.length-1];
-  }
+}
 
 //================================================
 //        AUDIOS
@@ -548,21 +548,90 @@ GithubAPIManager.prototype.getPrefabs = function(_prefabsTree){
 //================================================
 //        FONTS
 //================================================
+var BITMAPFONTS_EXTENTIONS_FILTER = /.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF)/i;
 
 GithubAPIManager.prototype.loadCurrentProjectFonts = function(_promise) {
-  var url = "/editorserverapi/v0/bitmapfont";
-  url += "?path=" + this.$scope.project.path + "/assets/fonts";
+  if(this.foldersData.fonts == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.fonts.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.bitmapFonts = _data.fonts;
-    if(_promise)
-      _promise(_data);
-  }).error(function(_error) {
-    instance.$scope.project.assets.bitmapFonts = new Array();
-    console.error(_error);
-  });
-
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': "application/json"
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getBitmapFonts(_data.tree);
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 };
+
+//Get all fonts in the folder and store them
+GithubAPIManager.prototype.getBitmapFonts = function(_fontsTree){
+
+  for(var i=0; i < _fontsTree.length; i++){
+    var gitData = _fontsTree[i];
+    if( gitData == null)
+      return;
+
+    //if it's a file
+    if(gitData.type == "blob"){
+      //____get simple image name____
+      var fontName = "/"+gitData.path;      
+      var extension = fontName.substr(fontName.lastIndexOf("."));//get extension
+      fontName = this.processPathToName(fontName);
+      var fontData = this.findOrCreateBitmapFontData(fontName);
+
+      if(BITMAPFONTS_EXTENTIONS_FILTER.test(extension)){
+        //build image url
+        var fontUrl = "/"+gitData.path;
+        //build data
+        fontData.path = fontUrl;
+        fontData.sha = gitData.sha;
+      //JSON
+      }else if(/.(json|JSON)/i.test(extension)){
+        fontData.pathJson = "/"+gitData.path;
+        fontData.jsonSha = gitData.sha;
+      }else if(/.(xml|XML)/i.test(extension)){
+        fontData.pathData = "/"+gitData.path;
+        fontData.dataSha = gitData.sha;
+      }
+    }
+  }
+}
+
+//find an existing bitmapFonts if previously created. Create a new one if not.
+GithubAPIManager.prototype.findOrCreateBitmapFontData = function(_name){
+    var bitmapFonts = this.$scope.project.assets.bitmapFonts;
+    //find existing
+    for(var i=0; i < bitmapFonts.length; i++){
+      if(bitmapFonts[i].name == _name){
+        return bitmapFonts[i];
+      }
+    }
+    //create
+    var imgData = {"name":_name};
+    bitmapFonts.push( imgData );
+    return bitmapFonts[bitmapFonts.length-1];
+  }
 
 //================================================
 //        INPUTS
