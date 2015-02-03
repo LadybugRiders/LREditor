@@ -14,16 +14,12 @@ var GithubAPIManager = function(_$http,_$scope){
   this.currentRepoData = null;
   //Objects received from git describing the folder data
   this.foldersData = {};
-  this.assetsFolderNames = ["images","atlases","audios",
-                            "physics","prefabs","levels",
-                            "inputs","fonts"]
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
 	this.imagesFolderPath = "assets/images";  
 	this.rawRepoUrl = "https://raw.githubusercontent.com/"+this.userName+"/"
 						+this.currentRepoName+"/"+this.branchName+"/";  
- 
 }
 
 GithubAPIManager.prototype = Object.create(NetworkAPIManager.prototype);
@@ -47,32 +43,25 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
 //called as a promise when repository found
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
   this.currentRepoData = _repoData;
-  this.reposCount = 0; 
-  this.currentSearchAssetIndex = 7;
 
-  //find first asset folder
+  //find asset folder
   this.findTreePathByString(_repoData.tree,	
-                            "assets/"+this.assetsFolderNames[this.currentSearchAssetIndex], 
+                            "assets", 
                             this.onCurrentAssetFolderFound);
 }
 
-//called each time an asset folder is found
+//called when the asset folder is found
 GithubAPIManager.prototype.onCurrentAssetFolderFound = function(_assetFolder){
-  var assetName = this.assetsFolderNames[this.currentSearchAssetIndex];
-  console.log("Folder /"+assetName+ " found");
-  this.foldersData[assetName] = _assetFolder;
-  this.currentSearchAssetIndex ++;
-  //Search for next assets folder
-  if(this.currentSearchAssetIndex < this.assetsFolderNames.length){
-      this.findTreePathByString(this.currentRepoData.tree, 
-                              "assets/"+this.assetsFolderNames[this.currentSearchAssetIndex],
-                               this.onCurrentAssetFolderFound);
-  }else{    
-    //when no other asset folder is to be found
-    console.log("allAssetsFound");
-    this.onReadyPromise();
-    this.onReadyPromise = null;
+
+  for(var i=0; i < _assetFolder.tree.length; i++){
+    if(_assetFolder.tree[i].type == "tree"){
+      this.foldersData[_assetFolder.tree[i].path] = _assetFolder.tree[i];
+    }
   }
+
+  console.log("allAssetsFound");
+  this.onReadyPromise();
+  this.onReadyPromise = null;
 }
 
 
