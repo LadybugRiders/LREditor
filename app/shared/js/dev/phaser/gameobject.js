@@ -87,6 +87,14 @@ LR.GameObject = function(_entity) {
 	this.postBroadphaseCallback = null;
 	this.postBroadphaseContext = null;
 
+	/**
+	* Signal dispatched when a tween is complete
+	*
+	* @property onTweenComplete
+	* @type {Phaser.Signal}
+	*/
+	this.onTweenComplete = new Phaser.Signal();
+
 	//behaviours to remove
 	this._behavioursToRemove = new Array();
 
@@ -1098,10 +1106,12 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 
 /**
 * Launch the specified tween if previously added.
-* If there are many target in the properties, many tweens will be launched
+* If there are many target in the properties, many tweens will be launched. 
+* This is why you get array of tweens
 * 
 * @method launchTween
 * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
+* @return {Array} An array containing all the tweens induced by the tween properties
 */
 LR.GameObject.prototype.launchTween = function(_tweenName){
 	var launchedTweens = new Array();
@@ -1133,7 +1143,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
     	var targetData = LR.Utils.getPropertyByString(this.entity,key);
     	var createdTween = this.entity.game.add.tween( targetData.object );
     	//Callback handling
-    	createdTween.onComplete.add(this.onTweenComplete,this);
+    	createdTween.onComplete.add(this._onTweenComplete,this);
     	targetData.object.lr_tweenName = _tweenName;
     	//
     	var newProp = {};
@@ -1158,7 +1168,7 @@ LR.GameObject.prototype.launchTween = function(_tweenName){
 	return launchedTweens;
 }
 
-LR.GameObject.prototype.onTweenComplete = function(_target){
+LR.GameObject.prototype._onTweenComplete = function(_target){
 	if(_target.lr_tweenName){
 		var currentTween = this.tweensData[_target.lr_tweenName];
 		currentTween.count ++;
@@ -1168,6 +1178,8 @@ LR.GameObject.prototype.onTweenComplete = function(_target){
 		if(tweenData.repeat > 0 && currentTween.count < Object.keys(tweens).length)
 			return;
 		currentTween.count = 0;
+
+		this.onTweenComplete.dispatch({"tweenData":tweenData});
 		
 		//if a tween has finished, the other ones are two ( they take the same ammount of time)
 		for(var key in tweens){
@@ -1184,6 +1196,30 @@ LR.GameObject.prototype.onTweenComplete = function(_target){
 	}
 }
 
+/**
+* Chains the specified tweens and launch the first one
+* Warning : this will override any tween previous chaining
+* 
+* @method launchChainedTweens
+* @param {string} tweenNames The tween names. As many as you want to chain
+* @return {Array} An array of the first tweens
+*/
+LR.GameObject.prototype.launchChainedTweens = function(){
+	var firstTween = null;
+	var currentTween = null;
+	for (var i = 0; i < arguments.length; i++) {
+		var tweenName = arguments[i];
+    	if( i==0 ){
+    		firstTween = this.tweensData[tweenName].data;
+    	}
+    	if(currentTween != null){
+    		currentTween.chain = arguments[i];
+    	}
+    	currentTween = this.tweensData[tweenName].data;
+  	}
+  	this.launchTween(arguments[0]);
+}
+
 LR.GameObject.prototype.stopTween = function(_tweenName){
 	var tweens = this.tweensData[_tweenName].tweensObject;
 	for(var key in tweens){
@@ -1192,6 +1228,45 @@ LR.GameObject.prototype.stopTween = function(_tweenName){
 		tweens[key] == null;
 		delete tweens[key];
 	}
+}
+
+//============================================================
+//						ANIMATIONS
+//============================================================
+/**
+* Plays the specified animation
+*
+* @method playAnim
+* @param {string} animName The name of the animation
+* @return {Phaser.Animation} The Animation object
+*/
+LR.GameObject.prototype.playAnim = function(_animName){
+	this.entity.animations.play(_animName);
+	return this.entity.animations.getAnimation(_animName);
+}
+
+/**
+* Stops the specified animation
+*
+* @method stopAnim
+* @param {string} animName The name of the animation
+* @param {boolean} resetFrame Sets the first frame of the animation when stopping it
+* @return {Phaser.Animation} The Animation object
+*/
+LR.GameObject.prototype.stopAnim = function(_animName,_resetFrame){
+	this.entity.animations.stop(_animName,_resetFrame);
+	return this.entity.animations.getAnimation(_animName);
+}
+
+/**
+* Returns the animation object
+*
+* @method getAnim
+* @param {string} animName The name of the animation
+* @return {Phaser.Animation} The Animation object
+*/
+LR.GameObject.prototype.getAnim = function(_animName){
+	this.entity.animations.getAnimation(_animName);
 }
 
 //============================================================

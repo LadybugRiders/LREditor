@@ -855,6 +855,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			return;
 		}
 		$scope.storeNewLoadedPrefabImages(_rootEntity);
+		$scope.storeNewLoadedPrefabAtlases(_rootEntity);
 		//store references in behaviours params
 		//IDs will change so we need to keep them
 		var linkedObjects = $scope.storeBehavioursParamsReferences(_rootEntity,new Object(),_rootEntity);
@@ -932,6 +933,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 					break;
 				}
 			}
+
 			//if not found, add the image to the loaded ones
 			if( ! found ){
 				for(var i=0; i < $scope.project.assets.images.length; i++){
@@ -948,6 +950,39 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		if( _rootEntity.children ){
 			for(var c=0; c < _rootEntity.children.length; c++){
 				$scope.storeNewLoadedPrefabImages( _rootEntity.children[c] );
+			}
+		}
+	}
+
+	//Look into prefab keys and store new atlases keys
+	$scope.storeNewLoadedPrefabAtlases = function(_rootEntity){
+		if(_rootEntity.key != null && _rootEntity.isAtlas){
+			//search key in loaded images
+			var found = false;
+			for(var i=0; i < $scope.loadedAtlases.length; i++){
+				var img = $scope.loadedAtlases[i];
+				if( img.name == _rootEntity.key ){
+					found = true;
+					break;
+				}
+			}
+			
+			//if not found, add the image to the loaded ones
+			if( ! found ){
+				for(var i=0; i < $scope.project.assets.atlases.length; i++){
+					var assetImage = $scope.project.assets.atlases[i];
+					if( assetImage.name == _rootEntity.key ){
+						$scope.loadedAtlases.push(
+							JSON.parse( JSON.stringify(assetImage))
+						);
+					}
+				}
+			}
+		}
+		//do the same for children
+		if( _rootEntity.children ){
+			for(var c=0; c < _rootEntity.children.length; c++){
+				$scope.storeNewLoadedPrefabAtlases( _rootEntity.children[c] );
 			}
 		}
 	}

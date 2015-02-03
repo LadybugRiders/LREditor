@@ -207,7 +207,8 @@ LR.Entity.BitmapText.prototype.pad = function(num, size) {
     return s;
 }
 
-LR.Entity.BitmapText.prototype.wrapText = function(_string){	
+LR.Entity.BitmapText.prototype.wrapText = function(_string){
+
 	if( _string.length < this.maxCharPerLine)
 		return _string;
 	
@@ -225,7 +226,7 @@ LR.Entity.BitmapText.prototype.wrapText = function(_string){
 		}else{
 			count += word.length + 1;
 		}
-
+		
 		if( count >= this.maxCharPerLine && i < array.length){
 			count = 0;
 			s += "\n";

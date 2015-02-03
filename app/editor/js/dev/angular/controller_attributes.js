@@ -444,6 +444,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			if( bh ){
 				bh.enabled = false;
 			}
+			$scope.refreshCurrentEntity($scope.currentEntity);
 		}
 	}
 
@@ -467,6 +468,15 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	}
 
 	//============ ATLAS ==============================
+
+	$scope.toggleAtlas = function(){
+		if($scope.currentEntity.isAtlas){
+			if($scope.data.atlases && $scope.data.atlases.length > 0){
+				$scope.selectAtlas($scope.data.atlases[0].name);
+			}
+		}
+	}
+
 	$scope.changeAtlas = function(_atlas,_frameName) {
 		$scope.currentEntity.loadTexture(_atlas);
 		$scope.currentEntity.frameName = _frameName;
@@ -476,10 +486,18 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 	$scope.selectAtlas = function(_atlasName,_force){
 		if( $scope.currentEntity.key == _atlasName && _force != true)
 			return;
+		//fill data if new atlas is selected
 		for(var i=0; i < $scope.data.atlases.length; i++){
+			//if atlas found
 			if( _atlasName == $scope.data.atlases[i].name){
 				$scope.data.atlas = $scope.data.atlases[i];
-				$scope.data.frameName = Object.keys($scope.data.atlas.frames)[0];
+				$scope.data.imageKey = _atlasName;
+				//set first frame key 
+				var framesKeys =  Object.keys($scope.data.atlas.frames);
+				if(framesKeys.length > 0)
+					$scope.data.frameName = framesKeys[0];
+				//force select dropdowns refresh (needed for some reason)
+				$timeout( $scope.forceImageDataRefreshNoApply,100);
 			}
 		}
 	}

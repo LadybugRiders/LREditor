@@ -44,9 +44,6 @@ LR.Body.prototype.constructor = LR.Body;
 
 LR.Body.prototype.postUpdate = function () { 
 
-    if( this.go && this.go.name == "thorn1"){
-    }
-
 	//Add delta between the last body world position and the new one
 	//to the localPosition
 	this.localPosition.x += (this.worldX - this.lastPosition.x);
