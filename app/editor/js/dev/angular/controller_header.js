@@ -374,7 +374,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.onLevelsLoaded = function() {
 		//console.log("LevelsLoaded");
-		//console.log($scope.project.assets.levels);
 		$scope.onAssetLoaded();
 	};
 
@@ -384,7 +383,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	$scope.onInputsLoaded = function(_data) {
 		//console.log("InputsLoaded");
-		//console.log(_data);
 		$scope.onAssetLoaded();
 	}
 

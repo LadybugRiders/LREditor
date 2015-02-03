@@ -14,7 +14,9 @@ var GithubAPIManager = function(_$http,_$scope){
   this.currentRepoData = null;
   //Objects received from git describing the folder data
   this.foldersData = {};
-  this.assetsFolderNames = ["images","atlases","audios","physics","prefabs"]
+  this.assetsFolderNames = ["images","atlases","audios",
+                            "physics","prefabs","levels",
+                            "inputs"]
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
@@ -32,7 +34,6 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
   var path = _localStorage.getItem("project.path");
   var file = _localStorage.getItem("project.file");
   if (path && file) {
-    console.log(path);
     this.$scope.project.path = path;
     this.$scope.project.file = file;
   }
@@ -47,10 +48,12 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
   this.currentRepoData = _repoData;
   this.reposCount = 0; 
-  this.currentSearchAssetIndex = 0;
+  this.currentSearchAssetIndex = 6;
 
   //find first asset folder
-  this.findTreePathByString(_repoData.tree,	"assets/"+this.assetsFolderNames[0], this.onCurrentAssetFolderFound);
+  this.findTreePathByString(_repoData.tree,	
+                            "assets/"+this.assetsFolderNames[this.currentSearchAssetIndex], 
+                            this.onCurrentAssetFolderFound);
 }
 
 //called each time an asset folder is found
@@ -146,6 +149,11 @@ GithubAPIManager.prototype.loadCurrentProjectData = function(_promise) {
 var IMAGES_EXTENTIONS_FILTER = /.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF)/i;
 
 GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
+  if(this.foldersData.images == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
   var url = "https://api.github.com/repos/"+this.userName+
           "/"+this.currentRepoName+"/git/trees/"+this.foldersData.images.sha+"?recursive=1";
   var instance = this;
@@ -207,6 +215,11 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
 //        ATLASES
 //================================================
 GithubAPIManager.prototype.loadCurrentProjectAtlases = function(_promise) {
+  if(this.foldersData.atlases == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
   var url = "https://api.github.com/repos/"+this.userName+
           "/"+this.currentRepoName+"/git/trees/"+this.foldersData.atlases.sha+"?recursive=1";
   var instance = this;
@@ -301,7 +314,7 @@ var AUDIOS_EXTENTIONS_FILTER = /.(ogg|OGG|wav|WAV|mp3|MP3)/i;
 GithubAPIManager.prototype.loadCurrentProjectAudios = function(_promise) {
   if(this.foldersData.audios == null){
     if(_promise != null)
-      _promise.call(this,_data);
+      _promise.call(this,{"success":false});
     return;
   }
   var url = "https://api.github.com/repos/"+this.userName+
@@ -367,7 +380,7 @@ GithubAPIManager.prototype.getAudios = function(_audioTree){
 GithubAPIManager.prototype.loadCurrentProjectLayers = function(_promise) {
   if(this.foldersData.physics == null){
     if(_promise != null)
-      _promise.call(this,_data);
+      _promise.call(this,{"success":false});
     return;
   }
   var url = "https://api.github.com/repos/"+this.userName+
@@ -472,7 +485,7 @@ GithubAPIManager.prototype.loadCommonLRBehaviours = function(_promise){
 GithubAPIManager.prototype.loadCurrentProjectPrefabs = function(_promise) {
   if(this.foldersData.prefabs == null){
     if(_promise != null)
-      _promise.call(this,_data);
+      _promise.call(this,{"success":false});
     return;
   }
   var url = "https://api.github.com/repos/"+this.userName+
@@ -556,49 +569,147 @@ GithubAPIManager.prototype.loadCurrentProjectFonts = function(_promise) {
 //================================================
 
 GithubAPIManager.prototype.loadCurrentProjectInputs = function(_promise) {
-  var url = "/editorserverapi/v0/inputs";
-  url += "?name=inputs.json";
-  url += "&path=" + this.$scope.project.path + "/assets/inputs";
+  if(this.foldersData.inputs == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.inputs.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.inputs = _data;
-    if(_promise)
-      _promise(_data);
-  }).error(function(_error) {
-    instance.$scope.project.assets.inputs = new Object();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getInputs(_data.tree,_promise);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 }
 
+
+GithubAPIManager.prototype.getInputs = function(_inputsTree,_promise) {
+  for(var i=0; i < _inputsTree.length; i++){
+    var gitData = _inputsTree[i];
+    if( gitData == null)
+      return;
+    if( gitData.path == "inputs.json"){
+      //try loading the layers file
+      var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/blobs/"+gitData.sha;
+      var instance = this;
+      //request object
+      var req = {
+       method: 'GET',
+       url: url,
+       headers: {
+          'Accept': 'application/vnd.github-blob.raw',
+          'Content-Type': undefined
+       }
+      };
+      //Send request to get the image folder recursively
+      this.$http(req)
+            .success(
+              function(_data, _status, _headers, _config) {
+                instance.$scope.project.assets.inputs = _data;
+                //get Images for the tree data and stores them in assets
+                  if(_promise != null)
+                      _promise.call(instance,_data);
+              }
+            )
+            .error(
+              function(_data, _status, _headers, _config){
+                console.log( "error : " + _status);
+              }
+            );
+    }
+  }
+}
 //================================================
 //        LEVELS
 //================================================
 
 GithubAPIManager.prototype.loadCurrentProjectLevels = function(_promise) {
-  var url = "/editorserverapi/v0/level";
-  url += "?path=" + this.$scope.project.path + "/assets/levels";
-  
+  if(this.foldersData.levels == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.levels.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.levels = JSON.parse(JSON.stringify(_data.levels));
-    
-    // get level short paths
-    for( var i=0; i < instance.$scope.project.assets.levels.length; i++ ){
-      var level = instance.$scope.project.assets.levels[i];
-      var shortPath = level.path.substring(1);
-      var extIndex = shortPath.indexOf(".json");
-      if( extIndex >= 0){
-        shortPath = shortPath.substring(0,extIndex);
-      }
-      level.shortPath = shortPath;
-    }
-    _promise();
-  }).error(function(_error) {
-    instance.$scope.project.assets.levels = new Array();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': "application/json"
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getLevels(_data.tree);
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 
 };
+
+//Get all levels in the folder and store them
+GithubAPIManager.prototype.getLevels = function(_levelsTree){
+
+  for(var i=0; i < _levelsTree.length; i++){
+    var gitData = _levelsTree[i];
+    if( gitData == null)
+      return;
+
+    //if it's a file
+    if(gitData.type == "blob"){
+      //____get simple image name____
+      var levelName = "/"+gitData.path;
+      //get extension
+      var extension = levelName.substr(levelName.lastIndexOf("."));
+      if(/.(json)/i.test(extension)){
+        //process image name
+        levelName = this.processPathToName(levelName);
+        //build image url
+        var levelUrl = "/"+gitData.path;
+        //short path
+        var shortPath = levelUrl.substring(1);
+        var extIndex = shortPath.indexOf(".json");
+        if( extIndex >= 0){
+          shortPath = shortPath.substring(0,extIndex);
+        }
+        //build data
+        var levelData = {"path":levelUrl, "name":levelName, "shortPath":shortPath};
+        levelData.sha = gitData.sha;
+        //push it in images
+        this.$scope.project.assets.levels.push( levelData );
+      }
+    }
+  }
+}
 
 
 //================================================
