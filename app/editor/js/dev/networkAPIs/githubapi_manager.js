@@ -14,7 +14,7 @@ var GithubAPIManager = function(_$http,_$scope){
   this.currentRepoData = null;
   //Objects received from git describing the folder data
   this.foldersData = {};
-  this.assetsFolderNames = ["images","atlases","audios"]
+  this.assetsFolderNames = ["images","atlases","audios","physics"]
 
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
@@ -365,18 +365,72 @@ GithubAPIManager.prototype.getAudios = function(_audioTree){
 //        LAYERS
 //================================================
 GithubAPIManager.prototype.loadCurrentProjectLayers = function(_promise) {
-  var url = "/editorserverapi/v0/layers";
-  url += "?name=layers.json";
-  url += "&path=" + this.$scope.project.path + "/assets/physics";
+  if(this.foldersData.physics == null){
+    if(_promise != null)
+      _promise.call(this,_data);
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/trees/"+this.foldersData.physics.sha+"?recursive=1";
   var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.assets.layers = _data;
-    if(_promise)
-      _promise(_data);
-  }).error(function(_error) {
-    instance.$scope.layers = new Object();
-    console.error(_error);
-  });
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            instance.getLayers(_data.tree,_promise);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
+}
+
+GithubAPIManager.prototype.getLayers = function(_physicsTree,_promise) {
+  for(var i=0; i < _physicsTree.length; i++){
+    var gitData = _physicsTree[i];
+    if( gitData == null)
+      return;
+    if( gitData.path == "layers.json"){
+      //try loading the layers file
+      var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/blobs/"+gitData.sha;
+      var instance = this;
+      //request object
+      var req = {
+       method: 'GET',
+       url: url,
+       headers: {
+          'Accept': 'application/vnd.github-blob.raw',
+          'Content-Type': undefined
+       }
+      };
+      //Send request to get the image folder recursively
+      this.$http(req)
+            .success(
+              function(_data, _status, _headers, _config) {
+                instance.$scope.project.assets.layers = _data;
+                //get Images for the tree data and stores them in assets
+                  if(_promise != null)
+                      _promise.call(instance,_data);
+              }
+            )
+            .error(
+              function(_data, _status, _headers, _config){
+                console.log( "error : " + _status);
+              }
+            );
+    }
+  }
 }
 
 //================================================
