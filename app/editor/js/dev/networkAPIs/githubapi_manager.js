@@ -44,6 +44,14 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
   this.currentRepoData = _repoData;
 
+  //search project.json file
+  for(var i=0; i < _repoData.tree.length; i++){
+    if(_repoData.tree[i].type == "blob" && _repoData.tree[i].path == "project.json"){
+      this.projectFileData = _repoData.tree[i];
+      break;
+    }
+  }
+
   //find asset folder
   this.findTreePathByString(_repoData.tree,	
                             "assets", 
@@ -115,20 +123,39 @@ GithubAPIManager.prototype.getRepositoryData = function(_promise){
 //              PROJECT
 //================================================
 GithubAPIManager.prototype.loadCurrentProjectData = function(_promise) {
-  var url = "/editorserverapi/v0/project";
-  url += "?name=" + this.$scope.project.file;
-  url += "&path=" + "/kimisrescue";//this.$scope.project.path;
-
-  var instance = this;
-  this.$http.get(url).success(function(_data) {
-    instance.$scope.project.name = _data.name;
-    instance.$scope.project.projectFirstLevel = _data.firstLevel;
+  if(this.projectFileData == null){
     if(_promise)
-        _promise(_data);
-
-  }).error(function(_error) {
-    console.error(_error);
-  });
+      _promise.call(this,{'success':false});
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+      "/"+this.currentRepoName+"/git/blobs/"+this.projectFileData.sha;
+  var instance = this;
+  //request object
+  var req = {
+   method: 'GET',
+   url: url,
+   headers: {
+      'Accept': 'application/vnd.github-blob.raw',
+      'Content-Type': undefined
+   }
+  };
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {            
+            instance.$scope.project.name = _data.name;
+            instance.$scope.project.projectFirstLevel = _data.firstLevel;
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+            console.log( "error : " + _status);
+          }
+        );
 };
 
 //================================================
