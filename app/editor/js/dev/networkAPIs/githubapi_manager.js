@@ -67,10 +67,10 @@ GithubAPIManager.prototype.onAtlasesFolderFound = function(_atlasesFolder){
 }
 
 GithubAPIManager.prototype.checkReadiness = function(){ 
-  console.log(this.reposCount);
   this.reposCount --; 
   //once ready
   if(this.reposCount<=0 && this.onReadyPromise != null ){
+    console.log("allAssetsFound");
     this.onReadyPromise();
     this.onReadyPromise = null;
   }
@@ -198,7 +198,11 @@ GithubAPIManager.prototype.getImages = function(_imagesTree){
         imageName = imageName.replace(/\//g, "-"); // replace "/" by "-"
         //build image url
         var imageUrl = "/"+gitData.path;
-        this.$scope.project.assets.images.push( {"path":imageUrl, "name":imageName});
+        //build data
+        var imgData = {"path":imageUrl, "name":imageName};
+        imgData.sha = gitData.sha;
+        //push it in images
+        this.$scope.project.assets.images.push( imgData );
       }
     }
   }

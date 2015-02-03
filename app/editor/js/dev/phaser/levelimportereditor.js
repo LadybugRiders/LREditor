@@ -41,9 +41,6 @@ LR.Editor.LevelImporterEditor.prototype.importImages = function(_images, _loader
 		var imgData = _images[i];
 
 		var imgPath = this.$scope.project.path + "/assets/images" + imgData.path;
-		var imgPath = "https://raw.githubusercontent.com/LadybugRiders/kimisrescue/dev" 
-						+ "/assets/images" + imgData.path;
-		console.log(this.$scope.project.path);
 		_loader.spritesheet(
 			imgData.name, imgPath,
 			parseInt(imgData.frameWidth), parseInt(imgData.frameHeight)

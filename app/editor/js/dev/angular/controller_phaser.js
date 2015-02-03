@@ -211,7 +211,6 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 	};
 
 	$scope.importDefaultLevel = function(){	
-		console.log("importDefaultLevel");
 		$scope.loadBitmapFonts($scope.project.assets.bitmapFonts);	
 		// import default level if set
 		$timeout(function() {

@@ -99,8 +99,8 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$scope.modalInputsData = { inputs : {} };
 
 		//Create Network API and change porject path
-		$scope.networkAPI = new LocalAPIManager($http,$scope); 
-		//$scope.networkAPI = new GithubAPIManager($http,$scope);
+		//$scope.networkAPI = new LocalAPIManager($http,$scope); 
+		$scope.networkAPI = new GithubAPIManager($http,$scope);
 
 		// load current project data
 		if (localStorage) {			
@@ -193,6 +193,19 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		console.log("ImagesLoaded");
 		$scope.onAssetLoaded();
 		$scope.$emit("sendImagesEmit", {images: $scope.project.assets.images});
+		//parse names to find frames sizes
+		var images = $scope.project.assets.images;
+        for(var i=0; i < images.length; i++){
+            if( images[i].frameWidth != null )
+                continue;
+            var imageName = images[i].path;
+            var regex = /[0-9]+x[0-9]+/.exec(imageName);
+            if( regex ){
+                var aFrame = regex[0].split("x");
+                images[i].frameWidth = parseInt(aFrame[0]);
+                images[i].frameHeight = parseInt(aFrame[1]);
+            }
+        }
 	}
 
 	$scope.manageImages = function() {
