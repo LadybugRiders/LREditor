@@ -15,6 +15,18 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.tmp.userCheck = $scope.networkAPI.userCheck;
     }
 
+    //LOADING
+    $scope.tmp.loading = $scope.networkAPI.isLoading;
+    console.log($scope.networkAPI.isLoading);
+    if($scope.tmp.loading){      
+      $timeout( 
+        function(){
+          $scope.$apply();
+          document.getElementById("githubDetails").innerHTML = "Loading";
+        }, 100
+      );
+    }
+
     $scope.$on("assetsLoadedBroadcast", function(_event, _args) {
       $scope.onAssetsLoaded();
     });
@@ -56,8 +68,14 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.connectGithub = function(){
 
+    if( $scope.tmp.loading){
+      console.log("still Loading");
+      return;
+    }
+
     if( $scope.tmp.userCheck == true && $scope.tmp.selectedRepo != null && $scope.tmp.selectedBranch !=null){
       
+      $scope.tmp.loading = true;
       document.getElementById("githubDetails").innerHTML = "Loading";
 
       $scope.networkAPI.userName = $scope.tmp.userName;
@@ -96,6 +114,8 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
 
   $scope.onAssetsLoaded = function(){
     console.log("modal assetsLoaded");
+    console.log($scope.tmp.selectedRepo);
+    $scope.tmp.loading = false;
     document.getElementById("githubDetails").innerHTML = "";
   }
 

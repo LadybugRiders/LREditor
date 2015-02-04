@@ -56,7 +56,7 @@
         </div>
     </div>
     <div>
-        <button class="btn btn-warning" ng-click="connectGithub()">Connect</button>
+        <button class="btn btn-warning" ng-show="!tmp.loading" ng-click="connectGithub()">Connect</button>
         <font color='green' id="githubDetails"></font>
     </div>
     <font color='red' id="githubError"></font>

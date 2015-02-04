@@ -17,6 +17,8 @@ var GithubAPIManager = function(_$http,_$scope){
   //Objects received from git describing the folder data
   this.foldersData = {};
 
+  this.loadingUrls = new Array();
+
   // paths
 	this.userUrl = "https://api.github.com/users/"+this.userName+"/";
 	this.imagesFolderPath = "assets/images";  
@@ -98,7 +100,7 @@ GithubAPIManager.prototype.onCurrentAssetFolderFound = function(_assetFolder){
     }
   }
 
-  console.log("allAssetsFound");
+  console.log("allAssetsFound for " + this.currentRepoName);
   this.onReadyPromise();
   this.onReadyPromise = null;
 }
@@ -155,9 +157,11 @@ GithubAPIManager.prototype.getRepositoryData = function(_promise){
 	   'Content-Type': undefined
 	 }
 	};
+  this.addLoadingUrl(url);
   this.$http(req)
   			.success(
   				function(_data, _status, _headers, _config) {
+              instance.removeLoadingUrl(url);
               instance.onRepoFound(_data);
 			        if(_promise != null)
 			          	_promise.call(instance,_data);
@@ -165,6 +169,7 @@ GithubAPIManager.prototype.getRepositoryData = function(_promise){
   			)
   			.error(
   				function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
   					console.log( "error : " + _status);
   				}
   			)
@@ -229,10 +234,12 @@ GithubAPIManager.prototype.loadCurrentProjectData = function(_promise) {
       'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
-          function(_data, _status, _headers, _config) {            
+          function(_data, _status, _headers, _config) { 
+            instance.removeLoadingUrl(url);           
             instance.$scope.project.name = _data.name;
             instance.$scope.project.projectFirstLevel = _data.firstLevel;
             //get Images for the tree data and stores them in assets
@@ -242,6 +249,7 @@ GithubAPIManager.prototype.loadCurrentProjectData = function(_promise) {
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -270,10 +278,12 @@ GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
      'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             //console.log(_data);
             instance.getImages(_data.tree);
             //get Images for the tree data and stores them in assets
@@ -283,6 +293,7 @@ GithubAPIManager.prototype.loadCurrentProjectImages = function(_promise){
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -336,10 +347,12 @@ GithubAPIManager.prototype.loadCurrentProjectAtlases = function(_promise) {
      'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getAtlases(_data.tree);
             //get Images for the tree data and stores them in assets
               if(_promise != null)
@@ -348,6 +361,7 @@ GithubAPIManager.prototype.loadCurrentProjectAtlases = function(_promise) {
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -433,10 +447,12 @@ GithubAPIManager.prototype.loadCurrentProjectAudios = function(_promise) {
      'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getAudios(_data.tree);
             //get Images for the tree data and stores them in assets
               if(_promise != null)
@@ -445,6 +461,7 @@ GithubAPIManager.prototype.loadCurrentProjectAudios = function(_promise) {
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -499,15 +516,18 @@ GithubAPIManager.prototype.loadCurrentProjectLayers = function(_promise) {
      'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getLayers(_data.tree,_promise);
           }
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -532,10 +552,12 @@ GithubAPIManager.prototype.getLayers = function(_physicsTree,_promise) {
           'Content-Type': undefined
        }
       };
+      this.addLoadingUrl(url);
       //Send request to get the image folder recursively
       this.$http(req)
             .success(
               function(_data, _status, _headers, _config) {
+                instance.removeLoadingUrl(url);
                 instance.$scope.project.assets.layers = _data;
                 //get Images for the tree data and stores them in assets
                   if(_promise != null)
@@ -544,6 +566,7 @@ GithubAPIManager.prototype.getLayers = function(_physicsTree,_promise) {
             )
             .error(
               function(_data, _status, _headers, _config){
+                instance.removeLoadingUrl(url);
                 console.log( "error : " + _status);
               }
             );
@@ -579,15 +602,18 @@ GithubAPIManager.prototype.loadCurrentProjectBehaviours = function(_promise) {
      'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getBehaviours(_data.tree,_promise);
           }
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -632,10 +658,12 @@ GithubAPIManager.prototype.loadBehavioursFromTree = function(_folderTree,_index,
       'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             // get behaviour name
             var name = getBehaviourInfos(_data, Behaviour.FLAG_NAME);
             if (name == null) name = "Behaviour";
@@ -669,6 +697,7 @@ GithubAPIManager.prototype.loadBehavioursFromTree = function(_folderTree,_index,
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -762,10 +791,12 @@ GithubAPIManager.prototype.loadCurrentProjectPrefabs = function(_promise) {
      'Content-Type': "application/json"
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getPrefabs(_data.tree);
             //get Images for the tree data and stores them in assets
               if(_promise != null)
@@ -774,6 +805,7 @@ GithubAPIManager.prototype.loadCurrentProjectPrefabs = function(_promise) {
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -830,10 +862,12 @@ GithubAPIManager.prototype.loadCurrentProjectFonts = function(_promise) {
      'Content-Type': "application/json"
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getBitmapFonts(_data.tree);
             //get Images for the tree data and stores them in assets
               if(_promise != null)
@@ -842,6 +876,7 @@ GithubAPIManager.prototype.loadCurrentProjectFonts = function(_promise) {
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -917,15 +952,18 @@ GithubAPIManager.prototype.loadCurrentProjectInputs = function(_promise) {
      'Content-Type': undefined
    }
   };
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getInputs(_data.tree,_promise);
           }
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -951,10 +989,12 @@ GithubAPIManager.prototype.getInputs = function(_inputsTree,_promise) {
           'Content-Type': undefined
        }
       };
+      this.addLoadingUrl(url);
       //Send request to get the image folder recursively
       this.$http(req)
             .success(
               function(_data, _status, _headers, _config) {
+              instance.removeLoadingUrl(url);
                 instance.$scope.project.assets.inputs = _data;
                 //get Images for the tree data and stores them in assets
                   if(_promise != null)
@@ -963,6 +1003,7 @@ GithubAPIManager.prototype.getInputs = function(_inputsTree,_promise) {
             )
             .error(
               function(_data, _status, _headers, _config){
+              instance.removeLoadingUrl(url);
                 console.log( "error : " + _status);
               }
             );
@@ -990,10 +1031,13 @@ GithubAPIManager.prototype.loadCurrentProjectLevels = function(_promise) {
      'Content-Type': "application/json"
    }
   };
+
+  this.addLoadingUrl(url);
   //Send request to get the image folder recursively
   this.$http(req)
         .success(
           function(_data, _status, _headers, _config) {
+            instance.removeLoadingUrl(url);
             instance.getLevels(_data.tree);
             //get Images for the tree data and stores them in assets
               if(_promise != null)
@@ -1002,6 +1046,7 @@ GithubAPIManager.prototype.loadCurrentProjectLevels = function(_promise) {
         )
         .error(
           function(_data, _status, _headers, _config){
+            instance.removeLoadingUrl(url);
             console.log( "error : " + _status);
           }
         );
@@ -1096,6 +1141,18 @@ GithubAPIManager.prototype.findTreePathByString = function(_gitTree,_stringPath,
   			);
 }
 
+GithubAPIManager.prototype.addLoadingUrl = function(_url){
+  this.loadingUrls.push(_url);
+}
+
+GithubAPIManager.prototype.removeLoadingUrl = function(_url){
+  for(var i=0; i < this.loadingUrls.length ; i++){
+    if( this.loadingUrls[i] == _url){
+      this.loadingUrls.splice(i,1);
+      break;
+    }
+  }
+}
 //========================================================
 //				GETTERS / SETTERS
 //========================================================
@@ -1118,6 +1175,14 @@ GithubAPIManager.prototype.getProjectPath = function(){
 GithubAPIManager.prototype.getImagesFullPath = function(){
 	return this.rawRepoUrl+this.imagesFolderPath;
 }
+
+Object.defineProperty( GithubAPIManager.prototype, "isLoading",
+  {
+    get : function(){
+      return this.loadingUrls.length > 0;
+    }
+  }
+);
 
 function isStringValid(_string){
   return _string != null && _string != "";
