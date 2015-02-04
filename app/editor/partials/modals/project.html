@@ -1,6 +1,68 @@
 <div class="modal-header">
-    <h3>Project</h3>
+    <h2>Project</h2>
 </div>
+<!-- GITHUB -->
+<div class="modal-body">
+    <h3>Github</h3>
+    <div class="form-group">
+        <div class="row">
+            <!-- USERNAME -->
+            <div class="col-md-2">
+                <label>User</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" ng-model="tmp.userName" class="form-control"/>
+            </div>
+            <div class="col-md-1">
+                <span class="glyphicon glyphicon-ok" 
+                    ng-show="tmp.userCheck"></span>
+                <span class="glyphicon glyphicon-remove" 
+                    ng-show="!tmp.userCheck"></span>
+            </div>
+            <div class="col-md-1">
+                <button ng-click="checkUserName()" type="button" class="btn btn-default btn-xs" style="background-color:#a7cb00">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>           
+        </div>
+        </br>
+        <div class="row" ng-show="tmp.userCheck == true">
+            <!-- REPO -->
+            <div class="col-md-2">
+                <label>Repository</label>
+            </div>
+            <div class="col-md-10">
+                <select ng-model="tmp.selectedRepo" class="form-control" aria-describedby="image-addon" ng-change="selectRepository()">
+                        <option ng-repeat="repo in networkAPI.repositories"
+                                value="{{repo.name}}"
+                        > {{repo.name}}
+                        </option>
+                </select>
+            </div>
+        </div>
+        <div class="row" ng-show="tmp.selectedRepo != null">
+            <!-- BRANCH -->
+            <div class="col-md-2">
+                <label>Branch</label>
+            </div>
+            <div class="col-md-10">
+                <select ng-model="tmp.selectedBranch" class="form-control" aria-describedby="image-addon">
+                            <option ng-repeat="branch in networkAPI.branches"
+                                    value="{{branch.name}}"
+                            > {{branch.name}}
+                            </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-warning" ng-click="connectGithub()">Connect</button>
+        <font color='green' id="githubDetails"></font>
+    </div>
+    <font color='red' id="githubError"></font>
+    </br></br>
+
+</div> 
 <div class="modal-body">
   <div class="form-group">
     <div class="row">

@@ -101,10 +101,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		//Create Network API and change porject path
 		//$scope.networkAPI = new LocalAPIManager($http,$scope); 
 		$scope.networkAPI = new GithubAPIManager($http,$scope);
+  		$scope.onLoadComplete = new Phaser.Signal();
 
 		// load current project data
 		if (localStorage) {			
-			$scope.networkAPI.initAPI(localStorage,$scope.onNetworkAPIReady);
+			$scope.networkAPI.initAPI(localStorage,true,$scope.onNetworkAPIReady);
 	    } else {
 	      console.warn("no localStorage");
 	    }

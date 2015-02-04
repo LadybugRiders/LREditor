@@ -5,9 +5,11 @@ var GithubAPIManager = function(_$http,_$scope){
   this.api = "github";
 	//user strings
 	this.userName = "LadybugRiders";
-	this.currentRepoName = "kimisrescue";
-	this.branchName = "dev";
+	this.currentRepoName = "";
+	this.branchName = "";
 
+  //tells if the user name is valid
+  this.userCheck = false;
   this.onReadyPromise = null;
 
   //Current Repository git data
@@ -26,7 +28,8 @@ GithubAPIManager.prototype = Object.create(NetworkAPIManager.prototype);
 GithubAPIManager.prototype.constructor = GithubAPIManager;
 
 //Initialize the API. The promise is called when the API is ready to be used
-GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
+GithubAPIManager.prototype.initAPI = function(_localStorage,_checkStorage,_promise){
+  this.localStorage = _localStorage;
   var path = _localStorage.getItem("project.path");
   var file = _localStorage.getItem("project.file");
   if (path && file) {
@@ -34,7 +37,31 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
     this.$scope.project.file = file;
   }
   this.onReadyPromise = _promise;
-  this.getRepositoryData(this.onRepoFound);
+
+  //Get Local Storage user ids
+  if( _checkStorage){
+    var userName = this.localStorage.getItem("github_user_name");
+    var repoName = this.localStorage.getItem("github_repo_name");
+    var branchName = this.localStorage.getItem("github_branch_name");
+
+    if( userName ) this.userName = userName;
+    if( repoName ) this.currentRepoName = repoName;
+    if( branchName ) this.branchName = branchName;
+  }
+
+  //
+  if(isStringValid(this.userName) && isStringValid(this.currentRepoName)){
+    this.getRepositories();
+    this.getBranches();
+    this.getRepositoryData();
+  }
+}
+
+GithubAPIManager.prototype.saveIDs = function(){
+  //console.log("save github ids" + this.userName + " " + this.currentRepoName + " " + this.branchName);
+  this.localStorage.setItem("github_user_name", this.userName);
+  this.localStorage.setItem("github_repo_name", this.currentRepoName);
+  this.localStorage.setItem("github_branch_name", this.branchName);
 }
 
 //============================================================
@@ -42,7 +69,11 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_promise){
 //============================================================
 //called as a promise when repository found
 GithubAPIManager.prototype.onRepoFound = function(_repoData){
+
+  this.saveIDs();
+
   this.currentRepoData = _repoData;
+  this.userCheck = true;
 
   //search project.json file
   for(var i=0; i < _repoData.tree.length; i++){
@@ -77,22 +108,41 @@ GithubAPIManager.prototype.onCurrentAssetFolderFound = function(_assetFolder){
 //					CALLS
 //============================================================
 //List Repositories for a specified user
-GithubAPIManager.prototype.getRepositories = function(_promise){
+GithubAPIManager.prototype.getRepositories = function(_userName,_promise){
+  if(_userName == null){
+    if(this.userName != null)
+      _userName = this.userName;
+    else
+      return;
+  }
   var userUrl = "https://api.github.com/users/"+_userName+"/";
   var reposUrl = userUrl+"repos";
 
-  this.$http(reposUrl)
+  var req = {
+   method: 'GET',
+   url: reposUrl,
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  var instance = this;
+  this.$http(req)
   	.success(
   		function(_data){
-			if( _promise != null )
-		  		_promise(_data);
+        instance.repositories = _data;
+  			if( _promise != null )
+  		  		_promise(_data);
 		}
   	)
   	.error(
+      function(_data){
+        if( _promise != null )
+            _promise({"failed": true});
+      }
   	);
 }
 
-//List images of the master branch
+//GET current repository
 GithubAPIManager.prototype.getRepositoryData = function(_promise){
   var url = "https://api.github.com/repos/"+this.userName+
   				"/"+this.currentRepoName+"/git/trees/"+this.branchName;
@@ -108,6 +158,7 @@ GithubAPIManager.prototype.getRepositoryData = function(_promise){
   this.$http(req)
   			.success(
   				function(_data, _status, _headers, _config) {
+              instance.onRepoFound(_data);
 			        if(_promise != null)
 			          	_promise.call(instance,_data);
   				}
@@ -119,6 +170,44 @@ GithubAPIManager.prototype.getRepositoryData = function(_promise){
   			)
 }
 
+GithubAPIManager.prototype.getBranches = function(_userName,_repo,_promise){
+  if(_userName == null){
+    if(this.userName != null)
+      _userName = this.userName;
+    else
+      return;
+  }
+
+  if(_repo == null){
+    if(this.currentRepoName != null)
+      _repo = this.currentRepoName;
+    else
+      return;
+  }
+
+  var req = {
+   method: 'GET',
+   url: "https://api.github.com/repos/"+_userName+"/"+ _repo +"/branches",
+   headers: {
+     'Content-Type': undefined
+   }
+  };
+  var instance = this;
+  this.$http(req)
+    .success(
+      function(_data){
+        instance.branches = _data;
+        if( _promise != null )
+            _promise(_data);
+    }
+    )
+    .error(
+      function(_data){
+        if( _promise != null )
+            _promise({"failed": true});
+      }
+    );
+}
 //================================================
 //              PROJECT
 //================================================
@@ -1028,4 +1117,8 @@ GithubAPIManager.prototype.getProjectPath = function(){
 
 GithubAPIManager.prototype.getImagesFullPath = function(){
 	return this.rawRepoUrl+this.imagesFolderPath;
+}
+
+function isStringValid(_string){
+  return _string != null && _string != "";
 }
