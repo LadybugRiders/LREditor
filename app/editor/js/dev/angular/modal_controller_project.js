@@ -17,18 +17,23 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
 
     //LOADING
     $scope.tmp.loading = $scope.networkAPI.isLoading;
-    console.log($scope.networkAPI.isLoading);
+
     if($scope.tmp.loading){      
       $timeout( 
         function(){
+          var balDtls = document.getElementById("githubDetails");
+          if(balDtls.innerHTML)
+            balDtls.innerHTML = "Loading " + $scope.currentLoadingAsset;
           $scope.$apply();
-          document.getElementById("githubDetails").innerHTML = "Loading";
-        }, 100
+        }, 500
       );
     }
 
+    //bind to the signal from controller_header
+    $scope.onAssetLoadedSignal.add($scope.onSingleAssetLoaded, this); 
+
     $scope.$on("assetsLoadedBroadcast", function(_event, _args) {
-      $scope.onAssetsLoaded();
+      $scope.onAssetsLoadedModal();
     });
   };
 
@@ -112,9 +117,15 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
     $modalInstance.close(data);
   };
 
-  $scope.onAssetsLoaded = function(){
-    console.log("modal assetsLoaded");
-    console.log($scope.tmp.selectedRepo);
+
+  //when ONE asset is loaded ( function bound to the signal )
+  $scope.onSingleAssetLoaded = function(_data){
+    document.getElementById("githubDetails").innerHTML = "Loading " + _data.nextAssetName;
+  }
+
+  //when ALL assets are loaded ( function bound to $broadcast)
+  $scope.onAssetsLoadedModal = function(){
+    console.log("modal assetsLoaded "+ $scope.tmp.selectedRepo);
     $scope.tmp.loading = false;
     document.getElementById("githubDetails").innerHTML = "";
   }

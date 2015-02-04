@@ -101,7 +101,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		//Create Network API and change porject path
 		//$scope.networkAPI = new LocalAPIManager($http,$scope); 
 		$scope.networkAPI = new GithubAPIManager($http,$scope);
-  		$scope.onLoadComplete = new Phaser.Signal();
+  		$scope.onAssetLoadedSignal = new Phaser.Signal();
 
 		// load current project data
 		if (localStorage) {			
@@ -132,13 +132,39 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 
 	//promise called when the network API is ready to use
 	$scope.onNetworkAPIReady = function(){
+		$scope.currentLoadingAsset = "project";
 		$scope.networkAPI.loadCurrentProjectData($scope.onProjectLoaded);
 	}
 
 	//Each time an assets set (images, audios...) is fully loaded
 	$scope.onAssetLoaded = function(){
-		$scope.assetsLoadInProgress --;
-		if(this.assetsLoadInProgress<=0){
+		if( $scope.assetsToLoad.length > 0){
+			//get asset to load and remove it from the stack
+			$scope.currentLoadingAsset = $scope.assetsToLoad[0];
+			$scope.assetsToLoad.splice(0,1);
+			$scope.onAssetLoadedSignal.dispatch({"nextAssetName" : $scope.currentLoadingAsset});
+			//load the next assets
+			switch($scope.currentLoadingAsset){				
+			    case "images" : $scope.networkAPI.loadCurrentProjectImages($scope.onImagesLoaded);
+			    	break;
+			    case "prefabs" : $scope.networkAPI.loadCurrentProjectPrefabs($scope.onPrefabsLoaded);
+			    	break;
+			    case "atlases" : $scope.networkAPI.loadCurrentProjectAtlases($scope.onAtlasesLoaded);
+			    	break;
+			    case "audios" : $scope.networkAPI.loadCurrentProjectAudios($scope.onAudioLoaded);
+			    	break;
+			    case "behaviours" : $scope.networkAPI.loadCurrentProjectBehaviours($scope.onBehavioursLoaded);
+			    	break;
+			    case "inputs" : $scope.networkAPI.loadCurrentProjectInputs($scope.onInputsLoaded);
+			    	break;
+			    case "layers" : $scope.networkAPI.loadCurrentProjectLayers($scope.onLayersLoaded);
+			    	break;
+			    case "fonts" : $scope.networkAPI.loadCurrentProjectFonts($scope.onFontsLoaded);
+			    	break;
+			    case "levels" : $scope.networkAPI.loadCurrentProjectLevels($scope.onLevelsLoaded);
+					break;
+			}
+		}else{
 			console.log("ALL_ASSETS_LOADED");
 			$scope.$emit("assetsLoadedEmit",{});
 		}
@@ -152,17 +178,13 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		$timeout(function() {
 			$scope.$emit("sendProjectEmit", {project: $scope.project});
 
-			//load project assets	
-			$scope.assetsLoadInProgress = 9;
+			$scope.assetsToLoad = ["prefabs","atlases","audios","inputs",
+								"layers","fonts","levels","behaviours"];
+			$scope.currentLoadingAsset = "images";
+
+			//load images first.
+			//the other assets will come next in onAssetLoaded() function
 		    $scope.networkAPI.loadCurrentProjectImages($scope.onImagesLoaded);
-		    $scope.networkAPI.loadCurrentProjectPrefabs($scope.onPrefabsLoaded);
-		    $scope.networkAPI.loadCurrentProjectAtlases($scope.onAtlasesLoaded);
-		    $scope.networkAPI.loadCurrentProjectAudios($scope.onAudioLoaded);
-		    $scope.networkAPI.loadCurrentProjectBehaviours($scope.onBehavioursLoaded);
-		    $scope.networkAPI.loadCurrentProjectInputs($scope.onInputsLoaded);
-		    $scope.networkAPI.loadCurrentProjectLayers($scope.onLayersLoaded);
-		    $scope.networkAPI.loadCurrentProjectFonts($scope.onFontsLoaded);
-		    $scope.networkAPI.loadCurrentProjectLevels($scope.onLevelsLoaded);
 			}, 100);
 		}
 		//console.log("ProjectLoaded");
