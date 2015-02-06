@@ -20,6 +20,11 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 			$scope.importDefaultLevel();
 		});
 
+		$scope.$on("assetLoadedBroadcast", function(_event, _args) {
+			if($scope.loadingText)
+	      		$scope.loadingText.text = "Loading " + _args.nextAssetName;
+	    });
+
 		//============ PROJECT ===================
 
 		$scope.$on("sendProjectBroadcast", function(_event, _args) {
@@ -230,7 +235,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
       				localStorage.setItem("project.levelDefault", levelImport);
       			} else {
 					//if we are just launching the editor, check default;
-					levelImport = localStorage.getItem("project.levelDefault");      				
+					levelImport = localStorage.getItem("project.levelDefault");
+      				console.log(levelImport);      				
       			}
 				if (levelImport !== null && levelImport !== "null" && $scope.project) {
 					$scope.project.level = levelImport;

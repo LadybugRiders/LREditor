@@ -32,7 +32,7 @@
                 <label>Repository</label>
             </div>
             <div class="col-md-10">
-                <select ng-model="tmp.selectedRepo" class="form-control" aria-describedby="image-addon" ng-change="selectRepository()">
+                <select ng-model="tmp.selectedRepo" id="selectRepo" class="form-control" aria-describedby="image-addon" ng-change="selectRepository()">
                         <option ng-repeat="repo in networkAPI.repositories"
                                 value="{{repo.name}}"
                         > {{repo.name}}
@@ -63,6 +63,7 @@
     </br></br>
 
 </div> 
+
 <div class="modal-body">
   <div class="form-group">
     <div class="row">

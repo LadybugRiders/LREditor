@@ -13,6 +13,7 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.tmp.selectedBranch = $scope.networkAPI.branchName;
 
       $scope.tmp.userCheck = $scope.networkAPI.userCheck;
+      $scope.updateRepo();
     }
 
     //LOADING
@@ -29,11 +30,12 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
       );
     }
 
-    //bind to the signal from controller_header
-    $scope.onAssetLoadedSignal.add($scope.onSingleAssetLoaded, this); 
+    $scope.$on("assetLoadedBroadcast", function(_event, _args) {
+      $scope.onSingleAssetLoadedModal(_args);
+    });
 
     $scope.$on("allAssetsLoadedBroadcast", function(_event, _args) {
-      $scope.onAssetsLoadedModal();
+      $scope.onAssetsLoadedModal(_args);
     });
   };
 
@@ -80,6 +82,12 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
 
     if( $scope.tmp.userCheck == true && $scope.tmp.selectedRepo != null && $scope.tmp.selectedBranch !=null){
       
+      if($scope.isNewProjectModal()){
+        //clear default level 
+        //localStorage.setItem("project.levelDefault", null);
+      }
+
+      
       $scope.tmp.loading = true;
       document.getElementById("githubDetails").innerHTML = "Loading";
 
@@ -88,6 +96,8 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
       $scope.networkAPI.branchName = $scope.tmp.selectedBranch;
 
       $scope.networkAPI.initAPI(localStorage,false,$scope.onNetworkAPIReady);
+
+      $scope.updateRepo();
     }else{
       //try checking user
       $scope.checkUserName();
@@ -117,9 +127,8 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
     $modalInstance.close(data);
   };
 
-
   //when ONE asset is loaded ( function bound to the signal )
-  $scope.onSingleAssetLoaded = function(_data){
+  $scope.onSingleAssetLoadedModal = function(_data){
     document.getElementById("githubDetails").innerHTML = "Loading " + _data.nextAssetName;
   }
 
@@ -130,9 +139,34 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
     document.getElementById("githubDetails").innerHTML = "";
   }
 
+  //returns true if the current selected ids makes a new project
+  $scope.isNewProjectModal = function(){
+    return ($scope.tmp.userName != $scope.networkAPI.userName
+          || $scope.tmp.selectedRepo != $scope.networkAPI.currentRepoName
+          || $scope.tmp.selectedBranch != $scope.networkAPI.branchName
+      );
+  }
+
   $scope.close = function () {
     $modalInstance.dismiss();
   };
+
+  //Tweak because of angular not refreshing the dropdown ( same in controller_attributes)
+  $scope.updateRepo = function(){
+    $timeout(
+      function(){
+        var dropdownElmt = document.getElementById("selectRepo");
+        if(dropdownElmt!=null){
+          for(var i=0; i< dropdownElmt.options.length; i++){
+            if(dropdownElmt.options[i].text == $scope.tmp.selectedRepo){
+              dropdownElmt.options[i].selected = true;
+            }else{              
+              dropdownElmt.options[i].selected = false;
+            }
+          }
+        }
+      }, 500 );
+  }
 
   main();
 };

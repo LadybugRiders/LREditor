@@ -53,6 +53,7 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_checkStorage,_promi
 
   //
   if(isStringValid(this.userName) && isStringValid(this.currentRepoName)){
+    console.log("loading" + this.userName + " " + this.currentRepoName + " " + this.branchName);
     this.getRepositories();
     this.getBranches();
     this.getRepositoryData();
@@ -60,7 +61,6 @@ GithubAPIManager.prototype.initAPI = function(_localStorage,_checkStorage,_promi
 }
 
 GithubAPIManager.prototype.saveIDs = function(){
-  //console.log("save github ids" + this.userName + " " + this.currentRepoName + " " + this.branchName);
   this.localStorage.setItem("github_user_name", this.userName);
   this.localStorage.setItem("github_repo_name", this.currentRepoName);
   this.localStorage.setItem("github_branch_name", this.branchName);

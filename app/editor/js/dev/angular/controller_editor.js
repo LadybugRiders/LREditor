@@ -14,6 +14,10 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 			$scope.$broadcast("allAssetsLoadedBroadcast", _args);
 		});
 
+		$scope.$on("assetLoadedEmit", function(_event, _args) {
+			$scope.$broadcast("assetLoadedBroadcast", _args);
+		});
+
 		//================== PROJECT ======================
 		$scope.$on("sendProjectEmit", function(_event, _args) {
 			$scope.$broadcast("sendProjectBroadcast", _args);

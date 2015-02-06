@@ -101,7 +101,6 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 		//Create Network API and change porject path
 		//$scope.networkAPI = new LocalAPIManager($http,$scope); 
 		$scope.networkAPI = new GithubAPIManager($http,$scope);
-  		$scope.onAssetLoadedSignal = new Phaser.Signal();
 
 		// load current project data
 		if (localStorage) {			
@@ -139,10 +138,11 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	//Each time an assets set (images, audios...) is fully loaded
 	$scope.onAssetLoaded = function(){
 		if( $scope.assetsToLoad.length > 0){
+			var loadedAssetName = this.currentLoadingAsset;
 			//get asset to load and remove it from the stack
 			$scope.currentLoadingAsset = $scope.assetsToLoad[0];
 			$scope.assetsToLoad.splice(0,1);
-			$scope.onAssetLoadedSignal.dispatch({"nextAssetName" : $scope.currentLoadingAsset});
+			$scope.$emit("assetLoadedEmit",{"loadedAssetName": loadedAssetName, "nextAssetName":this.currentLoadingAsset});
 			//load the next assets
 			switch($scope.currentLoadingAsset){				
 			    case "images" : $scope.networkAPI.loadCurrentProjectImages($scope.onImagesLoaded);
@@ -186,8 +186,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			//the other assets will come next in onAssetLoaded() function
 		    $scope.networkAPI.loadCurrentProjectImages($scope.onImagesLoaded);
 			}, 100);
-		}
-		//console.log("ProjectLoaded");
+	}
 
 	$scope.changeCurrentProject = function() {
 		var modalInstance = $modal.open({
