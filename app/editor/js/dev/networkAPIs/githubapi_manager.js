@@ -109,6 +109,15 @@ GithubAPIManager.prototype.onCurrentAssetFolderFound = function(_assetFolder){
 //============================================================
 //					CALLS
 //============================================================
+
+GithubAPIManager.prototype.authorize = function(){
+  var url = "https://github.com/login/oauth/authorize?client_id=3a3d288b9ddceeb13bb1";
+  url += "&redirect_uri=http://localhost:5000/editor/";
+  url += "&response_type=code"
+  console.log(url);
+  window.open(url);
+}
+
 //List Repositories for a specified user
 GithubAPIManager.prototype.getRepositories = function(_userName,_promise){
   if(_userName == null){
@@ -1088,6 +1097,48 @@ GithubAPIManager.prototype.getLevels = function(_levelsTree){
   }
 }
 
+//================================================
+//            COMMITING
+//================================================
+
+GithubAPIManager.prototype.commitFile = function(_url,_promise) {
+  if(this.foldersData.levels == null){
+    if(_promise != null)
+      _promise.call(this,{"success":false});
+    return;
+  }
+  var url = "https://api.github.com/repos/"+this.userName+
+          "/"+this.currentRepoName+"/git/commits/"+this.foldersData.levels.sha+"?recursive=1";
+  var instance = this;
+  //request object
+  var req = {
+   method: 'POST',
+   url: url,
+   headers: {
+     'Content-Type': "application/json"
+   }
+  };
+
+  //this.addLoadingUrl(url);
+  //Send request to get the image folder recursively
+  this.$http(req)
+        .success(
+          function(_data, _status, _headers, _config) {
+            //instance.removeLoadingUrl(url);
+            console.log(_data);
+            //get Images for the tree data and stores them in assets
+              if(_promise != null)
+                  _promise.call(instance,_data);
+          }
+        )
+        .error(
+          function(_data, _status, _headers, _config){
+
+            console.log( "error : " + _status);
+          }
+        );
+
+};
 
 //================================================
 //		 UTILS

@@ -39,6 +39,10 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
     });
   };
 
+  $scope.authorize = function(){
+    $scope.networkAPI.authorize();
+  }
+
   $scope.checkUserName = function(){
     document.getElementById("githubError").innerHTML = "";
     $scope.networkAPI.getRepositories($scope.tmp.userName,

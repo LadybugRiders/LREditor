@@ -10,7 +10,7 @@
             <div class="col-md-2">
                 <label>User</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <input type="text" ng-model="tmp.userName" class="form-control"/>
             </div>
             <div class="col-md-1">
@@ -18,14 +18,11 @@
                     ng-show="tmp.userCheck"></span>
                 <span class="glyphicon glyphicon-remove" 
                     ng-show="!tmp.userCheck"></span>
-            </div>
-            <div class="col-md-1">
-                <button ng-click="checkUserName()" type="button" class="btn btn-default btn-xs" style="background-color:#a7cb00">
-                <span class="glyphicon glyphicon-arrow-right"></span>
-                </button>
-            </div>           
+            </div>          
         </div>
-        </br>
+        <button class="btn btn-warning" ng-show="!tmp.loading" ng-click="checkUserName()">Connect</button>
+        <button class="btn btn-warning" ng-click="authorize()">Auth</button>
+        </br></br>
         <div class="row" ng-show="tmp.userCheck == true">
             <!-- REPO -->
             <div class="col-md-2">
@@ -56,7 +53,7 @@
         </div>
     </div>
     <div>
-        <button class="btn btn-warning" ng-show="!tmp.loading" ng-click="connectGithub()">Connect</button>
+        <button class="btn btn-warning" ng-show="!tmp.loading" ng-click="connectGithub()">Load Project</button>
         <font color='green' id="githubDetails"></font>
     </div>
     <font color='red' id="githubError"></font>
