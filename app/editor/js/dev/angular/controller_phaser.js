@@ -15,7 +15,8 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.loadedAtlases = new Array();
 
 
-		$scope.$on("assetsLoadedBroadcast", function(_event, _args) {
+		$scope.$on("allAssetsLoadedBroadcast", function(_event, _args) {
+			$scope.loadingGroup.visible = false;
 			$scope.importDefaultLevel();
 		});
 
@@ -177,6 +178,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.game.load.image("__select", "assets/images/select.png");
 		$scope.game.load.image("__x_move", "assets/images/x_move.png");
 		$scope.game.load.image("__y_move", "assets/images/y_move.png");
+		$scope.game.load.image("__loading", "assets/images/loading.png");
 	};
 
 	$scope.create = function() {
@@ -289,6 +291,24 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 		$scope.yMouseText.anchor.x = 0;
 		$scope.game.add.existing($scope.yMouseText);
 		$scope.editorGroup.add($scope.yMouseText);
+		//Loading
+		$scope.loadingGroup = new LR.Entity.Group($scope.game);
+		$scope.loadingText = new LR.Entity.Text($scope.game,2,20,"Loading",{ font: "40px Arial", fill: "0x000000"},"__loadingText");
+		$scope.loadingText.fixedToCamera = true;
+		$scope.loadingText.cameraOffset.x = 400;
+		$scope.loadingText.cameraOffset.y = 300;
+
+		$scope.loadingSprite = new LR.Entity.Sprite($scope.game, 400, 250, "__loading");
+		$scope.loadingSprite.fixedToCamera = true;
+		$scope.game.add.tween($scope.loadingSprite).to({"angle":360},2000,Phaser.Easing.Linear.None,
+												true,0,-1
+												);
+
+		$scope.loadingGroup.add($scope.loadingText);
+		$scope.loadingGroup.add($scope.loadingSprite);
+		$scope.game.add.existing($scope.loadingGroup);
+		$scope.editorGroup.add($scope.loadingGroup);
+
 		if( $scope.project ){
 			//Camera DEbug
 			$scope.changeGameCameraSize($scope.project.settings.camera);

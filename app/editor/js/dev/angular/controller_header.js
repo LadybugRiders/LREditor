@@ -166,7 +166,7 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 			}
 		}else{
 			console.log("ALL_ASSETS_LOADED");
-			$scope.$emit("assetsLoadedEmit",{});
+			$scope.$emit("allAssetsLoadedEmit",{});
 		}
 	}
 

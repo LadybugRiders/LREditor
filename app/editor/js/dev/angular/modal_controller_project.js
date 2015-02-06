@@ -32,7 +32,7 @@ var ProjectCtrlModal = function ($scope, $modalInstance, $timeout) {
     //bind to the signal from controller_header
     $scope.onAssetLoadedSignal.add($scope.onSingleAssetLoaded, this); 
 
-    $scope.$on("assetsLoadedBroadcast", function(_event, _args) {
+    $scope.$on("allAssetsLoadedBroadcast", function(_event, _args) {
       $scope.onAssetsLoadedModal();
     });
   };

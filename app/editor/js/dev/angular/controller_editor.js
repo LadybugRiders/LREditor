@@ -10,8 +10,8 @@ LREditorCtrlMod.controller('EditorCtrl', ["$scope", "$http", function($scope, $h
 		//=============== ASSET MANAGET ===================
 		var assetManager = new LR.Editor.AssetManager($http);
 
-		$scope.$on("assetsLoadedEmit", function(_event, _args) {
-			$scope.$broadcast("assetsLoadedBroadcast", _args);
+		$scope.$on("allAssetsLoadedEmit", function(_event, _args) {
+			$scope.$broadcast("allAssetsLoadedBroadcast", _args);
 		});
 
 		//================== PROJECT ======================
