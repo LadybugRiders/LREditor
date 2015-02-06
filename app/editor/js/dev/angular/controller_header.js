@@ -518,6 +518,10 @@ LREditorCtrlMod.controller('HeaderCtrl', ["$scope", "$http", "$modal", "$timeout
 	*******************/
 	//Save the current Level
 	$scope.levelSave = function() {
+		if($scope.project.level == null){
+			$scope.levelExport();
+			return;
+		}
 		var data = {
 	      levelName: $scope.project.level.substring(1),
 	      levelPath: $scope.project.path + "/assets/levels",
