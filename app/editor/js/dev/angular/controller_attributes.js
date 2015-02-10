@@ -885,6 +885,27 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 		});
 	};
 
+	$scope.openTweenArgsModal = function(_tween) {
+		$scope.modalTweenData = {};
+		// we need args as an object, but it is stored as a string
+		$scope.modalTweenData.tween = _tween;
+		$scope.modalTweenData.game = $scope.currentEntity.game;
+		
+		var modalInstance = $modal.open({
+			scope: $scope,
+			templateUrl: 'partials/modals/tween_args_modal.html',
+			controller: TweenArgsCtrlModal,
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (_data) {
+		}, function () {
+			// clean modal data
+			console.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
 	$scope.isEditorImage = function(_image) {
 		var editorImage = false;
 

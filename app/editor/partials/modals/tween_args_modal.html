@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h3>Edit Tween Properties</h3>
+    <h4>{{modalTweenData.tmp.tween.name}}</h4>
+</div>
+<div class="modal-body">
+    <table class="table table-striped">
+        <thead>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="(name,val) in modalTweenData.tmp.tween.properties">
+                <td>
+                    {{name}}
+                </td>                
+                <!-- VALUE -->
+                <td>
+                    <input json-text type="text" 
+                    ng-model="val" 
+                    class="form-control" disabled/>
+                </td>
+                <!-- EDIT -->
+                <td>
+                    <button class="btn btn-default" ng-click="openEditModal(modalTweenData.tmp.tween.properties, name, true)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+                <!-- DELETE -->
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteArg(name)">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" ng-model="modalTweenData.newName" class="form-control"/>
+                </td>
+                <td>
+                    <input type="text" ng-model="modalTweenData.newValue" class="form-control"/>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addArg()">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="save()">Save</button>
+    <button class="btn btn-default" ng-click="close()">Close</button>
+</div>

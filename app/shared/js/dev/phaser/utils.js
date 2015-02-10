@@ -202,6 +202,8 @@ LR.Utils.getRectShapeSides = function(_go,_shape){
 * @param {Camera} camera The active camera
 */
 LR.Utils.isSpriteInCameraView = function(_sprite,_camera){
+	if( _camera == null)
+		_camera = _sprite.game.camera;
 	var screenRect = new Phaser.Rectangle(0,0,_camera.view.width,_camera.view.height);
 	var bounds = _sprite.getBounds(_sprite.worldTransform);
 	var inCam = screenRect.intersects(bounds);
