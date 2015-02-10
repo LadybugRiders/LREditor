@@ -263,12 +263,17 @@
                         	if( _objectData.anims){
                         		for( var key in _objectData.anims){
                         			if( _objectData.anims[key].timer ){
+                        				var timer = _entity.game.time.events;
+                        				var timeDelay = _objectData.anims[key].timer;
                         				var anim = _entity.animations.getAnimation(key);
                         				anim.onComplete.add(
                         					function(_entity){
-                        						_entity.game.time.events.add(
-                        					      Phaser.Timer.SECOND * _objectData.anims[key].timer, 
-                        					      anim.play,
+                        						timer.add(
+                        					      Phaser.Timer.SECOND * timeDelay, 
+                        					      function(){
+                        					      	if(_entity.animations.currentAnim == anim)
+                        					      		anim.play();
+                        					      },
                         					      anim);
                         					}
                         				);
@@ -280,6 +285,7 @@
                         	if (_objectData.autoPlayAnim != null) {
                         		_entity.animations.play(_objectData.autoPlayAnim);
                         	}
+                        
                         };
                         
                         LR.LevelImporterGame.prototype.setPhysics = function(_objectData,_entity) {
@@ -343,7 +349,7 @@
                         			var data = _objectData.sounds[i];
                         			//search for an existing sound in SoundManager,
                         			//as sounds are not destroyed between scenes
-                        			var soundId = _entity.go.name + i;
+                        			var soundId = _entity.go.name + i +&quot;_&quot;+ data.key;
                         			var sound = null;
                         			for(var s=0; s &lt; _entity.game.sound._sounds.length; s ++){
                         				var existingSound = _entity.game.sound._sounds[s];
@@ -354,7 +360,6 @@
                         			//if not already created, create new sound
                         			if( sound == null )
                         				sound = _entity.game.add.audio(data.key);
-                        
                         			if( sound ){
                         				sound.lr_id = soundId;
                         				_entity.go.addSound(data.name,sound);

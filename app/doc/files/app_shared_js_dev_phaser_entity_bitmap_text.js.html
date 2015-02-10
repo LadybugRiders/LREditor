@@ -319,7 +319,8 @@
                             return s;
                         }
                         
-                        LR.Entity.BitmapText.prototype.wrapText = function(_string){	
+                        LR.Entity.BitmapText.prototype.wrapText = function(_string){
+                        
                         	if( _string.length &lt; this.maxCharPerLine)
                         		return _string;
                         	
@@ -337,7 +338,7 @@
                         		}else{
                         			count += word.length + 1;
                         		}
-                        
+                        		
                         		if( count &gt;= this.maxCharPerLine &amp;&amp; i &lt; array.length){
                         			count = 0;
                         			s += &quot;\n&quot;;

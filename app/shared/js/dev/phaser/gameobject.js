@@ -1304,27 +1304,29 @@ LR.GameObject.prototype.onEndCutscene = function(){
 * Find a gameobject by its name
 *
 * @method <static> FindByName
-* @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
-* @param {string} name Gameobject's name
-* @return {Phaser.World | Phaser.Group | Phaser.Sprite} Found gameobject
+* @param {LR.GameObject | LR.Entity } root Root of the search
+* @param {string} name Gameobject's name to find
+* @return {LR.GameObject } Found gameobject
 */
 LR.GameObject.FindByName = function(_root, _name) {
 	var gameobject = null;
 
-	if (_root && _root.go && _root.go.name === _name) {
-		gameobject = _root;
-	} else {
-		if (_root.children) {
-			var i = 0;
-			while (i < _root.children.length && gameobject == null) {
-				var child = _root.children[i];
-				var go = LR.GameObject.FindByName(child, _name);
-				if(go)
-					gameobject = go;
-				i++;
-			}
+	if( _root instanceof LR.GameObject )
+		_root = _root.entity;
+
+	if( _root && _root.go && _root.go.name === _name) {
+		gameobject = _root.go;
+	} else if(_root.children) {
+		var i = 0;
+		while (i < _root.children.length && gameobject == null) {
+			var child = _root.children[i];
+			var go = LR.GameObject.FindByName(child, _name);
+			if(go)
+				gameobject = go;
+			i++;
 		}
 	}
+	
 	return gameobject;
 };
 
@@ -1332,12 +1334,16 @@ LR.GameObject.FindByName = function(_root, _name) {
 * Find a gameobject by its ID
 *
 * @method <static> FindByID
-* @param {Phaser.World | Phaser.Group | Phaser.Sprite} root Root of the search
-* @param {Number} name Gameobject's ID
-* @return {Phaser.World | Phaser.Group | Phaser.Sprite} Found gameobject
+* @param {LR.GameObject | LR.Entity} root Root of the search
+* @param {Number} name Gameobject's ID to find
+* @return {LR.GameObject} Found gameobject
 */
 LR.GameObject.FindByID = function(_root, _id) {
 	var gameobject = null;
+
+	if( _root instanceof LR.GameObject )
+		_root = _root.entity;
+
 	if (_root && _root.go && _root.go.id === _id) {
 		gameobject = _root.go;
 	} else {
