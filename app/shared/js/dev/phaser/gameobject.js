@@ -1100,7 +1100,7 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 	this.tweensData[_tweenData.name] = newTween;
 
 	if(_tweenData.autoStart == true){
-		this.launchTween(_tweenData.name);
+		this.playTween(_tweenData.name);
 	}
 }
 
@@ -1109,11 +1109,11 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 * If there are many target in the properties, many tweens will be launched. 
 * This is why you get array of tweens
 * 
-* @method launchTween
+* @method playTween
 * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
 * @return {Array} An array containing all the tweens induced by the tween properties
 */
-LR.GameObject.prototype.launchTween = function(_tweenName){
+LR.GameObject.prototype.playTween = function(_tweenName){
 	var launchedTweens = new Array();
 	if(! this.tweensData.hasOwnProperty(_tweenName)){
 		console.error( "Tween " + _tweenName + " not found on " + this.name + "[" + this.id + "]");
@@ -1191,7 +1191,7 @@ LR.GameObject.prototype._onTweenComplete = function(_target){
 			}
 		}
 		if( tweenData.chain != null && tweenData.chain != ""){
-			this.launchTween(tweenData.chain);
+			this.playTween(tweenData.chain);
 		}
 	}
 }
@@ -1200,11 +1200,11 @@ LR.GameObject.prototype._onTweenComplete = function(_target){
 * Chains the specified tweens and launch the first one
 * Warning : this will override any tween previous chaining
 * 
-* @method launchChainedTweens
+* @method playChainedTweens
 * @param {string} tweenNames The tween names. As many as you want to chain
 * @return {Array} An array of the first tweens
 */
-LR.GameObject.prototype.launchChainedTweens = function(){
+LR.GameObject.prototype.playChainedTweens = function(){
 	var firstTween = null;
 	var currentTween = null;
 	for (var i = 0; i < arguments.length; i++) {
@@ -1217,7 +1217,7 @@ LR.GameObject.prototype.launchChainedTweens = function(){
     	}
     	currentTween = this.tweensData[tweenName].data;
   	}
-  	this.launchTween(arguments[0]);
+  	this.playTween(arguments[0]);
 }
 
 LR.GameObject.prototype.stopTween = function(_tweenName){

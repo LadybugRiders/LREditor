@@ -3750,7 +3750,7 @@
             "line": 1107,
             "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched. \nThis is why you get array of tweens",
             "itemtype": "method",
-            "name": "launchTween",
+            "name": "playTween",
             "params": [
                 {
                     "name": "tweenName",
@@ -3770,7 +3770,7 @@
             "line": 1199,
             "description": "Chains the specified tweens and launch the first one\nWarning : this will override any tween previous chaining",
             "itemtype": "method",
-            "name": "launchChainedTweens",
+            "name": "playChainedTweens",
             "params": [
                 {
                     "name": "tweenNames",

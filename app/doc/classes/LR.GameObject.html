@@ -300,14 +300,6 @@
                         
                                                     </li>
                                                     <li class="index-item method">
-                                                        <a href="#method_launchChainedTweens">launchChainedTweens</a>
-                        
-                                                    </li>
-                                                    <li class="index-item method">
-                                                        <a href="#method_launchTween">launchTween</a>
-                        
-                                                    </li>
-                                                    <li class="index-item method">
                                                         <a href="#method_onBeginCutscene">onBeginCutscene</a>
                         
                                                     </li>
@@ -324,11 +316,19 @@
                         
                                                     </li>
                                                     <li class="index-item method">
+                                                        <a href="#method_playChainedTweens">playChainedTweens</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
                                                         <a href="#method_playSound">playSound</a>
                         
                                                     </li>
                                                     <li class="index-item method">
                                                         <a href="#method_playSound">playSound</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_playTween">playTween</a>
                         
                                                     </li>
                                                     <li class="index-item method">
@@ -1988,139 +1988,6 @@
                                                     </div>
                                             
                                             </div>
-                                            <div id="method_launchChainedTweens" class="method item">
-                                                <h3 class="name"><code>launchChainedTweens</code></h3>
-                                            
-                                                    <div class="args">
-                                                        <span class="paren">(</span><ul class="args-list inline commas">
-                                                            <li class="arg">
-                                                                    <code>tweenNames</code>
-                                                            </li>
-                                                        </ul><span class="paren">)</span>
-                                                    </div>
-                                            
-                                                    <span class="returns-inline">
-                                                        <span class="type">Array</span>
-                                                    </span>
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                                <div class="meta">
-                                                            <p>
-                                                            Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_gameobject.js.html#l1199"><code>app\shared\js\dev\phaser\gameobject.js:1199</code></a>
-                                                    </p>
-                                            
-                                            
-                                            
-                                                </div>
-                                            
-                                                <div class="description">
-                                                    <p>Chains the specified tweens and launch the first one
-                                            Warning : this will override any tween previous chaining</p>
-                                            
-                                                </div>
-                                            
-                                                    <div class="params">
-                                                        <h4>Parameters:</h4>
-                                            
-                                                        <ul class="params-list">
-                                                            <li class="param">
-                                                                    <code class="param-name">tweenNames</code>
-                                                                    <span class="type">String</span>
-                                            
-                                            
-                                                                <div class="param-description">
-                                                                    <p>The tween names. As many as you want to chain</p>
-                                            
-                                                                </div>
-                                            
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                            
-                                                    <div class="returns">
-                                                        <h4>Returns:</h4>
-                                            
-                                                        <div class="returns-description">
-                                                                    <span class="type">Array</span>:
-                                                                <p>An array of the first tweens</p>
-                                            
-                                                        </div>
-                                                    </div>
-                                            
-                                            </div>
-                                            <div id="method_launchTween" class="method item">
-                                                <h3 class="name"><code>launchTween</code></h3>
-                                            
-                                                    <div class="args">
-                                                        <span class="paren">(</span><ul class="args-list inline commas">
-                                                            <li class="arg">
-                                                                    <code>tweenName</code>
-                                                            </li>
-                                                        </ul><span class="paren">)</span>
-                                                    </div>
-                                            
-                                                    <span class="returns-inline">
-                                                        <span class="type">Array</span>
-                                                    </span>
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                                <div class="meta">
-                                                            <p>
-                                                            Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_gameobject.js.html#l1107"><code>app\shared\js\dev\phaser\gameobject.js:1107</code></a>
-                                                    </p>
-                                            
-                                            
-                                            
-                                                </div>
-                                            
-                                                <div class="description">
-                                                    <p>Launch the specified tween if previously added.
-                                            If there are many target in the properties, many tweens will be launched. 
-                                            This is why you get array of tweens</p>
-                                            
-                                                </div>
-                                            
-                                                    <div class="params">
-                                                        <h4>Parameters:</h4>
-                                            
-                                                        <ul class="params-list">
-                                                            <li class="param">
-                                                                    <code class="param-name">tweenName</code>
-                                                                    <span class="type">String</span>
-                                            
-                                            
-                                                                <div class="param-description">
-                                                                    <p>The tween name. Use GameObject.addTween to add a tween</p>
-                                            
-                                                                </div>
-                                            
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                            
-                                                    <div class="returns">
-                                                        <h4>Returns:</h4>
-                                            
-                                                        <div class="returns-description">
-                                                                    <span class="type">Array</span>:
-                                                                <p>An array containing all the tweens induced by the tween properties</p>
-                                            
-                                                        </div>
-                                                    </div>
-                                            
-                                            </div>
                                             <div id="method_onBeginCutscene" class="method item">
                                                 <h3 class="name"><code>onBeginCutscene</code></h3>
                                             
@@ -2303,6 +2170,124 @@
                                                     </div>
                                             
                                             </div>
+                                            <div id="method_playChainedTweens" class="method item">
+                                                <h3 class="name"><code>playChainedTweens</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>tweenNames</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type">Array</span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_gameobject.js.html#l1199"><code>app\shared\js\dev\phaser\gameobject.js:1199</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Chains the specified tweens and launch the first one
+                                            Warning : this will override any tween previous chaining</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">tweenNames</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The tween names. As many as you want to chain</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type">Array</span>:
+                                                                <p>An array of the first tweens</p>
+                                            
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_playSound" class="method item">
+                                                <h3 class="name"><code>playSound</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>name</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/app_shared_js_dev_phaser_gameobject.js.html#l803"><code>app\shared\js\dev\phaser\gameobject.js:803</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Stops the specified sound</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">name</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                     
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
                                             <div id="method_playSound" class="method item">
                                                 <h3 class="name"><code>playSound</code></h3>
                                             
@@ -2382,17 +2367,20 @@
                                             
                                             
                                             </div>
-                                            <div id="method_playSound" class="method item">
-                                                <h3 class="name"><code>playSound</code></h3>
+                                            <div id="method_playTween" class="method item">
+                                                <h3 class="name"><code>playTween</code></h3>
                                             
                                                     <div class="args">
                                                         <span class="paren">(</span><ul class="args-list inline commas">
                                                             <li class="arg">
-                                                                    <code>name</code>
+                                                                    <code>tweenName</code>
                                                             </li>
                                                         </ul><span class="paren">)</span>
                                                     </div>
                                             
+                                                    <span class="returns-inline">
+                                                        <span class="type">Array</span>
+                                                    </span>
                                             
                                             
                                             
@@ -2403,7 +2391,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/app_shared_js_dev_phaser_gameobject.js.html#l803"><code>app\shared\js\dev\phaser\gameobject.js:803</code></a>
+                                                    <a href="../files/app_shared_js_dev_phaser_gameobject.js.html#l1107"><code>app\shared\js\dev\phaser\gameobject.js:1107</code></a>
                                                     </p>
                                             
                                             
@@ -2411,7 +2399,9 @@
                                                 </div>
                                             
                                                 <div class="description">
-                                                    <p>Stops the specified sound</p>
+                                                    <p>Launch the specified tween if previously added.
+                                            If there are many target in the properties, many tweens will be launched. 
+                                            This is why you get array of tweens</p>
                                             
                                                 </div>
                                             
@@ -2420,18 +2410,28 @@
                                             
                                                         <ul class="params-list">
                                                             <li class="param">
-                                                                    <code class="param-name">name</code>
+                                                                    <code class="param-name">tweenName</code>
                                                                     <span class="type">String</span>
                                             
                                             
                                                                 <div class="param-description">
-                                                                     
+                                                                    <p>The tween name. Use GameObject.addTween to add a tween</p>
+                                            
                                                                 </div>
                                             
                                                             </li>
                                                         </ul>
                                                     </div>
                                             
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type">Array</span>:
+                                                                <p>An array containing all the tweens induced by the tween properties</p>
+                                            
+                                                        </div>
+                                                    </div>
                                             
                                             </div>
                                             <div id="method_removeBehaviour" class="method item">
