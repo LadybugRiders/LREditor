@@ -1111,9 +1111,10 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 * 
 * @method playTween
 * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
+* @param {boolean} stopAll If set to true, all other playing tweens will be stopped first
 * @return {Array} An array containing all the tweens induced by the tween properties
 */
-LR.GameObject.prototype.playTween = function(_tweenName){
+LR.GameObject.prototype.playTween = function(_tweenName,_stopAll){
 	var launchedTweens = new Array();
 	if(! this.tweensData.hasOwnProperty(_tweenName)){
 		console.error( "Tween " + _tweenName + " not found on " + this.name + "[" + this.id + "]");
@@ -1131,6 +1132,9 @@ LR.GameObject.prototype.playTween = function(_tweenName){
 		console.error("Invalid JSON properties");
 		return launchedTweens;
 	}
+	//stop all tween if asked
+	if( _stopAll ==  true )
+		this.stopTweenAll();
 	//Go throught all properties and launch tweens in editor
 	//In the properties we may have several target, so we have to launch a tween
 	//for each different target
@@ -1220,6 +1224,12 @@ LR.GameObject.prototype.playChainedTweens = function(){
   	this.playTween(arguments[0]);
 }
 
+/**
+* Stops the specified tween
+*
+* @method stopTween
+* @param {string} Tween name
+*/
 LR.GameObject.prototype.stopTween = function(_tweenName){
 	var tweens = this.tweensData[_tweenName].tweensObject;
 	for(var key in tweens){
@@ -1228,6 +1238,33 @@ LR.GameObject.prototype.stopTween = function(_tweenName){
 		tweens[key] == null;
 		delete tweens[key];
 	}
+}
+
+/**
+* Stops all the playing tweens
+*
+* @method stopTweenAll
+*/
+LR.GameObject.prototype.stopTweenAll = function(){
+	for(var key in this.tweensData ){
+		this.stopTween(key);
+	}
+}
+
+/**
+* Returns true if the specified tween is playing
+*
+* @method isTweenPlaying
+* @param {string} Tween name
+*/
+LR.GameObject.prototype.isTweenPlaying = function(_tweenName){
+	var tween = this.tweensData[_tweenName];
+	if( tween == null )
+		return false;
+	if( tween.tweensObject && Object.keys(tween.tweensObject).length > 0){
+		return tween.tweensObject[ Object.keys(tween.tweensObject)[0] ].isRunning;
+	}
+	return false;
 }
 
 //============================================================
