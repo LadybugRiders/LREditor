@@ -202,7 +202,6 @@ LR.Behaviour.prototype.onHide = function(){
 Object.defineProperty( LR.Behaviour.prototype, "x",
 	{
 		get : function(){
-			console.log("caca");
 			return this.go.x;
 		},
 
