@@ -618,7 +618,7 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 			var easing = Phaser.Easing[tween.easing[0]][tween.easing[1]];
 	    	createdTween.to(newProp, tween.duration, easing,
 	    					 false,tween.delay, 
-	    					 tween.repeat +(tween.yoyo?1:0), 
+	    					 tween.repeat , 
 	    					 tween.yoyo);
 	    	//keep trace of tween and base properties
 	    	createdTween.baseProp = {"object":targetData.object,"property":targetData.property,
@@ -645,6 +645,8 @@ LREditorCtrlMod.controller('AttributesCtrl', ["$scope", "$http","$modal", "$time
 
     $scope.onTweenComplete = function(_entity){
     	var tween = null;
+    	if( _entity.ed_launchedTweens == null)
+    		return;
     	for(var i=0; i < _entity.ed_launchedTweens.length; i ++){
     		tween = _entity.ed_launchedTweens[i];
     		if( tween == null || tween.isRunning )

@@ -48,8 +48,16 @@ LR.Entity.TileSprite = function(_game, _x, _y, _width, _height, _texture,_name) 
 	* @default false
 	*/
 	this.outOfViewHide = false;
-	
+	/**
+	* If the sprite is hidden, this is the alpha that will be set when it comes back on the screen
+	* You may want to change this variable instead of alpha if the sprite is hidden at that moment
+	* To avoid any issue, just set outOfViewHide to false
+	*
+	* @property alphaBeforeHide
+	* @type Number
+	*/
 	this.alphaBeforeHide = 1;
+
 
 	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
 };
@@ -79,14 +87,14 @@ LR.Entity.TileSprite.prototype.update = function() {
 		
 		//show if enters camera view
 		if( inCam && this.hidden ){
-			this.hidden = false;
 			this.alpha = this.alphaBeforeHide;
+			this.hidden = false;
 		}
 		//hide if quits camera view
 		if( !inCam && !this.hidden ){
-			this.hidden = true;
 			this.alphaBeforeHide = this.alpha;
 			this.alpha = 0;
+			this.hidden = true;
 		}
 	}
 };
@@ -120,3 +128,4 @@ LR.Entity.TileSprite.prototype.onAddedToGroup = function(_sprite,_group) {
 		this.body.onSpriteAddedToGroup(_sprite,_group);
 	}
 };
+

@@ -10,7 +10,6 @@ LR.Misc = function(){};
 //UI
 LR.UI = function(){}
 LR.UI.Behaviour = function(){}
-
 /**
 * Find a entity by its GameObject name
 *

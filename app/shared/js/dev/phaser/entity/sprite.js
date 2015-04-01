@@ -43,7 +43,14 @@ LR.Entity.Sprite = function(_game, _x, _y, _texture, _name) {
 	* @default false
 	*/
 	this.outOfViewHide = false;
-
+	/**
+	* If the sprite is hidden, this is the alpha that will be set when it comes back on the screen
+	* You may want to change this variable instead of alpha if the sprite is hidden at that moment
+	* To avoid any issue, just set outOfViewHide to false
+	*
+	* @property alphaBeforeHide
+	* @type Number
+	*/
 	this.alphaBeforeHide = 1;
 
 	this.events.onAddedToGroup.add(this.onAddedToGroup,this);

@@ -37,7 +37,7 @@ LR.Entity.Group.prototype.postUpdate = function() {
 					this.game.camera.y + this.worldTransform.ty);
 	//Compute world angle in degrees
 	this.worldAngle = Math.acos(this.worldTransform.a)*180/Math.PI
-					 * (this.worldTransform.b >= 0 ? -1 : 1);
+					 * (this.worldTransform.b >= 0 ? 1 : -1);
 
 	if (this.go) {
 		if (this.exists) {

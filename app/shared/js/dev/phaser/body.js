@@ -89,7 +89,7 @@ LR.Body.prototype.postUpdate = function () {
     if( this.debugBody){
         this.debugBody.x = this.worldPosition.x;
         this.debugBody.y = this.worldPosition.y;
-        this.debugBody.angle = this.localRotation;
+        this.debugBody.angle = this.localRotation + (this.sprite.parent.worldAngle || 0);
     }
 
 }
