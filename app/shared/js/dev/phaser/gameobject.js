@@ -785,8 +785,9 @@ LR.GameObject.prototype.getSound = function(_name){
 * @param {String} name
 * @param {Number} volume 0 <= volume <= 1
 * @param {boolean} loop
+* @param {Number} fadeInTime (in ms) If none provided, no fade in
 */
-LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
+LR.GameObject.prototype.playSound = function(_name,_volume,_loop,_fadeInTime){
 	var sound = this.sounds[_name];
 	if(sound){
 		if( sound.isPlaying ){
@@ -795,7 +796,13 @@ LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
 		if( sound.lr_3D == true){
 			this._play3DSound(sound,_loop);
 		}else{
-			sound.play('',0,_volume,_loop);
+			if( _fadeInTime ){
+				sound.play('',0,0,_loop);
+				var tween = this.entity.game.add.tween(sound);
+				tween.to({volume:_volume}, _fadeInTime).start();
+			}else{
+				sound.play('',0,_volume,_loop);
+			}
 		}
 	}
 }
@@ -804,13 +811,20 @@ LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
 * Stops the specified sound
 *
 * @method playSound
-* @param {String} name
+* @param {String} name Name of the sound to stop
+* @param {Number} fadeOutTime (in ms) If none provided, no fade out
 */
-LR.GameObject.prototype.stopSound = function(_name){
+LR.GameObject.prototype.stopSound = function(_name,_fadeOutTime){
 	var sound = this.sounds[_name];
 	if(sound){
 		if( sound.isPlaying ){
-			sound.stop();
+			if( _fadeOutTime ){
+				var tween = this.entity.game.add.tween(sound);
+				tween.to({volume:0}, _fadeOutTime).start();
+				tween.onComplete.add(function(){sound.stop();},this);
+			}else{
+				sound.stop();
+			}
 		}
 	}
 }
@@ -1130,14 +1144,14 @@ LR.GameObject.prototype.addTween = function( _tweenData ){
 /**
 * Launch the specified tween if previously added.
 * If there are many target in the properties, many tweens will be launched. 
-* This is why you get array of tweens
+* Then be aware that the tween returne is the one acting on the first property
 * 
 * @method playTween
 * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
 * @param {boolean} stopAll If set to true, all other playing tweens will be stopped first
 * @param {function} callback Function to call when the tween is finished ( called at the last tween's end if chained)
 * @param {object} context
-* @return {Array} An array containing all the tweens induced by the tween properties
+* @return {Phaser.Tween} The first launched tween induced by the tween properties
 */
 LR.GameObject.prototype.playTween = function(_tweenName,_stopAll,_callback,_context){
 	var launchedTweens = new Array();
@@ -1163,7 +1177,7 @@ LR.GameObject.prototype.playTween = function(_tweenName,_stopAll,_callback,_cont
 	}
 	//stop all tween if asked
 	if( _stopAll ==  true )
-		this.stopTweenAll();
+		this.stopAllTweens();
 	//Go throught all properties and launch tweens in editor
 	//In the properties we may have several target, so we have to launch a tween
 	//for each different target
@@ -1198,7 +1212,9 @@ LR.GameObject.prototype.playTween = function(_tweenName,_stopAll,_callback,_cont
     	tweensObject[key] = createdTween;
     	launchedTweens.push(createdTween);
     }
-	return launchedTweens;
+    if( launchedTweens.length > 0)
+		return launchedTweens[0];
+	return null;
 }
 
 LR.GameObject.prototype._onTweenComplete = function(_target){
@@ -1289,9 +1305,9 @@ LR.GameObject.prototype.stopTween = function(_tweenName){
 /**
 * Stops all the playing tweens
 *
-* @method stopTweenAll
+* @method stopAllTweens
 */
-LR.GameObject.prototype.stopTweenAll = function(){
+LR.GameObject.prototype.stopAllTweens = function(){
 	for(var key in this.tweensData ){
 		this.stopTween(key);
 	}

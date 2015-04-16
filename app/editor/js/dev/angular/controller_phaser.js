@@ -736,7 +736,7 @@ LREditorCtrlMod.controller('PhaserCtrl', ["$scope", "$http", "$timeout",
 
 	$scope.import = function(_levelPath, _levelName, _storage, _promise) {
 		if (_storage === "file") {
-			var url = "/editorserverapi/v0/level/";
+			var url = "/editorserverapi/v0/level";
 			url += _levelName;
 			url += "?path=" + _levelPath;
 			$http.get(url).success(function(_data) {

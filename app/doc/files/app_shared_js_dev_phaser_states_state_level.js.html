@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>app\shared\js\dev\phaser\entity\sprite.js - LREditor API</title>
+    <title>app\shared\js\dev\phaser\states\state_level.js - LREditor API</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -106,137 +106,118 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: app\shared\js\dev\phaser\entity\sprite.js</h1>
+                        <h1 class="file-heading">File: app\shared\js\dev\phaser\states\state_level.js</h1>
                         
                         <div class="file">
                             <pre class="code prettyprint linenums">
                         &quot;use strict&quot;;
                         
-                        /**
-                        * Sprite class
-                        *
-                        * @namespace Entity
-                        * @class Sprite
-                        * @constructor
-                        * @param {Phaser.Game} game
-                        * @param {number} x
-                        * @param {number} y
-                        * @param {string} texture Key of the texture to be used
-                        * @param {stirng} name Name of the GameObject attached
-                        */
-                        LR.Entity.Sprite = function(_game, _x, _y, _texture, _name) {
-                        	Phaser.Sprite.call(this, _game, _x, _y, _texture);
+                        LR.State.StateLevel = function(_game) {
+                        	LR.State.call(this, _game);
+                        	_game.state.add(&quot;Level&quot;, this, false);
                         
-                        	this.anchor.setTo(0.5, 0.5);
+                        	this.level = null;
                         
-                        	this.go = new LR.GameObject(this);
-                        	if( _name ){
-                        		this.go.name = _name;
-                        	}else{
-                        		this.go.name = _texture;
-                        	}
-                        	this.localPosition = new Phaser.Point();
+                        	this.forbidUpdate = true;
                         
                         	/**
-                        	* Tells if the sprite is actually hidden. Set outOfViewHide to true to enable this option.
+                        	* Text used to display loading progression
                         	*
-                        	* @property hidden
-                        	* @type boolean
-                        	* @default false
+                        	* @property loadText
+                        	* @type LR.Entity.Text
                         	*/
-                        	this.hidden = false;
-                        	/**
-                        	* Enable sprite to be hidden when out of the camera view.
-                        	* Each time a sprite is hidden/shown, the callback onHide/onShow are called onto GameObject
-                        	* Create this methods in the behaviours on the object to get this events ( ie : Behaviour.prototype.onHide = function(){})
-                        	*
-                        	* @property outOfViewHide
-                        	* @type boolean
-                        	* @default false
-                        	*/
-                        	this.outOfViewHide = false;
-                        	/**
-                        	* If the sprite is hidden, this is the alpha that will be set when it comes back on the screen
-                        	* You may want to change this variable instead of alpha if the sprite is hidden at that moment
-                        	* To avoid any issue, just set outOfViewHide to false
-                        	*
-                        	* @property alphaBeforeHide
-                        	* @type Number
-                        	*/
-                        	this.alphaBeforeHide = 1;
-                        
-                        	this.events.onAddedToGroup.add(this.onAddedToGroup,this);
-                        
+                        	this.loadText = null;
                         };
                         
-                        LR.Entity.Sprite.prototype = Object.create(Phaser.Sprite.prototype);
-                        LR.Entity.Sprite.prototype.constructor = LR.Entity.Sprite;
+                        LR.State.StateLevel.prototype = Object.create(LR.State.prototype);
+                        LR.State.StateLevel.prototype.constructor = LR.State.StateLevel;
                         
-                        // Called when the scene is launching. All objects are created then.
-                        LR.Entity.Sprite.prototype.start = function() {
-                        	if (this.go) {
-                        		this.go.start();
-                        	}
-                        };
-                        
-                        LR.Entity.Sprite.prototype.update = function() {
-                        	Phaser.Sprite.prototype.update.call(this);
-                        	if (this.go) {
-                        		if (this.exists) {
-                        			this.go.update();
-                        		}
-                        	}
-                        
-                        	if( this.outOfViewHide ){
-                        		
-                        		var inCam = LR.Utils.isSpriteInCameraView(this,this.game.camera);
-                        		
-                        		//show if enters camera view
-                        		if( inCam &amp;&amp; this.hidden ){
-                        			this.hidden = false;
-                        			this.go.sendMessage(&quot;onShow&quot;);
-                        			this.alpha = this.alphaBeforeHide;
-                        		}
-                        		//hide if quits camera view
-                        		if( !inCam &amp;&amp; !this.hidden ){
-                        			this.hidden = true;
-                        			this.go.sendMessage(&quot;onHide&quot;);
-                        			this.alphaBeforeHide = this.alpha;
-                        			this.alpha = 0;
+                        LR.State.StateLevel.prototype.init = function(_args) {
+                        	if (_args) {
+                        		if (_args.levelName) {
+                        			this.levelName = _args.levelName;
+                        			this.storage = &quot;file&quot;;
                         		}
                         	}
                         };
                         
-                        LR.Entity.Sprite.prototype.postUpdate = function() {
+                        LR.State.StateLevel.prototype.update = function() {
+                        	if( this.loadText ){
+                        		this.loadText.text = &quot;loading : &quot;+ this.game.load.progress + &quot;%&quot;;
+                        	}
+                        }
                         
-                        	Phaser.Sprite.prototype.postUpdate.call(this);
+                        LR.State.StateLevel.prototype.preload = function() {
+                        	this.loadText = this.game.add.text(0, 0, &quot;loading&quot;, {
+                                font: &quot;35px Arial&quot;,
+                                fill: &quot;#ffffff&quot;,
+                                align: &quot;center&quot;
+                            });
+                            this.loadText.fixedToCamera = true;
                         
-                        	if (this.go) {
-                        		if (this.exists) {
-                        			this.go.postUpdate();
+                        	if (this.levelName == null) {
+                        		this.levelName = LR.Game.GetUrlParamValue(&quot;levelname&quot;);
+                        	}
+                        
+                        	if (this.storage == null) {
+                        		this.storage = LR.Game.GetUrlParamValue(&quot;storage&quot;);
+                        	}
+                        
+                        	//LEVEL JSON FILE LOADING
+                        	if (this.storage === &quot;localstorage&quot;) {
+                        		// load from localstorage
+                        		var lvlStr = localStorage.getItem(this.levelName);
+                        		this.level = JSON.parse(lvlStr);
+                        	} else {
+                        		var url = &quot;assets/levels/&quot; + this.levelName + &quot;.json&quot;;
+                        		// load from file
+                        		this.game.load.json(&quot;level&quot;, url, true);
+                        	}
+                        
+                        };
+                        
+                        LR.State.StateLevel.prototype.create = function() {
+                        	var instance = this;
+                        
+                        	//====== PHYSICS ============
+                        	//init P2 system
+                        	this.game.physics.startSystem(Phaser.Physics.P2JS);
+                        	//Create the collision manager
+                        	this.collisionManager = new CollisionManager(this.game);
+                        	//Try getting layers data from the loaded file ( at assets/physics/layers.json )
+                        	var layersData = this.game.cache.getJSON(&quot;layersData&quot;)
+                        	if( layersData )
+                          		this.collisionManager.init(layersData);
+                        	this.game.physics.p2.gravity.y = 600;
+                        
+                        	//init input right away
+                        	this.game.inputManager.init( this.game.cache.getJSON(&quot;inputsData&quot;));
+                        
+                        	if (this.game.cache.getJSON(&quot;level&quot;)) {
+                        		this.level = this.game.cache.getJSON(&quot;level&quot;);
+                        	}
+                        	
+                        	if (this.level) {
+                        		// convert in JSON if needed
+                        		if (typeof this.level === &quot;string&quot;) {
+                        			this.level = JSON.parse(this.level);
                         		}
+                        
+                        		var importer = new LR.LevelImporterGame();
+                        		importer.import(this.level, this.game, function(_error, _game) {
+                        			instance.startGameOjects();
+                        			instance.forbidUpdate = false;
+                        		});
+                        	} else {
+                        		console.error(&quot;No level&quot;);
                         	}
                         };
                         
-                        LR.Entity.Sprite.prototype.render = function() {
-                        	Phaser.Sprite.prototype.render.call(this);
-                        	if (this.go) {
-                        		this.go.render();
-                        	}
-                        };
-                        
-                        LR.Entity.Sprite.prototype.destroy = function() {
-                        	if (this.go) {
-                        		this.go.destroy();
-                        	}
-                        	Phaser.Sprite.prototype.destroy.call(this);
-                        };
-                        
-                        // Called by the parent group when the scene is launching. All objects are created then.
-                        LR.Entity.Sprite.prototype.onAddedToGroup = function(_sprite,_group) {	
-                        	if(this.body &amp;&amp; this.body.onSpriteAddedToGroup){
-                        		this.body.onSpriteAddedToGroup(_sprite,_group);
-                        	}
+                        LR.State.StateLevel.prototype.startGameOjects = function() {
+                        	for (var i = 0; i &lt; this.gameobjects.length; i++) {
+                        		var go = this.gameobjects[i];
+                        		go.start();
+                        	};
                         };
                         
                             </pre>

@@ -897,8 +897,9 @@
                         * @param {String} name
                         * @param {Number} volume 0 &lt;= volume &lt;= 1
                         * @param {boolean} loop
+                        * @param {Number} fadeInTime (in ms) If none provided, no fade in
                         */
-                        LR.GameObject.prototype.playSound = function(_name,_volume,_loop){
+                        LR.GameObject.prototype.playSound = function(_name,_volume,_loop,_fadeInTime){
                         	var sound = this.sounds[_name];
                         	if(sound){
                         		if( sound.isPlaying ){
@@ -907,7 +908,13 @@
                         		if( sound.lr_3D == true){
                         			this._play3DSound(sound,_loop);
                         		}else{
-                        			sound.play(&#x27;&#x27;,0,_volume,_loop);
+                        			if( _fadeInTime ){
+                        				sound.play(&#x27;&#x27;,0,0,_loop);
+                        				var tween = this.entity.game.add.tween(sound);
+                        				tween.to({volume:_volume}, _fadeInTime).start();
+                        			}else{
+                        				sound.play(&#x27;&#x27;,0,_volume,_loop);
+                        			}
                         		}
                         	}
                         }
@@ -916,13 +923,20 @@
                         * Stops the specified sound
                         *
                         * @method playSound
-                        * @param {String} name
+                        * @param {String} name Name of the sound to stop
+                        * @param {Number} fadeOutTime (in ms) If none provided, no fade out
                         */
-                        LR.GameObject.prototype.stopSound = function(_name){
+                        LR.GameObject.prototype.stopSound = function(_name,_fadeOutTime){
                         	var sound = this.sounds[_name];
                         	if(sound){
                         		if( sound.isPlaying ){
-                        			sound.stop();
+                        			if( _fadeOutTime ){
+                        				var tween = this.entity.game.add.tween(sound);
+                        				tween.to({volume:0}, _fadeOutTime).start();
+                        				tween.onComplete.add(function(){sound.stop();},this);
+                        			}else{
+                        				sound.stop();
+                        			}
                         		}
                         	}
                         }
@@ -1006,6 +1020,20 @@
                         		this.entity.y = _y;
                         	}
                         }
+                        
+                        /**
+                        * Accessor to the entity&#x27;s position. Read only.
+                        *
+                        * @property position
+                        * @type Phaser.Point
+                        */
+                        Object.defineProperty( LR.GameObject.prototype, &quot;position&quot;,
+                        	{
+                        		get : function(){
+                        			return new Phaser.Point(this.entity.x,this.entity.y);
+                        		}
+                        	}
+                        );
                         
                         /**
                         * Accessor to the entity&#x27;s body. Read only.
@@ -1196,6 +1224,15 @@
                         //============================================================
                         //						TWEEN
                         //============================================================
+                        /**
+                        * Returns true if the tween exists
+                        *
+                        * @method tweenExists
+                        * @param {string} tweenName
+                        */
+                        LR.GameObject.prototype.tweenExists = function(_tweenName){
+                        	return this.tweensData[_tweenName] != null;
+                        }
                         
                         /**
                         * Adds a tween with the data specified
@@ -1219,13 +1256,16 @@
                         /**
                         * Launch the specified tween if previously added.
                         * If there are many target in the properties, many tweens will be launched. 
-                        * This is why you get array of tweens
+                        * Then be aware that the tween returne is the one acting on the first property
                         * 
                         * @method playTween
                         * @param {string} tweenName The tween name. Use GameObject.addTween to add a tween
-                        * @return {Array} An array containing all the tweens induced by the tween properties
+                        * @param {boolean} stopAll If set to true, all other playing tweens will be stopped first
+                        * @param {function} callback Function to call when the tween is finished ( called at the last tween&#x27;s end if chained)
+                        * @param {object} context
+                        * @return {Phaser.Tween} The first launched tween induced by the tween properties
                         */
-                        LR.GameObject.prototype.playTween = function(_tweenName){
+                        LR.GameObject.prototype.playTween = function(_tweenName,_stopAll,_callback,_context){
                         	var launchedTweens = new Array();
                         	if(! this.tweensData.hasOwnProperty(_tweenName)){
                         		console.error( &quot;Tween &quot; + _tweenName + &quot; not found on &quot; + this.name + &quot;[&quot; + this.id + &quot;]&quot;);
@@ -1235,6 +1275,10 @@
                         	var tweenData = this.tweensData[_tweenName].data;
                         	var tweensObject = this.tweensData[_tweenName].tweensObject;
                         	this.tweensData[_tweenName].count = 0;
+                        	if( _callback ){
+                        		this.tweensData[_tweenName].callback = _callback;
+                        		this.tweensData[_tweenName].context = _context;
+                        	}
                         	//convert its properties
                         	var props = null;
                         	try{
@@ -1243,6 +1287,9 @@
                         		console.error(&quot;Invalid JSON properties&quot;);
                         		return launchedTweens;
                         	}
+                        	//stop all tween if asked
+                        	if( _stopAll ==  true )
+                        		this.stopAllTweens();
                         	//Go throught all properties and launch tweens in editor
                         	//In the properties we may have several target, so we have to launch a tween
                         	//for each different target
@@ -1272,12 +1319,14 @@
                         		var easing = Phaser.Easing[tweenData.easing[0]][tweenData.easing[1]];
                         		//launch tween
                             	createdTween.to(newProp, tweenData.duration, easing, true,tweenData.delay, 
-                            					tweenData.repeat+(tweenData.yoyo?1:0), tweenData.yoyo);
+                            					tweenData.repeat, tweenData.yoyo);
                             	//keep reference
                             	tweensObject[key] = createdTween;
                             	launchedTweens.push(createdTween);
                             }
-                        	return launchedTweens;
+                            if( launchedTweens.length &gt; 0)
+                        		return launchedTweens[0];
+                        	return null;
                         }
                         
                         LR.GameObject.prototype._onTweenComplete = function(_target){
@@ -1291,7 +1340,14 @@
                         			return;
                         		currentTween.count = 0;
                         
-                        		this.onTweenComplete.dispatch({&quot;tweenData&quot;:tweenData});
+                        		if( tweenData.chain == null){
+                        			this.onTweenComplete.dispatch({&quot;tweenData&quot;:tweenData});
+                        			if( currentTween.callback){
+                        				currentTween.callback.call(currentTween.context);
+                        				currentTween.callback = null;
+                        				currentTween.context = null;
+                        			}
+                        		}
                         		
                         		//if a tween has finished, the other ones are two ( they take the same ammount of time)
                         		for(var key in tweens){
@@ -1302,7 +1358,17 @@
                         				delete tweens[key];
                         			}
                         		}
+                        		//if a chained tween is there
                         		if( tweenData.chain != null &amp;&amp; tweenData.chain != &quot;&quot;){
+                        			//if a callback is set, move it to the chained tween
+                        			if(currentTween.callback != null &amp;&amp; currentTween.context != null){
+                        				var chainedTween = this.tweensData[tweenData.chain];
+                        				chainedTween.callback = currentTween.callback;
+                        				chainedTween.context = currentTween.context;
+                        				//clean
+                        				currentTween.callback = null;
+                        				currentTween.context = null;
+                        			}
                         			this.playTween(tweenData.chain);
                         		}
                         	}
@@ -1332,6 +1398,12 @@
                           	this.playTween(arguments[0]);
                         }
                         
+                        /**
+                        * Stops the specified tween
+                        *
+                        * @method stopTween
+                        * @param {string} Tween name
+                        */
                         LR.GameObject.prototype.stopTween = function(_tweenName){
                         	var tweens = this.tweensData[_tweenName].tweensObject;
                         	for(var key in tweens){
@@ -1340,6 +1412,72 @@
                         		tweens[key] == null;
                         		delete tweens[key];
                         	}
+                        }
+                        
+                        /**
+                        * Stops all the playing tweens
+                        *
+                        * @method stopAllTweens
+                        */
+                        LR.GameObject.prototype.stopAllTweens = function(){
+                        	for(var key in this.tweensData ){
+                        		this.stopTween(key);
+                        	}
+                        }
+                        
+                        /**
+                        * Returns true if the specified tween is playing
+                        *
+                        * @method isTweenPlaying
+                        * @param {string} Tween name
+                        */
+                        LR.GameObject.prototype.isTweenPlaying = function(_tweenName){
+                        	var tween = this.tweensData[_tweenName];
+                        	if( tween == null )
+                        		return false;
+                        	if( tween.tweensObject &amp;&amp; Object.keys(tween.tweensObject).length &gt; 0){
+                        		return tween.tweensObject[ Object.keys(tween.tweensObject)[0] ].isRunning;
+                        	}
+                        	return false;
+                        }
+                        
+                        /**
+                        * Tween the color of the entity (if possible)
+                        * You can specify a start color if you want to
+                        *
+                        * @method playTweenColor
+                        * @param {Color} endColor ie: 0xffffff
+                        * @param {Number} duration Duration of the tween
+                        * @param {Color} startColor ie: 0xffffff if null, the current tint is taken
+                        * @param {Number} repeat How many times the tween has to be repeated
+                        * @param {boolean} yoyo Is yoyo enabled
+                        *
+                        *@return {Phaser.Tween} The generated tween
+                        */
+                        LR.GameObject.prototype.playTweenColor = function(_toColor, _duration, _startColor,_repeat,_yoyo) {
+                            if( _startColor == null ) _startColor = this.entity.tint;
+                            if(_repeat == null) _repeat = 0;
+                            if(_yoyo == null) _yoyo = false;
+                        
+                            // create an object to tween with our step value at 0
+                            var colorBlend = {step: 0};
+                        
+                            // create the tween on this object and tween its step property to 100
+                            var colorTween = this.entity.game.add.tween(colorBlend).to({step: 99}, _duration, Phaser.Easing.Default,false,0,_repeat,_yoyo);
+                            
+                            var target = this.entity;
+                            // run the interpolateColor function every time the tween updates, feeding it the
+                            // updated value of our tween each time, and set the result as our tint
+                            colorTween.onUpdateCallback(function() {
+                              target.tint = Phaser.Color.interpolateColor(_startColor, _toColor, 100, colorBlend.step);   
+                            });
+                            
+                            // set the object to the start color straight away
+                            this.entity.tint = _startColor;  
+                            
+                            // start the tween
+                            colorTween.start();
+                            return colorTween;
                         }
                         
                         //============================================================

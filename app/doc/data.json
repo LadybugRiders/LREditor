@@ -232,6 +232,13 @@
                 "LR": 1
             }
         },
+        "app\\shared\\js\\dev\\phaser\\states\\state_level.js": {
+            "name": "app\\shared\\js\\dev\\phaser\\states\\state_level.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js": {
             "name": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
             "modules": {},
@@ -1602,7 +1609,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 215,
+            "line": 214,
             "description": "Accessor to the GameObject's y property",
             "itemtype": "property",
             "name": "x",
@@ -1612,7 +1619,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 233,
+            "line": 232,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -1622,7 +1629,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 248,
+            "line": 247,
             "description": "Accessor to the current game (readonly)",
             "itemtype": "property",
             "name": "game",
@@ -1632,7 +1639,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 262,
+            "line": 261,
             "description": "Accessor to the current gameobject's body (readonly)",
             "itemtype": "property",
             "name": "body",
@@ -1642,7 +1649,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\behaviour\\behaviour.js",
-            "line": 276,
+            "line": 275,
             "description": "Find an instance of a specific Behaviour held by a gameobject",
             "itemtype": "method",
             "name": "FindBehaviour",
@@ -1849,6 +1856,16 @@
             "namespace": "Entity"
         },
         {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\sprite.js",
+            "line": 46,
+            "description": "If the sprite is hidden, this is the alpha that will be set when it comes back on the screen\nYou may want to change this variable instead of alpha if the sprite is hidden at that moment\nTo avoid any issue, just set outOfViewHide to false",
+            "itemtype": "property",
+            "name": "alphaBeforeHide",
+            "type": "Number",
+            "class": "Entity.Sprite",
+            "namespace": "Entity"
+        },
+        {
             "file": "app\\shared\\js\\dev\\phaser\\entity\\text.js",
             "line": 31,
             "description": "String to apply before the text",
@@ -1963,6 +1980,16 @@
             "name": "outOfViewHide",
             "type": "boolean",
             "default": "false",
+            "class": "Entity.TileSprite",
+            "namespace": "Entity"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\entity\\tilesprite.js",
+            "line": 51,
+            "description": "If the sprite is hidden, this is the alpha that will be set when it comes back on the screen\nYou may want to change this variable instead of alpha if the sprite is hidden at that moment\nTo avoid any issue, just set outOfViewHide to false",
+            "itemtype": "property",
+            "name": "alphaBeforeHide",
+            "type": "Number",
             "class": "Entity.TileSprite",
             "namespace": "Entity"
         },
@@ -2659,6 +2686,16 @@
             "namespace": "LR"
         },
         {
+            "file": "app\\shared\\js\\dev\\phaser\\states\\state_level.js",
+            "line": 11,
+            "description": "Text used to display loading progression",
+            "itemtype": "property",
+            "name": "loadText",
+            "type": "LR.Entity.Text",
+            "class": "Misc.TriggerMessageObject",
+            "namespace": "LR"
+        },
+        {
             "file": "app\\shared\\js\\dev\\phaser\\trigger\\trigger_message_object.js",
             "line": 11,
             "description": "The GameObject holding the Trigger behaviour. Basically the sender of the message.",
@@ -2961,6 +2998,19 @@
             "itemtype": "property",
             "name": "collisionManager",
             "type": "{CollisionManager}",
+            "class": "LR.Game",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\game.js",
+            "line": 95,
+            "description": "Returns the current state of the game",
+            "itemtype": "method",
+            "name": "getCurrentState",
+            "return": {
+                "description": "The current state object",
+                "type": "LR.State"
+            },
             "class": "LR.Game",
             "namespace": "LR"
         },
@@ -3555,6 +3605,11 @@
                     "name": "loop",
                     "description": "",
                     "type": "Boolean"
+                },
+                {
+                    "name": "fadeInTime",
+                    "description": "(in ms) If none provided, no fade in",
+                    "type": "Number"
                 }
             ],
             "class": "LR.GameObject",
@@ -3562,15 +3617,20 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 803,
+            "line": 810,
             "description": "Stops the specified sound",
             "itemtype": "method",
             "name": "playSound",
             "params": [
                 {
                     "name": "name",
-                    "description": "",
+                    "description": "Name of the sound to stop",
                     "type": "String"
+                },
+                {
+                    "name": "fadeOutTime",
+                    "description": "(in ms) If none provided, no fade out",
+                    "type": "Number"
                 }
             ],
             "class": "LR.GameObject",
@@ -3578,7 +3638,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 835,
+            "line": 849,
             "description": "Enable this specified sound to be 3D\nThe distance is used to make the sound audible. This is computed from the distance between the center of the camera and the position of the GameObject",
             "itemtype": "method",
             "name": "enable3DSound",
@@ -3604,7 +3664,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 881,
+            "line": 895,
             "description": "Sets the position of the GameObject. Takes the body in account",
             "itemtype": "method",
             "name": "setPosition",
@@ -3625,7 +3685,17 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 898,
+            "line": 912,
+            "description": "Accessor to the entity's position. Read only.",
+            "itemtype": "property",
+            "name": "position",
+            "type": "Phaser.Point",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 926,
             "description": "Accessor to the entity's body. Read only.",
             "itemtype": "property",
             "name": "body",
@@ -3635,7 +3705,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 912,
+            "line": 940,
             "description": "Accessor to the entity's x.",
             "itemtype": "property",
             "name": "x",
@@ -3645,7 +3715,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 934,
+            "line": 962,
             "description": "Accessor to the entity's y.",
             "itemtype": "property",
             "name": "y",
@@ -3655,7 +3725,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 956,
+            "line": 984,
             "description": "Accessor to the entity's world coordinates property (readonly)",
             "itemtype": "property",
             "name": "world",
@@ -3665,7 +3735,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 970,
+            "line": 998,
             "description": "Accessor to the entity's world X coordinates\nUnlike world property, you can set this value to change the position of the GameObject in the world",
             "itemtype": "property",
             "name": "worldX",
@@ -3675,7 +3745,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 993,
+            "line": 1021,
             "description": "Accessor to the entity's world Y coordinates\nUnlike world property, you can set this value to change the position of the GameObject in the world",
             "itemtype": "property",
             "name": "worldX",
@@ -3685,7 +3755,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1017,
+            "line": 1045,
             "description": "Accessor to the body's gravity. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "gravity",
@@ -3695,7 +3765,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1039,
+            "line": 1067,
             "description": "Accessor to the body's velocityX in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3705,7 +3775,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1055,
+            "line": 1083,
             "description": "Accessor to the body's velocityY in world coordinates. Returns 0 if no body affected.",
             "itemtype": "property",
             "name": "velocityX",
@@ -3715,7 +3785,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1071,
+            "line": 1099,
             "description": "Changes the parent of the entity",
             "itemtype": "method",
             "name": "changeParent",
@@ -3731,7 +3801,23 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1088,
+            "line": 1115,
+            "description": "Returns true if the tween exists",
+            "itemtype": "method",
+            "name": "tweenExists",
+            "params": [
+                {
+                    "name": "tweenName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1125,
             "description": "Adds a tween with the data specified\nexample of input data : { \"properties\":{\"body.x\":100},\"duration\": 1000 ...etc..}",
             "itemtype": "method",
             "name": "addTween",
@@ -3747,8 +3833,8 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1107,
-            "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched. \nThis is why you get array of tweens",
+            "line": 1144,
+            "description": "Launch the specified tween if previously added.\nIf there are many target in the properties, many tweens will be launched. \nThen be aware that the tween returne is the one acting on the first property",
             "itemtype": "method",
             "name": "playTween",
             "params": [
@@ -3756,18 +3842,33 @@
                     "name": "tweenName",
                     "description": "The tween name. Use GameObject.addTween to add a tween",
                     "type": "String"
+                },
+                {
+                    "name": "stopAll",
+                    "description": "If set to true, all other playing tweens will be stopped first",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "callback",
+                    "description": "Function to call when the tween is finished ( called at the last tween's end if chained)",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
                 }
             ],
             "return": {
-                "description": "An array containing all the tweens induced by the tween properties",
-                "type": "Array"
+                "description": "The first launched tween induced by the tween properties",
+                "type": "Phaser.Tween"
             },
             "class": "LR.GameObject",
             "namespace": "LR"
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1199,
+            "line": 1265,
             "description": "Chains the specified tweens and launch the first one\nWarning : this will override any tween previous chaining",
             "itemtype": "method",
             "name": "playChainedTweens",
@@ -3787,7 +3888,88 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1236,
+            "line": 1289,
+            "description": "Stops the specified tween",
+            "itemtype": "method",
+            "name": "stopTween",
+            "params": [
+                {
+                    "name": "Tween",
+                    "description": "name",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1305,
+            "description": "Stops all the playing tweens",
+            "itemtype": "method",
+            "name": "stopAllTweens",
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1316,
+            "description": "Returns true if the specified tween is playing",
+            "itemtype": "method",
+            "name": "isTweenPlaying",
+            "params": [
+                {
+                    "name": "Tween",
+                    "description": "name",
+                    "type": "String"
+                }
+            ],
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1332,
+            "description": "Tween the color of the entity (if possible)\nYou can specify a start color if you want to",
+            "itemtype": "method",
+            "name": "playTweenColor",
+            "params": [
+                {
+                    "name": "endColor",
+                    "description": "ie: 0xffffff",
+                    "type": "Color"
+                },
+                {
+                    "name": "duration",
+                    "description": "Duration of the tween",
+                    "type": "Number"
+                },
+                {
+                    "name": "startColor",
+                    "description": "ie: 0xffffff if null, the current tint is taken",
+                    "type": "Color"
+                },
+                {
+                    "name": "repeat",
+                    "description": "How many times the tween has to be repeated",
+                    "type": "Number"
+                },
+                {
+                    "name": "yoyo",
+                    "description": "Is yoyo enabled",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "The generated tween",
+                "type": "Phaser.Tween"
+            },
+            "class": "LR.GameObject",
+            "namespace": "LR"
+        },
+        {
+            "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
+            "line": 1374,
             "description": "Plays the specified animation",
             "itemtype": "method",
             "name": "playAnim",
@@ -3807,7 +3989,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1248,
+            "line": 1386,
             "description": "Stops the specified animation",
             "itemtype": "method",
             "name": "stopAnim",
@@ -3832,7 +4014,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1261,
+            "line": 1399,
             "description": "Returns the animation object",
             "itemtype": "method",
             "name": "getAnim",
@@ -3852,7 +4034,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1275,
+            "line": 1413,
             "description": "Called when a cutscene begins",
             "itemtype": "method",
             "name": "onBeginCutscene",
@@ -3861,7 +4043,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1287,
+            "line": 1425,
             "description": "Called when a cutscene ends",
             "itemtype": "method",
             "name": "onEndCutscene",
@@ -3870,7 +4052,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1303,
+            "line": 1441,
             "description": "Find a gameobject by its name",
             "itemtype": "method",
             "name": "<static> FindByName",
@@ -3895,7 +4077,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\phaser\\gameobject.js",
-            "line": 1333,
+            "line": 1471,
             "description": "Find a gameobject by its ID",
             "itemtype": "method",
             "name": "<static> FindByID",
@@ -4752,7 +4934,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\lr.js",
-            "line": 14,
+            "line": 13,
             "description": "Find a entity by its GameObject name",
             "itemtype": "method",
             "name": "FindByName",
@@ -4777,7 +4959,7 @@
         },
         {
             "file": "app\\shared\\js\\dev\\lr.js",
-            "line": 43,
+            "line": 42,
             "description": "Find a entity by its GameObject ID",
             "itemtype": "method",
             "name": "FindByID",

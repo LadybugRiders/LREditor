@@ -8,6 +8,12 @@ LR.State.StateLevel = function(_game) {
 
 	this.forbidUpdate = true;
 
+	/**
+	* Text used to display loading progression
+	*
+	* @property loadText
+	* @type LR.Entity.Text
+	*/
 	this.loadText = null;
 };
 

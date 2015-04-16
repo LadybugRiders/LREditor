@@ -66,7 +66,7 @@ LR.Game.prototype.preload = function() {
 
 LR.Game.prototype.create = function() {
 	if (this.showDebug)
-		this.game.add.plugin(Phaser.Plugin.Debug);
+		this.game.plugins.add(Phaser.Plugin.Debug);
 	this.game.plugins.add(Phaser.Plugin.PlayerSave);
 	this.game.plugins.add(Phaser.Plugin.InputManager);
 	this.game.plugins.add(Phaser.Plugin.CutsceneManager);
@@ -90,6 +90,18 @@ LR.Game.prototype.create = function() {
 
 	this.state.start("Boot");
 };
+
+
+/**
+* Returns the current state of the game
+*
+* @method getCurrentState
+* @return {LR.State} The current state object
+*/
+LR.Game.prototype.getCurrentState = function(){
+	var stateName = this.state.current;
+	return this.state.states[stateName];
+}
 
 ////////////
 // STATIC //
@@ -121,4 +133,3 @@ LR.Game.GetUrlParamValue = function(_param) {
 
 	return value;
 }
-
